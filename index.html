@@ -991,7 +991,10 @@ function autoGrow(){
   msg.style.height = Math.min(msg.scrollHeight, max) + 'px';
 }
 msg.addEventListener('input', function(){ $('bar').classList.toggle('typing', msg.value.trim().length > 0); autoGrow(); });
-msg.addEventListener('keydown', function(e){ if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send(); } });
+msg.addEventListener('keydown', function(e){
+  if(e.isComposing || e.keyCode === 229) return;
+  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send(); }
+});
 $('btnSend').onclick = send;
 function send(){
   var v = msg.value.trim();
