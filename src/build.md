@@ -17,7 +17,7 @@
 
 출력:
 
-- `../ui.html` — 이미지 = `assets/images.json`의 base64 data URI (플러그인이 로드하는 파일)
+- `../index.html` — 이미지 = `assets/images.json`의 base64 data URI (플러그인이 로드하는 파일)
 - `../preview/ui.preview.html` — 이미지 = `../assets/img-*.png` 상대경로 (브라우저 확인용)
 
 ## chunk 형태
@@ -134,7 +134,7 @@ const build = (get) => {
   return h;
 };
 
-fs.writeFileSync('ui.html', build(n => imgs[n]));
+fs.writeFileSync('index.html', build(n => imgs[n]));
 fs.mkdirSync('preview', { recursive: true });
 fs.writeFileSync('preview/ui.preview.html', build(n => `../assets/img-${n}.png`));
 
