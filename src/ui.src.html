@@ -18,7 +18,7 @@ input{font:inherit;border:0;outline:0;background:none}
 
 /* ── header  (2:288 / 2:304) ── */
 .head{position:absolute;left:0;top:0;width:360px;height:40px;background:#fff;display:flex;padding:16px;justify-content:space-between;align-items:center;z-index:30}
-.head.transparent{background:transparent}
+.head.transparent{background:#fff}
 .head .brand{display:flex;gap:8px;align-items:center;height:20px}
 .sym{position:relative;width:20px;height:20px;flex-shrink:0}
 .sym .sq{position:absolute;left:0;top:0;width:20px;height:20px;border-radius:6.4px;background:linear-gradient(-45deg,#80B0FB 0%,#715FE2 100%)}
@@ -160,10 +160,10 @@ input{font:inherit;border:0;outline:0;background:none}
 .bar .shell{position:relative;min-height:44px;display:flex;flex-direction:row;gap:8px;align-items:flex-end;align-self:stretch}
 .bar .menu{width:44px;height:44px;flex-shrink:0;border-radius:22px;background:rgba(255,255,255,.8);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);box-shadow:0 6px 12px 0 rgba(0,0,0,.1),0 20px 60px 0 rgba(0,0,0,.1);display:flex;justify-content:center;align-items:center;flex-shrink:0;transform:translateZ(0)}
 .bar .menu .ic{position:relative;width:16px;height:16px}
-.bar .menu .ic i{position:absolute;left:1.399px;display:block;width:13.2px;height:1.5px;background:#424751;border-radius:.75px}
-.bar .menu .ic i:nth-child(1){top:3.429px}
+.bar .menu .ic i{position:absolute;left:1px;display:block;width:14px;height:1.5px;background:#424751;border-radius:.75px}
+.bar .menu .ic i:nth-child(1){top:3.25px}
 .bar .menu .ic i:nth-child(2){top:7.25px}
-.bar .menu .ic i:nth-child(3){top:11.072px}
+.bar .menu .ic i:nth-child(3){top:11.25px}
 .bar .glow{position:absolute;left:52px;right:0;top:0;bottom:0;z-index:0;border-radius:22px;background:linear-gradient(90deg,rgba(211,231,255,.9) 0%,rgba(0,200,255,.9) 25%,rgba(65,133,255,.9) 50%,rgba(255,216,255,.9) 75%,rgba(211,231,255,.9) 100%);background-size:220% 100%;background-repeat:repeat;filter:blur(10px);opacity:0;transition:opacity .25s;pointer-events:none}
 .bar.typing .glow{opacity:.65;animation:rimFlow 6s linear infinite}
 .bar .grad{position:absolute;left:52px;right:0;top:0;bottom:0;z-index:0;border-radius:22px;mix-blend-mode:multiply;background:linear-gradient(90deg,rgba(211,231,255,.5) 0%,rgba(0,200,255,.5) 25%,rgba(65,133,255,.5) 50%,rgba(255,216,255,.5) 75%,rgba(211,231,255,.5) 100%);background-size:220% 100%;background-repeat:repeat;opacity:0;transition:opacity .25s;pointer-events:none}
@@ -296,7 +296,7 @@ input{font:inherit;border:0;outline:0;background:none}
       <div class="home-chips">
         <div class="home-select" id="homeChips"></div>
         <button class="home-info" id="btnEtc">
-          <span class="qi"><svg width="13.501" height="13.501" viewBox="0 0 13.501 13.501"><path d="M 6.671 0 C 2.946 0.043 -0.042 3.112 0 6.83 C 0.043 10.549 3.112 13.543 6.83 13.5 C 10.549 13.458 13.543 10.389 13.5 6.671 C 13.458 2.952 10.389 -0.042 6.671 0 Z M 6.8 10.432 C 6.462 10.432 6.18 10.162 6.174 9.825 C 6.168 9.487 6.438 9.205 6.775 9.205 C 7.113 9.205 7.395 9.475 7.395 9.813 C 7.395 10.15 7.125 10.432 6.787 10.432 L 6.8 10.432 Z M 6.91 7.947 C 6.849 7.972 6.781 7.978 6.714 7.984 C 6.456 7.984 6.217 7.83 6.125 7.573 C 6.014 7.254 6.186 6.904 6.505 6.793 C 6.873 6.665 7.916 6.149 7.91 5.517 C 7.91 4.995 7.573 4.535 7.076 4.37 C 6.763 4.265 6.431 4.284 6.137 4.431 C 5.842 4.578 5.621 4.83 5.517 5.137 C 5.407 5.456 5.063 5.628 4.738 5.523 C 4.419 5.413 4.247 5.069 4.351 4.744 C 4.56 4.124 5.002 3.621 5.591 3.333 C 6.18 3.044 6.843 2.995 7.462 3.21 C 8.45 3.541 9.119 4.468 9.131 5.511 C 9.15 7.131 7.131 7.88 6.898 7.959 L 6.91 7.947 Z" fill="currentColor"/></svg></span>
+          <span class="qi"><svg width="13.501" height="13.501" viewBox="0 0 13.501 13.501" style="left: 0.25px"><path d="M 6.671 0 C 2.946 0.043 -0.042 3.112 0 6.83 C 0.043 10.549 3.112 13.543 6.83 13.5 C 10.549 13.458 13.543 10.389 13.5 6.671 C 13.458 2.952 10.389 -0.042 6.671 0 Z M 6.8 10.432 C 6.462 10.432 6.18 10.162 6.174 9.825 C 6.168 9.487 6.438 9.205 6.775 9.205 C 7.113 9.205 7.395 9.475 7.395 9.813 C 7.395 10.15 7.125 10.432 6.787 10.432 L 6.8 10.432 Z M 6.91 7.947 C 6.849 7.972 6.781 7.978 6.714 7.984 C 6.456 7.984 6.217 7.83 6.125 7.573 C 6.014 7.254 6.186 6.904 6.505 6.793 C 6.873 6.665 7.916 6.149 7.91 5.517 C 7.91 4.995 7.573 4.535 7.076 4.37 C 6.763 4.265 6.431 4.284 6.137 4.431 C 5.842 4.578 5.621 4.83 5.517 5.137 C 5.407 5.456 5.063 5.628 4.738 5.523 C 4.419 5.413 4.247 5.069 4.351 4.744 C 4.56 4.124 5.002 3.621 5.591 3.333 C 6.18 3.044 6.843 2.995 7.462 3.21 C 8.45 3.541 9.119 4.468 9.131 5.511 C 9.15 7.131 7.131 7.88 6.898 7.959 L 6.91 7.947 Z" fill="currentColor"/></svg></span>
           <span>기타 문의가 있으신가요?</span>
         </button>
       </div>
@@ -403,7 +403,7 @@ Gemini API 키가 필요해요</h1>
         <span>전체 메뉴</span>
         <button class="iconbtn" id="menuClose" aria-label="닫기"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M0.75 0.75 L11.25 11.25 M11.25 0.75 L0.75 11.25" stroke="#000" stroke-width="1.2" stroke-linecap="round"/></svg></button>
       </div>
-      <div class="sheet-banner">
+      <div class="sheet-banner" id="menuEtc" role="button" tabindex="0" style="cursor:pointer">
         <span>기타 문의사항이 있으신가요?</span>
         <div class="img"><img class="s1" src="__IMG_SMALL__" alt=""><img class="s2" src="__IMG_MASCOT__" alt=""></div>
       </div>
@@ -623,6 +623,7 @@ function toast(msg){var t=$('toast');t.textContent=msg;t.classList.add('on');cle
 function post(msg){parent.postMessage({pluginMessage:msg},'*');}
 
 function show(screen){
+  var prevScreen = S.screen || (S.backFrom ? 'x' : null); S.backFrom = false;
   if(S.screen !== screen && S.screen) S.history.push(S.screen);
   S.screen = screen;
   $('pgHome').classList.toggle('hide', screen!=='home');
@@ -638,10 +639,25 @@ function show(screen){
   $('head').classList.toggle('transparent', screen==='key');
   if(screen==='chat') $('topTitle').textContent = (S.topic && S.topic !== S.cat ? S.topic + ' · ' : '') + (S.cat || 'Chat');
   if(screen==='key') $('topTitle').textContent = '설정';
+  if(prevScreen && prevScreen !== screen) slideIn(screen, S.navDir || 'fwd');
+  S.navDir = null;
+}
+function slideIn(screen, dir){
+  var ids = {home:['pgHome','bgHome'], chat:['pgChat','bgChat'], key:['pgKey','bgKey']}[screen] || [];
+  var from = dir === 'back' ? '-32px' : '32px';
+  ids.forEach(function(id, i){
+    var n = $(id); if(!n || !n.animate) return;
+    n.getAnimations().forEach(function(a){ a.cancel(); });
+    var kf = i === 0
+      ? [{transform:'translateX(' + from + ')', opacity:0},{transform:'translateX(0)', opacity:1}]
+      : [{opacity:0},{opacity:1}];
+    n.animate(kf, {duration:300, easing:'cubic-bezier(.22,1,.36,1)'});
+  });
 }
 function back(){
   var prev = S.history.pop() || 'home';
   S.screen = null;
+  S.navDir = 'back'; S.backFrom = true;
   show(prev); S.history.pop();
 }
 
@@ -855,6 +871,24 @@ function typeText(node, text, done){
   })();
 }
 
+function undoLast(){
+  var con = $('chatCon');
+  var bots = con.querySelectorAll('.row-bot');
+  var bot = bots[bots.length - 1];
+  if(!bot) return;
+  var user = bot.previousElementSibling;
+  [bot, user].forEach(function(n){
+    if(!n || n.classList.contains('intro')) return;
+    if(n.animate){
+      n.animate([{opacity:1, transform:'translateY(0)'},{opacity:0, transform:'translateY(8px)'}], {duration:180, easing:'ease-in'})
+        .onfinish = function(){ if(n.parentNode) n.parentNode.removeChild(n); scrollDown(); };
+    } else n.parentNode.removeChild(n);
+  });
+  if(bots.length === 1){
+    Array.prototype.forEach.call(con.querySelectorAll('.intro .chip.sel'), function(c){ c.classList.remove('sel'); });
+  }
+}
+
 function addActions(body, copyText, cta){
   var after = el('div','after');
 
@@ -879,7 +913,7 @@ function addActions(body, copyText, cta){
   }
 
   bl.innerHTML = '<span style="position:relative;width:16px;height:16px;flex-shrink:0;display:block"><svg width="11.738" height="11.2" viewBox="0 0 11.738 11.2" style="position:absolute;left:2.369px;top:2.13px"><path d="M 5.184 0.174 C 5.416 -0.058 5.793 -0.058 6.026 0.174 C 6.258 0.406 6.258 0.782 6.026 1.015 L 2.036 5 L 11.139 5 C 11.47 5 11.738 5.269 11.738 5.6 C 11.738 5.931 11.47 6.199 11.139 6.199 L 2.037 6.199 L 6.026 10.185 C 6.258 10.417 6.258 10.793 6.026 11.026 C 5.793 11.258 5.416 11.258 5.184 11.026 L 0.174 6.021 C -0.058 5.788 -0.058 5.412 0.174 5.18 L 5.184 0.174 Z" fill-rule="nonzero"/></svg></span><span>이전으로</span>';
-  bl.onclick = function(){ openCategory(S.cat, S.topic); };
+  bl.onclick = function(){ undoLast(); };
   after.appendChild(bl);
 
   body.appendChild(after);
@@ -902,7 +936,10 @@ function autoGrow(){
   msg.style.height = Math.min(msg.scrollHeight, max) + 'px';
 }
 msg.addEventListener('input', function(){ $('bar').classList.toggle('typing', msg.value.trim().length > 0); autoGrow(); });
-msg.addEventListener('keydown', function(e){ if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send(); } });
+msg.addEventListener('keydown', function(e){
+  if(e.isComposing || e.keyCode === 229) return;
+  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send(); }
+});
 $('btnSend').onclick = send;
 function send(){
   var v = msg.value.trim();
@@ -915,6 +952,7 @@ function send(){
 
 /* ── chrome events ───────────────────────────────────────────── */
 $('btnEtc').onclick = function(){ openCategory('기타 문의'); };
+$('menuEtc').onclick = function(){ closeMenu(); openCategory('기타 문의'); };
 $('btnMenu').onclick = function(){ $('menuOverlay').classList.remove('hide'); };
 $('menuClose').onclick = closeMenu;
 function closeMenu(){
