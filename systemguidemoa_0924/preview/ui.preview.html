@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>System Guide Moa</title>
+<style id="pretendard-inline"></style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{height:100%}
+body{width:100%;min-height:100%;height:auto;display:flex;overflow:hidden;background:#1E1E1E}
+@media (min-width:377px),(min-height:673px){body{padding:16px 0;overflow:auto}}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:#000;letter-spacing:-0.02em}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input{font:inherit;border:0;outline:0;background:none}
+#app{position:relative;width:360px;height:640px;min-height:640px;flex:0 0 auto;margin:auto;overflow:hidden;background:#fff}
+.hide{display:none !important}
+
+/* ── header  (2:288 / 2:304) ── */
+.head{position:absolute;left:0;top:0;width:360px;height:40px;background:#fff;display:flex;padding:16px;justify-content:space-between;align-items:center;z-index:30}
+.head.transparent{background:transparent}
+.head .brand{display:flex;gap:8px;align-items:center;height:20px}
+.sym{position:relative;width:20px;height:20px;flex-shrink:0}
+.sym .sq{position:absolute;left:0;top:0;width:20px;height:20px;border-radius:6.4px;background:linear-gradient(-45deg,#80B0FB 0%,#715FE2 100%)}
+.sym .in{position:absolute;left:2.951px;top:3px;width:14.094px;height:14px;overflow:hidden}
+.sym .in i{position:absolute;left:0;top:0;width:4px;height:9px;border-radius:2px;transform-origin:0 0}
+.head .name{font-size:12px;font-weight:600;line-height:15.96px;white-space:nowrap}
+.iconbtn{width:24px;height:24px;border-radius:4px;display:flex;justify-content:center;align-items:center;flex-shrink:0}
+.iconbtn:hover{background:rgba(0,0,0,.05)}
+
+/* ── top bar (2:330) ── */
+.topbar{position:absolute;left:0;top:40px;width:360px;height:41px;background:#fff;border:1px solid rgba(0,0,0,.1);display:flex;padding:8px 16px;justify-content:space-between;align-items:center;z-index:30}
+.topbar .lead{display:flex;align-items:center;align-self:stretch;width:260px}
+.topbar .back{width:24px;align-self:stretch;display:flex;align-items:center;justify-content:center}
+.topbar .title{width:248px;font-size:12px;font-weight:600;line-height:15.96px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar .tools{width:52px;display:flex;gap:4px;justify-content:flex-end;align-items:center;align-self:stretch}
+.topbar .tool{position:relative;width:24px;align-self:stretch;display:flex;align-items:center;justify-content:center}
+.dot{position:absolute;left:20px;top:3px;width:4px;height:4px;border-radius:50%;background:#00BC06}
+.dot.off{background:#D62E2E}
+
+.page{position:absolute;left:0;top:0;width:360px;height:640px;z-index:10}
+
+/* ── home background (2:639 + 02_bg white overlay) ── */
+.bg-home{position:absolute;inset:0;overflow:hidden;background:#fff;z-index:1}
+.bg-home .g1{position:absolute;left:0;top:0;width:360px;height:640px;background:linear-gradient(180deg,rgba(0,200,255,0) 39.71%,rgba(0,200,255,.6) 76.29%);animation:sheen 14s ease-in-out infinite}
+.bg-home .b1{position:absolute;left:0;top:0;width:291.555px;height:259.621px;filter:blur(60px);transform-origin:0 0;will-change:transform;animation:stateBlue 9s ease-in-out infinite}
+.bg-home .b2{position:absolute;left:191px;top:268px;width:299px;height:350px;filter:blur(60px);will-change:transform,opacity;animation:statePink 9s ease-in-out infinite}
+.bg-home .b3{position:absolute;left:-70px;top:352px;width:320px;height:300px;filter:blur(60px);will-change:transform,opacity;animation:stateCyan 9s ease-in-out infinite}
+@keyframes stateBlue{0%{transform:matrix(-0.915,-0.403,0.403,-0.915,91.088,633.899);opacity:.8}33%{transform:matrix(-0.915,-0.403,0.403,-0.915,168.088,556.899);opacity:.9}66%{transform:matrix(-0.915,-0.403,0.403,-0.915,58.088,668.899);opacity:.7}100%{transform:matrix(-0.915,-0.403,0.403,-0.915,91.088,633.899);opacity:.8}}
+@keyframes statePink{0%{transform:translate(0,0) scale(1);opacity:.55}33%{transform:translate(-152px,-118px) scale(.94);opacity:.5}66%{transform:translate(-186px,44px) scale(1.12);opacity:.85}100%{transform:translate(0,0) scale(1);opacity:.55}}
+@keyframes stateCyan{0%{transform:translate(0,0) scale(1.06);opacity:.85}33%{transform:translate(-26px,58px) scale(.94);opacity:.7}66%{transform:translate(196px,-34px) scale(1.12);opacity:.9}100%{transform:translate(0,0) scale(1.06);opacity:.85}}
+@keyframes sheen{0%{opacity:.85}50%{opacity:1}100%{opacity:.85}}
+.bg-home .blur{position:absolute;left:0;top:0;width:360px;height:640px;background:rgba(255,255,255,.28)}
+.bg-home .fade{position:absolute;left:0;top:540px;width:360px;height:100px;background:linear-gradient(0deg,rgba(245,246,250,.6) 40%,rgba(245,246,250,0) 100%)}
+.bg-home .wh{position:absolute;left:0;top:0;width:360px;height:640px;background:linear-gradient(180deg,#fff 28.59%,rgba(255,255,255,0) 41.41%)}
+@media (prefers-reduced-motion:reduce){.bg-home .b1,.bg-home .b2,.bg-home .b3,.bg-home .g1{animation:none}}
+
+.bg-flat{position:absolute;inset:0;background:#F5F6FA;z-index:1}
+.bg-ing{position:absolute;inset:0;overflow:hidden;z-index:2;opacity:0;transition:opacity .5s ease;pointer-events:none}
+.bg-ing.on{opacity:1}
+.bg-ing .wrap{position:absolute;left:-105px;top:36px;width:562px;height:733px;opacity:.4;overflow:hidden}
+.bg-ing .ig{position:absolute;left:105px;top:0;width:360px;height:700px;background:linear-gradient(180deg,rgba(63,239,255,0) 39.71%,rgb(63,239,255) 76.29%)}
+.bg-ing .i1{position:absolute;left:0;top:358px;width:365px;height:375px;filter:blur(90px)}
+.bg-ing .i2{position:absolute;left:263px;top:378px;width:299px;height:350px;filter:blur(90px)}
+.bg-ing .iblur{position:absolute;left:0;top:0;width:360px;height:640px;background:linear-gradient(180deg,rgba(255,255,255,0) 30.16%,rgba(255,255,255,.5) 100%)}
+.bg-key{position:absolute;inset:0;overflow:hidden;background:#F8F9FC url(../assets/img-keybg.png) center / 360px 640px no-repeat;z-index:1}
+
+/* ── home content (2:639) ── */
+.home-con{position:absolute;left:0;top:72px;bottom:78px;width:360px;display:flex;flex-direction:column;gap:20px;align-items:flex-start;z-index:5;min-height:0}
+.home-top{padding:24px;height:200px;display:flex;flex-direction:column;gap:10px;align-self:stretch}
+.hero{height:152px;display:flex;flex-direction:column;gap:13px;align-items:center;align-self:stretch}
+.hero-mark{position:relative;width:236px;height:91px}
+.hero-mark .guide,.hero-mark .search{position:absolute;top:0;height:40px;font-size:30px;font-weight:600;line-height:40px;text-align:center;white-space:nowrap;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-mark .guide{left:2px;width:80px;background-image:linear-gradient(79deg,#0D2598 7.88%,#0077FF 92.12%)}
+.hero-mark .search{left:141px;width:95px;background-image:linear-gradient(91deg,#2063FF 8.27%,#FFCDFF 99.14%)}
+.hero-mark .mascot{position:absolute;left:73px;top:1px;width:90px;height:90px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hero-mark .mascot img{will-change:transform}
+.hero-mark .mascot:active img{transform:scale(.95)}
+.hero-mark .mascot.play img{animation:moaMotion 1.2s cubic-bezier(.34,1.56,.64,1)}
+@keyframes moaMotion{0%{transform:translateY(0) scale(1) rotate(0)}18%{transform:translateY(2px) scale(1.08,.92)}38%{transform:translateY(-14px) scale(.94,1.08) rotate(-7deg)}56%{transform:translateY(-4px) scale(1.04,.96) rotate(6deg)}74%{transform:translateY(-8px) scale(.98,1.02) rotate(-3deg)}100%{transform:translateY(0) scale(1) rotate(0)}}
+.hero-mark .mascot img{transition:transform .12s ease}
+.hero-mark .mascot img{position:absolute;left:-21px;top:-18px;width:120px;height:120px;object-fit:cover}
+.hero-sub{align-self:stretch;font-size:16px;font-weight:600;line-height:24px;text-align:center;white-space:pre-line;color:#4185FF}
+.home-chips{height:226px;display:flex;flex-direction:column;gap:32px;align-items:center;align-self:stretch}
+.home-select{padding:0 24px;display:flex;flex-direction:column;gap:10px;align-items:center;align-self:stretch}
+.home-chips{height:auto;flex:1 1 auto;min-height:0;overflow:hidden;gap:20px;justify-content:flex-start}
+.home-info{margin-top:0;margin-bottom:16px}
+.home-select{flex:0 0 auto;min-height:0;padding-top:10px;padding-bottom:10px;overflow-y:auto;-ms-overflow-style:none;scrollbar-width:none}
+.home-select::-webkit-scrollbar{display:none}
+.home-row{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;justify-content:center}
+.mchip{position:relative;height:36px;border-radius:18px;background:rgba(255,255,255,.6);box-shadow:inset 0 0 0 1px rgba(255,255,255,.4),2px 2px 12px 0 rgba(0,0,0,.08);padding:8px 16px;display:flex;justify-content:center;align-items:center;font-size:14px;font-weight:500;line-height:20px;white-space:nowrap;transition:background .18s,box-shadow .18s}
+.mchip::before{content:"";position:absolute;inset:0;border-radius:18px;padding:1px;background:linear-gradient(135deg,rgba(255,255,255,.4) 0%,rgba(65,133,255,.8) 50%,#FFFFFF 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .18s;pointer-events:none}
+.mchip:hover,.mchip.on{background:radial-gradient(34.109px 61.516px at 49.24% 51.39%,rgba(65,133,255,.6) 0%,rgba(65,133,255,.1) 100%);box-shadow:2px 2px 12px 0 rgba(0,0,0,.16)}
+.mchip:hover::before,.mchip.on::before{opacity:1}
+.home-info{width:152px;display:flex;flex-direction:row;gap:2px;align-items:center}
+.home-info .qi{width:18px;height:18px;position:relative;color:rgba(0,0,0,.6)}
+.home-info .qi svg{position:absolute;left:2.25px;top:2.25px}
+.home-info span{font-size:14px;font-weight:700;line-height:20px;color:rgba(0,0,0,.6);white-space:nowrap}
+
+/* ── chat (2:726) ── */
+.chat-con{position:absolute;left:0;top:80px;width:360px;bottom:0;overflow-y:auto;overflow-x:hidden;padding-bottom:104px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;z-index:5;scrollbar-width:none}
+.chat-con::-webkit-scrollbar{display:none}
+.light{position:absolute;left:0;top:550px;width:360px;height:90px;background:linear-gradient(0deg,#F5F6FA 54.4%,rgba(245,246,250,0) 100%);z-index:20;pointer-events:none}
+.intro{padding:32px 24px;display:flex;flex-direction:column;gap:20px;align-self:stretch}
+.intro .title{display:flex;flex-direction:column;gap:4px;align-self:stretch}
+.intro h1{font-size:24px;font-weight:600;line-height:32px;color:#424751;white-space:pre-line}
+.intro h1.sweep{color:transparent;background-image:linear-gradient(90deg,#424751 0%,#2063FF 22%,#00C8FF 42%,#D98DFF 62%,#424751 84%);background-size:280% 100%;background-position:100% 0;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:titleSweep 2s ease-out forwards}
+@keyframes titleSweep{from{background-position:100% 0}to{background-position:0 0}}
+.star{position:relative;width:20px;height:20px}
+.star i{position:absolute;left:0;top:0;width:14px;height:14px;border-radius:1px;transform:matrix(0.707,0.707,-0.707,0.707,10,0);transform-origin:0 0;background:linear-gradient(225deg,#00C8FF 4.54%,#2063FF 48.31%,#FFB8FF 92.93%);clip-path:path("M 0.494 1.755 C 0.299 0.991 0.997 0.275 1.765 0.454 C 5.487 1.32 8.261 1.32 12.403 0.387 C 13.134 0.223 13.8 0.872 13.653 1.607 C 12.862 5.542 12.801 8.317 13.621 12.315 C 13.775 13.067 13.078 13.734 12.332 13.549 C 8.366 12.568 5.607 12.611 1.729 13.547 C 0.969 13.73 0.274 13.032 0.461 12.273 C 1.412 8.426 1.492 5.674 0.494 1.755 Z")}
+.qchips{display:flex;flex-wrap:wrap;gap:6px 4px;align-self:stretch}
+.chip{height:33px;border-radius:999px;background:#fff;box-shadow:inset 0 0 0 1px #E0E3E9;padding:8px 12px;display:flex;justify-content:center;align-items:center;font-size:13px;font-weight:500;line-height:17px;color:#000;white-space:nowrap}
+.chip:hover{box-shadow:inset 0 0 0 1px #B9C6DC}
+.chip.sel{box-shadow:inset 0 0 0 1px #2063FF;font-weight:600;color:#2063FF}
+.chip.sm{height:32px;font-size:12px;line-height:15.96px}
+.row-user{padding:0 24px;display:flex;justify-content:flex-end;align-self:stretch}
+.bub-user{border-radius:20px 2px 20px 20px;background:#4185FF;padding:10px 14px;font-size:14px;font-weight:600;line-height:19px;color:#fff;text-align:right;max-width:312px}
+.row-bot{padding:0 24px;display:flex;flex-direction:column;gap:8px;align-items:flex-start;align-self:stretch}
+.avatar{position:relative;width:28px;height:28px;border-radius:50%;background:#E7F3FF;overflow:hidden;flex-shrink:0}
+.avatar img{position:absolute;left:0;top:0;width:28px;height:28px;object-fit:cover;object-position:center}
+.bot-body{align-self:stretch;min-width:0;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.bub-ing{width:60px;height:39px;border-radius:2px 20px 20px 20px;background:#fff;box-shadow:0 0 2px 0 rgba(0,0,0,.04);padding:10px 14px;display:flex;gap:8px;align-items:center;box-sizing:border-box}
+.bub-ing .dots{width:32px;height:10px;display:flex;flex-direction:row;gap:4px;align-items:center;justify-content:center;flex-shrink:0}
+.bub-ing i{flex-shrink:0;border-radius:50%;background:rgba(32,99,255,.3);animation:blink 1.2s infinite}
+.bub-ing i:nth-child(1){width:6px;height:6px}
+.bub-ing i:nth-child(2){width:8px;height:8px}
+.bub-ing i:nth-child(3){width:10px;height:10px}
+.bub-ing i:nth-child(2){animation-delay:.2s}.bub-ing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-2px)}}
+.card{align-self:stretch;width:100%;border-radius:8px;background:#fff;padding:12px 16px;display:flex;flex-direction:column;gap:12px}
+.card-h{display:flex;flex-direction:column;gap:2px}
+.card-h .t{font-size:14px;font-weight:600;line-height:1.33;color:#000}
+.card-h .d{font-size:12px;font-weight:400;line-height:1.33;color:#555}
+.card p{font-size:13px;font-weight:400;line-height:1.5;color:#555;white-space:pre-wrap}
+.sw-grid{display:flex;flex-direction:column;gap:8px}
+.sw-row{display:flex;flex-direction:row;gap:12px}
+.sw{flex:1;min-width:0;display:flex;flex-direction:row;gap:12px;align-items:center;height:33px;border-radius:4px;text-align:left}
+.sw:hover{background:rgba(65,133,255,.08)}
+.sw .chipbox{width:16px;height:16px;border-radius:2px;flex-shrink:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.sw .meta{display:flex;flex-direction:column;min-width:0}
+.sw .n{font-size:13px;font-weight:500;line-height:17px;color:#000;white-space:nowrap}
+.sw .h{font-size:12px;font-weight:400;line-height:16px;color:#5C6473}
+.tp-list{display:flex;flex-direction:column;gap:8px}
+.tp-row{display:flex;flex-direction:row;gap:8px;align-items:baseline;text-align:left}
+.tp-row .a{font-size:13px;font-weight:500;line-height:1.33;color:#000;white-space:nowrap}
+.tp-row .b{flex:1;font-size:12px;font-weight:400;line-height:1.33;text-align:right;color:#5C6473}
+.tp-row:hover .a{color:#2063FF}
+.acts{display:flex;gap:12px;align-items:center}
+.acts button{display:flex;gap:4px;align-items:center;font-size:12px;font-weight:600;color:#555}
+.acts button:hover{color:#2063FF}
+.after{display:flex;flex-direction:column;gap:12px;align-self:stretch;width:100%}
+.backlink{display:flex;gap:2px;align-items:center;height:16px;border-radius:16px;background:none;box-shadow:none;padding:0;font-size:12px;font-weight:600;line-height:16px;letter-spacing:-.02em;color:#555;align-self:flex-start}
+.backlink:hover{color:#2063FF}
+.backlink svg{flex-shrink:0;fill:currentColor;transform:rotate(90deg);transform-origin:50% 50%}
+.caret{color:#2063FF;animation:caret 1s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+
+/* ── bottom bar (2:237 / 1:22) ── */
+.bar{position:absolute;left:0;top:auto;bottom:0;width:360px;min-height:72px;padding:12px 16px 16px;display:flex;flex-direction:column;gap:10px;z-index:25;transform:translateZ(0)}
+.bar .shell{position:relative;min-height:44px;display:flex;flex-direction:row;gap:8px;align-items:flex-end;align-self:stretch}
+.bar .menu{width:44px;height:44px;flex-shrink:0;border-radius:22px;background:rgba(255,255,255,.8);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);box-shadow:0 6px 12px 0 rgba(0,0,0,.1),0 20px 60px 0 rgba(0,0,0,.1);display:flex;justify-content:center;align-items:center;flex-shrink:0;transform:translateZ(0)}
+.bar .menu .ic{position:relative;width:16px;height:16px}
+.bar .menu .ic i{position:absolute;left:1.399px;display:block;width:13.2px;height:1.5px;background:#424751;border-radius:.75px}
+.bar .menu .ic i:nth-child(1){top:3.429px}
+.bar .menu .ic i:nth-child(2){top:7.25px}
+.bar .menu .ic i:nth-child(3){top:11.072px}
+.bar .glow{position:absolute;left:52px;right:0;top:0;bottom:0;z-index:0;border-radius:22px;background:linear-gradient(90deg,rgba(211,231,255,.9) 0%,rgba(0,200,255,.9) 25%,rgba(65,133,255,.9) 50%,rgba(255,216,255,.9) 75%,rgba(211,231,255,.9) 100%);background-size:220% 100%;background-repeat:repeat;filter:blur(10px);opacity:0;transition:opacity .25s;pointer-events:none}
+.bar.typing .glow{opacity:.65;animation:rimFlow 6s linear infinite}
+.bar .grad{position:absolute;left:52px;right:0;top:0;bottom:0;z-index:0;border-radius:22px;mix-blend-mode:multiply;background:linear-gradient(90deg,rgba(211,231,255,.5) 0%,rgba(0,200,255,.5) 25%,rgba(65,133,255,.5) 50%,rgba(255,216,255,.5) 75%,rgba(211,231,255,.5) 100%);background-size:220% 100%;background-repeat:repeat;opacity:0;transition:opacity .25s;pointer-events:none}
+.bar.typing .grad{animation:rimFlow 6s linear infinite}
+.bar .rim{position:absolute;left:52px;right:0;top:0;bottom:0;z-index:3;border-radius:22px;padding:1.2px;background:linear-gradient(90deg,rgba(211,231,255,.95) 0%,rgba(0,200,255,.95) 25%,rgba(65,133,255,.95) 50%,rgba(255,216,255,.95) 75%,rgba(211,231,255,.95) 100%);background-size:220% 100%;background-repeat:repeat;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .25s;pointer-events:none}
+.bar.typing .grad{opacity:1}
+.bar.typing .rim{opacity:1;animation:rimFlow 6s linear infinite}
+@keyframes rimFlow{from{background-position:0 0}to{background-position:-220% 0}}
+.bar .glow.sweep,.bar .grad.sweep,.bar .rim.sweep{opacity:1;background-size:220% 100%;background-position:100% 0;animation:barSweep 2s ease-out forwards}
+@keyframes barSweep{from{background-position:100% 0;opacity:.25}60%{opacity:1}to{background-position:0 0;opacity:0}}
+.bar .field{position:relative;min-height:44px;min-width:0;border-radius:22px;background-color:rgba(255,255,255,.8);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);box-shadow:0 6px 12px 0 rgba(0,0,0,.1),0 20px 60px 0 rgba(0,0,0,.1);display:flex;flex-direction:row;gap:15px;padding:13px 16px;align-items:center;flex:1;overflow:hidden;transform:translateZ(0)}
+.bar.typing .field{gap:15px}
+.bar .lead{flex:1;min-width:0;display:flex;flex-direction:row;gap:4px;align-items:center}
+.bar .ai{position:relative;width:16px;height:16px;flex-shrink:0;transform-origin:50% 50%;transition:transform .14s cubic-bezier(.4,0,1,1),opacity .14s ease-in,width .14s ease-out,margin .14s ease-out}
+.bar.typing .ai{transform:translateX(14px) scale(.3);opacity:0;width:0;margin-right:-4px}
+.bar textarea{flex:1;min-width:0;height:17px;max-height:340px;padding:0;font:inherit;font-size:14px;font-weight:500;line-height:17px;letter-spacing:-0.02em;color:#424751;background:none;border:0;outline:0;resize:none;overflow-y:auto;scrollbar-width:none;display:block}
+.bar textarea::-webkit-scrollbar{display:none}
+.bar textarea::placeholder{color:rgba(66,71,81,.6)}
+.bar .send{width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:#424751;flex-shrink:0;align-self:flex-end;margin:-4px 0 -3.5px;opacity:0;transform:translateX(-36px);transition:opacity .14s ease,transform .26s cubic-bezier(.2,.9,.3,1.3)}
+.bar .send svg path{fill:url(#sendGrad)}
+.bar.typing .send{opacity:1;transform:translateX(0)}
+
+/* ── API key screen (2:597 / 2:611 / 2:625) ── */
+.key-img{display:none}
+.key-body{position:absolute;left:24px;top:190px;width:312px;display:flex;flex-direction:column;gap:24px;z-index:5}
+.key-text{display:flex;flex-direction:column;gap:12px}
+.key-text h1{font-size:24px;font-weight:600;line-height:32px;color:#000;white-space:pre-line}
+.key-text a{align-self:flex-start;font-size:14px;font-weight:600;line-height:19px;color:#424751;text-decoration:underline}
+.field-box{width:312px;display:flex;flex-direction:column;justify-content:center}
+.field-box .lab{align-self:stretch;font-size:12px;font-weight:500;line-height:16px;letter-spacing:-0.02em;color:#5C6473}
+.field-box .inp{height:43px;align-self:stretch;border:0;border-bottom:1px solid #C8CDD4;border-radius:0;background:none;display:flex;flex-direction:row;gap:10px;padding:8px 0 10px;align-items:center;box-sizing:border-box}
+.field-box.on .inp{border-bottom-color:#000}
+.field-box.err .inp{border-bottom-color:#D62E2E;height:45px;padding:10px 0}
+.field-box input{flex:1;min-width:0;font-size:16px;font-weight:500;line-height:22px;letter-spacing:-0.02em;color:#000}
+.field-box input::placeholder{color:#8C93A0}
+.field-box .clear{position:relative;width:24px;height:24px;flex-shrink:0;display:none}
+.field-box.on .clear,.field-box.err .clear{display:flex;align-items:center;justify-content:center}
+.field-box .clear i{position:absolute;left:5px;top:5px;width:14px;height:14px;border-radius:50%;background:#8C93A0}
+.field-box .clear svg{position:absolute;left:9.083px;top:9.083px}
+.err-msg{margin-top:8px;align-self:stretch;font-size:12px;font-weight:400;line-height:16px;color:#D62E2E;display:none}
+.field-box.err .err-msg{display:block}
+.key-cta{position:absolute;left:24px;top:404px;width:312px;z-index:5}
+.cta{width:100%;height:44px;border-radius:8px;background:#4185FF;display:flex;justify-content:center;align-items:center;font-size:14px;font-weight:600;line-height:20px;color:#fff}
+.cta[disabled]{background:#E0E3E9;color:#8C93A0;cursor:default}
+.key-info{position:absolute;left:0;top:485px;width:360px;height:155px;padding:24px 24px 32px;display:flex;flex-direction:column;gap:8px;z-index:5}
+.key-info h2{font-size:12px;font-weight:600;line-height:19px;color:#000}
+.key-info p{font-size:12px;font-weight:400;line-height:1.5;color:#424751;white-space:pre-line}
+
+/* ── overlays ── */
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:60}
+.sheet{position:absolute;left:0;top:80px;width:360px;height:560px;overflow:hidden;border-radius:20px 20px 0 0;background:#fff;padding-bottom:24px;display:flex;flex-direction:column;animation:sheetUp .34s cubic-bezier(.2,.85,.25,1)}
+@keyframes up{from{transform:translateY(24px);opacity:.6}}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes sheetDown{from{transform:translateY(0)}to{transform:translateY(100%)}}
+@keyframes dimIn{from{background:rgba(0,0,0,0)}}
+@keyframes dimOut{to{background:rgba(0,0,0,0)}}
+#menuOverlay{animation:dimIn .3s ease}
+#menuOverlay.closing{animation:dimOut .26s ease-in forwards}
+#menuOverlay.closing .sheet{animation:sheetDown .26s cubic-bezier(.5,0,.75,0) forwards}
+.sheet-head{height:40px;display:flex;flex-direction:row;gap:12px;padding:8px 24px;align-items:center;align-self:stretch}
+.sheet-head span{flex:1;font-size:12px;font-weight:600;line-height:16px}
+.sheet-banner{position:relative;height:48px;overflow:hidden;background:#EBEEFA;display:flex;padding:0 24px;align-items:center}
+.sheet-banner span{font-size:12px;font-weight:600;line-height:16px}
+.sheet-banner .img{position:absolute;left:247px;top:0;width:82px;height:56px;overflow:hidden}
+.sheet-banner .img .s1{position:absolute;left:48px;top:0;width:34px;height:34px;object-fit:cover}
+.sheet-banner .img .s2{position:absolute;left:0;top:1px;width:58px;height:55px;object-fit:contain}
+.sheet-list{flex:1;overflow-y:auto;padding:24px 0;display:flex;flex-direction:column;gap:20px;scrollbar-width:none}
+.sheet-list::-webkit-scrollbar{display:none}
+.sec{padding:0 24px;display:flex;flex-direction:column;gap:16px}
+.sec-in{display:flex;flex-direction:column;gap:12px}
+.sec-h{display:flex;flex-direction:row;gap:4px;align-items:flex-end}
+.sec-h .en{font-size:14px;font-weight:600;line-height:20px}
+.sec-h .ko{font-size:14px;font-weight:600;line-height:20px;color:#757575}
+.sec-chips{display:flex;flex-wrap:wrap;gap:8px 6px}
+.divider{height:1px;background:#DDD}
+.modal{position:absolute;left:24px;top:163px;width:312px;overflow:hidden;border-radius:8px;background:#fff;display:flex;flex-direction:column;animation:up .22s ease-out}
+.modal-head{height:44px;display:flex;padding:12px 16px 8px;justify-content:flex-end;align-items:center}
+.modal-body{display:flex;flex-direction:column;gap:20px;align-items:center}
+.modal-mid{width:280px;display:flex;flex-direction:column;gap:20px;justify-content:center;align-items:center}
+.modal-art{position:relative;width:120px;height:80px}
+.modal-art .e1{position:absolute;left:13px;top:67px;width:55px;height:9px;border-radius:50%;background:rgba(59,130,237,.8)}
+.modal-art .e2{position:absolute;left:59px;top:68px;width:55px;height:9px;border-radius:50%;background:rgba(59,130,237,.2)}
+.modal-art img{position:absolute;left:10px;top:5px;width:100px;height:70px;object-fit:cover}
+.modal-txt{display:flex;flex-direction:column;gap:8px;align-self:stretch}
+.modal-txt h2{font-size:16px;font-weight:600;line-height:22px;text-align:center;color:#000}
+.modal-txt p{font-size:12px;font-weight:400;line-height:16px;text-align:center;color:#555;white-space:pre-line}
+.modal-bottom{height:72px;padding:12px 16px 16px;display:flex;align-self:stretch}
+.toast{position:absolute;left:50%;top:512px;transform:translateX(-50%);background:rgba(0,0,0,.82);color:#fff;font-size:12px;font-weight:600;padding:8px 14px;border-radius:999px;z-index:80;opacity:0;transition:opacity .18s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- backgrounds -->
+  <div class="bg-home" id="bgHome">
+    <div class="g1"></div>
+    <svg class="b1" viewBox="0 0 291.555 259.621"><path d="M 143.884 5.42 C 91.884 -17.78 46.217 39.087 29.884 70.42 C -78.116 216.42 134.884 254.42 220.884 259.42 C 306.884 264.42 310.884 174.42 251.884 152.42 C 192.884 130.42 187.884 135.42 176.884 103.42 C 165.884 71.42 208.884 34.42 143.884 5.42 Z" fill="rgba(32,99,255,0.6)"/></svg>
+    <svg class="b2" viewBox="0 0 299 350"><path d="M 23.464 134.416 C 63.42 75.308 185.284 20.347 241.222 0.256 C 337.115 -9.466 285.173 260.799 283.175 313.296 C 281.177 365.793 287.17 354.127 161.311 326.906 C 35.451 299.686 137.337 272.465 73.409 216.079 C 9.48 159.692 -26.48 208.301 23.464 134.416 Z" fill="rgb(255,217,254)"/></svg>
+    <svg class="b3" viewBox="0 0 291.555 259.621"><path d="M 143.884 5.42 C 91.884 -17.78 46.217 39.087 29.884 70.42 C -78.116 216.42 134.884 254.42 220.884 259.42 C 306.884 264.42 310.884 174.42 251.884 152.42 C 192.884 130.42 187.884 135.42 176.884 103.42 C 165.884 71.42 208.884 34.42 143.884 5.42 Z" fill="rgb(255,217,254)"/></svg>
+    <div class="blur"></div>
+    <div class="fade"></div>
+    <div class="wh"></div>
+  </div>
+  <div class="bg-flat hide" id="bgChat"></div>
+  <div class="bg-ing hide" id="bgIng">
+    <div class="wrap">
+      <div class="ig"></div>
+      <svg class="i1" viewBox="0 0 365 375"><path d="M 194.863 78.634 C 161.084 119.632 72.885 145.499 33.008 153.308 C 2.983 194.794 -33.704 289.187 59.749 334.87 C 176.566 391.975 328.569 384.653 360.94 334.87 C 393.311 285.087 221.604 267.517 217.382 191.378 C 213.159 115.239 296.198 128.417 328.569 40.564 C 360.94 -47.288 237.086 27.386 194.863 78.634 Z" fill="rgb(0,119,245)"/></svg>
+      <svg class="i2" viewBox="0 0 299 350"><path d="M 23.464 134.416 C 63.42 75.308 185.284 20.347 241.222 0.256 C 337.115 -9.466 285.173 260.799 283.175 313.296 C 281.177 365.793 287.17 354.127 161.311 326.906 C 35.451 299.686 137.337 272.465 73.409 216.079 C 9.48 159.692 -26.48 208.301 23.464 134.416 Z" fill="rgb(255,216,255)"/></svg>
+    </div>
+    <div class="iblur"></div>
+  </div>
+  <div class="bg-key hide" id="bgKey"></div>
+
+  <!-- home -->
+  <div class="page" id="pgHome">
+    <div class="home-con">
+      <div class="home-top">
+        <div class="hero">
+          <div class="hero-mark">
+            <span class="guide">Guide</span>
+            <span class="search">Search</span>
+            <button class="mascot" id="moaMotion" aria-label="모아"><img id="moaImg" src="../assets/img-home.png" data-still="../assets/img-home.png" data-motion="https://cdn.jsdelivr.net/gh/hveju/systemguidemoa@1e03f8e8875cbf231bea8e7ab075519cef18723d/moa_hi-natural.gif" alt="Moa"></button>
+          </div>
+          <div class="hero-sub">카테고리를 선택하거나
+질문을 검색해 보세요.</div>
+        </div>
+      </div>
+      <div class="home-chips">
+        <div class="home-select" id="homeChips"></div>
+        <button class="home-info" id="btnEtc">
+          <span class="qi"><svg width="13.501" height="13.501" viewBox="0 0 13.501 13.501"><path d="M 6.671 0 C 2.946 0.043 -0.042 3.112 0 6.83 C 0.043 10.549 3.112 13.543 6.83 13.5 C 10.549 13.458 13.543 10.389 13.5 6.671 C 13.458 2.952 10.389 -0.042 6.671 0 Z M 6.8 10.432 C 6.462 10.432 6.18 10.162 6.174 9.825 C 6.168 9.487 6.438 9.205 6.775 9.205 C 7.113 9.205 7.395 9.475 7.395 9.813 C 7.395 10.15 7.125 10.432 6.787 10.432 L 6.8 10.432 Z M 6.91 7.947 C 6.849 7.972 6.781 7.978 6.714 7.984 C 6.456 7.984 6.217 7.83 6.125 7.573 C 6.014 7.254 6.186 6.904 6.505 6.793 C 6.873 6.665 7.916 6.149 7.91 5.517 C 7.91 4.995 7.573 4.535 7.076 4.37 C 6.763 4.265 6.431 4.284 6.137 4.431 C 5.842 4.578 5.621 4.83 5.517 5.137 C 5.407 5.456 5.063 5.628 4.738 5.523 C 4.419 5.413 4.247 5.069 4.351 4.744 C 4.56 4.124 5.002 3.621 5.591 3.333 C 6.18 3.044 6.843 2.995 7.462 3.21 C 8.45 3.541 9.119 4.468 9.131 5.511 C 9.15 7.131 7.131 7.88 6.898 7.959 L 6.91 7.947 Z" fill="currentColor"/></svg></span>
+          <span>기타 문의가 있으신가요?</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- chat -->
+  <div class="page hide" id="pgChat">
+    <div class="chat-con" id="chatCon"></div>
+    <div class="light"></div>
+  </div>
+
+  <!-- API key -->
+  <div class="page hide" id="pgKey">
+    <img class="key-img" src="../assets/img-key.png" alt="">
+    <div class="key-body">
+      <div class="key-text">
+        <h1>시작하려면
+Gemini API 키가 필요해요</h1>
+        <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">발급하러 가기</a>
+      </div>
+      <div class="field-box" id="keyBox">
+        <span class="lab">키 입력</span>
+        <div class="inp">
+          <input id="keyInput" type="text" placeholder="키를 입력해 주세요." autocomplete="off" spellcheck="false">
+          <button class="clear" id="keyClear" aria-label="지우기"><i></i><svg width="5.833" height="5.833" viewBox="0 0 5.833 5.833"><path d="M 5.833 0.587 L 5.246 0 L 2.917 2.329 L 0.587 0 L 0 0.587 L 2.329 2.917 L 0 5.246 L 0.587 5.833 L 2.917 3.504 L 5.246 5.833 L 5.833 5.246 L 3.504 2.917 L 5.833 0.587 Z" fill="#fff"/></svg></button>
+        </div>
+        <div class="err-msg">키 형식이 올바르지 않습니다</div>
+      </div>
+    </div>
+    <div class="key-cta"><button class="cta" id="keySave" disabled>저장하고 시작하기</button></div>
+    <div class="key-info">
+      <h2>키 발급 방법</h2>
+      <p>1. 발급하러 가기를 눌러 Google AI Studio에 로그인하세요.
+2. 좌측 메뉴에서 ‘Get API key’를 선택하세요.
+3. ‘Create API key’ 버튼을 눌러 새 키를 생성하세요.
+4. 생성된 키를 복사해 입력창에 붙여넣으세요.</p>
+    </div>
+  </div>
+
+  <!-- chrome -->
+  <div class="head" id="head">
+    <div class="brand">
+      <div class="sym">
+        <div class="sq"></div>
+        <div class="in">
+          <i style="left:5.05px;top:0;background:#C1DDFF"></i>
+          <i style="transform:matrix(0.5,-0.866,0.866,0.5,0,5.25);background:#C1DDFF"></i>
+          <i style="transform:matrix(-0.5,-0.866,0.866,-0.5,2,12.25);background:#C1DDFF"></i>
+          <i style="left:5.05px;top:9px;height:5px;border-radius:2px;background:#E6F2FF"></i>
+          <i style="transform:matrix(-0.5,-0.866,-0.866,0.5,14.094,5.25);background:#fff"></i>
+          <i style="transform:matrix(0.5,-0.866,-0.866,-0.5,12.094,12.25);background:#fff"></i>
+        </div>
+      </div>
+      <span class="name">System Guide Moa</span>
+    </div>
+    <button class="iconbtn" id="btnClose" aria-label="닫기">
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M0.75 0.75 L11.25 11.25 M11.25 0.75 L0.75 11.25" stroke="#000" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <div class="topbar hide" id="topbar">
+    <div class="lead">
+      <button class="back" id="btnBack" aria-label="뒤로">
+        <svg width="6" height="12" viewBox="0 0 6 12"><path d="M5.4 0.6 L0.6 6 L5.4 11.4" fill="none" stroke="#000" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <span class="title" id="topTitle">Color</span>
+    </div>
+    <div class="tools">
+      <button class="tool" id="btnRefresh" aria-label="새로고침">
+        <svg width="15" height="15" viewBox="0 0 16 16"><g fill="none" stroke="#000" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M13.4 6.4 A5.7 5.7 0 0 0 3.2 4.6"/><path d="M13.6 2.9 V6.5 H10"/><path d="M2.6 9.6 A5.7 5.7 0 0 0 12.8 11.4"/><path d="M2.4 13.1 V9.5 H6"/></g></svg>
+      </button>
+      <button class="tool" id="btnSettings" aria-label="설정">
+        <svg width="15" height="15" viewBox="-0.6 -0.6 16.2 16.2"><path d="M 12.545 9.545 L 13.096 9.785 L 13.096 9.784 L 12.545 9.545 Z M 12.77 10.786 L 12.342 11.206 L 12.346 11.211 L 12.77 10.786 Z M 12.811 10.827 L 13.236 10.403 L 13.236 10.403 L 12.811 10.827 Z M 10.841 12.716 L 11.265 12.292 L 11.261 12.287 L 10.841 12.716 Z M 9.6 12.491 L 9.839 13.041 L 9.84 13.041 L 9.6 12.491 Z M 6.191 13.575 L 6.791 13.575 C 6.791 13.569 6.791 13.563 6.791 13.557 L 6.191 13.575 Z M 5.455 12.545 L 5.215 13.096 C 5.227 13.101 5.239 13.106 5.252 13.11 L 5.455 12.545 Z M 4.214 12.77 L 3.794 12.342 L 3.789 12.346 L 4.214 12.77 Z M 4.173 12.811 L 4.597 13.236 L 4.597 13.236 L 4.173 12.811 Z M 2.243 10.882 L 1.819 10.458 L 1.819 10.458 L 2.243 10.882 Z M 2.284 10.841 L 2.708 11.265 L 2.713 11.261 L 2.284 10.841 Z M 2.509 9.6 L 1.959 9.839 L 1.959 9.84 L 2.509 9.6 Z M 1.425 6.191 L 1.425 6.791 C 1.431 6.791 1.437 6.791 1.443 6.791 L 1.425 6.191 Z M 2.455 5.455 L 1.904 5.215 C 1.899 5.227 1.894 5.239 1.89 5.252 L 2.455 5.455 Z M 2.23 4.214 L 2.658 3.794 L 2.654 3.789 L 2.23 4.214 Z M 4.159 2.284 L 3.735 2.708 L 3.739 2.713 L 4.159 2.284 Z M 5.4 2.509 L 5.4 1.909 C 5.318 1.909 5.236 1.926 5.16 1.959 L 5.4 2.509 Z M 5.455 2.509 L 5.455 3.109 C 5.537 3.109 5.618 3.092 5.693 3.06 L 5.455 2.509 Z M 9.545 2.455 L 9.785 1.904 L 9.784 1.904 L 9.545 2.455 Z M 10.786 2.23 L 11.206 2.658 L 11.211 2.654 L 10.786 2.23 Z M 10.827 2.189 L 10.403 1.764 L 10.403 1.764 L 10.827 2.189 Z M 12.757 4.118 L 12.333 3.694 L 12.333 3.694 L 12.757 4.118 Z M 12.716 4.159 L 12.292 3.735 L 12.287 3.739 L 12.716 4.159 Z M 12.491 5.4 L 13.091 5.4 C 13.091 5.318 13.074 5.236 13.041 5.16 L 12.491 5.4 Z M 12.491 5.455 L 11.891 5.455 C 11.891 5.537 11.908 5.618 11.94 5.693 L 12.491 5.455 Z M 12.545 9.545 L 11.995 9.306 C 11.715 9.95 11.848 10.702 12.342 11.206 L 12.77 10.786 L 13.199 10.367 C 13.052 10.216 13.008 9.986 13.096 9.785 L 12.545 9.545 Z M 12.77 10.786 L 12.346 11.211 L 12.387 11.252 L 12.811 10.827 L 13.236 10.403 L 13.195 10.362 L 12.77 10.786 Z M 12.811 10.827 L 12.387 11.252 C 12.685 11.549 12.685 12.035 12.387 12.333 L 12.811 12.757 L 13.236 13.181 C 14.002 12.415 14.002 11.169 13.236 10.403 L 12.811 10.827 Z M 12.811 12.757 L 12.387 12.333 C 12.09 12.63 11.604 12.63 11.306 12.333 L 10.882 12.757 L 10.458 13.181 C 11.224 13.947 12.469 13.947 13.236 13.181 L 12.811 12.757 Z M 10.882 12.757 L 11.306 12.333 L 11.265 12.292 L 10.841 12.716 L 10.417 13.14 L 10.458 13.181 L 10.882 12.757 Z M 10.841 12.716 L 11.261 12.287 C 10.757 11.794 10.005 11.66 9.36 11.941 L 9.6 12.491 L 9.84 13.041 C 10.041 12.953 10.27 12.997 10.421 13.145 L 10.841 12.716 Z M 9.6 12.491 L 9.361 11.94 C 8.739 12.21 8.318 12.825 8.318 13.52 L 8.918 13.52 L 9.518 13.52 C 9.518 13.316 9.643 13.126 9.839 13.041 L 9.6 12.491 Z M 8.918 13.52 L 8.318 13.52 L 8.318 13.636 L 8.918 13.636 L 9.518 13.636 L 9.518 13.52 L 8.918 13.52 Z M 8.918 13.636 L 8.318 13.636 C 8.318 14.055 7.973 14.4 7.555 14.4 L 7.555 15 L 7.555 15.6 C 8.636 15.6 9.518 14.718 9.518 13.636 L 8.918 13.636 Z M 7.555 15 L 7.555 14.4 C 7.136 14.4 6.791 14.055 6.791 13.636 L 6.191 13.636 L 5.591 13.636 C 5.591 14.718 6.473 15.6 7.555 15.6 L 7.555 15 Z M 6.191 13.636 L 6.791 13.636 L 6.791 13.575 L 6.191 13.575 L 5.591 13.575 L 5.591 13.636 L 6.191 13.636 Z M 6.191 13.575 L 6.791 13.557 C 6.77 12.857 6.335 12.224 5.657 11.981 L 5.455 12.545 L 5.252 13.11 C 5.447 13.18 5.585 13.366 5.591 13.593 L 6.191 13.575 Z M 5.455 12.545 L 5.694 11.995 C 5.05 11.715 4.298 11.848 3.794 12.342 L 4.214 12.77 L 4.633 13.199 C 4.784 13.052 5.014 13.008 5.215 13.096 L 5.455 12.545 Z M 4.214 12.77 L 3.789 12.346 L 3.748 12.387 L 4.173 12.811 L 4.597 13.236 L 4.638 13.195 L 4.214 12.77 Z M 4.173 12.811 L 3.748 12.387 C 3.451 12.685 2.965 12.685 2.667 12.387 L 2.243 12.811 L 1.819 13.236 C 2.585 14.002 3.831 14.002 4.597 13.236 L 4.173 12.811 Z M 2.243 12.811 L 2.667 12.387 C 2.37 12.09 2.37 11.604 2.667 11.306 L 2.243 10.882 L 1.819 10.458 C 1.053 11.224 1.053 12.469 1.819 13.236 L 2.243 12.811 Z M 2.243 10.882 L 2.667 11.306 L 2.708 11.265 L 2.284 10.841 L 1.86 10.417 L 1.819 10.458 L 2.243 10.882 Z M 2.284 10.841 L 2.713 11.261 C 3.206 10.757 3.34 10.005 3.059 9.36 L 2.509 9.6 L 1.959 9.84 C 2.047 10.041 2.003 10.27 1.855 10.421 L 2.284 10.841 Z M 2.509 9.6 L 3.06 9.361 C 2.79 8.739 2.175 8.318 1.48 8.318 L 1.48 8.918 L 1.48 9.518 C 1.684 9.518 1.874 9.643 1.959 9.839 L 2.509 9.6 Z M 1.48 8.918 L 1.48 8.318 L 1.364 8.318 L 1.364 8.918 L 1.364 9.518 L 1.48 9.518 L 1.48 8.918 Z M 1.364 8.918 L 1.364 8.318 C 0.945 8.318 0.6 7.973 0.6 7.555 L 0 7.555 L -0.6 7.555 C -0.6 8.636 0.282 9.518 1.364 9.518 L 1.364 8.918 Z M 0 7.555 L 0.6 7.555 C 0.6 7.136 0.945 6.791 1.364 6.791 L 1.364 6.191 L 1.364 5.591 C 0.282 5.591 -0.6 6.473 -0.6 7.555 L 0 7.555 Z M 1.364 6.191 L 1.364 6.791 L 1.425 6.791 L 1.425 6.191 L 1.425 5.591 L 1.364 5.591 L 1.364 6.191 Z M 1.425 6.191 L 1.443 6.791 C 2.143 6.77 2.776 6.335 3.019 5.657 L 2.455 5.455 L 1.89 5.252 C 1.82 5.447 1.634 5.585 1.407 5.591 L 1.425 6.191 Z M 2.455 5.455 L 3.005 5.694 C 3.285 5.05 3.152 4.298 2.658 3.794 L 2.23 4.214 L 1.801 4.633 C 1.948 4.784 1.992 5.014 1.904 5.215 L 2.455 5.455 Z M 2.23 4.214 L 2.654 3.789 L 2.613 3.748 L 2.189 4.173 L 1.764 4.597 L 1.805 4.638 L 2.23 4.214 Z M 2.189 4.173 L 2.613 3.748 C 2.315 3.451 2.315 2.965 2.613 2.667 L 2.189 2.243 L 1.764 1.819 C 0.998 2.585 0.998 3.831 1.764 4.597 L 2.189 4.173 Z M 2.189 2.243 L 2.613 2.667 C 2.91 2.37 3.396 2.37 3.694 2.667 L 4.118 2.243 L 4.542 1.819 C 3.776 1.053 2.531 1.053 1.764 1.819 L 2.189 2.243 Z M 4.118 2.243 L 3.694 2.667 L 3.735 2.708 L 4.159 2.284 L 4.583 1.86 L 4.542 1.819 L 4.118 2.243 Z M 4.159 2.284 L 3.739 2.713 C 4.243 3.206 4.995 3.34 5.64 3.059 L 5.4 2.509 L 5.16 1.959 C 4.959 2.047 4.73 2.003 4.579 1.855 L 4.159 2.284 Z M 5.4 2.509 L 5.4 3.109 L 5.455 3.109 L 5.455 2.509 L 5.455 1.909 L 5.4 1.909 L 5.4 2.509 Z M 5.455 2.509 L 5.693 3.06 C 6.315 2.79 6.736 2.175 6.736 1.48 L 6.136 1.48 L 5.536 1.48 C 5.536 1.684 5.412 1.874 5.216 1.959 L 5.455 2.509 Z M 6.136 1.48 L 6.736 1.48 L 6.736 1.364 L 6.136 1.364 L 5.536 1.364 L 5.536 1.48 L 6.136 1.48 Z M 6.136 1.364 L 6.736 1.364 C 6.736 0.945 7.081 0.6 7.5 0.6 L 7.5 0 L 7.5 -0.6 C 6.419 -0.6 5.536 0.282 5.536 1.364 L 6.136 1.364 Z M 7.5 0 L 7.5 0.6 C 7.919 0.6 8.264 0.945 8.264 1.364 L 8.864 1.364 L 9.464 1.364 C 9.464 0.282 8.581 -0.6 7.5 -0.6 L 7.5 0 Z M 8.864 1.364 L 8.264 1.364 L 8.264 1.425 L 8.864 1.425 L 9.464 1.425 L 9.464 1.364 L 8.864 1.364 Z M 8.864 1.425 L 8.264 1.425 C 8.264 2.121 8.685 2.735 9.307 3.005 L 9.545 2.455 L 9.784 1.904 C 9.588 1.819 9.464 1.629 9.464 1.425 L 8.864 1.425 Z M 9.545 2.455 L 9.306 3.005 C 9.95 3.285 10.702 3.152 11.206 2.658 L 10.786 2.23 L 10.367 1.801 C 10.216 1.948 9.986 1.992 9.785 1.904 L 9.545 2.455 Z M 10.786 2.23 L 11.211 2.654 L 11.252 2.613 L 10.827 2.189 L 10.403 1.764 L 10.362 1.805 L 10.786 2.23 Z M 10.827 2.189 L 11.252 2.613 C 11.549 2.315 12.035 2.315 12.333 2.613 L 12.757 2.189 L 13.181 1.764 C 12.415 0.998 11.169 0.998 10.403 1.764 L 10.827 2.189 Z M 12.757 2.189 L 12.333 2.613 C 12.63 2.91 12.63 3.396 12.333 3.694 L 12.757 4.118 L 13.181 4.542 C 13.947 3.776 13.947 2.531 13.181 1.764 L 12.757 2.189 Z M 12.757 4.118 L 12.333 3.694 L 12.292 3.735 L 12.716 4.159 L 13.14 4.583 L 13.181 4.542 L 12.757 4.118 Z M 12.716 4.159 L 12.287 3.739 C 11.794 4.243 11.66 4.995 11.941 5.64 L 12.491 5.4 L 13.041 5.16 C 12.953 4.959 12.997 4.73 13.145 4.579 L 12.716 4.159 Z M 12.491 5.4 L 11.891 5.4 L 11.891 5.455 L 12.491 5.455 L 13.091 5.455 L 13.091 5.4 L 12.491 5.4 Z M 12.491 5.455 L 11.94 5.693 C 12.21 6.315 12.825 6.736 13.52 6.736 L 13.52 6.136 L 13.52 5.536 C 13.316 5.536 13.126 5.412 13.041 5.216 L 12.491 5.455 Z M 13.52 6.136 L 13.52 6.736 L 13.636 6.736 L 13.636 6.136 L 13.636 5.536 L 13.52 5.536 L 13.52 6.136 Z M 13.636 6.136 L 13.636 6.736 C 14.055 6.736 14.4 7.081 14.4 7.5 L 15 7.5 L 15.6 7.5 C 15.6 6.419 14.718 5.536 13.636 5.536 L 13.636 6.136 Z M 15 7.5 L 14.4 7.5 C 14.4 7.919 14.055 8.264 13.636 8.264 L 13.636 8.864 L 13.636 9.464 C 14.718 9.464 15.6 8.581 15.6 7.5 L 15 7.5 Z M 13.636 8.864 L 13.636 8.264 L 13.575 8.264 L 13.575 8.864 L 13.575 9.464 L 13.636 9.464 L 13.636 8.864 Z M 13.575 8.864 L 13.575 8.264 C 12.879 8.264 12.265 8.685 11.995 9.307 L 12.545 9.545 L 13.096 9.784 C 13.181 9.588 13.371 9.464 13.575 9.464 L 13.575 8.864 Z" fill="#000" fill-rule="nonzero"/><path transform="translate(5.455 5.455)" d="M 4.091 2.045 L 3.491 2.045 C 3.491 2.844 2.844 3.491 2.045 3.491 L 2.045 4.091 L 2.045 4.691 C 3.506 4.691 4.691 3.506 4.691 2.045 L 4.091 2.045 Z M 2.045 4.091 L 2.045 3.491 C 1.247 3.491 0.6 2.844 0.6 2.045 L 0 2.045 L -0.6 2.045 C -0.6 3.506 0.584 4.691 2.045 4.691 L 2.045 4.091 Z M 0 2.045 L 0.6 2.045 C 0.6 1.247 1.247 0.6 2.045 0.6 L 2.045 0 L 2.045 -0.6 C 0.584 -0.6 -0.6 0.584 -0.6 2.045 L 0 2.045 Z M 2.045 0 L 2.045 0.6 C 2.844 0.6 3.491 1.247 3.491 2.045 L 4.091 2.045 L 4.691 2.045 C 4.691 0.584 3.506 -0.6 2.045 -0.6 L 2.045 0 Z" fill="#000" fill-rule="nonzero"/></svg>
+        <i class="dot" id="statusDot"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="bar" id="bar">
+    <div class="shell">
+      <div class="glow"></div>
+      <div class="grad"></div>
+      <div class="rim"></div>
+      <button class="menu" id="btnMenu" aria-label="전체 메뉴"><span class="ic"><i></i><i></i><i></i></span></button>
+      <div class="field">
+        <div class="lead">
+          <span class="ai">
+            <svg width="16" height="16" viewBox="0 0 16 16"><defs><linearGradient id="ai1" x1="0.208" y1="0.094" x2="0.792" y2="0.906"><stop offset="0.26%" stop-color="#A3E7FF"/><stop offset="99.86%" stop-color="#3790FF"/></linearGradient><linearGradient id="ai3" x1="0.175" y1="0.120" x2="0.825" y2="0.880"><stop offset="0%" stop-color="#2063FF"/><stop offset="100%" stop-color="#9383FF"/></linearGradient><linearGradient id="ai2" x1="0.161" y1="0.132" x2="0.839" y2="0.868"><stop offset="0.1%" stop-color="#37A1FF"/><stop offset="99.87%" stop-color="#D98DFF"/></linearGradient></defs><g transform="translate(1.749 1)"><path d="M 6.318 0 C 7.423 0 8.318 0.895 8.318 2 L 8.318 6.783 C 8.321 6.81 8.322 6.837 8.324 6.864 C 8.325 6.872 8.325 6.881 8.326 6.889 C 8.33 6.944 8.33 6.999 8.329 7.054 C 8.329 7.065 8.328 7.076 8.328 7.088 C 8.326 7.133 8.324 7.178 8.319 7.223 C 8.317 7.248 8.313 7.274 8.309 7.3 C 8.304 7.339 8.297 7.378 8.289 7.417 C 8.284 7.44 8.279 7.463 8.273 7.486 C 8.264 7.524 8.253 7.561 8.242 7.599 C 8.234 7.625 8.226 7.652 8.217 7.679 C 8.204 7.715 8.19 7.751 8.176 7.786 C 8.166 7.808 8.157 7.83 8.147 7.852 C 8.072 8.016 7.974 8.171 7.854 8.312 C 7.843 8.325 7.832 8.338 7.821 8.351 C 7.789 8.386 7.755 8.42 7.721 8.454 C 7.706 8.468 7.692 8.483 7.678 8.496 C 7.646 8.525 7.611 8.552 7.577 8.579 C 7.56 8.593 7.544 8.607 7.526 8.62 C 7.494 8.644 7.461 8.666 7.427 8.688 C 7.404 8.703 7.381 8.719 7.358 8.732 C 7.349 8.738 7.341 8.745 7.332 8.75 L 3.002 11.25 C 2.045 11.802 0.822 11.474 0.269 10.518 C -0.283 9.561 0.045 8.338 1.002 7.786 L 2.331 7.018 L 1 6.25 C 0.043 5.698 -0.284 4.474 0.268 3.518 C 0.821 2.561 2.043 2.234 3 2.786 L 4.318 3.547 L 4.318 2 C 4.318 0.895 5.214 0 6.318 0 Z" fill="url(#ai1)"/><rect x="4.318" y="9" width="4" height="5" rx="2" fill="url(#ai3)"/><path transform="translate(4.302 2.517)" d="M 5.329 0.268 C 6.286 -0.284 7.509 0.044 8.062 1.001 C 8.614 1.957 8.286 3.181 7.329 3.733 L 6 4.5 L 7.33 5.268 C 8.287 5.82 8.615 7.044 8.063 8.001 C 7.51 8.957 6.287 9.285 5.33 8.733 L 1 6.233 C 0.996 6.231 0.992 6.227 0.988 6.225 C 0.94 6.197 0.894 6.167 0.848 6.134 C 0.839 6.128 0.83 6.123 0.821 6.117 C 0.678 6.013 0.549 5.888 0.436 5.745 C 0.422 5.728 0.408 5.711 0.395 5.694 C 0.37 5.661 0.348 5.626 0.325 5.591 C 0.312 5.571 0.299 5.552 0.286 5.532 C 0.28 5.521 0.273 5.511 0.267 5.501 C 0.25 5.472 0.237 5.442 0.222 5.413 C 0.213 5.396 0.204 5.379 0.195 5.362 C 0.175 5.32 0.157 5.277 0.14 5.234 C 0.133 5.215 0.125 5.197 0.118 5.178 C 0.103 5.136 0.09 5.093 0.077 5.05 C 0.072 5.033 0.068 5.017 0.064 5 C 0.05 4.948 0.04 4.896 0.03 4.844 C 0.029 4.835 0.027 4.827 0.026 4.818 C 0.018 4.77 0.012 4.722 0.008 4.674 C 0.006 4.653 0.004 4.632 0.003 4.611 C 0.001 4.566 0 4.521 0 4.476 C 0 4.459 0 4.442 0.001 4.424 C 0.003 4.378 0.007 4.332 0.012 4.287 C 0.014 4.265 0.017 4.243 0.02 4.221 C 0.025 4.184 0.032 4.146 0.039 4.109 C 0.045 4.082 0.049 4.055 0.056 4.029 C 0.066 3.985 0.079 3.943 0.093 3.9 C 0.098 3.884 0.103 3.867 0.109 3.851 C 0.124 3.807 0.14 3.764 0.158 3.721 C 0.167 3.702 0.175 3.682 0.184 3.663 C 0.204 3.618 0.227 3.575 0.25 3.533 C 0.256 3.522 0.262 3.511 0.268 3.501 C 0.27 3.496 0.272 3.492 0.275 3.488 C 0.303 3.439 0.335 3.392 0.367 3.346 C 0.373 3.339 0.377 3.331 0.382 3.324 C 0.411 3.284 0.442 3.245 0.474 3.208 C 0.487 3.192 0.5 3.176 0.514 3.161 C 0.542 3.129 0.572 3.1 0.603 3.071 C 0.619 3.055 0.635 3.038 0.653 3.022 C 0.684 2.994 0.716 2.967 0.749 2.941 C 0.767 2.926 0.785 2.911 0.804 2.897 C 0.834 2.875 0.864 2.854 0.896 2.834 C 0.922 2.816 0.948 2.798 0.976 2.782 C 0.983 2.777 0.992 2.773 0.999 2.768 L 5.329 0.268 Z" fill="url(#ai2)"/></g></svg>
+          </span>
+          <textarea id="msgInput" rows="1" placeholder="궁금한 점을 입력해 주세요" autocomplete="off"></textarea>
+        </div>
+        <button class="send" id="btnSend" aria-label="보내기">
+          <svg width="15.5" height="15.5" viewBox="0 0 15.5 15.5"><defs><linearGradient id="sendGrad" x1="0.854" y1="0.146" x2="0.146" y2="0.854"><stop offset="4.54%" stop-color="#00C8FF"/><stop offset="48.31%" stop-color="#2063FF"/><stop offset="92.93%" stop-color="#FFCDFF"/></linearGradient></defs><path d="M 14.502 0.042 C 14.773 -0.053 15.076 0.016 15.28 0.22 C 15.484 0.423 15.553 0.726 15.458 0.998 L 10.557 14.998 C 10.456 15.288 10.188 15.486 9.881 15.499 C 9.573 15.512 9.29 15.336 9.165 15.055 L 6.807 9.752 L 11.28 5.28 C 11.573 4.987 11.573 4.513 11.28 4.22 C 10.987 3.927 10.512 3.927 10.219 4.22 L 5.747 8.691 L 0.445 6.335 C 0.164 6.21 -0.012 5.926 0.001 5.619 C 0.013 5.312 0.212 5.044 0.502 4.942 L 14.502 0.042 Z" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 전체 메뉴 -->
+  <div class="overlay hide" id="menuOverlay">
+    <div class="sheet">
+      <div class="sheet-head">
+        <span>전체 메뉴</span>
+        <button class="iconbtn" id="menuClose" aria-label="닫기"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M0.75 0.75 L11.25 11.25 M11.25 0.75 L0.75 11.25" stroke="#000" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="sheet-banner">
+        <span>기타 문의사항이 있으신가요?</span>
+        <div class="img"><img class="s1" src="../assets/img-small.png" alt=""><img class="s2" src="../assets/img-mascot.png" alt=""></div>
+      </div>
+      <div class="sheet-list" id="sheetList"></div>
+    </div>
+  </div>
+
+  <!-- 연결 끊김 -->
+  <div class="overlay hide" id="discOverlay">
+    <div class="modal">
+      <div class="modal-head"><button class="iconbtn" id="discClose" aria-label="닫기"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M0.75 0.75 L11.25 11.25 M11.25 0.75 L0.75 11.25" stroke="#000" stroke-width="1.2" stroke-linecap="round"/></svg></button></div>
+      <div class="modal-body">
+        <div class="modal-mid">
+          <div class="modal-art"><div class="e1"></div><div class="e2"></div><img src="../assets/img-sad.png" alt=""></div>
+          <div class="modal-txt">
+            <h2>연결이 끊어졌습니다.</h2>
+            <p>Gemini와의 연결이 해제되어 챗봇을 이용할 수 
+없습니다. 네트워크 상태를 확인하거나 설정에서 
+제미나이 키를 변경해 주세요.</p>
+          </div>
+        </div>
+        <div class="modal-bottom"><button class="cta" id="discGo">설정으로 이동</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>window.MOA_DB = [{"source":"01_Color.md","topic":"Color","group":"개요","section":"정의","text":"- Colors DB는 디자인 시스템에서 쓰는 색상 체계 전체를 정의한다.\n- `Primary` / `Secondary` / `Grayscale` / `Neutral` 4개 색상 그룹, 라이트·다크 배경 대비 규칙(`Theme`), 투명도 조합(`Alpha`), 상태별 컬러(`States`), 기획전/시즌용 신규 컬러 확장 규칙까지 전부 포함한다.","kind":"md"},{"source":"01_Color.md","topic":"Color","group":"개요","section":"적용 상황","text":"- 브랜드 핵심 액션(주요 버튼, 로고 등)에 쓸 색이 필요할 때 → `Primary`\n- 텍스트 위계(타이틀/본문/보조/비활성)를 정할 때 → `Grayscale`\n- 브랜드 아이덴티티를 보강하고 싶을 때(스카이블루와 조합) → `Secondary`(Orange/Sea Blue/Teal)\n- 배경·카드 표면에 은은한 톤이 필요할 때 → `Neutral`\n- 특정 영역 배경이 어둡거나 밝을 때 그 위 텍스트 컬러를 정할 때 → `Theme`\n- 반투명 배경/오버레이가 필요할 때 → `Alpha`\n- 에러·성공·선택·비활성화 등 상태를 표현할 때 → `States`\n- 기획전/시즌용으로 새 컬러가 필요할 때 → `컬러 확장 규칙`\n\n---","kind":"md"},{"source":"01_Color.md","topic":"Color","group":"사용 규칙 (Usage Rules)","section":"사용 규칙 (Usage Rules)","text":"> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[ALLOW]`: 예외 허용 · `[AVOID]`: 금지\n>","kind":"md"},{"source":"01_Color.md","topic":"Color","group":"사용 규칙 (Usage Rules)","section":"공통 규칙","text":"- `[MUST]` 컬러는 `Hex`를 직접 입력하지 않고, 정의된 `피그마 경로`/`코드 토큰명`을 우선 참조한다.\n- `[MUST]` `Primary`/`Secondary`/`Grayscale`/`Neutral` 컬러를 서로 대체해서 쓰지 않는다 (예: Grayscale 대신 Neutral을 텍스트 컬러로 사용 금지).\n- `[MUST]` Figma에 정의된 컬러 스타일을 우선 사용하며, `hex` 값을 임의로 수정하지 않는다.\n- `[MUST]` `opacity`는 `5/10/20/30/40/50/60/70/80/90` 중 하나만 사용한다. 그 외 값은 해당 없음(N/A)으로 안내한다.\n- `[SHOULD]` 컬러는 화면 내 역할(브랜드 강조/보조 강조/텍스트-배경 위계/배경 톤)에 따라 그룹을 선택한다.\n- `[SHOULD]` `colorGroup`, `theme`, `opacity` 등 조건이 불명확하면 답하기 전에 되묻는다.\n- `[AVOID]` 강조를 위해 `Secondary Color`를 본문 텍스트의 기본 컬러로 사용하지 않는다.\n- `[AVOID]` 상태(경고/에러/성공/활성화/비활성화)나 신규 컬러가 필요할 때 임의로 새 컬러를 만들지 않고, 이 문서의 `States`/`컬러 확장 규칙`을 먼저 확인한다.","kind":"md"},{"source":"01_Color.md","topic":"Color","group":"사용 규칙 (Usage Rules)","section":"Type 선택 규칙","text":"- `[MUST]` 브랜드 핵심 액션(주요 버튼, 로고 컬러 등)에는 `Primary`를 사용한다.\n- `[MUST]` 텍스트 위계는 `Grayscale`을 기준으로 한다.\n- `[SHOULD]` 브랜드 아이덴티티 보강이 필요할 때만 `Secondary`의 Orange/Sea Blue/Teal을 검토한다 (아래 2.3 Type=Secondary 참고).\n- `[SHOULD]` 배경/카드 표면에 은은한 톤이 필요하면 `Neutral`을 검토한다.\n- `[SHOULD]` 특정 영역 배경이 어둡거나 밝으면 `Type=Theme` 규칙을 확인한다.\n- `[SHOULD]` 반투명이 필요하면 `Type=Alpha` 공식을 확인한다.","kind":"md"},{"source":"01_Color.md","topic":"Color","group":"사용 규칙 (Usage Rules)","section":"Type=Primary 규칙","text":"- `[MUST]` 브랜드 핵심 액션(주요 버튼, 로고 컬러 등)에 사용한다.\n- `[ALLOW]` `Skyblue`(베이스)는 카드 등의 **배경색**으로도 사용된다 — 브랜드 액션 전용이 아니다.","kind":"md"},{"source":"01_Color.md","topic":"Color","group":"사용 규칙 (Usage Rules)","section":"Type=Secondary 규칙","text":"- `[SHOULD]` 브랜드 아이덴티티 보강(스카이블루와 조합)이 필요할 때만 사용한다.\n- `[ALLOW]` `Teal`은 가격 할인율 퍼센티지(%), '추천' 등 정보성 태그의 텍스트 컬러로도 사용 가능하다.\n- `[ALLOW]` `Coral`은 경고/오류 상태 컬러로도 사용 가능하다 (`States` 4.1 참고).\n- `[ALLOW]` `Orange Dark`/`Teal Dark`는 텍스트 시인성 확보 목적으로 사용할 수 있다.","kind":"md"},{"source":"01_Color.md","topic":"Color","group":"사용 규칙 (Usage Rules)","section":"Type=Grayscale 규칙","text":"- `[MUST]` 텍스트/배경/구분선 위계 전체를 Grayscale 10단계로 관리한다.\n- `[AVOID]` 어두운 배경(`#313131` 등, 예: Snackbar) 위에서 명도 대비가 부족한 `Grayscale 70(#555555)` 이하를 본문 텍스트로 사용하지 않는다.","kind":"md"},{"source":"01_Color.md","topic":"Color","group":"사용 규칙 (Usage Rules)","section":"Type=Neutral 규칙","text":"- `[SHOULD]` 배경·카드 표면 등 넓은 면적에 사용하며, 텍스트 컬러로는 비권장이다.","kind":"md"},{"source":"01_Color.md","topic":"Color","group":"사용 규칙 (Usage Rules)","section":"Type=Theme 규칙 (라이트/다크 배경 대비)","text":"> 다크모드는 글로벌에서 앱 전체로 자주 쓰이지만 KR에서는 거의 쓰지 않아, 이 문서에서도 \"특정 영역 배경이 어두운 경우 텍스트 컬러를 고르는\" 최소 기준만 정의한다.\n> \n- `[MUST]` 라이트 배경에서 텍스트 컬러가 필요하면 각 컬러의 `Dark` 계열(`Skyblue Dark`, `Coral Dark`)을 사용한다.\n- `[MUST]` 다크 배경(앱 전체든 특정 섹션이든)에서 텍스트 컬러가 필요하면 각 컬러의 `Light` 계열(`Skyblue Light`, `Coral Light`)을 사용한다.\n- `[SHOULD]` KR에서는 앱 전체 다크모드보다 특정 영역(카드/배너/섹션)의 배경만 어두운 경우에 적용하는 게 일반적이다.\n- `[AVOID]` `color-theme-white`/`color-theme-black`(3.6 참고, 앱 전체 바탕면/전경 역할)을 KR 서비스의 전체 테마 전환 목적으로 그대로 적용하지 않는다 — Global 전용 패턴에 가깝다.","kind":"md"},{"source":"01_Color.md","topic":"Color","group":"사용 규칙 (Usage Rules)","section":"Type=Alpha 규칙 (투명도)","text":"- 피그마 경로 공식: `Colors/Alpha/{컬러명}/Opacity/{수치}` (예: `Colors/Alpha/Black/Opacity/20`)\n- 코드 토큰명 공식: `color-alpha-{컬러명}-opacity-{수치}`\n- `[MUST]` 허용 수치는 `5/10/20/30/40/50/60/70/80/90` 뿐이다.\n- `[MUST]` 배경(면)에 알파를 적용하면, 같은 요소의 텍스트/아이콘도 동일 `opacity`로 매칭한다.\n- `[ALLOW]` `Input` 컴포넌트의 비활성 테두리는 알파 대신 `Grayscale/20` 고정값을 사용할 수 있다 (`States` 참고).","kind":"md"},{"source":"01_Color.md","topic":"Color","group":"사용 규칙 (Usage Rules)","section":"Type=컬러 확장 규칙 (기획전/시즌 신규 컬러)","text":"- `[SHOULD]` 신규 Key Color는 메인/서브 합쳐 최대 1~2개로 시작한다.\n- `[MUST]` 메인 컬러보다 밝은 톤이 필요하면 신규 Hex 대신 메인 컬러 + `Opacity(5~90)` 조합을 사용한다.\n- `[MUST]` 메인 컬러보다 어두운 톤(호버, 가독성 등)이 필요하면 메인 컬러 + `Colors/Alpha/Black/Opacity(5~90)` 오버레이를 사용한다.\n- `[ALLOW]` 위 조합 적용 후에도 색감이 탁해지거나 가독성 명도 기준을 못 채우면, 실무자 판단으로 신규 Hex를 추가할 수 있다 (사유 기록).\n- `[AVOID]` 단순 변심·미세한 톤 차이만으로 신규 Hex를 추가하지 않는다.\n- `[MUST]` 테마가 바뀌어도 구분선/그림자/본문·타이틀 텍스트는 기존 `Grayscale` 토큰을 그대로 재사용한다.\n- `[ALLOW]` 화려한 배경 때문에 기존 Grayscale 텍스트가 가독성 명도 기준에 못 미치면, `White` 또는 신규 텍스트 전용 Hex를 예외적으로 매칭할 수 있다 (가독성 목적 한정).","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"개요 (Overview)","section":"정의","text":"- 공통(Common): 언어(한글/영문)와 플랫폼(`PC`, `MO`, `TB`)에 맞는 `Typography` 스펙을 적용하기 위한 공통 기준입니다. 작성 언어에 따라 `Font Family`를 선택하고, 작업 중인 뷰포트와 플랫폼에 맞는 스펙을 검증할 때 사용합니다.\n- Letter Spacing: 공통 -2.5% 적용, Line Height: Font Size에 1.33을 곱하여 계산된 수치를 적용\n- `Display`: 프로모션, 랜딩 페이지 등 시선을 사로잡는 가장 거대한 텍스트 영역. 전 레벨 `fontWeight 700`을 사용합니다.\n- `Heading`: 화면의 핵심 타이틀 및 대단위 섹션의 제목. 전 레벨 `fontWeight 700`을 사용합니다.\n- `Title`: 리스트 헤더, 카드 제목 등 중소단위 요소의 제목\n- `Body`: 본문 텍스트, 설명글 등 장문의 정보 전달 영역\n- `Label`: 버튼 내부 텍스트, 입력 창 캡션, 탭 메뉴 등 기능성 텍스트\n- `Caption`: 이미지 캡션, 뱃지, 유의사항 등 화면 내 가장 작은 보조 정보","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"개요 (Overview)","section":"Display 계열 (대형 임팩트 및 최상단 시선 유도)","text":"- 가이드 기준: 정보 전달보다 시각적 시선 유도와 임팩트가 최우선인 최상단 영역입니다. 가이드 범위 안에서 화면의 비중에 맞게 적절한 크기를 선택하여 유연하게 사용합니다.\n- 적용 가이드:\n    - 상위 (`Display 1~3`): 허브/메인 최상단 대표 타이틀, 대형 랜딩 화면의 핵심 키워드, 스펙 비교 및 대형 수치 강조 영역.\n    - 하위 (`Display 4~6`): 안내/가이드 페이지 최상위 섹션 타이틀, 스펙 비교용 카테고리/수치 라벨, 제품명 또는 선택 화면의 주요 레이블.","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"개요 (Overview)","section":"Heading 계열 (섹션 및 문장형 헤드카피)","text":"- 가이드 기준: 콘텐츠 섹션의 시작을 알리는 완결된 문장형 헤드라인 및 서브 소제목 영역입니다. 위계(`H1~H5` 성격)에 맞춰 유연하게 매핑하되, 굵기는 `700` 고정 원칙을 유지합니다.\n- 적용 가이드:\n    - 상위 (`Heading 1~2`): 완결된 문장형 섹션 대표 헤드카피, 대형 타이틀 아래의 보조 헤드라인 및 카드 그리드 하이라이트.\n    - 하위 (`Heading 3~5`): 서브 기능 소제목, `FAQ` 보조 섹션 타이틀, 짧은 카테고리 표시 및 단계별 안내 문구.","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"개요 (Overview)","section":"Title 계열 (컴포넌트 및 카드 단위 제목)","text":"- 가이드 기준: 개별 컴포넌트, 카드, 아코디언, 일반 섹션 영역의 독립적인 타이틀 및 캐치프레이즈입니다. 섹션 타이틀보다는 작고 본문보다는 눈에 띄어야 하는 카드/컴포넌트 단위의 제목에 폭넓게 적용합니다.\n- 적용 가이드:\n    - 상위 (`Title 1~2`): 카드형 컴포넌트 대표 제목, 캐치프레이즈 타이틀, 일반 섹션 영역의 대표 제목 헤더.\n    - 하위 (`Title 3~5`): 개별 카드·아코디언의 서브 타이틀, 메인 타이틀 옆 보조 헤드카피, 대형 섹션 기능 소개 제목.","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"개요 (Overview)","section":"Body 계열 (본문 및 서술형 정보 전달)","text":"- 가이드 기준: 사용자가 읽고 이해해야 하는 설명형 문단, 프로모션 티저 및 각종 유의사항·각주 영역입니다. 가독성이 중요한 모든 본문 및 서술형 텍스트는 이 계열 내에서 문단 비중에 따라 선택합니다.\n- 적용 가이드:\n    - 상위 (`Body 1~2`): 대형 타이틀 바로 아래 설명형 문단, 카드형 프로모션 티저 설명 문구 및 혜택 비교 리스트 상품명.\n    - 중·하위 (`Body 3~5`): 이미지/영상 상세 서술(접근성 설명), 법적 유의사항 목록 및 조건부 각주, 문의처/연락처 등 부가 정보.","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"개요 (Overview)","section":"Label 계열 (인터랙션 및 컴포넌트 내부 라벨)","text":"- 가이드 기준: 사용자의 클릭/터치 액션을 유도하는 버튼, 탭, 뱃지 등 인터랙션 컴포넌트 전용 텍스트입니다.\n- 적용 가이드:\n    - `Label 1`: 주요 버튼(`CTA`) 텍스트 및 비중이 큰 인터랙션 강조 텍스트.\n    - `Label 2`: 표준 버튼 텍스트, 서브 탭 메뉴, 일반 뱃지 텍스트.\n    - `Label 3`: 소형 뱃지 텍스트(예: `\"NEW\"`) 및 소형 컴포넌트 내부 라벨.","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"개요 (Overview)","section":"Caption 계열 (최소 크기 보조 정보 및 면책 조항)","text":"- 가이드 기준: 페이지 내 최하위 우선순위의 부가 수치 정보 및 면책 조항으로, 본문이나 레이블과 명확히 구분하여 독립 운영합니다.\n- 적용 가이드:\n    - `Caption 1`: 면책 조항류 및 상위 레벨 부가 설명 텍스트.\n    - `Caption 2`: 포인트 적립액 표기 및 단수 보조 안내 텍스트.\n    - `Caption 3`: 카운트다운 단위 라벨(`\"일/시간/분/초\"` 등 최소 크기 보조 수치).\n\n---","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"통합 사용 규칙 및 제약 사항 (Usage Rules & Edge Cases)","section":"공통 규칙","text":"- `[공통][MUST]` `Figma` 로컬 스타일에 정의된 `Typography Style`을 매핑 대조군으로 우선 적용합니다.\n- `[공통][MUST]` `fontSize`, `fontWeight`, `lineHeight` 값의 임의 수동 수정을 전면 금지합니다.\n- `[공통][MUST]` 단일 `Viewport(Frame)` 내부에서 `PC` 스케일과 `MO` 스케일의 혼용을 금지합니다.\n- `[공통][SHOULD]` 화면 레이아웃과 정보 위계(`Information Hierarchy`)에 맞춰 `Display` > `Heading` > `Title` > `Body` > `Label` / `Caption` 순서로 상하위 스타일 계열을 계층적으로 선택합니다.\n- `[공통][AVOID]` `Display` 스타일을 일반 `Body`, `Card List`, `Button Label`, `Form Input` 내부에 적용하지 않습니다.\n- `[공통][AVOID]` `Heading` 스타일을 `Label`, `Caption`, `Button` 텍스트에 적용하지 않습니다. 더 강조가 필요하면 `Heading` 내 상위 레벨 선택을 검토합니다.","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"통합 사용 규칙 및 제약 사항 (Usage Rules & Edge Cases)","section":"언어별 적용 규칙 (Language Axis)","text":"- `[공통][MUST]` `language = Korean` 조건 충족 시, `fontFamily` 검증 스펙으로 `SamsungOneKorean`을 적용합니다.\n- `[공통][MUST]` `language = English` 조건 충족 시, `fontFamily` 검증 스펙으로 `SamsungSharpSans`을 적용합니다.\n- `[공통][MUST]` 단일 텍스트 레이어 안에서 `fontFamily`가 혼용된 경우, 개별 글자 범위(`Character Range`)를 나누어 영문/숫자/부호는 `SamsungSharpSans`, 한글은 `SamsungOneKorean`으로 교차 검증합니다.\n- `[공통][ALLOW]` 한글/영문 혼용 문장에서 브랜드명·제품명 등 영문 고유명사 영역에 한해 `SamsungSharpSans` 적용을 허용합니다.\n- `[Heading][ALLOW]` 순한글로만 구성된 짧은 헤드카피는 `SamsungSharpSans`를 생략하고 `SamsungOneKorean` 단독 적용을 허용합니다. 이는 사이트 실측에서 확인된 예외 패턴입니다.\n- `[공통][AVOID]` 한글 문장 전체에 `SamsungSharpSans`를 적용하거나, 영문 헤드라인 전체에 `SamsungOneKorean`을 적용하지 않습니다. (단, `Heading` 예외 규칙 제외)","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"통합 사용 규칙 및 제약 사항 (Usage Rules & Edge Cases)","section":"디바이스 및 플랫폼 규칙 (Platform Axis)","text":"- `[공통][MUST]` `platform = PC` 검증 시 `Width >= 1200px` 조건과 매칭하여 `PC Typography Scale`을 적용합니다.\n- `[공통][MUST]` `platform = MO` 검증 시 `Width <= 800px` 조건과 매칭하여 `Mobile Typography Scale`을 적용합니다.\n- `[공통][MUST]` `800px < Width < 1200px (801px~1199px)` 구간은 `platform = TB`로 선언합니다.\n- `[Heading][SHOULD]` `platform = TB`의 `Heading` 계열은 `Display`/`Title`과 동일하게 \"큰 폰트 계열\" 그룹으로 분류하여, `PC`와 `MO`의 중간 규격을 적용하되 구체 수치는 미정(`TBD`)입니다.\n- `[Label/Caption][SHOULD]` `platform = TB`의 `Label`, `Caption` 계열은 `Body`와 동일하게 `Mobile Typography Scale (MO)`을 상속하여 매핑합니다.\n- `[공통][AVOID]` `MO` 화면에서 `PC` 전용 스펙을 임의 축소, `PC` 화면에서 `MO` 전용 스펙을 임의 확대하여 배치하는 것을 금지합니다.","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"통합 사용 규칙 및 제약 사항 (Usage Rules & Edge Cases)","section":"레이아웃 컴포넌트별 적용 가이드 (권장 스타일)","text":"- `[공통][MUST]` `CTA` 및 `Button` 컴포넌트 내부 텍스트는 `Label` 계열의 사전 정의 스타일만 매핑합니다.\n- `[Heading][SHOULD]` `PDP`·기획전의 섹션 최상단 카피 및 홈페이지 섹션 제목(`h2`, `h3`)은 `Heading` 계열 스타일을 적용합니다.\n- `[공통][SHOULD]` `Key Visual/Hero Area`의 핵심 광고 카피는 `Display` 계열을, 개별 섹션 도입부는 `Heading` 계열을 적용하며 줄바꿈 문장은 배제합니다.\n- `[공통][SHOULD]` 상세페이지 대표 메인 타이틀 영역은 `Display` 또는 `Heading` 계열을, 섹션 제목 영역은 `Heading` 또는 `Title` 계열을 적용합니다.\n- `[Body][SHOULD]` `Legal`, `Footer`, `Disclaimer`, 이미지 보조 캡션 영역은 `Body 4`, `Body 5` 계열을 적용합니다. `MO` 환경은 `Body 5`가 정의되어 있지 않으므로 `Body 4`까지만 적용합니다.\n- `[Label][SHOULD]` 뱃지(`Badge`, 예: `\"NEW\"`)는 `Label` 계열 하위 레벨(소형)을 적용합니다.\n- `[Label][SHOULD]` 탭(`Tab`)의 강조 텍스트는 `Label` 계열을 적용합니다.\n- `[공통][SHOULD]` `Product List`의 상품명 영역은 `Title` 계열 혹은 상위 `Body 1`, `Body 2`를, 가격/스펙/보조 정보는 `Body` 계열을 적용합니다.\n- `[공통][AVOID]` `Product List`, `Card Grid`, `Table` 내부 데이터 영역에 `Display`, `Heading` 계열 적용을 금지합니다.\n- `[Caption][SHOULD]` 카운트다운 단위 라벨, 포인트 적립액 등 부가 수치 정보는 `Caption` 계열을 적용합니다.","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"통합 사용 규칙 및 제약 사항 (Usage Rules & Edge Cases)","section":"서체 그룹별 굵기(fontWeight) 검증 예외 처리 규칙","text":"- `[공통][MUST]` `Display 1~6`, `Heading 1~5`, `Title 1`은 예외 없이 엄격 검증(`fontWeight = 700` 고정)합니다. 데이터 누락/판독 불가 시에도 자동 보정을 적용하지 않고 `Error` 처리 후 재실측을 요청합니다.\n- `[공통][ALLOW]` 그 외 모든 레벨 — `Title 2~5`, `Body 1~5`, `Label 1~3`, `Caption 1~3` — 은 `700`/`400` 복수 지원이 확정된 레벨이므로, `fontWeight` 데이터 누락/판독 불가에 한해 기본값 `Regular(400)`로 자동 전환하며 이는 `Error`가 아닌 `Pass` 처리합니다.\n- `[공통][MUST]` 실제 적용 굵기가 `700`인지 `400`인지는 `3.1(한글)`·`3.2(영문)` 표의 개별 값을 대조군으로 검증하며, 위계나 역할에 따라 임의로 혼용하지 않습니다.","kind":"md"},{"source":"02_Typeface.md","topic":"Typeface","group":"통합 사용 규칙 및 제약 사항 (Usage Rules & Edge Cases)","section":"정보 누락 및 예외 보정 프로세스 / Fallback 프로세스","text":"- `[공통][MUST]` `Figma` 레이어의 타이포그래피 스타일이 스케일 정의 범위를 초과한 비정형 데이터인 경우, 검증 결과를 `N/A` 또는 신규 정의 필요로 처리합니다.\n- `[공통][MUST]` 외부 DB(`Notion`, `Figma API` 등) 연동 실패 시, 본 요약 가이드 기반 응답 + `\"최신 라이브러리 스펙과 다를 수 있음\"` 고지.\n- `[공통][SHOULD]` `language` 필드 누락 시 한글 1글자 이상 포함 → `Korean` 자동 판정, 순수 영문/숫자/부호 → `English` 자동 판정.\n- `[공통][ALLOW]` 브랜드 로고 그래픽, 래스터화 텍스트, 캠페인 전용 특수 그래픽 타이포는 검증 범위에서 배제(`Bypass`).\n- `[공통][MUST]` `lineHeight` 자동 계산 시 '대형 사이즈'의 기준은 `fontSize 36px` 이상으로 정의하며, 이 구간은 `x1.2` 배율을 적용합니다.","kind":"md"},{"source":"03_Spacing.md","topic":"Spacing","group":"개요","section":"정의","text":"- UI 요소 간의 거리와 컴포넌트 내부의 여백을 제어합니다.\n- 정보의 구조와 시각적 위계를 완성하는 무형의 그리드 시스템입니다.\n- 표준 스케일인 4px 단위를 준수합니다.","kind":"md"},{"source":"03_Spacing.md","topic":"Spacing","group":"개요","section":"적용 상황","text":"- 연관된 정보들을 그룹핑하여 가독성을 높여야 할 때 적용합니다.\n- 화면 내 레이아웃(섹션, 컴포넌트 등) 간의 경계를 시각적으로 명확하게 구분 지을 때 적용합니다.\n\n---","kind":"md"},{"source":"03_Spacing.md","topic":"Spacing","group":"사용 규칙 (Usage Rules)","section":"사용 규칙 (Usage Rules)","text":"##`[MUST]` :강제 `[SHOULD]` :권장 `[ALLOW]` :예외허용 `[AVOID]` :금지","kind":"md"},{"source":"03_Spacing.md","topic":"Spacing","group":"사용 규칙 (Usage Rules)","section":"공통 규칙","text":"- `[MUST]` 모든 여백 값은 디자인 토큰에 정의된 8의 배수를 사용합니다.\n- `[MUST]` 임의의 홀수 값은 절대 사용할 수 없습니다.\n- `[SHOULD]`  개별 수치 입력 대신 피그마의 스페이싱 토근 값으로 지정합니다.\n- `[ALLOW]` 좁은 화면 내 복잡한 영역에 한해, 한단계 작은 토큰으로 일괄 축소 적용을 허용합니다.\n- `[AVOID]` 동일한 위계의 간격을 불규칙 하게 적용하지 않습니다.\n- `[AVOID]` 원하는 여백을 만들기 위해 서로 다른 두 개 이상의 토큰 값을 임의로 더하거나 중첩(Stacking)하여 사용하는 행위를 금지합니다.","kind":"md"},{"source":"03_Spacing.md","topic":"Spacing","group":"사용 규칙 (Usage Rules)","section":"Type 선택 규칙","text":"- `엘리먼트 패딩` = `element inset` : 엘리먼트 외곽선 ↔ 내부 콘텐츠 좌우상하 여백 (버튼/인풋 등)\n- `컴포넌트 패딩` = `component inset` : 컴포넌트 최외곽선 ↔ 내부 모든 콘텐츠 사방 여백 (상품 카드 패딩)\n- `텍스트 + 아이콘` = `gap` : 레이블 텍스트 ↔ 가이드/알림/툴팁 아이콘\n- `텍스트 + 텍스트` = `gap` : 메인 타이틀 ↔ 서브 설명 문구\n- `데이터 + 단위` = `gap` : 상품 가격 숫자 ↔ 통화 단위(₩) 또는 할인율(%)\n- `텍스트 + 뱃지` = `gap` : 품절/특가/해시태그 뱃지 ↔ 상품명 텍스트\n- `엘리먼트 + 레이블` = `gap` : 체크박스/라디오 버튼 ↔ 선택지 레이블 텍스트\n- `동급 엘리먼트 나열 가로` = `gap` : 주버튼(Primary) ↔ 부버튼(Secondary) (장바구니 ↔ 바로구매)\n- `동급 엘리먼트 나열 세로` = `gap` : 텍스트 인풋 필드 ↔ 하단 에러/도움말 메시지 텍스트\n- `반복 엘리먼트 나열 가로` = `gap` : 필터 칩 ↔ 필터 칩 (검색 결과 상단 해시태그형 칩 그룹)\n- `썸네일 + 텍스트` = `grid` : 상품 썸네일 이미지 ↔ 상품 정보(가격/타이틀) 텍스트 세트\n- `텍스트 그룹 + 엘리먼트` = `grid` : 상품 정보 텍스트 ↔ 액션 버튼 (카드 내 장바구니 담기 아이콘)\n- `리스트 + 리스트` = `grid` : 탭(Tab) 바의 각 서브 메뉴 ↔ 인접한 서브 메뉴\n- `컴포넌트 세로 확장` = `grid` : 아코디언(FAQ) 메뉴 타이틀 ↔ 펼쳐지는 하단 답변 영역\n- `콘텐츠 블록 + 콘텐츠 블록` = `section` : 상품 기본 정보 섹션 ↔ 배송/반품 안내 또는 리뷰 섹션 (상하)\n- `구분선 + 콘텐츠` = `section` : 섹션 디바이더(두꺼운 회색 선 등) ↔ 상하 콘텐츠 영역\n- `타이틀 + 그리드 리스트` = `section` : 섹션 대제목(Heading) ↔ 하단 상품 카드 리스트 그리드 전체\n- `배너 + 리스트` = `section` : 중간 광고/기획전 광고 배너 ↔ 아래 일반 상품 목록 섹션\n- `추천 영역 + 메인 영역` = `section` : 함께 보면 좋은 상품(추천 섹션) ↔ 메인 구매 여정 섹션\n- `디바이스 여백 + 콘텐츠` = `section` : 모바일/PC 스크린 최외곽 좌우 끝 ↔ 레이아웃 정렬선 (최소 안전 마진)\n- `고정 영역 + 첫 콘텐츠` = `section` : 최상단 고정 네비게이션 바(GNB) 하단 ↔ 첫 번째 비주얼/콘텐츠 시작점\n- `영역 + 영역 가로` = `section` : 좌측 필터 영역(LNB/사이드바) ↔ 우측 메인 상품 리스트 영역\n- `콘텐츠 끝 + 푸터` = `section` : 최하단 마지막 섹션 ↔ 사이트 하단 정보 영역(Footer) 시작점\n- `플로팅 요소 + 바닥 모서리` = `section` : 플로팅 액션 버튼(FAB / 위로가기 버튼) ↔ 화면 하단/우측 모서리 여백","kind":"md"},{"source":"03_Spacing.md","topic":"Spacing","group":"사용 규칙 (Usage Rules)","section":"Type=Inset 규칙","text":"- `[MUST]` 버튼, 카드, 모달, 입력 필드 등 컨테이너 및 컴포넌트의 내부 패딩(`padding`) 설정에만 사용한다.\n- `[SHOULD]` 컴포넌트 크기가 커질수록 `Inset` 스케일도 비례하여 확장 적용한다.\n- `[ALLOW]` 텍스트 행간(Line-Height) 차이로 인해 보정이 필요한 특수 컴포넌트(예: 버튼 레이블)에 한해 상/하 패딩 값을 수치 토큰 내에서 다르게 분할 적용하는 것을 허용한다.\n- `[AVOID]`컴포넌트 외부의 요소 간 간격을 넓히기 위해 Inset 토큰을 `Margin` 용도로 사용하는 것을 금지한다.","kind":"md"},{"source":"03_Spacing.md","topic":"Spacing","group":"사용 규칙 (Usage Rules)","section":"Type=Gap 규칙","text":"- `[MUST]` `글자 + 시각 요소` 구조를 설계할 때, `4px` 간격을 고정하여 적용한다.\n- `[MUST]` `인라인` , `스택` 구조 요소 간의 간격에만 사용한다.\n- `[MUST]` `글자 + 타이포` 구조로 메인 타이틀과 서브 문구를 배치할 때, `4px` 간격을 적용한다.\n- `[MUST]` `데이터 + 단위` 구조로 상품 가격과 통화/할인율을 결합할 때, 정의된 간격 스펙을 준수한다.","kind":"md"},{"source":"03_Spacing.md","topic":"Spacing","group":"사용 규칙 (Usage Rules)","section":"Type=Grid 규칙","text":"- `[MUST]` 인라인 요소보다 크고 페이지 섹션보다 작은 **중간 규모의 블록 단위 간격**(예: 타이틀 그룹–컨텐츠 그룹 사이, 모듈 간 간격)에 사용한다.\n- `[SHOULD]` 카드 내 서브 구조 분리, 폼(Form) 그룹 간 간격, 타이틀–본문 블록 간격 등 컴포넌트 내/외부의 **중간 레이어 스페이싱**으로 적극 활용한다.\n- `[ALLOW]` 화면의 기본 레이아웃 컬럼 간격(Gutter)이나 좌우 마진(Margin) 수치로 할당하여 사용하는 것을 허용한다.\n- `[AVOID]` 컴포넌트 내부의 소형 요소 배치나 리스트 항목 간의 여백에 Grid 토큰을 혼용하는 것을 금지한다.","kind":"md"},{"source":"03_Spacing.md","topic":"Spacing","group":"사용 규칙 (Usage Rules)","section":"Type=Section 규칙","text":"- `[MUST]` 독립된 주요 콘텐츠 블록, 페이지 섹션, 또는 대형 컴포넌트 단위 간의 상하 거리 구획에만 사용한다.\n- `[SHOULD]` 카드 내 서브 구조 분리, 폼(Form) 그룹 간 간격, 타이틀–본문 블록 간격 등 컴포넌트 내/외부의 **중간 레이어 스페이싱**으로 적극 활용한다.\n- `[ALLOW]` 랜딩 페이지나 비주얼 프로모션 영역처럼 극적인 공간 분리가 필요한 경우 토큰을 초과하는 스케일의 적용을 허용한다.\n- `[AVOID]` 카드 내부의 타이틀과 본문 간격 등 좁은 영역의 구조 분리에 Section 토큰을 사용하는 것을 금지한다.\n\n---\n\n##","kind":"md"},{"source":"04_CTAButton.md","topic":"CTA Button","group":"CTA Button (액션 버튼)","section":"정의","text":"- CTA Button DB는 화면의 액션 우선순위에 따라 사용하는 버튼 3종을 정의한다.\n- `Primary Action Button` / `Secondary Action Button` / `Tertiary Action Button` 버튼 중요도에 따라 3개 타입으로 나뉜다.\n- **Primary**: 페이지 목적과 직접 연결되는 주요 액션에 쓰는 Filled 계열 버튼.\n- **Secondary**: 없어도 페이지가 운영되지만 있으면 도움이 되는 보조 액션 버튼.\n- **Tertiary**: Primary/Secondary보다 시각 강조를 더 낮춰야 하는 선택적 액션 버튼.","kind":"md"},{"source":"04_CTAButton.md","topic":"CTA Button","group":"CTA Button (액션 버튼)","section":"타입별 요약","text":"| Type | 정의 | 기본 형태(variant) |  |\n| --- | --- | --- | --- |\n| `Primary Action Button` | 페이지 목적과 직접 연결되는 주요 CTA (Filled 계열) | `Filled / Primary`, `Filled / Emphasis` × `Standard`, `Icon_trailing` |  |\n| `Secondary Action Button` | 필수는 아니지만 있으면 도움이 되는 보조 액션 | `Outlined / Standard`, `Outlined / Coupon`, `Underlined / Standard` |  |\n| `Tertiary Action Button` | 더 낮은 시각 강조의 선택적 액션 (Black→Gray 예정 사양) | `Outlined / Standard` 형태값 참조 |  |","kind":"md"},{"source":"04_CTAButton.md","topic":"CTA Button","group":"CTA Button (액션 버튼)","section":"적용 상황 (액션 우선순위)","text":"- 페이지의 핵심 목적과 직접 연결되는 필수 액션 → `Primary Action Button`\n- 없어도 페이지가 운영되지만 있으면 도움이 되는 보조 액션 → `Secondary Action Button`\n- Primary/Secondary보다 더 낮은 시각 강조가 필요한 선택적 액션 → `Tertiary Action Button`\n\n**공통 액션 우선순위 선택 규칙**\n\n| 판단 질문 | 기준에 맞는 경우 | 기준에 맞지 않는 경우 |\n| --- | --- | --- |\n| 이 액션이 페이지의 핵심 목적과 직접 연결되는가? | `Primary Action Button` 검토 | `Secondary` 또는 `Tertiary Action Button` 검토 |\n| 이 버튼이 없어도 페이지가 정상 운영되는가? | `Primary Action Button`보다 낮은 우선순위 버튼 검토 | `Primary Action Button` 검토 |\n| 보조 액션이지만 버튼 형태의 시각적 볼륨이 필요한가? | `Outlined`(Secondary) 검토 | `Underlined`(Secondary) 검토 |\n| Outlined와 같은 형태이되 더 낮은 시각 강조가 필요한가? | `Tertiary Action Button` 검토 | `Secondary Action Button` 검토 |\n| Figma에 등록된 확정 컴포넌트가 필요한가? | `Tertiary` 사용 불가, `Secondary` 검토 | `Tertiary`를 예정 사양으로 안내 가능 |","kind":"md"},{"source":"04_CTAButton.md","topic":"CTA Button","group":"CTA Button (액션 버튼)","section":"사용 규칙 (Usage Rules)","text":"> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[DON'T]`: 금지\n>","kind":"md"},{"source":"04_CTAButton.md","topic":"CTA Button","group":"CTA Button (액션 버튼)","section":"공통 규칙 (3종 전체)","text":"- `[MUST]` 현재 확인된 스펙은 `theme=light_bg` 기준으로 사용한다.\n- `[MUST]` 버튼의 높이, 패딩, 반경, 아이콘 크기, 상태별 색상은 Figma에 정의된 값을 따른다.\n- `[MUST]` Figma에 없는 상태·목적·개수 제한·라벨 최대 길이를 임의로 만들어 안내하지 않는다.\n- `[MUST]` `pressed`, `focused`, `loading` 등 Figma variant에서 확인되지 않은 상태는 `해당 없음(N/A)` 또는 `미정(TBD)`로 안내한다.\n- `[MUST]` `dark_bg` 기준 스펙은 아직 정의되지 않았으므로 확정값처럼 안내하지 않는다(미정(TBD)).\n- `[MUST]` 고정 너비, 최소 너비, 최대 너비, Hug Contents 여부는 현재 문서에서 별도 확인되지 않았으므로 `미정(TBD)`로 안내한다.\n- `[SHOULD]` 사이즈는 화면 width보다 버튼이 놓이는 콘텐츠 영역 width를 우선 기준으로 판단한다.\n- `[SHOULD]` 값 판단 전에 `type`(Primary/Secondary/Tertiary), `variant`, `size`, `state`, `theme`가 불명확하면 되묻는다.\n- `[DON'T]` 값이 Figma에 없으면 추측하지 않고 `해당 없음(N/A)`, `미정(TBD)`, `정의되지 않음` 중 하나로 답한다.","kind":"md"},{"source":"04_CTAButton.md","topic":"CTA Button","group":"CTA Button (액션 버튼)","section":"Type = Primary Action Button","text":"**2.1.1. 공통 규칙**\n\n- `[MUST]` 꼭 필요한 페이지의 목적과 연결되는 CTA에만 사용한다.\n- `[MUST]` `theme=light_bg` 기준으로 사용한다.\n- `[MUST]` 높이·패딩·반경·아이콘 크기·상태별 색상은 Figma 정의값을 따른다.\n- `[SHOULD]` 사용 여부 판단 시 먼저 해당 액션이 페이지 목적과 직접 연결되는지 확인한다.\n- `[DON'T]` 없어도 페이지가 운영되는 하위 액션에 Primary Action Button을 사용하지 않는다.\n- `[DON'T]` `dark_bg` 기준 스펙을 확정값처럼 안내하지 않는다.\n\n**2.1.2. 타입(형태) 선택 규칙**\n\n- `[MUST]` 검정 Filled CTA가 필요하면 `Filled / Primary`를 사용한다.\n- `[MUST]` Skyblue Filled CTA가 필요하면 `Filled / Emphasis`를 사용한다.\n- `[SHOULD]` 라벨만으로 액션 의미가 충분하면 `Standard`를 사용한다.\n- `[SHOULD]` 라벨 뒤에 방향성/이동 의미를 보조하는 아이콘이 필요하면 `Icon_trailing`을 검토한다.\n- `[DON'T]` `Filled / Primary`와 `Filled / Emphasis`의 의미 차이를 임의로 정의하지 않는다(상세 사용 구분 미정의).\n\n**2.1.3. 사이즈 선택 기준**\n\n> 아래 수치는 Figma의 고정/가변 width 규칙이 아니라 화면 설계·챗봇 응답용 권장 운영 기준이다. 버튼 자체 스펙은 4번 Figma 값을 따른다.\n> \n\n| Size | 권장 사용 상황 | 콘텐츠/영역 width 기준 | 비고 |\n| --- | --- | --- | --- |\n| `small` | 카드, 리스트, 모듈 내부처럼 좁은 영역 안에서 핵심 액션을 제공할 때 | 콘텐츠 영역 `359px 이하`이거나, 버튼 2개 이상 한 줄 배치 시 각 버튼 가용 폭 `160px 이하` | 높이 `32px` 기준 |\n| `default` | 일반 페이지, 폼, 상세 화면, 구매/신청 흐름의 기본 CTA | 모바일 `360-767px`, PC `480px 이상`에서 기본 사용 | 높이 `40px` 기준 |\n| `large` | 히어로, 프로모션, 넓은 결제/신청 영역처럼 단독 CTA 강조가 필요할 때 | PC 또는 넓은 콘텐츠 영역 `768px 이상`에서 CTA가 단독/최상위 액션으로 배치될 때 | 높이 `48px` 기준 |\n- `[SHOULD]` 같은 화면에서도 본문 하단 대표 CTA는 `default`, 카드 내부 CTA는 `small`을 사용할 수 있다.\n- `[DON'T]` 페이지 목적과 직접 연결되지 않는 보조 액션을 크게 보이려고 Primary의 `large`를 사용하지 않는다.\n\n**2.1.4. 라벨 작성 규칙**\n\n- `[SHOULD]` 사용자가 실행할 행동을 직접적으로 표현한다.\n- `[SHOULD]` 버튼 안에서 한 줄로 인지되도록 짧게 작성한다.\n- `[SHOULD]` 동일 화면에서 Primary와 Secondary/Tertiary의 라벨 의미가 겹치지 않게 한다.\n- `[DON'T]` 라벨 최대 글자 수·줄바꿈 허용 여부·고정 너비 규칙은 정의되지 않았으므로 임의 안내하지 않는다.\n\n**2.1.5. 예외 규칙**\n\n- `[MUST]` `pressed`, `focused`, `loading`은 Figma variant에서 확인되지 않으므로 `해당 없음(N/A)` 또는 `미정(TBD)`로 안내한다.\n- `[MUST]` `dark_bg` 기준의 Primary Action Button은 `미정(TBD)`으로 안내한다.\n- `[MUST]` 고정/최소/최대 너비, Hug Contents 여부는 `미정(TBD)`으로 안내한다.","kind":"md"},{"source":"04_CTAButton.md","topic":"CTA Button","group":"CTA Button (액션 버튼)","section":"Type = Secondary Action Button","text":"**2.2.1. 공통 규칙**\n\n- `[SHOULD]` CTA 버튼이 없어도 페이지가 운영되거나, 있으면 도움이 되는 하위 버튼에 사용한다.\n- `[MUST]` `theme=light_bg` 기준으로 사용한다.\n- `[MUST]` 높이·패딩·반경·상태별 색상은 Figma 정의값을 따른다.\n- `[MUST]` Figma에 없는 개수 제한, 라벨 최대 길이, focus/loading 상태는 임의로 안내하지 않는다.\n- `[DON'T]` 페이지 목적과 직접 연결되는 필수 CTA에 Secondary Action Button을 사용하지 않는다.\n- `[DON'T]` Icon 계열 variant는 이 문서에서 답변하지 않고 `Icon Action Button` 문서로 안내한다.\n- `[DON'T]` `dark_bg` 기준 스펙을 확정값처럼 안내하지 않는다.\n\n**2.2.2. 타입(형태) 선택 규칙**\n\n- `[SHOULD]` 보조 액션이지만 버튼 형태의 시각적 볼륨이 필요하면 `Outlined`를 사용한다.\n- `[SHOULD]` 텍스트 링크처럼 더 가벼운 보조 액션에는 `Underlined`를 검토한다.\n- `[MUST]` 쿠폰 전용 버튼은 `Outlined / Coupon` 기준으로 안내한다.\n- `[DON'T]` 아이콘이 포함된 Outlined/Underlined variant를 Secondary 문서의 일반 버튼처럼 안내하지 않는다.\n\n**2.2.3. 사이즈 선택 기준**\n\n> 아래 수치는 Figma의 고정/가변 width 규칙이 아니라 화면 설계·챗봇 응답용 권장 운영 기준이다. 버튼 자체 스펙은 4번 Figma 값을 따른다.\n> \n\n| Size | 권장 사용 상황 | 콘텐츠/영역 width 기준 | 비고 |\n| --- | --- | --- | --- |\n| `small` | 카드, 리스트, 쿠폰 모듈, 좁은 툴바 안의 보조 액션 | 콘텐츠 영역 `359px 이하`이거나, 버튼 2개 이상 한 줄 배치 시 각 버튼 가용 폭 `160px 이하` | Outlined/Coupon 높이 `32px`, Underlined 높이 `18px` 기준 |\n| `default` | 일반 페이지나 상세 화면에서 기본 보조 액션을 제공할 때 | 모바일 `360-767px`, PC `480px 이상`에서 기본 사용 | Outlined/Coupon 높이 `40px`, Underlined 높이 `22px` 기준 |\n| `large` | 넓은 화면에서 보조 액션도 명확한 클릭 대상으로 보여야 할 때 | PC 또는 넓은 콘텐츠 영역 `768px 이상`에서 보조 액션이 독립 배치될 때 | `Outlined / Standard`, `Underlined / Standard`에서 확인됨 |\n- `[SHOULD]` Primary와 함께 배치되는 보조 버튼은 같은 시각 체계 안에서 읽히도록 `default`를 우선 검토한다.\n- `[SHOULD]` Underlined는 텍스트 흐름 안에 들어가면 주변 텍스트 크기·밀도에 맞춰 `small` 또는 `default`를 선택한다.\n- `[DON'T]` 보조 액션을 Primary보다 강한 시각 위계로 보이려고 `large`를 사용하지 않는다.\n\n**2.2.4. 라벨 작성 규칙**\n\n- `[SHOULD]` Secondary 라벨은 Primary 라벨보다 낮은 우선순위 행동으로 읽히게 작성한다.\n- `[SHOULD]` Outlined와 Underlined가 같은 화면에 함께 있을 때는 중요도가 더 높은 보조 액션에 Outlined를 사용한다.\n- `[SHOULD]` Underlined 라벨은 이동/자세히 보기/보조 확인처럼 가벼운 행동에 적합한지 검토한다.\n- `[DON'T]` 라벨 최대 글자 수·줄바꿈 허용 여부·고정 너비 규칙은 정의되지 않았으므로 임의 안내하지 않는다.\n\n**2.2.5. 예외 규칙**\n\n- `[MUST]` `pressed` 상태는 `Underlined / Standard`의 `size=small`에서만 확인되므로, 다른 경우에는 `해당 없음(N/A)` 또는 `미정(TBD)`로 안내한다.\n- `[MUST]` `focused`, `loading`은 Figma variant에서 확인되지 않으므로 `미정(TBD)`로 안내한다.\n- `[MUST]` `dark_bg` 기준의 Secondary Action Button은 `미정(TBD)`으로 안내한다.\n- `[MUST]` 고정/최소/최대 너비, Hug Contents 여부는 `미정(TBD)`으로 안내한다.\n- 주의: `Outlined / Icon_leading`, `Outlined / Icon_trailing`, `Underlined / Icon_trailing`, `Label`, `Icon` 값은 `Icon Action Button` 문서에서 관리한다.","kind":"md"},{"source":"04_CTAButton.md","topic":"CTA Button","group":"CTA Button (액션 버튼)","section":"Type = Tertiary Action Button (Figma 미등록 · 예정 사양)","text":"**2.3.1. 공통 규칙**\n\n- `[MUST]` 버튼 스타일 및 크기는 `Outlined / Standard`와 동일한 형태값을 참조한다.\n- `[MUST]` `Outlined / Standard`의 Black 컬러를 Gray 컬러로 바꾸는 방향으로 정의한다.\n- `[MUST]` 정확한 Gray 토큰은 아직 정의되지 않았으므로 `미정(TBD)`로 안내한다.\n- `[MUST]` Figma 추가 전까지 실제 구현/응답에서는 예정 사양임을 함께 고지한다.\n- `[MUST]` Figma 확인 완료 컴포넌트처럼 안내하지 않는다.\n- `[DON'T]` 임의의 Gray token을 지정하지 않는다.\n- `[DON'T]` hover, disabled의 세부 색상 값을 확정값처럼 말하지 않는다.\n\n**2.3.2. 타입 선택 규칙**\n\n- `[SHOULD]` Outlined와 같은 형태이되 더 낮은 시각 강조가 필요하면 Tertiary Action Button을 검토한다.\n- `[SHOULD]` Figma 등록된 컴포넌트가 필요한 상황에서는 Secondary Action Button을 우선 검토한다.\n- `[DON'T]` Tertiary Action Button을 Primary/Secondary와 같은 확정 컴포넌트처럼 사용하지 않는다.\n- 이전 명칭/검색어: `Ghost Button`, `Gray Outlined Button`\n\n**2.3.3. 사이즈 선택 기준**\n\n> 아래 수치는 Tertiary 자체 Figma 값이 아니라 `Outlined / Standard` 형태값을 참조한 권장 운영 기준이다. Figma 등록 후 확정값으로 갱신해야 한다.\n> \n\n| Size | 권장 사용 상황 | 콘텐츠/영역 width 기준 | 비고 |\n| --- | --- | --- | --- |\n| `small` | 카드, 리스트, 보조 정보 영역처럼 낮은 강조의 선택 액션을 좁은 곳에 둘 때 | 콘텐츠 영역 `359px 이하`이거나, 버튼 2개 이상 한 줄 배치 시 각 버튼 가용 폭 `160px 이하` | `Outlined / Standard small` 참조 |\n| `default` | 일반 페이지나 상세 화면에서 낮은 강조 액션을 기본 크기로 제공할 때 | 모바일 `360-767px`, PC `480px 이상`에서 기본 사용 | `Outlined / Standard default` 참조 |\n| `large` | 넓은 화면에서 낮은 강조 액션도 독립 클릭 대상으로 보여야 할 때 | PC 또는 넓은 콘텐츠 영역 `768px 이상`에서 액션이 독립 배치될 때 | `Outlined / Standard large` 참조, 사용 빈도는 낮게 유지 |\n- `[SHOULD]` Tertiary는 낮은 시각 강조가 목적이므로, `large`는 레이아웃상 클릭 대상 크기가 필요한 경우에만 제한적으로 검토한다.\n- `[DON'T]` Primary/Secondary보다 눈에 띄게 만들기 위해 Tertiary의 크기를 키우지 않는다.\n\n**2.3.4. 라벨 작성 규칙**\n\n- `[SHOULD]` Tertiary 라벨은 선택적이고 낮은 우선순위 행동으로 읽히게 작성한다.\n- `[SHOULD]` Primary/Secondary 라벨과 같은 행동을 다른 표현으로 반복하지 않는다.\n- `[SHOULD]` 버튼 안에서 한 줄로 인지되도록 짧게 작성한다.\n- `[DON'T]` 라벨 최대 글자 수·줄바꿈 허용 여부·고정 너비 규칙은 정의되지 않았으므로 임의 안내하지 않는다.\n\n**2.3.5. Figma 등록 시 확인해야 할 항목**\n\n| 확인 항목 | 현재 상태 |\n| --- | --- |\n| Component Set Node ID | `미정(TBD)` |\n| Gray Label Token | `미정(TBD)` |\n| Gray Border Token | `미정(TBD)` |\n| Hover Container Token | `미정(TBD)` |\n| Hover Label Token | `미정(TBD)` |\n| Disabled Opacity | `Outlined / Standard` 참조 예정, 확정 필요 |\n| Variant Axis | `미정(TBD)` |\n| dark_bg 스펙 | `미정(TBD)` |","kind":"md"},{"source":"05_UtilityButton.md","topic":"Utility Button","group":"개요","section":"개요","text":"- 정의: 아이콘이 버튼 의미를 구성하거나 라벨과 함께 액션 방향/기능을 보조하는 버튼군이다.\n- 목적: 아이콘이 액션 인지, 방향성, 상태 전환, 수량 정보, 쿠폰성 액션, 재생/정지 기능을 보조하거나 대표하는 경우에 사용한다.\n- 기본 원칙: 아이콘은 장식 요소가 아니라 버튼의 의미를 빠르게 인지하게 만드는 보조 정보 또는 단독 액션 단서로 사용한다.\n- 사용 용도/기준: Figma에 별도 설명 문구로 작성되어 있지는 않으므로, 이 문서에서는 Figma의 component 이름, variant 구조, state, icon 위치를 기준으로 운영 기준을 정의한다.\n- 관리 방식: Figma에 여러 target/variant로 나뉘어 있는 아이콘 버튼도 이 문서에서는 하나의 Icon Action Button 정보로 통합해 관리한다.\n- 기본 분기:\n    - `Outlined Icon`: Outlined 형태에 아이콘이 포함된 버튼\n    - `Underlined Icon`: Underlined 형태에 trailing icon이 포함된 버튼\n    - `Label`: 컨테이너 없이 라벨 중심으로 구성된 버튼\n    - `Icon Only`: 아이콘만으로 구성된 버튼\n    - `Toggle Icon`: on/off 상태가 있는 아이콘 버튼\n    - `Play Icon`: play/pause 기능이 있는 아이콘 버튼\n    - `Coupon Icon Button`: 쿠폰성 액션에서 아이콘 섹션이 포함된 버튼\n- 아이콘 위치 분기:\n    - `Icon_leading`: 라벨 앞에서 액션의 성격이나 대상을 먼저 암시하는 아이콘\n    - `Icon_trailing`: 라벨 뒤에서 이동, 후속 단계, 펼침, 보조 정보를 암시하는 아이콘\n    - `Icon_only`: 라벨 없이 아이콘만으로 실행하는 액션\n    - `Number + Icon_trailing`: 라벨, 숫자 정보, trailing icon이 함께 들어가는 구성\n- 화면 width 분기(권장 운영 기준):\n    - `Mobile`: 화면 width `0-767px`\n    - `PC`: 화면 width `768px 이상`\n- 크기 분기(권장 운영 기준):\n    - `Mobile / default`: 모바일의 주요 비디오/미디어 영역 위 재생 컨트롤에 사용한다. 미디어 영역 width가 `320px 이상`일 때 우선 검토한다.\n    - `Mobile / small`: 모바일의 썸네일, 카드형 미디어, 인디케이터 주변 보조 컨트롤에 사용한다. 미디어 영역 width가 `319px 이하`이거나 컨트롤 영역 높이가 `40px 이하`일 때 우선 검토한다.\n    - `PC / default`: PC의 주요 비디오/히어로 미디어 영역 위 재생 컨트롤에 사용한다. 미디어 영역 width가 `640px 이상`일 때 우선 검토한다.\n    - `PC / small`: PC의 카드형 미디어, 썸네일, 인디케이터 주변 보조 컨트롤에 사용한다. 미디어 영역 width가 `320-639px`이거나 컨트롤 영역 높이가 `48px 이하`일 때 우선 검토한다.\n- 상태 분기:\n    - `normal`: 기본 노출 상태\n    - `hover`: 마우스 오버 상태\n    - `pressed`: `Icon / Play`의 mobile outlined에서 확인되는 상태\n    - `disabled`: 일부 icon/label 계열에서 확인되는 비활성화 상태\n    - `toggle on/off`: Toggle Icon 계열에서 확인되는 선택/해제 상태\n    - `play/pause`: Play Icon 계열에서 확인되는 기능 상태\n- 모드 분기:\n    - `light_bg`: 현재 Figma에서 확인된 기준\n    - `dark_bg`: 미정(TBD)\n- Figma 내 설명 문구: 각 섹션의 설명 영역은 `Description text` placeholder로 확인됨. 실제 설명 문구는 확인되지 않음.\n- 주의: 아이콘 이름 목록, 접근성 라벨 문구, 최소 터치 영역 정책은 Figma 값으로 확인되지 않았으므로 별도 정의가 필요하다.\n\n---","kind":"md"},{"source":"05_UtilityButton.md","topic":"Utility Button","group":"사용 규칙 (Usage Rules)","section":"공통 규칙","text":"- `[공통]` `[MUST]` 현재 확인된 스펙은 `theme=light_bg` 기준으로 사용한다.\n- `[공통]` `[MUST]` 아이콘 크기, 라벨 간격, 상태별 opacity는 Figma variant 값을 따른다.\n- `[공통]` `[MUST]` `Icon_leading`, `Icon_trailing`, `Label`, `Icon`, `Toggle`, `Play`, `Coupon` 계열 값을 이 문서에서 함께 관리한다.\n- `[공통]` `[SHOULD]` 아이콘만으로 의미가 불명확하면 라벨이 있는 variant를 우선 검토한다.\n- `[공통]` `[SHOULD]` 아이콘은 버튼 라벨의 의미를 반복하기보다 액션의 방향, 상태, 대상, 기능을 보조하도록 사용한다.\n- `[공통]` `[DON'T]` Figma에 없는 아이콘 이름이나 기능을 임의로 만들어 안내하지 않는다.\n- `[공통]` `[DON'T]` `dark_bg` 기준 스펙은 아직 정의되지 않았으므로 확정값처럼 안내하지 않는다.","kind":"md"},{"source":"05_UtilityButton.md","topic":"Utility Button","group":"사용 규칙 (Usage Rules)","section":"Figma 구성별 사용 기준","text":"| Figma 구성 | 아이콘 구성 | 사용 용도 | 사용 기준 |\n| --- | --- | --- | --- |\n| `Outlined / Icon_leading` | 라벨 + leading icon | 버튼 형태의 보조 액션에서 아이콘이 액션의 성격이나 대상을 먼저 보조 | 아이콘을 먼저 보고 액션의 맥락을 이해해야 할 때 사용 |\n| `Outlined / Icon_trailing` | 라벨 + trailing icon | 버튼 형태의 보조 액션에서 아이콘이 이동, 다음 단계, 후속 동작을 보조 | 라벨 뒤에 방향성이나 후속 동작 단서가 필요할 때 사용 |\n| `Outlined / Icon_trailing / Number` | 라벨 + 숫자 + trailing icon | 버튼 안에서 숫자 정보와 후속 동작 단서가 함께 필요한 액션 | 숫자가 버튼 의미에 포함되고 trailing icon이 다음 동작을 보조할 때 사용 |\n| `Outlined / Icon_only` | outlined container + icon only | 외곽선이 있는 아이콘 단독 액션 | 라벨 없이도 아이콘 의미가 명확하고 버튼형 터치 영역이 필요할 때 사용 |\n| `Underlined / Icon_trailing` | underlined label + trailing icon | 텍스트 링크형 보조 액션에서 후속 동작을 보조 | 자세히 보기, 더보기, 이동성 액션처럼 가벼운 액션에 사용 |\n| `Label / Standard` | label only | 컨테이너 없이 라벨만 제공하는 낮은 강조 액션 | 아이콘이나 외곽선 없이 텍스트만으로 충분할 때 사용 |\n| `Label / Icon_leading` | label + leading icon | 낮은 강조 액션에서 아이콘이 액션 대상을 먼저 보조 | 버튼 외곽선 없이 라벨 앞 아이콘이 필요한 경우 사용 |\n| `Label / Icon_trailing` | label + trailing icon | 낮은 강조 액션에서 아이콘이 후속 동작을 보조 | 버튼 외곽선 없이 라벨 뒤 아이콘이 필요한 경우 사용 |\n| `Icon / Standard` | icon only | 가장 기본적인 아이콘 단독 액션 | 공간이 좁고 아이콘 의미가 명확한 경우 사용 |\n| `Icon / Toggle_standard` | icon only + on/off state | 상태를 전환하는 아이콘 액션 | 찜하기처럼 선택/해제 상태 자체가 중요한 액션에 사용 |\n| `Icon / Toggle_contained` | contained icon + on/off state | 컨테이너가 있는 상태 전환 아이콘 액션 | 토글 상태를 더 명확하게 보여야 할 때 사용 |\n| `Icon / Play` | play/pause icon | 미디어 재생/정지 액션 | play/pause 기능이 필요한 영역에서 사용 |\n| `Outlined / Coupon` | coupon label + icon section | 쿠폰성 액션에서 아이콘 섹션이 의미를 보조 | 쿠폰 액션이 라벨과 아이콘 섹션을 함께 필요로 할 때 사용 |","kind":"md"},{"source":"05_UtilityButton.md","topic":"Utility Button","group":"사용 규칙 (Usage Rules)","section":"아이콘 위치 기준","text":"| 아이콘 위치 | Figma 구성 | 사용 기준 |\n| --- | --- | --- |\n| `Icon_leading` | `Outlined / Icon_leading`, `Label / Icon_leading` | 아이콘이 라벨보다 먼저 액션의 성격, 대상, 카테고리를 보조해야 할 때 사용 |\n| `Icon_trailing` | `Outlined / Icon_trailing`, `Underlined / Icon_trailing`, `Label / Icon_trailing` | 아이콘이 라벨 뒤에서 이동, 다음 단계, 더보기, 펼침 같은 후속 동작을 보조할 때 사용 |\n| `Icon_trailing + Number` | `Outlined / Icon_trailing / Number` | 버튼 안에서 숫자 정보와 후속 동작 단서가 함께 필요한 경우 사용 |\n| `Icon_only` | `Outlined / Icon_only`, `Icon / Standard` | 아이콘만으로 의미가 충분하거나 주변 문맥이 액션을 설명해주는 경우 사용 |\n| `Toggle Icon` | `Icon / Toggle_standard`, `Icon / Toggle_contained` | 아이콘이 단순 실행이 아니라 on/off 상태를 표현해야 할 때 사용 |\n| `Play Icon` | `Icon / Play` | 아이콘이 재생/정지 기능 상태를 표현해야 할 때 사용 |\n| `Coupon Icon Section` | `Outlined / Coupon` | 쿠폰성 버튼 안에서 아이콘 섹션이 라벨과 함께 액션 의미를 보조할 때 사용 |","kind":"md"},{"source":"05_UtilityButton.md","topic":"Utility Button","group":"사용 규칙 (Usage Rules)","section":"화면/크기 선택 기준","text":"> 아래 수치는 Figma의 breakpoint 정의가 아니라, `Icon / Play`, `Icon / Standard`, 아이콘 포함 버튼을 실제 화면에서 선택하기 위한 권장 운영 기준이다. 버튼 자체 크기와 아이콘 크기는 `4. 디자인 스펙 및 토큰`의 Figma 값을 따른다.\n> \n\n| 화면 구간 | Size | 권장 사용 상황 | 영역 기준 | 연결되는 Figma 값 |\n| --- | --- | --- | --- | --- |\n| `Mobile`, `0-767px` | `default` | 모바일의 주요 비디오/미디어 영역 위 재생/정지 컨트롤 | 미디어 영역 width `320px 이상` | `Icon / Play`, `device=mobile`, `size=default`, `56x56` |\n| `Mobile`, `0-767px` | `small` | 모바일 썸네일, 카드형 미디어, 인디케이터 주변 보조 컨트롤 | 미디어 영역 width `319px 이하` 또는 컨트롤 영역 높이 `40px 이하` | `Icon / Play`, `device=mobile`, `size=small`, `24x24` |\n| `PC`, `768px 이상` | `default` | PC의 주요 비디오/히어로 미디어 영역 위 재생/정지 컨트롤 | 미디어 영역 width `640px 이상` | `Icon / Play`, `device=pc`, `size=default`, `96x96` |\n| `PC`, `768px 이상` | `small` | PC의 카드형 미디어, 썸네일, 인디케이터 주변 보조 컨트롤 | 미디어 영역 width `320-639px` 또는 컨트롤 영역 높이 `48px 이하` | `Icon / Play`, `device=pc`, `size=small`, `36x36` |\n| 공통 | `default` | 일반 아이콘 단독 액션, 라벨 없이도 클릭 영역이 명확해야 하는 액션 | 콘텐츠 영역 width `360px 이상` | `Icon / Standard`, `40x40` |\n| 공통 | `small` | 좁은 툴바, 인디케이터 주변, 리스트/카드 내부의 낮은 강조 아이콘 액션 | 콘텐츠 영역 width `359px 이하` 또는 컨트롤 영역 높이 `40px 이하` | `Icon / Standard`, `24x24` |\n- `[사이즈]` `[SHOULD]` 화면 width는 `Mobile`과 `PC`를 나누는 1차 기준으로 사용하고, 실제 크기는 아이콘이 놓이는 미디어/콘텐츠 영역 width로 다시 판단한다.\n- `[사이즈]` `[SHOULD]` 비디오 위에 단독으로 떠 있는 주요 재생 버튼은 `default`를 우선 검토한다.\n- `[사이즈]` `[SHOULD]` 인디케이터, 페이지네이션, 카드 썸네일 주변의 보조 컨트롤은 `small`을 우선 검토한다.\n- `[사이즈]` `[DON'T]` 좁은 카드나 인디케이터 주변에 `PC / default` 재생 버튼을 사용하지 않는다.","kind":"md"},{"source":"05_UtilityButton.md","topic":"Utility Button","group":"사용 규칙 (Usage Rules)","section":"라벨 및 아이콘 작성 규칙","text":"- `[라벨]` `[SHOULD]` 라벨이 있는 아이콘 버튼은 라벨 텍스트와 아이콘 의미가 충돌하지 않도록 한다.\n- `[라벨]` `[SHOULD]` Icon only 버튼은 실제 서비스 적용 시 접근성 이름이 필요하다.\n- `[라벨]` `[SHOULD]` 숫자가 포함된 버튼은 숫자가 무엇을 의미하는지 주변 문맥이나 라벨에서 함께 이해되어야 한다.\n- `[상태]` `[SHOULD]` Toggle 버튼은 현재 상태가 `on`인지 `off`인지 응답에 함께 표기한다.\n- `[상태]` `[SHOULD]` Play 버튼은 `play`와 `pause` 중 어떤 function인지 응답에 함께 표기한다.\n- `[공통]` `[DON'T]` 아이콘 이름 목록, 접근성 라벨 문구, 최소 터치 영역 정책은 정의되지 않았으므로 임의로 안내하지 않는다.","kind":"md"},{"source":"05_UtilityButton.md","topic":"Utility Button","group":"사용 규칙 (Usage Rules)","section":"예외 규칙","text":"- `[예외]` `[MUST]` `focused`, `loading` 상태는 Figma variant에서 확인되지 않았으므로 `미정(TBD)`로 안내한다.\n- `[예외]` `[MUST]` `dark_bg` 기준의 Icon Action Button은 미정(TBD)으로 안내한다.\n- `[예외]` `[MUST]` `Icon / Play`는 `target`, `device`, `style`, `size`, `function`, `state` 조건을 함께 확인한 뒤 답변한다.\n- `[예외]` `[MUST]` Toggle 계열은 `toggle=on/off` 또는 `function=on/off` 조건을 함께 확인한 뒤 답변한다.\n- `[예외]` `[MUST]` 쿠폰성 아이콘 버튼은 쿠폰 액션 맥락인지 먼저 확인한 뒤 답변한다.","kind":"md"},{"source":"06_Popup.md","topic":"Popup","group":"개요","section":"정의","text":"- Popup DB는 화면 위에 오버레이(Dimmed 배경) 형태로 노출되어 확인·정보 전달·입력·알림을 처리하는 컴포넌트를 정의한다.\n- `case`(Confirmation / Contents / Input Data / Notification)가 1차 분류이며, 그 아래 `layout`(Standard / Bottom Sheet / Media), `subCase`(Alert / App Download / Compare / Single Visual_Horizontal / Single Visual_Vertical / Consent), `platform`(PC / Mobile)이 세부 variant 축으로 붙는다.\n- Confirmation: 사용자의 확인/취소 등 양자택일 결정을 받아야 할 때 쓰는 case.\n- Contents: 별도 결정 없이 정보나 미디어(이미지/영상)를 전달할 때 쓰는 case.\n- Input Data: 사용자 입력을 받거나 여러 옵션을 비교시켜야 할 때 쓰는 case (동의/체크박스형은 `subCase=Consent`, 옵션 비교형은 `subCase=Compare`로 세분).\n- Notification: 시스템 알림·경고·앱 다운로드 유도 등에 쓰는 case (경고성 안내는 `subCase=Alert`, 앱 설치 유도는 `subCase=App Download`).","kind":"md"},{"source":"06_Popup.md","topic":"Popup","group":"개요","section":"케이스별 요약","text":"| Case | 정의 | 기본 CTA | 지원 Layout |\n| --- | --- | --- | --- |\n| `Confirmation` | 확인/취소 등 양자택일 결정 | `2 Buttons`(가로, Left Outlined / Right Filled·Primary) | Standard만 |\n| `Contents` | 정보·미디어 전달, 결정 불필요 | `0-1 Button`(Filled·Primary) | Standard, Bottom Sheet(이 case에 한해 Mobile만 지원), Media |\n| `Input Data` | 입력·동의·옵션 비교 | `1-2 Buttons`(PC 가로 / Mobile 세로), Compare는 `2-3 Buttons`(비교 개수에 따라 가변) | Standard, Bottom Sheet(Compare) |\n| `Notification` | 시스템 알림·경고·앱 다운로드 유도 | `0-1 Button`(Filled·Primary) | Standard (+`Alert`, `App Download` 서브케이스) |","kind":"md"},{"source":"06_Popup.md","topic":"Popup","group":"개요","section":"적용 상황 (Case 우선순위)","text":"- 사용자의 확인/결정이 결과를 바꿀 때 → `Confirmation`\n- 텍스트/이미지/영상 등 정보를 자발적으로 보여줄 때 → `Contents`\n- 사용자 입력·동의·옵션 비교가 필요할 때 → `Input Data`\n- 법적/정책상 고지 의무로 노출되는 시스템 안내일 때 → `Notification`\n\n---","kind":"md"},{"source":"06_Popup.md","topic":"Popup","group":"사용_규칙","section":"공통","text":"- `[MUST]` 배경은 반드시 Dimmed 처리한다 — `layout=Standard/Bottom Sheet`는 `#000000 60%`, `layout=Media`는 `#000000 90%`.\n- `[MUST]` 닫기(X) 아이콘은 `24x24 #000000` 기본, `layout=Media`만 `36x36(PC)/24x24(Mobile) #FFFFFF` 예외.\n- `[MUST]` Popup은 `dark_bg`를 지원하지 않는다 — 테마와 무관하게 항상 `light_bg` 기준으로만 사용한다.\n- `[SHOULD]` `case`(무엇을 담을지)와 `layout`(어떻게 노출할지)은 서로 독립적인 결정이다 — case를 먼저 정하고, 그다음 layout을 정한다.","kind":"md"},{"source":"06_Popup.md","topic":"Popup","group":"사용_규칙","section":"타입 선택(Case / Layout 선택 규칙)","text":"**지원 매트릭스 (case별 가능한 layout)**\n\n| case | Standard | Bottom Sheet | Media |\n| --- | --- | --- | --- |\n| Confirmation | ✅ | N/A | N/A |\n| Contents | ✅ | ✅ (Mobile Only) | ✅ |\n| Input Data | ✅ | ✅ (Compare은 PC/Mobile 둘 다) | N/A |\n| Notification | ✅ | N/A | N/A |\n| Notification / Alert | ✅ | N/A | N/A |\n| Notification / App Download | ✅ (Mobile Only) | N/A | N/A |\n\n**Case 판별 트리**\n\n```\nQ1. 사용자의 선택(확인/취소)이 결과를 바꾸는가?\n    Yes → Confirmation\n\nQ2. 사용자로부터 값 · 동의 · 선택을 받아야 하는가?\n    Yes → Input Data\n    ├─ 단순 동의/체크박스형 → subCase: Consent\n    └─ 여러 옵션 비교형     → subCase: Compare\n\nQ3. 법적/정책상 고지 의무로, 동의 여부와 무관하게 노출되는 안내인가?\n    Yes → Notification\n    ├─ 경고/주의 아이콘 필요 → subCase: Alert\n    └─ 앱 설치 유도         → subCase: App Download\n\nQ4. 위 셋 다 아니고, 사용자가 자발적으로 보는 정보/미디어인가?\n    Yes → Contents\n    └─ 이미지/영상이 화면을 거의 채우며 몰입감이 중요한가?\n        Yes → layout=Media\n        No  → layout=Standard 또는 Bottom Sheet\n```\n\n**Layout 선택 규칙**\n\n- `[MUST]` 화면 중앙에 뜨는 일반적인 다이얼로그는 `layout=Standard`\n- `[SHOULD]` 모바일에서 하단 스크롤로 보여주거나(Contents), 여러 옵션을 비교(Input Data Compare)할 땐 `layout=Bottom Sheet` 검토\n- `[SHOULD]` 이미지·영상 자체를 몰입감 있게 강조할 땐 `layout=Media`\n- `[ALLOW]` Input Data의 Compare는 PC/Mobile 모두 Bottom Sheet를 사용한다 (PC 전용 예외가 아니라, Compare 자체가 Bottom Sheet 고정 case)","kind":"md"},{"source":"06_Popup.md","topic":"Popup","group":"사용_규칙","section":"Confirmation","text":"- `[MUST]` 사용자에게 확인/취소 등 양자택일 결정을 받아야 할 때 사용한다.\n- `[MUST]` CTA는 2 Buttons, 가로 정렬(Left Outlined / Right Filled·Primary)로 구성한다.\n- `[ALLOW]` titleText가 없으면 Body 텍스트만 있는 축소형 컨테이너로 표시한다.\n- `[확인조건]` 답변 전 `platform`(PC/Mobile) 조건을 함께 확인한다 — Confirmation은 layout 분기가 없어 platform만 확정되면 답변 가능하다.","kind":"md"},{"source":"06_Popup.md","topic":"Popup","group":"사용_규칙","section":"Contents","text":"- `[MUST]` 별도 결정 없이 정보나 미디어(이미지/영상)를 전달할 때 사용한다.\n- `[MUST]` CTA는 0-1 Button, Filled·Primary로 구성한다.\n- `[AVOID]` 사용자 확인/취소 등 양자택일 결정이 필요한 경우 이 case를 사용하지 않는다 → Confirmation 사용.\n- `[확인조건]` 답변 전 `layout`(Standard/BottomSheet/Media) + `platform`을 함께 확인한다 — Contents는 3개 layout 모두에 존재해 layout을 특정하지 않으면 값이 갈린다.","kind":"md"},{"source":"06_Popup.md","topic":"Popup","group":"사용_규칙","section":"Input Data","text":"- `[MUST]` 사용자 입력을 받거나 여러 옵션을 비교시킬 때 사용한다.\n- `[MUST]` `subCase=Compare`가 아닌 일반 입력의 경우, CTA는 1-2 Buttons — PC는 가로 정렬(Left Outlined / Right Filled·Primary), Mobile은 세로 정렬(Bottom Outlined / Top Filled·Primary)로 반전된다.\n- `[MUST]` `subCase=Compare`는 `layout=Bottom Sheet` 고정이며 PC/Mobile 둘 다 지원한다. CTA 버튼 개수는 비교할 제품 개수에 따라 `2~3개`로 가변된다.\n- `[ALLOW]` 단순 동의/체크박스형 입력은 `subCase=Consent`로 분리한다. 체크박스 자체의 스타일은 이 문서가 아니라 디자인 시스템 가이드의 **Selection Control** 규칙을 따른다.\n- `[확인조건]` 답변 전 `subCase`(일반/Compare/Consent) + `platform`을 함께 확인한다 — subCase에 따라 layout이 강제로 바뀌므로(Compare→BottomSheet 고정) subCase 확인이 선행되어야 한다.","kind":"md"},{"source":"06_Popup.md","topic":"Popup","group":"사용_규칙","section":"Notification","text":"- `[MUST]` 시스템 알림·경고·앱 다운로드 유도 등에 사용한다.\n- `[MUST]` CTA는 0-1 Button, Filled·Primary로 구성한다.\n- `[ALLOW]` 경고성 안내는 `subCase=Alert`로 Supporting Visual(48x48)을 추가한다.\n- `[ALLOW]` 앱 설치 유도는 `subCase=App Download`(Mobile Only)를 사용하며, 이 서브케이스만 폰트 패밀리가 Samsung Sharp Sans로 다르다.\n- `[확인조건]` 답변 전 `subCase`(Default/Alert/App Download) + `platform`을 함께 확인한다 — App Download는 Mobile 전용이라 PC로 물으면 미지원 안내가 필요하다.","kind":"md"},{"source":"06_Popup.md","topic":"Popup","group":"사용_규칙","section":"예외 사례","text":"- `[MUST]` `subCase=Consent`의 에러 텍스트 색상/버튼 활성화 조건, Alert의 container 상속처럼 미정(TBD)인 값은 추측하지 않고 미정으로 답한다. 단 체크박스 스타일 자체는 TBD가 아니라 Selection Control 가이드를 따른다고 안내한다.\n- `[MUST]` 아래 3.의 소표에 없는 layout/case/subCase/platform 조합은 임의로 값을 만들지 않고 \"지원하지 않는 조합\"으로 안내한다.\n- `[MUST]` 프로모션 배너형 팝업(홈 진입 시 뜨는 대형 이미지+CTA)은 4개 case 어디에도 해당하지 않으므로, 질문받으면 \"현재 스코프 외 — 담당자 확인 필요\"로 안내하고 case를 임의로 배정하지 않는다.\n- `[MUST]` 팝업 카드 하단 중앙에 별도 원형 닫기 버튼이 있는 사례(예: TV 라이프스타일 비교 팝업)는 레거시 예외로 안내하고, 우상단 X 아이콘 1개가 현재 표준임을 함께 답한다.\n- `[MUST]` `layout=Media`는 구조적으로 타이틀/서브타이틀/바디 텍스트 필드가 없다(확인 완료). 실제 samsung.com 홈페이지의 \"영상 보기\" 팝업처럼 텍스트가 붙어 보이는 사례가 있어도, 이는 Media 팝업 위/아래에 별도로 얹힌 콘텐츠이거나 다른 컴포넌트일 가능성이 높으므로 Media 자체의 스펙으로 안내하지 않는다.\n- `[MUST]` Popup은 dark_bg 질문을 받으면 \"지원하지 않음, 항상 light_bg 기준\"으로 답한다 — 미정(TBD)이 아니라 구조적으로 없는 것이다.\n- `[SHOULD]` `layout`을 명시하지 않은 질문에는 기본값 `Standard`로 우선 답하고, 다른 layout 가능성이 있는 case(Contents, Input Data)는 이를 덧붙인다.","kind":"md"},{"source":"07_DimmedShadow.md","topic":"Dimmed & Shadow","group":"개요","section":"정의","text":"- **Dimmed**: 팝업/모달 등장 시 그 뒤 배경을 어둡게 덮는 오버레이. Black 기반 + 투명도 2단계(01/02)로 정의.\n- **Shadow**: 컴포넌트에 입체감·위계(elevation)를 주는 그림자 효과. Black 기반 + 투명도 20% 고정, offset/blur/spread로 2단계(01/02) 정의.","kind":"md"},{"source":"07_DimmedShadow.md","topic":"Dimmed & Shadow","group":"개요","section":"적용 상황","text":"- 대부분의 팝업 뒤 배경을 어둡게 할 때(기본값) → `Dimmed 01`\n- 팝업이 영상 재생 화면일 때 → `Dimmed 02` (영상의 경우, 닫기 X 버튼은 팝업 바깥의 Dimmed 영역에 위치)\n- 카드·버튼 등에 입체감을 줄 때 → `Shadow 01` / `Shadow 02` (단, 실제로는 정의된 2단계보다 다양하게 쓰이는 경우가 있어 — 3번 참고)\n\n---","kind":"md"},{"source":"07_DimmedShadow.md","topic":"Dimmed & Shadow","group":"사용 규칙 (Usage Rules)","section":"사용 규칙 (Usage Rules)","text":"> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[ALLOW]`: 예외 허용 · `[AVOID]`: 금지\n>","kind":"md"},{"source":"07_DimmedShadow.md","topic":"Dimmed & Shadow","group":"사용 규칙 (Usage Rules)","section":"공통 규칙","text":"- `[MUST]` Dimmed·Shadow 모두 정의된 hex+투명도(+offset/blur/spread) 조합만 사용하며, 임의로 새 수치를 만들지 않는다.\n- `[MUST]` Dimmed·Shadow는 항상 `Black(#000000)` 기반만 사용한다. 다른 색 기반 오버레이/그림자는 쓰지 않는다.","kind":"md"},{"source":"07_DimmedShadow.md","topic":"Dimmed & Shadow","group":"사용 규칙 (Usage Rules)","section":"Type=Dimmed 규칙","text":"- `[MUST]` `Dimmed 01`(60%)을 기본값으로 사용한다 — 대부분의 팝업이 여기 해당한다.\n- `[MUST]` 팝업이 **영상 재생** 화면인 경우에는 `Dimmed 02`(90%)를 사용한다.\n- `[MUST]` 영상 재생 화면인 경우, 닫기(X) 버튼은 팝업 내부가 아니라 Dimmed 영역(팝업 바깥)에 위치시킨다.\n- `[SHOULD]` 위 두 경우(화면 대부분 차지 / 영상 재생) 중 어디에도 명확히 안 걸리면, 기본값인 `Dimmed 01`을 우선 적용한다.","kind":"md"},{"source":"07_DimmedShadow.md","topic":"Dimmed & Shadow","group":"사용 규칙 (Usage Rules)","section":"Type=Shadow 규칙","text":"- `[MUST]` `Shadow`는 `Shadow 01`, `Shadow 02` 두 단계만 공식으로 정의한다. 이 두 값 외에는 임의로 새 수치를 만들지 않는다.\n- `[SHOULD]` 실제로는 이 두 단계와 다른 수치가 여기저기 쓰이고 있지만, 사용이 워낙 제각각이라 그 전부를 규칙화하지는 않는다. 규격 외 비슷한 수치일 때, `Shadow 01`/`Shadow 02` 중 더 가까운 쪽으로 맞추는 것을 우선 검토한다.\n\n---","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"개요","section":"정의","text":"- Icon DB는 디자인 시스템에서 쓰는 아이콘의 **제작·명명·사용 규칙**을 정의한 가이드다.\n- 그리드/키라인 기준, 아이콘 구조(Anatomy) 용어, 스트로크(굵기/말단/코너), 각도(Angle), 텍스트 포함 아이콘의 정렬, 브랜드 로고 사용법, 여백(Clearance/터치 영역) 규칙을 포함한다.","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"개요","section":"적용 상황","text":"- 새 아이콘을 제작할 때 그리드/키라인 기준이 궁금할 때 → `Grid & Keyline`\n- 어떤 굵기(Bold/Regular/Light)와 사이즈를 써야 할지 → `Usage(Stroke Type)`\n- 열린 도형의 끝 처리, 모서리 처리 기준이 궁금할 때 → `Stroke Terminal` / `Corners`\n- 대각선·화살표·시계 아이콘의 각도 기준 → `Angle`\n- 텍스트가 들어간 아이콘의 정렬 기준 → `Typeface Align`\n- 브랜드 로고 아이콘을 써야 할 때 → `Logo`\n- 아이콘 주변 여백·터치 영역이 궁금할 때 → `Spaces`\n\n---","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"사용 규칙 (Usage Rules)","text":"> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[ALLOW]`: 예외 허용 · `[AVOID]`: 금지\n>","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"공통 규칙 (Creation)","text":"- `[MUST]` 아이콘은 `96 × 96px` 아트보드에서 제작해 정렬과 확장성을 유지한다.\n- `[MUST]` 스트로크 굵기·말단(terminal)·코너·각도는 아래 아이콘 디자인 규칙(2.8~2.10)을 일관되게 적용한다.\n- `[MUST]` 아이콘은 아웃라인(선) 방식으로 제작해 왜곡을 방지하고, `96 × 96px` 프레임 안에 SVG로 export한다.\n- `[MUST]` 외부에서 사용하기 전에 디자인 시스템 팀 리뷰를 받는다.","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"Type 선택 규칙 (Stroke Type: Bold / Regular / Light)","text":"- `[MUST]` 컨텍스트에 맞는 stroke type(`Bold`/`Regular`/`Light`)을 적용한다.\n- `[AVOID]` 하나의 아이콘 그룹 안에서 서로 다른 stroke type을 섞어 쓰지 않는다.\n- `[MUST]` 각 stroke type마다 정의된 사이즈 규칙(2.3~2.5)을 따른다.","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"Type=Bold 규칙","text":"- Exterior stroke `8px`, Interior stroke `7 / 7.5px`\n- 사이즈 variation: `12×12` / `16×16` / `24×24`","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"Type=Regular 규칙","text":"- Exterior stroke `5px`, Interior stroke `4 / 4.5px`\n- 사이즈 variation: `24×24` / `36×36` / `48×48`","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"Type=Light 규칙","text":"- Exterior stroke `3px`, Interior stroke `3px`\n- 사이즈 variation: `64×64` / `72×72` / `96×96`","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"Grid & Keyline 규칙","text":"- `[MUST]` `96 × 96` 그리드를 기준으로 제작한다 (100%/300% 확대 시에도 그리드·키라인 비율은 동일).\n- `[MUST]` Keyline 도형별 기준 크기를 따른다: `Square 82×82`, `Circle 86×86`, `Vertical rectangle 66(w)×86(h)`, `Horizontal rectangle 88(w)×60(h)` (3.2 참고).\n- `[MUST]` Keyline 테두리는 **중앙 정렬(Borders Align: Center)** 기준으로 맞춘다.","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"Anatomy (구조 용어 정의)","text":"> 규칙이 아니라, 아이콘의 각 부분을 지칭하는 공통 용어입니다. 챗봇이 \"Exterior stroke가 뭐야?\" 같은 질문에 답할 때 참고합니다.\n> \n- `Exterior stroke` / `Interior stroke`: 외곽선 / 내부선\n- `Exterior stroke terminal` / `Interior stroke terminal`: 외곽선 끝단 / 내부선 끝단\n- `Corner`: 모서리\n- `Fill`: 채워진 면\n- `Counter`: 도형 안쪽의 빈 공간\n- `Gap`: 선과 선 사이의 틈","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"Stroke Terminal 규칙","text":"- `[MUST]` 열린 도형(open shape)의 끝 타입은 **Butt Cap**을 기본으로 한다.\n- `[ALLOW]` 얼굴 표정, 인체, 원형 등의 케이스는 **Round Cap**을 예외로 허용한다.","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"Corners 규칙","text":"- `[MUST]` 도형 내 각(angle)의 join 타입은 **Miter Join**, radius(round corner)는 `1px`을 기본으로 한다.\n- `[ALLOW]` Arrow, Time, Check, Door, 작은 사각형, Zigzag line 케이스는 radius `0px`(Miter Join은 유지)를 예외로 허용한다.","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"Angle 규칙","text":"- `[MUST]` 대각선을 쓸 때 기본 `45°` 각도를 적용한다. 더 정밀한 표현이 필요하면 `5°` 단위로 조정할 수 있다.\n- `[MUST]` 부정적 상태(Off, Inactive, Rejected, Prohibited 등)를 표현할 때는 `135°(-45°)` 각도를 아이콘 메타포에 포함시킨다.\n- `[MUST]` 화살표 머리(Arrowhead)는 `45°` 단위로 각도를 준다.\n- `[MUST]` 시계 아이콘의 시침·분침은 **3시 방향(90°)**으로 고정한다.\n- `[ALLOW]` 보조 메타포와 시각적으로 겹치는 경우, **9시 방향(270°)**을 대안으로 사용할 수 있다.","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"Typeface Align 규칙 (텍스트 포함 아이콘)","text":"- `[MUST]` 텍스트만 있는 아이콘은 **중앙 정렬**(Text only – Center align)한다.\n- `[MUST]` 아이콘 내부에 텍스트가 있으면 **중앙 정렬**(Inside – Center align)한다.\n- `[SHOULD]` 아이콘 하단에 텍스트가 있으면 컨텍스트에 따라 **중앙 정렬**(Bottom – Center align, 예: \"FREE\") 또는 **우측 정렬**(Bottom – Right align, 예: \"OFF\")을 선택한다.","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"Logo 규칙","text":"- `[MUST]` 브랜드 로고는 항상 해당 브랜드가 제공하는 **공식 로고 파일**을 사용한다. 임의로 새로 그리지 않는다.","kind":"md"},{"source":"08_Iconography.md","topic":"Iconography","group":"사용 규칙 (Usage Rules)","section":"Spaces(여백) 규칙","text":"- `[MUST]` `24px` 아이콘 기준으로 **터치 타겟 영역 40px**을 확보한다.\n- `[MUST]` 아이콘 주변에 **Clearance area(여백)**를 확보해 다른 요소와 겹치지 않게 한다.\n\n---","kind":"md"},{"source":"09_Radius.md","topic":"Radius","group":"개요","section":"정의","text":"UI 요소의 모서리 곡률(Corner Radius)을 제어하여 컴포넌트의 목적, 크기, 그리고 시각적 위계(대화형 컨트롤, 면적 컨테이너, 플로팅 레이어)를 직관적으로 구분하기 위한 곡률 디자인 토큰 시스템.","kind":"md"},{"source":"09_Radius.md","topic":"Radius","group":"개요","section":"적용 상황","text":"- 알약 형태의 완전한 둥근 컴포넌트를 구성할 때 → **Pill** 사용\n- 버튼, 입력 필드 등 사용자가 직접 조작하는 대화형 요소일 때 → **Control** 사용\n- 카드, 패널 등 화면 내부의 인라인 면적을 구획할 때 → **Surface** 사용\n- 모달, 바텀시트 등 화면 위에 뜨는 최상위 플로팅 레이어일 때 → **Overlay** 사용","kind":"md"},{"source":"09_Radius.md","topic":"Radius","group":"사용 규칙 (Usage Rules)","section":"공통 규칙","text":"- **[공통][MUST]** 모서리 곡률에 임의의 px 수치를 직접 입력하지 않고, 반드시 정의된 Radius 토큰을 적용한다.\n- **[공통][MUST]** 요소의 화면 위계 및 면적 크기(Control < Surface < Overlay)에 비례하여 더 큰 Radius 토큰을 사용한다.\n- **[공통][SHOULD]** 부모 컨테이너 안에 자식 요소가 중첩될 때, 자식 요소의 Radius는 부모 요소의 Radius보다 작거나 같게 설정하여 시각적 불균형을 방지한다.\n- **[공통][AVOID]** 한 화면 내 동위 계층의 컴포넌트에 서로 다른 Radius 타입을 혼용하는 것을 금지한다.","kind":"md"},{"source":"09_Radius.md","topic":"Radius","group":"사용 규칙 (Usage Rules)","section":"Type 선택 규칙","text":"- **[공통][MUST]** 양 끝이 반원 형태를 유지해야 하는 요소에는 `type=Pill`을 적용한다.\n- **[공통][MUST]** 사용자 인터랙션이 발생하는 UI 컨트롤 요소에는 `type=Control`을 적용한다.\n- **[공통][MUST]** 화면 상의 정적 콘텐츠를 담는 컨테이너 요소에는 `type=Surface`를 적용한다.\n- **[공통][MUST]** 화면 상단에 레이어로 떠오르는 오버레이 요소에는 `type=Overlay`를 적용한다.","kind":"md"},{"source":"09_Radius.md","topic":"Radius","group":"사용 규칙 (Usage Rules)","section":"Type별 규칙","text":"- **[type=Pill][MUST]** 높이 값에 수동 대응하도록 높이의 1/2 값 또는 9999px을 적용하여 완전한 알약 형태를 유지한다.\n- **[type=Control][MUST]** 컴포넌트의 크기 및 높이에 맞춰 4px ~ 12px 범위 내에서 선택 적용한다.\n- **[type=Surface][MUST]** 컨테이너의 면적 크기에 맞춰 12px ~ 20px 범위 내에서 선택 적용한다.\n- **[type=Overlay][MUST]** 반응형 디바이스 환경에 따라 PC 환경은 24px, Mobile 환경은 12px을 구분 적용한다.","kind":"md"},{"source":"09_Radius.md","topic":"Radius","group":"스펙 및 토큰 (Design Tokens)","section":"공통","text":"- **너비(Width)**: 해당 없음(N/A) — 대상 컴포넌트 스펙에 따름\n- **정렬(Align)**: 해당 없음(N/A)\n- **레이블 폰트(Label Font)**: 해당 없음(N/A)\n- **레이블 굵기(Font Weight)**: 해당 없음(N/A)\n- **라운드 규칙(Radius Rule)**: 위계 및 공간 스케일 준수 (Pill: Height 1/2 · Control: 4~12px · Surface: 12~20px · Overlay: PC 24px / Mo 12px)\n- **라벨이 한글일 경우**: 해당 없음(N/A)","kind":"md"},{"source":"09_Radius.md","topic":"Radius","group":"스펙 및 토큰 (Design Tokens)","section":"type = Pill","text":"- **라운드(Radius)**: 높이의 1/2 (또는 9999px)\n- **적용 컴포넌트 예시**: Pill Button, Chip, Badge, Tag","kind":"md"},{"source":"09_Radius.md","topic":"Radius","group":"스펙 및 토큰 (Design Tokens)","section":"type = Control","text":"- **라운드(Radius)**: 4px ~ 12px\n- **적용 컴포넌트 예시**: Button, Input Field, Checkbox, Toggle, Dropdown Menu","kind":"md"},{"source":"09_Radius.md","topic":"Radius","group":"스펙 및 토큰 (Design Tokens)","section":"type = Surface","text":"- **라운드(Radius)**: 12px ~ 20px\n- **적용 컴포넌트 예시**: Card, Container, Panel, Section Box","kind":"md"},{"source":"09_Radius.md","topic":"Radius","group":"스펙 및 토큰 (Design Tokens)","section":"type = Overlay","text":"- **라운드(Radius)**: PC = 24px / Mobile = 12px\n- **적용 컴포넌트 예시**: Modal, Dialog, Bottom Sheet, Toast, Tooltip, Popover","kind":"md"},{"source":"09_Radius.md","topic":"Radius","group":"상태별 가이드 (States)","section":"상태별 가이드 (States)","text":"Radius 토큰은 파운데이션(Foundation) 스타일 속성이므로 hover, disabled, pressed, focused 등 컴포넌트 상태 변화와 관계없이 동일한 라운드 값을 유지한다.\n\n###","kind":"md"},{"source":"10_Badge.md","topic":"Badge","group":"개요 (Overview)","section":"정의","text":"- 정의: 추가 정보나 상태를 직관적으로 인지할 수 있도록 텍스트, 숫자, 점(`Dot`), 독립 벡터 에셋 형태로 정보를 제공하는 컴포넌트입니다.\n- 사용 목적: 사용자의 시선을 끌어 특정 영역에 새로운 정보나 주의가 필요한 세일즈 포인트가 존재함을 직관적으로 인지시킵니다.\n- 기본 원칙: 목적에 맞는 올바른 `type`을 선택하고, 본 가이드에 지정된 디자인 토큰 및 가드레일을 준수합니다.","kind":"md"},{"source":"10_Badge.md","topic":"Badge","group":"개요 (Overview)","section":"타입별 적용 상황","text":"- `filled`: 혜택, 프로모션, 핵심 세일즈 텍스트 강조 시 적용\n- `label`: 프로덕트 카드 내부 및 단독 텍스트 노출 필요 시 적용\n- `dot`: 업데이트, 신규 정보 존재 여부를 최소한의 레이아웃으로 전달할 때 적용\n- `number`: 장바구니, 알림 목록 등 데이터의 수량을 카운팅할 때 적용\n- `icon`: 오늘보장, 빠른배송 등 물류/배송 브랜딩 특화 에셋 노출 시 적용\n\n---","kind":"md"},{"source":"10_Badge.md","topic":"Badge","group":"사용 규칙 (Usage Rules)","section":"공통 규칙 (Common Rules)","text":"- `[공통]` `[MUST]` 콘텐츠의 성격(상태 표시, 숫자 카운트, 신규 콘텐츠 알림 등)에 맞는 적절한 뱃지 타입을 선택하여 적용한다.\n- `[공통]` `[AVOID]` 피그마 컴포넌트 내의 뱃지 높이, 패딩, 라운드, 폰트 스펙을 임의로 해제(`Detach`)하거나 수정하여 사용하는 행위를 금지한다.\n- `[공통]` `[AVOID]` 각 케이스별 지정된 컨테이너 컬러와 텍스트 컬러 토큰 조합을 디자인 가이드 외에 다른 임의의 컬러로 변경하는 것을 금지한다.","kind":"md"},{"source":"10_Badge.md","topic":"Badge","group":"사용 규칙 (Usage Rules)","section":"Type별 선택 규칙 (Selection Rules)","text":"- `[공통]` `[SHOULD]` 배경 색상 채움과 텍스트가 함께 강조되어야 하는 핵심 세일즈 정보(예: 추천 기획전 썸네일 우상단, 구매 혜택 등)를 표기할 때는 `type = filled`를 사용한다.\n- `[공통]` `[MUST]` 프로덕트 카드 내부나 텍스트 리스트 등 화면 내 요소가 밀집되어 있어 배경색이 채워진 타입을 썼을 때 시각적 노이즈가 발생하는 영역에서는 `type = label`을 사용한다.\n- `[공통]` `[MUST]` 구체적인 텍스트나 숫자 없이 화면 영역 및 공간 제약이 극심한 상황에서 알림의 존재 여부만 최소한으로 표현할 때는 `type = dot`을 사용한다.\n- `[공통]` `[MUST]` 알림이나 장바구니 등 확인해야 할 정보의 구체적인 수량 및 양적 직관성을 표현할 때는 `type = number`를 사용한다.\n- `[공통]` `[MUST]` 오늘보장, 빠른배송 등 물류 상태를 파편화 없이 강력하고 정형화된 비주얼로 표현할 때는 `type = icon`을 사용한다.\n\n---","kind":"md"},{"source":"10_Badge.md","topic":"Badge","group":"제약 및 예외 사항 (Edge Cases)","section":"공통 및 영역 진입 제약 사항","text":"- `[component = product_card]`일 때, `[AVOID]` 해당 영역에 `type = filled` 적용은 불가하며, `[MUST]` 오직 `type = label` 스펙만 강제 적용한다.\n- `[type = label]`일 때, `[MUST]` `container = none`, `border = none` 속성을 유지하며, 임의로 테두리나 배경색을 추가할 수 없다.\n- `[type = dot]`일 때, `[MUST]` 어떠한 경우에도 `width: hug_contents` 속성을 적용할 수 없으며, 오직 `width: 4px`, `height: 4px` 고정 크기만 허용한다.\n- `[type = dot]`일 때, `[MUST]` `label: none`, `border: none` 규칙을 강제 유지해야 하며, 임의의 레이블 폰트나 테두리를 추가할 수 없다.","kind":"md"},{"source":"10_Badge.md","topic":"Badge","group":"제약 및 예외 사항 (Edge Cases)","section":"데이터 수량 및 형태 가변 제약 사항","text":"- `[type = number]`이고 `[count > 99]`일 때, `[MUST]` `case = max`, `label = '99+'`, `widthType = fixed`, `width = 23px`, `height = 16px` 고정 크기 속성을 강제 적용하며 가변(`Hug Contents`) 속성을 원천 배제한다.\n- `[type = number]`이고 `[count <= 99]`일 때, `[MUST]` 동적 가변(`Hug`) 및 너비 확장 행위를 일체 금지하며, 어떠한 상황에서도 배지 형태가 찌그러지지 않도록 항상 고정 크기 `width = 16px`, `height = 16px`를 강제 유지한다.\n- `[type = number]`일 때, `[MUST]` `label = [0-9]` 규칙을 준수하여 오직 숫자만 허용하며, 특수 기호 및 한글/영어 문자 단독 표기를 절대 금지한다. (단, `case = max`일 때의 `99+` 레이블은 예외로 허용한다.)\n- `[layoutContext = flexible_font]`일 때, `[SHOULD]` 결합하는 컴포넌트 가이드라인에 특수 규격이 명시되어 있는 경우 가독성 확보를 위해 예외적으로 레이블 폰트 크기(`fontSize`)를 해당 컴포넌트에 맞춰 가변 적용할 수 있다. 단, 케이스별 지정된 고유 컬러 토큰 스펙은 변경 없이 그대로 유지해야 한다.","kind":"md"},{"source":"10_Badge.md","topic":"Badge","group":"제약 및 예외 사항 (Edge Cases)","section":"결합형 레이아웃 및 앵커링 정렬 제약 사항","text":"- `[content = typography_or_icon]`일 때, `[MUST]` 텍스트 또는 아이콘 컴포넌트 우상단에 결합할 경우 글자의 어센더(`Ascender`) 라인 및 행간 레이아웃을 침범하지 않도록 상대 위치(`Absolute Positioning`) 마진 규칙을 준수한다. `(상세 마진 수치 기준: 미정/TBD)`\n- `[placement = icon_context]`일 때, `[MUST]` 아래의 상대 위치 가이드라인 및 대칭 정렬 규격을 준수하여 결합한다.\n    - `parentTargetSize` : `40px 40px` (GNB 아이콘 터치 영역 박스)\n    - `childIconSize` : `24px 24px` (터치 영역 내부 실제 그래픽 아이콘 크기)\n    - `badgeSize` : `[MUST] 동적 가변 속성 없이 오직 아래의 2가지 고정 치수(Fixed Size) 규격만 적용`한다.\n        - `[case = default (1~99)]` : `16px 16px` (정형 서클)\n        - `[case = max (99+)]` : `23px 16px` (캡슐형 타원)\n    - `anchorPoint` : `childIcon(24x24px)`의 우상단 꼭짓점 (`Top-Right Corner`)\n    - `alignmentAnchor` : `[MUST] 배지의 대칭 배치 구조 정밀 검수를 위해 아래의 앵커 매칭 규칙을 강제`한다.\n        - `[case = default (1~99)]` : 뱃지 컨테이너의 `우상단(Top-Right)` 꼭짓점을 `anchorPoint`에 물리적으로 고정한다.\n        - `[case = max (99+)]` : 뱃지 컨테이너의 `좌상단(Top-Left)` 꼭짓점을 `anchorPoint`에 물리적으로 고정한다.\n    - `horizontalMarginCheck` : `[MUST] 뱃지 종류와 관계없이 시각적 안정감을 위해 반대편 잔여 여백은 항상 24px 대칭 구조를 유지해야 한다.`\n        - `[case = default (1~99)]` : 우상단 고정 배치로 인해 뱃지 좌측에 `24px` 고정 여백이 확보되어야 한다. (`40px - 16px = 24px`)\n        - `[case = max (99+)]` : 좌상단 고정 배치로 인해 뱃지 우측에 `24px` 고정 여백이 대칭되게 확보되어야 한다. (이를 위해 뱃지 좌측 영역이 터치 영역 경계 밖으로 자연스럽게 확장되는 것을 허용한다.)\n    - `verticalMarginCheck` : `[MUST]` GNB(헤더) 컴포넌트 상단 가장자리(`Top Edge`)로부터 배지 상단 끝선까지의 수직 거리(마진)는 케이스와 상관없이 항상 `24px`를 유지한다.\n    - `widthVariableRule` : `[MUST]` 동적 가변(`Hug`)이 불가하므로, 1~99 상태에서 99+ 상태로 전환 시 가변 확장 방식이 아닌 뱃지 컴포넌트 자체의 고정 에셋 스위칭 방식(16px -> 23px) 및 정렬 축 대칭 전환 규칙(우상단 밀착 -> 좌상단 밀착)을 적용해야 하며, 이 과정에서 `anchorPoint`의 시작 좌표점은 밀리지 않고 고정 상태를 유지해야 한다.\n- `[type = icon]`일 때, `[MUST]` `assetStatus = locked`를 적용하며 `sizeScaleDown = false`를 강제한다. 즉, 고정 해상도 `width: 69px, height: 24px`를 절대적으로 유지해야 하며, 텍스트 가독성 확보를 위해 임의로 스케일을 줄이거나 축소할 수 없다.\n- `[color = customization]`일 때, `[MUST]` 뱃지의 메인 색상은 지정된 브랜드 컬러인 `#2189FF`를 고정 적용하며, 임의의 컬러 변경을 금지한다.\n- `[layoutContext = list_placement]`일 때, `[MUST]` 뱃지가 상위/부모 콘텐츠 컴포넌트(예: 컬러 칩 영역, 텍스트 라인 등) 하단에 수직으로 배치될 경우 아래의 플랫폼별 정해진 간격 및 정렬 규격을 강제 준수한다.\n    - `pcVerticalGap` : `4px`\n    - `moVerticalGap` : `8px`\n    - `alignment` : `center_middle` (콘텐츠 기준 중앙정렬 레이아웃 상속)","kind":"md"},{"source":"10_Badge.md","topic":"Badge","group":"제약 및 예외 사항 (Edge Cases)","section":"외부 데이터 연동 및 Fallback Policy","text":"- `[MUST]` Figma Component Variant 또는 노션 DB 연동이 유효할 경우 해당 최신 스펙을 우선 조회하여 응답합니다.\n- `[MUST]` 연동이 불가하거나 스펙이 미정(`TBD`)인 상태에서 질문을 받을 경우, 본 문서의 요약 스펙을 기반으로 답변하되 \"최신 디자인 시스템 피그마 라이브러리와 수치가 일부 다를 수 있음\"을 안내 메시지에 명시합니다.\n- `[SHOULD]` 질문자의 용어가 모호할 경우(예: \"알림 점\", \"카운트 마크\"), Aliases 매핑 테이블을 거쳐 정확한 Badge Type을 역추출한 뒤 안내합니다.","kind":"md"},{"source":"11_Chip.md","topic":"Chip","group":"개요","section":"정의","text":"정보를 효과적으로 분류, 필터링하거나 신속한 단독 액션을 실행하기 위해 사용되는 컴팩트한 알약(`Pill`) 형태의 대화형 UI 요소.","kind":"md"},{"source":"11_Chip.md","topic":"Chip","group":"개요","section":"적용 상황","text":"- 특정 키워드나 카테고리를 눌러 단일 액션을 실행하거나 필터를 토글할 때 → `type=action` 사용\n- 선택된 필터 항목을 명시적으로 나열하고, 오른쪽 `x` 버튼으로 항목을 삭제/해제할 때 → `type=select` 사용","kind":"md"},{"source":"11_Chip.md","topic":"Chip","group":"사용 규칙 (Usage Rules)","section":"공통 규칙","text":"- **[공통][MUST]** 칩 컴포넌트의 모서리 곡률은 항상 `Pill` 규격(`height 1/2` 또는 `9999px`)을 준수한다.\n- **[공통][MUST]** 너비 속성은 `Hug Contents`를 기본으로 하여 레이블 길이에 맞춰 가변 적용한다.\n- **[공통][SHOULD]** 반응형 디바이스 환경(`PC` / `MO`)에 맞춰 정의된 크기 옵션을 일관되게 적용한다.\n- **[공통][AVOID]** 양식 제출이나 폼의 핵심 확인을 담당하는 Primary 버튼 용도로 칩을 혼용하는 것을 금지한다.","kind":"md"},{"source":"11_Chip.md","topic":"Chip","group":"사용 규칙 (Usage Rules)","section":"Type 선택 규칙","text":"- **[공통][MUST]** 단독 액션 유도 또는 단순 선택/비선택 상태 전환에는 `type=action`을 적용한다.\n- **[공통][MUST]** 선택 결과값을 태그 형태로 나열하고 즉시 제거 기능을 제공해야 하는 경우 `type=select`를 적용한다.","kind":"md"},{"source":"11_Chip.md","topic":"Chip","group":"사용 규칙 (Usage Rules)","section":"Type별 규칙","text":"- **[type=action][MUST]** 디바이스에 맞춰 `PC` 환경에서는 `small`, `medium`, `large` 중 선택하며, `MO` 환경에서는 `small`, `medium` 중 선택하여 적용한다.\n- **[type=select][MUST]** 레이블 우측에 삭제 액션을 위한 `x` 아이콘을 반드시 포함한다.\n- **[type=select][SHOULD]** `x` 아이콘 영역 선택 시 해당 칩이 목록에서 즉시 제거되는 삭제 인터랙션을 제공한다.","kind":"md"},{"source":"11_Chip.md","topic":"Chip","group":"스펙 및 토큰 (Design Tokens)","section":"공통","text":"- **너비(Width)**: `Hug Contents`\n- **정렬(Align)**: 수평 스택, 가운데 정렬\n- **레이블 폰트(Label Font)**: `SamsungOne`\n- **레이블 굵기(Font Weight)**: `700`\n- **라운드 규칙(Radius Rule)**: `type=Pill` (`height 1/2` 또는 `9999px`)\n- **라벨이 한글일 경우**: `Samsung One Korean` 적용 권장","kind":"md"},{"source":"11_Chip.md","topic":"Chip","group":"스펙 및 토큰 (Design Tokens)","section":"type = action","text":"- **디바이스별 크기 범위**:\n    - `PC` : `small`, `medium`, `large`\n    - `MO` : `small`, `medium`\n- **size = small**:\n    - **높이(Height)**: `28px`\n    - **패딩(Padding)**: `4px 12px 4px 12px`\n    - **폰트 크기(Font Size)**: `12px`\n    - **행간(Line Height)**: `16px`\n- **size = medium**:\n    - **높이(Height)**: `32px`\n    - **패딩(Padding)**: `6px 16px 6px 16px`\n    - **폰트 크기(Font Size)**: `14px`\n    - **행간(Line Height)**: `18px`\n- **size = large (PC 전용)**:\n    - **높이(Height)**: `40px`\n    - **패딩(Padding)**: `8px 20px 8px 20px`\n    - **폰트 크기(Font Size)**: `16px`\n    - **행간(Line Height)**: `22px`","kind":"md"},{"source":"11_Chip.md","topic":"Chip","group":"스펙 및 토큰 (Design Tokens)","section":"type = select","text":"- **구성 요소**: Label + Trailing Icon (`x`)\n- **높이(Height)**: `32px` (`medium` 기준 기본값)\n- **패딩(Padding)**: `6px 12px 6px 16px` (상 우 하 좌)\n- **아이콘 간격(Gap)**: `4px`\n- **아이콘 크기(Icon Size)**: `16px`\n- **폰트 크기(Font Size)**: `14px`\n- **행간(Line Height)**: `18px`","kind":"md"},{"source":"11_Chip.md","topic":"Chip","group":"상태별 가이드 (States)","section":"theme = light_bg","text":"- **normal**: 배경 `Primary/White` 또는 `Gray 100` · 테두리 `Gray 300` 1px · 텍스트 `Gray 900`\n- **hover**: 배경 `Gray 200` · 테두리 `Gray 400` 1px · 텍스트 `Black`\n- **disabled**: 배경 `Gray 100` · 테두리 `Gray 200` 1px · 텍스트 `Gray 400` · 전체 투명도 `40%` · `click = false`\n- **pressed**: 배경 `Gray 300` · 테두리 `Gray 500` 1px · 텍스트 `Black`\n- **focused**: 테두리 `Primary Color` 2px (`focus` 아웃라인 적용)","kind":"md"},{"source":"11_Chip.md","topic":"Chip","group":"상태별 가이드 (States)","section":"theme = dark_bg","text":"- **normal**: 배경 `Gray 800` · 테두리 `Gray 600` 1px · 텍스트 `White`\n- **hover**: 배경 `Gray 700` · 테두리 `Gray 500` 1px · 텍스트 `White`\n- **disabled**: 배경 `Gray 900` · 테두리 `Gray 800` 1px · 텍스트 `Gray 600` · 전체 투명도 `40%` · `click = false`\n- **pressed**: 배경 `Gray 600` · 테두리 `Gray 400` 1px · 텍스트 `White`\n- **focused**: 테두리 `Primary Color` 2px (`focus` 아웃라인 적용)","kind":"md"},{"source":"12_SelectionControl.md","topic":"Selection Control","group":"개요","section":"정의","text":"- Selection Control은 사용자가 옵션을 선택하거나, 설정을 켜고 끄거나, 복수 항목을 선택하는 데 사용하는 입력 요소다.\n- `CheckBox`는 복수 선택, `Radio`는 단일 선택, `Switch`는 즉시 반영되는 On/Off 설정에 사용한다.\n- 모든 컴포넌트는 `condition`, `state`, `theme` 축을 기반으로 제공된다.","kind":"md"},{"source":"12_SelectionControl.md","topic":"Selection Control","group":"개요","section":"타입별 요약","text":"| Type | 정의 | 선택 방식 | Variant Axis |\n| --- | --- | --- | --- |\n| `CheckBox` | 독립적이거나 복수인 옵션을 선택/해제 | 복수 선택 가능 | `condition`, `state`, `theme` |\n| `Radio` | 상호 배타적인 옵션 중 하나를 선택 | 그룹 내 1개 선택 | `condition`, `state`, `theme` |\n| `Switch` | 기능·설정의 켜짐/꺼짐을 즉시 전환 | On/Off 전환 | `condition`, `state`, `theme` |","kind":"md"},{"source":"12_SelectionControl.md","topic":"Selection Control","group":"사용 규칙 (Usage Rules)","section":"사용 규칙 (Usage Rules)","text":"> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[DON'T]`: 금지\n>","kind":"md"},{"source":"12_SelectionControl.md","topic":"Selection Control","group":"사용 규칙 (Usage Rules)","section":"공통 규칙","text":"- `[MUST]` 밝은 배경에는 `theme=light_bg`, 어두운 배경에는 `theme=dark_bg`를 사용한다.\n- `[MUST]` `disabled` 상태에서는 값 변경 인터랙션을 제공하지 않는다.\n- `[MUST]` 컨트롤의 선택 상태는 연결된 데이터의 실제 값과 동기화한다.\n- `[MUST]` 선택 컨트롤만으로 의미가 불분명할 경우, 인접한 레이블로 선택 대상과 결과를 설명한다.\n- `[SHOULD]` 선택 가능한 전체 영역을 클릭 또는 탭할 수 있도록 컨트롤과 레이블을 하나의 입력 단위로 구성한다.\n- `[SHOULD]` `focused`, `pressed`, `error`, `read-only`는 Figma에 정의가 없으므로 접근성·검증 정책 확정 전까지 별도 상태를 만들지 않는다.\n- `[DON'T]` `disabled`를 단순히 “선택되지 않음”의 표현으로 사용하지 않는다.\n- `[DON'T]` `Radio`를 복수 선택에 사용하거나, `CheckBox`를 상호 배타적 단일 선택에 사용하지 않는다.","kind":"md"},{"source":"12_SelectionControl.md","topic":"Selection Control","group":"사용 규칙 (Usage Rules)","section":"Type = CheckBox","text":"- `[MUST]` 사용자가 여러 옵션을 독립적으로 선택·해제할 수 있을 때 사용한다.\n- `[SHOULD]` 약관 동의, 필터 다중 선택, 항목 일괄 선택에 사용한다.\n- `[SHOULD]` “전체 선택”을 제공하는 경우, 하위 항목의 실제 선택 상태와 연동한다.\n- `[DON'T]` 2개 이상의 선택지 중 반드시 하나만 골라야 하는 경우에는 사용하지 않고 `Radio`를 사용한다.","kind":"md"},{"source":"12_SelectionControl.md","topic":"Selection Control","group":"사용 규칙 (Usage Rules)","section":"Type = Radio","text":"- `[MUST]` 동일 그룹에서 하나의 옵션만 선택 가능할 때 사용한다.\n- `[SHOULD]` 배송 방식, 결제 수단, 정렬 기준처럼 상호 배타적인 옵션에 사용한다.\n- `[SHOULD]` 그룹 안에는 기본 선택값 또는 선택 필요 여부를 명확히 정의한다.\n- `[DON'T]` 개별 항목을 독립적으로 여러 개 선택해야 하는 경우에는 사용하지 않는다.","kind":"md"},{"source":"12_SelectionControl.md","topic":"Selection Control","group":"사용 규칙 (Usage Rules)","section":"Type = Switch","text":"- `[MUST]` On/Off 전환이 즉시 적용되는 설정에 사용한다.\n- `[SHOULD]` 알림 허용, 기능 활성화, 환경설정처럼 이진 상태를 표현할 때 사용한다.\n- `[SHOULD]` 전환 결과가 즉시 적용되지 않는다면 `Switch`보다 확인 버튼이 있는 `CheckBox` 또는 별도 선택 UI를 검토한다.\n- `[DON'T]` 여러 값 중 하나를 고르는 선택지에 사용하지 않는다.\n- `[DON'T]` 현재 상태가 불분명한 설정에 기본값을 임의 적용하지 않는다.","kind":"md"},{"source":"13_Indicator.md","topic":"Indicator","group":"개요","section":"정의","text":"- Indicator는 캐러셀, 배너, 스크롤 영역, 단계형 콘텐츠에서 현재 위치·선택 상태·이동 가능 방향을 알려주는 요소다.\n- 콘텐츠를 직접 선택하거나 이전/다음으로 이동시키는 경우에는 인터랙션을 제공하며, 단순 진행 상태만 보여줄 때는 정보 표현 목적으로 사용한다.\n- Figma에는 `Arrow`, `Bar(PCOnly)`, `Dot`, `Number`, `ScrollIndicator` 5종이 정의되어 있다.","kind":"md"},{"source":"13_Indicator.md","topic":"Indicator","group":"개요","section":"타입별 요약","text":"| Type | 정의 | 기본 사용 상황 | 주요 Variant Axis |\n| --- | --- | --- | --- |\n| `Arrow` | 이전/다음 콘텐츠로 이동하는 원형 화살표 버튼 | 캐러셀, 슬라이드, 가로 콘텐츠 이동 | `state`, `direction`, `theme` |\n| `Bar(PCOnly)` | 다수 항목의 선택 위치를 막대 형태로 표현 | PC 전용 콘텐츠 탭/슬라이드 진행 | `amount`, `theme` |\n| `Dot` | 현재 위치를 점으로 간결하게 표현 | 배너, 이미지 캐러셀, 페이지네이션 | `amount`, `theme` |\n| `Number` | 현재 순서와 전체 개수를 숫자로 표현 | 카드/콘텐츠 순번, 슬라이드 | `target`, `device`, `case`, `play` |\n| `ScrollIndicator` | 스크롤 진행 상태와 이전/다음 이동을 함께 제공 | PC·모바일 가로 스크롤 콘텐츠 | `device`, `case`, `theme`, `show_button` |","kind":"md"},{"source":"13_Indicator.md","topic":"Indicator","group":"사용 규칙 (Usage Rules)","section":"사용 규칙 (Usage Rules)","text":"> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[DON'T]`: 금지\n>","kind":"md"},{"source":"13_Indicator.md","topic":"Indicator","group":"사용 규칙 (Usage Rules)","section":"공통 규칙","text":"- `[MUST]` 콘텐츠의 현재 위치를 표현하는 모든 Indicator는 실제 콘텐츠 순서와 동기화한다.\n- `[MUST]` `selected`, `scrolled`, `end` 상태는 사용자의 실제 위치를 반영한다.\n- `[MUST]` 밝은 배경에는 `theme=light_bg`, 어두운 배경에는 `theme=dark_bg`를 사용한다.\n- `[MUST]` 인디케이터의 크기, 선 두께, 점 크기, 버튼 크기를 임의 변경하지 않는다.\n- `[SHOULD]` 하나의 콘텐츠 묶음에는 같은 종류의 위치 표현 방식을 일관되게 사용한다.\n- `[SHOULD]` 콘텐츠 개수와 화면 밀도에 맞춰 `Dot`, `Number`, `Bar` 중 인지하기 쉬운 형태를 선택한다.\n- `[DON'T]` 실제 이동 또는 선택이 불가능한 상태에서 활성화된 화살표 버튼을 노출하지 않는다.\n- `[DON'T]` 현재 위치와 무관하게 임의 항목을 `selected`로 표시하지 않는다.","kind":"md"},{"source":"13_Indicator.md","topic":"Indicator","group":"사용 규칙 (Usage Rules)","section":"Type 선택 규칙","text":"- `[SHOULD]` 이전/다음 이동 행동이 필요하면 `Arrow` 또는 `ScrollIndicator`를 사용한다.\n- `[SHOULD]` 항목 수가 적고 시각적으로 간결한 위치 표현이 필요하면 `Dot`을 사용한다.\n- `[SHOULD]` 현재 순번과 전체 개수를 명확히 알려야 하면 `Number`를 사용한다.\n- `[SHOULD]` 여러 콘텐츠의 진행 상태를 넓은 PC 영역에서 보여줄 때 `Bar(PCOnly)`를 사용한다.\n- `[SHOULD]` 가로 스크롤 콘텐츠의 진행 상태와 양방향 이동을 함께 제공할 때 `ScrollIndicator`를 사용한다.\n- `[DON'T]` `Bar(PCOnly)`를 모바일용 인디케이터로 사용하지 않는다.","kind":"md"},{"source":"14_Divider.md","topic":"Divider","group":"개요","section":"정의","text":"- Divider는 콘텐츠·영역을 구분하는 1px 두께의 선이다.\n- `Type`(Horizontal/Vertical)이 1차 분류다 — Height를 차지하는지 Width를 차지하는지가 달라, 상하 구분용인지 좌우 구분용인지 쓰임 자체가 바뀐다.\n- `Theme`(Light BG/Dark BG)는 같은 모양의 선에 색만 바뀌는 컨텍스트 축이다.","kind":"md"},{"source":"14_Divider.md","topic":"Divider","group":"개요","section":"적용 상황","text":"- 상하로 쌓인 콘텐츠·섹션을 구분할 때 → `Horizontal`\n- 좌우로 나열된 요소(메뉴, 버튼 그룹, 텍스트 등)를 구분할 때 → `Vertical`\n- 기본 대비가 필요할 때 → `Default`(`#DDDDDD`)\n- 더 옅은 구분이 필요할 때 → `Light Gray`(`#EEEEEE`, Light BG 전용)\n- 어두운 배경 위에서 구분이 필요할 때 → `Default`(`#555555`, Dark BG는 이 1종만 존재)\n\n---","kind":"md"},{"source":"14_Divider.md","topic":"Divider","group":"사용 규칙 (Usage Rules)","section":"사용 규칙 (Usage Rules)","text":"> `[MUST]` : 강제 · `[SHOULD]` : 권장 · `[ALLOW]` : 예외 허용 · `[AVOID]` : 금지\n>","kind":"md"},{"source":"14_Divider.md","topic":"Divider","group":"사용 규칙 (Usage Rules)","section":"공통 규칙","text":"- `[MUST]` 두께는 항상 `1px`.\n- `[MUST]` Dark BG는 `Default`(`#555555`) 1종만 존재 — `Light Gray`는 없다.\n- `[MUST]` Divider와 주변 콘텐츠 사이 간격은 이 문서가 아니라 `Spacing`(Gap/Inset/Section 등)에 따른다.","kind":"md"},{"source":"14_Divider.md","topic":"Divider","group":"사용 규칙 (Usage Rules)","section":"Type 선택 규칙","text":"- `[MUST]` 수평 콘텐츠 구분엔 `Horizontal`.\n- `[MUST]` 같은 줄에 나열된 요소 구분엔 `Vertical`.","kind":"md"},{"source":"14_Divider.md","topic":"Divider","group":"사용 규칙 (Usage Rules)","section":"Type=Horizontal 규칙","text":"- `[SHOULD]` Light BG 기본은 `Default`, 더 옅은 구분이 필요할 때만 `Light Gray` 사용.\n- `[MUST]` Dark BG는 `Default`(`#555555`) 고정.","kind":"md"},{"source":"14_Divider.md","topic":"Divider","group":"사용 규칙 (Usage Rules)","section":"Type=Vertical 규칙","text":"- `[MUST]` Light BG는 `Default` 1종만 확인됨 — `Light Gray`는 Horizontal 전용.\n- `[MUST]` Dark BG는 `Default` 고정.","kind":"md"},{"source":"15_OptionChip.md","topic":"Option Chip","group":"개요","section":"개요","text":"- **정의:** 사용자가 여러 옵션 중 하나 또는 복수의 항목을 선택하거나 필터링할 수 있도록 제공하는 컴포넌트입니다.\n- **사용 목적:** 상품 옵션 선택, 필터 조건 지정, 세부 항목 토글 등 직관적인 선택 액션을 제공할 때 사용합니다.\n- **기본 구성 (Anatomy):**\n    1. Inner circle (내부 원형 요소)\n    2. Border (칩 외곽 테두리)\n    3. Inner circle border (내부 원 테두리)\n    4. Label (텍스트 라벨)\n    5. Container (전체 컨테이너 영역)\n\n---","kind":"md"},{"source":"15_OptionChip.md","topic":"Option Chip","group":"사용 규칙 (Usage Rules)","section":"사용 규칙 (Usage Rules)","text":"- `[공통][MUST]` 옵션 칩의 높이, 패딩, 라운드, 상태별 색상 토큰은 Figma에 정의된 값을 임의로 수정하지 않고 그대로 따릅니다.\n- `[공통][MUST]` 배경 테마(`light_bg` / `dark_bg`)에 따라 정의된 텍스트 및 테두리 색상 반전 규칙을 준수합니다.\n- `[공통][SHOULD]` 텍스트 라벨이 포함된 경우 `PC` 환경과 모바일 `MO` 환경의 폰트 사이즈 및 패딩 기준을 구분하여 적용합니다.\n- `[공통][SHOULD]` 비활성(`disabled`) 상태의 요소는 전체 요소 혹은 지정된 속성에 `20%` 투명도를 적용합니다.\n- `[Type = Color_group][MUST]` 여러 개의 칩이 나열될 때 칩과 하단 컬러 속성명 레이블 사이의 간격 (`Gap`)은 `4px`, 개별 칩 사이의 간격은 `8px`를 유지하며 좌측 정렬(Left-aligned)을 적용합니다.\n- `[Type = Label][MUST]` 좌우 8px는 공통 유지, 상하 패딩은 플랫폼별 스펙표 참조\n\n---","kind":"md"},{"source":"15_OptionChip.md","topic":"Option Chip","group":"상태별 가이드 (States)","section":"상태별 가이드 (States)","text":"- **Normal:** 기본 대기 상태 (`Element Opacity 100%`)\n- **Hover:** 마우스 포인터가 위치한 상태 (`Element Opacity 70%` 또는 외곽 테두리 활성화)\n- **Selected:** 옵션이 선택된 상태 (외곽 Border 활성화)\n- **Disabled:** 비활성화 상태 (`Element Opacity 20%`, 인터랙션 불가)\n\n---","kind":"md"},{"source":"15_OptionChip.md","topic":"Option Chip","group":"제약 및 예외 사항 (Edge Cases)","section":"제약 및 예외 사항 (Edge Cases)","text":"- If theme = `light_bg` -> 텍스트 및 테두리 기본 색상으로 블랙 (`#000000`) 계열을 적용합니다.\n- If theme = `dark_bg` -> 텍스트 및 테두리 기본 색상으로 화이트 (`#FFFFFF`) 계열을 적용합니다.\n- If state = `disabled` -> 전체 요소 또는 투명도 속성에 `20%`를 강제 적용합니다.","kind":"md"},{"source":"16_OptionSelector.md","topic":"Option Selector","group":"개요","section":"정의","text":"- Option Selector는 여러 선택지 중 하나를 고를 때 쓰는 컴포넌트다.\n- `Type`(Color/Image/Label/Meta)이 1차 분류다 — 선택지를 무엇으로 표현하는지(색상 스와치/이미지/텍스트/라벨+메타데이터)에 따라 구조 자체가 다르다.\n- `State`(Normal/Hover·Pressed/Selected/Disabled)는 같은 구조에서 상호작용 결과만 바뀌는 하위 축이다.\n- 원래 별도 Type이었던 `Large`는 `Label`과 anatomy(라벨+테두리 박스)가 같아 `Label`의 `XLarge` 사이즈로 변경하였다.","kind":"md"},{"source":"16_OptionSelector.md","topic":"Option Selector","group":"개요","section":"적용 상황","text":"- 색상 옵션(색상 선택) → `Color`\n- 이미지·로고 썸네일로 옵션을 구분할 때 → `Image`\n- 텍스트 옵션(사이즈, 인치 등) → `Label`(Medium/Large)\n- 더 큰 강조가 필요한 텍스트 옵션(요금제명 등) → `Label`의 `XLarge`\n- 라벨과 부가 정보(가격, 용량 등)를 함께 보여줄 때 → `Meta`(서브타입별 scope 확인 필요, 2.6 참고)\n\n---","kind":"md"},{"source":"16_OptionSelector.md","topic":"Option Selector","group":"사용 규칙 (Usage Rules)","section":"사용 규칙 (Usage Rules)","text":"> `[MUST]` : 강제 · `[SHOULD]` : 권장 · `[ALLOW]` : 예외 허용 · `[AVOID]` : 금지\n>","kind":"md"},{"source":"16_OptionSelector.md","topic":"Option Selector","group":"사용 규칙 (Usage Rules)","section":"공통 규칙","text":"- `[MUST]` Selected 상태의 Border는 항상 `#2189FF`, `Stroke 2px`.\n- `[MUST]` Disabled는 Border는 그대로 두고 내용 요소만 흐리게 한다 — `Meta`는 Label·Metadata·Icon을 `#BBBBBB`로, 나머지(`Color`/`Image`/`Label` Medium·Large)는 Opacity를 낮춘다.\n- `[MUST]` PC는 마우스를 올렸을 때(`Hover`), Mobile은 터치해서 누르는 동안(`Pressed`) 상태를 쓴다 — 마우스가 없는 모바일에는 Hover 개념이 없어서 Pressed로 대응한다.","kind":"md"},{"source":"16_OptionSelector.md","topic":"Option Selector","group":"사용 규칙 (Usage Rules)","section":"Type 선택 규칙","text":"- `[MUST]` 색상 옵션은 `Color`\n- `[MUST]` 이미지·로고 옵션은 `Image`\n- `[MUST]` 텍스트 옵션은 `Label`(Medium/Large/XLarge)\n- `[MUST]` 라벨+부가정보 동시 노출은 `Meta`(서브타입별 scope 상이)","kind":"md"},{"source":"16_OptionSelector.md","topic":"Option Selector","group":"사용 규칙 (Usage Rules)","section":"Type=Color 규칙","text":"- `[MUST]` PC는 `Hover` 상태가 있다(Border 48x48, `#2189FF` 70%). Mobile은 `Hover` 없이 `Selected`만 강조된다.\n- `[MUST]` Inner Circle 크기는 PC `36x36`, Mobile `24x24`로 다르다.","kind":"md"},{"source":"16_OptionSelector.md","topic":"Option Selector","group":"사용 규칙 (Usage Rules)","section":"Type=Image 규칙","text":"- `[MUST]` Container+Border+Image로 구성된다.\n- `[MUST]` Disabled는 Image에 `Opacity 30%`를 추가로 적용한다.\n- 참고: Figma에는 `Bezel` 타입이 있었으나, 삼성닷컴에서 현재 사용 중인 UI가 아니므로 제외. 실사용이 확인되면 다시 추가 예정.","kind":"md"},{"source":"16_OptionSelector.md","topic":"Option Selector","group":"사용 규칙 (Usage Rules)","section":"Type=Label 규칙","text":"- `[MUST]` Size는 `Medium`/`Large`/`XLarge` 3종이며 Radius가 다르다(Medium 4px, Large 8px, XLarge 6px).\n- `[MUST]` `XLarge`는 SEC 전용이며, `Selected_hover`(PC)/`Pressed_selected`(Mobile)라는 복합 상태가 추가로 있다 — 선택된 항목을 다시 호버/누르면 라벨이 `#BBBBBB`로 옅어진다. Medium/Large에는 이 상태가 없다.\n- `[ALLOW]` Disabled는 Medium/Large는 라벨·컨테이너에 `50%` 투명도를 적용하고, `XLarge`는 라벨을 `#BBBBBB`로 대체한다 — 사이즈별로 처리 방식이 다르다.","kind":"md"},{"source":"16_OptionSelector.md","topic":"Option Selector","group":"사용 규칙 (Usage Rules)","section":"Type=Meta 규칙","text":"- `[MUST]` 정렬 방식에 따라 4개 서브타입으로 나뉜다: `Left Aligned Data`, `Right Aligned Data`, `Left Icon + Right Aligned Data`, `Bottom Aligned Data`\n- `[ALLOW]` Icon이 포함되는 서브타입만 Icon 컬러가 상태별로 바뀐다(Normal/Selected `#000000`, Disabled `#BBBBBB`)","kind":"md"}];</script>
+<script>/* Gemini 연동 — DB 데이터에만 근거해 답변.
+   플러그인 UI(iframe)에서 직접 호출합니다. manifest.json의
+   networkAccess.allowedDomains에 generativelanguage.googleapis.com 이 있어야 합니다. */
+
+var MOA_MODEL = 'gemini-2.0-flash';
+
+var MOA_SYSTEM = [
+  '당신은 사내 디자인 시스템 가이드 챗봇 "모아"입니다.',
+  '',
+  '규칙:',
+  '1. 아래 <context>에 주어진 내용만 근거로 답하세요. context에 없는 내용은 절대 답하지 않습니다.',
+  '2. 일반적인 디자인 지식, 다른 디자인 시스템, 추측, 보완 설명을 덧붙이지 마세요.',
+  '3. context에서 답을 찾을 수 없으면 정확히 이렇게만 답하세요: "가이드에 해당 내용이 없습니다. 디자인 시스템 담당자에게 문의해 주세요."',
+  '4. 한국어로, 2~4문장으로 간결하게 답하세요. 인사말이나 사족은 넣지 않습니다.',
+  '5. 컬러 HEX, 수치, 컴포넌트 이름은 context에 적힌 그대로 옮기세요. 반올림하거나 바꾸지 않습니다.'
+].join('\n');
+
+/* ── 검색: 질문과 관련된 chunk 추출 ──────────────────────────── */
+function moaTokenize(s){
+  return String(s).toLowerCase().replace(/[^\uac00-\ud7a3a-z0-9#.]+/g,' ').split(' ').filter(function(t){ return t.length > 1; });
+}
+
+function moaSearch(query, limit){
+  var db = window.MOA_DB || [];
+  var qs = moaTokenize(query);
+  if(!qs.length) return [];
+  var scored = db.map(function(ch){
+    var hay = (ch.title + ' ' + ch.text).toLowerCase();
+    var score = 0;
+    qs.forEach(function(t){
+      if(ch.title.toLowerCase().indexOf(t) > -1) score += 3;
+      var i = -1, n = 0;
+      while((i = hay.indexOf(t, i + 1)) > -1){ n++; if(n > 4) break; }
+      score += n;
+    });
+    return { ch: ch, score: score };
+  }).filter(function(r){ return r.score > 0; });
+  scored.sort(function(a,b){ return b.score - a.score; });
+  return scored.slice(0, limit || 6).map(function(r){ return r.ch; });
+}
+
+function moaContext(chunks){
+  return chunks.map(function(ch){
+    return '### ' + (ch.source || '') + (ch.title ? ' / ' + ch.title : '') + '\n' + ch.text;
+  }).join('\n\n');
+}
+
+/* ── 호출 ────────────────────────────────────────────────────── */
+function moaAsk(question, apiKey){
+  var hits = moaSearch(question, 6);
+  if(!hits.length){
+    return Promise.resolve({
+      text: '가이드에 해당 내용이 없습니다. 디자인 시스템 담당자에게 문의해 주세요.',
+      sources: [], grounded: false
+    });
+  }
+  if(!apiKey){
+    return Promise.resolve({
+      text: hits[0].text, sources: hits.map(function(h){ return h.source; }), grounded: true, offline: true
+    });
+  }
+
+  var url = 'https://generativelanguage.googleapis.com/v1beta/models/' + MOA_MODEL + ':generateContent?key=' + encodeURIComponent(apiKey);
+  var body = {
+    systemInstruction: { parts: [{ text: MOA_SYSTEM }] },
+    contents: [{ role: 'user', parts: [{ text: '<context>\n' + moaContext(hits) + '\n</context>\n\n질문: ' + question }] }],
+    generationConfig: { temperature: 0, maxOutputTokens: 512 }
+  };
+
+  return fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  }).then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function(json){
+    var cand = json.candidates && json.candidates[0];
+    var text = cand && cand.content && cand.content.parts && cand.content.parts[0] && cand.content.parts[0].text;
+    return {
+      text: (text || '').trim() || '가이드에 해당 내용이 없습니다. 디자인 시스템 담당자에게 문의해 주세요.',
+      sources: hits.map(function(h){ return h.source; }),
+      grounded: true
+    };
+  });
+}
+
+window.moaAsk = moaAsk;
+window.moaSearch = moaSearch;
+</script>
+<script>
+/* ── fallback data (data/ 폴더가 비었을 때만 사용) ────────────── */
+var MENU = [
+  {en:'Foundation', ko:'공통 스타일', items:['Color','Typeface','Spacing','Dimmed & Shadow','Iconography','Radius']},
+  {en:'Element', ko:'기본 요소', items:['CTA Button','Utility Button','Option Chip','Option Selector','Selection Control','Text Field']},
+  {en:'Component', ko:'조합 UI', items:['Popup','Tooltip']}
+];
+var HOME_CHIPS = [
+  ['Color','Typeface','Spacing'],
+  ['CTA Button','Utility Button'],
+  ['Popup','Dimmed & Shadow'],
+  ['Iconography','Radius']
+];
+var C = function(t,d,rows){return {kind:'colors',title:t,desc:d,rows:rows};};
+var T = function(t,d,items){return {kind:'type',title:t,desc:d,items:items};};
+var X = function(t,d,text){return {kind:'text',title:t,desc:d,text:text};};
+var E = function(t,text,cta){return {kind:'text',title:t,desc:'',text:text,cta:cta||''};};
+
+var GUIDE = {
+  'Color':{q:['한 눈에 보기','Primary Color','Secondary Color','Grayscale','Neutral Color'],a:{
+    '한 눈에 보기':X('Color','컬러 시스템 요약','컬러는 Primary · Secondary · Grayscale · Neutral 네 그룹으로 운영해요.\n핵심 액션에는 Skyblue #2189FF, 배경과 표면에는 Neutral을 사용합니다.'),
+    'Primary Color':C('Primary Color','브랜드 핵심 액션이 필요할 때',[
+      [['Black','#000000'],['White','#FFFFFF']],
+      [['Skyblue','#2189FF'],['Skyblue Dark','#006BEA']],
+      [['Skyblue Light','#68AEFF']]]),
+    'Secondary Color':C('Secondary Color','브랜드 아이덴티티를 보강하고 싶을 때',[
+      [['Coral','#EF3434'],['Coral Dark','#D62E2E']],
+      [['Coral Light','#F36E6E'],['Orange','#F66700']],
+      [['Orange Dark','#C74700'],['Sea Blue','#00B3E3']],
+      [['Teal','#00838F'],['Teal Dark','#007D89']]]),
+    'Grayscale':C('Grayscale Color','텍스트 위계(타이틀/본문/보조/비활성)를 정할 때',[
+      [['0_F7','#F7F7F7'],['1_EE','#EEEEEE']],
+      [['2_DD','#DDDDDD'],['3_BB','#BBBBBB']],
+      [['4_99','#999999'],['5_77','#777777']],
+      [['6_55','#555555'],['7_33','#333333']],
+      [['8_11','#111111'],['9_00','#000000']]]),
+    'Neutral Color':C('Neutral Color','배경·카드 표면에 은은한 톤이 필요할 때',[
+      [['Neutral Blue','#F5F7FE'],['Neutral Beige','#F7F5F2']],
+      [['Neutral Orange','#FEF6F3'],['Neutral Pink','#F6F0F5']]])}},
+  'Typeface':{q:['한 눈에 보기','Display','Heading','Body','Caption'],a:{
+    '한 눈에 보기':X('Typeface','타입 시스템 요약','Pretendard 한 벌로 Display · Heading · Body · Caption 4단계를 운영해요.\n자간은 -2%로 통일합니다.'),
+    'Display':T('Display','시선 유도와 임팩트가 최우선인 최상단 영역',[['56px','행간 67px, 자간-2%'],['48px','행간 58px, 자간-2%'],['40px','행간 48px, 자간-2%']]),
+    'Heading':T('Heading','화면과 섹션의 제목',[['32px','행간 42px, 자간-2%'],['24px','행간 32px, 자간-2%'],['20px','행간 30px, 자간-2%']]),
+    'Body':T('Body','본문과 설명 텍스트',[['16px','행간 24px, 자간-2%'],['14px','행간 20px, 자간-2%'],['13px','행간 17px, 자간-2%']]),
+    'Caption':T('Caption','보조 정보와 라벨',[['12px','행간 16px, 자간-2%'],['11px','행간 14px, 자간-2%']])}},
+  'Spacing':{q:['한 눈에 보기','기본 단위','섹션 간격','컴포넌트 내부'],a:{
+    '한 눈에 보기':X('Spacing','간격 규칙 요약','4의 배수를 기본 단위로 사용해요. 화면 좌우 여백은 24px, 카드 내부는 16px입니다.'),
+    '기본 단위':X('기본 단위','4px 그리드','4 · 8 · 12 · 16 · 20 · 24 · 32 를 사용합니다. 그 외 값은 예외로 관리해요.'),
+    '섹션 간격':X('섹션 간격','블록 사이 여백','같은 그룹 안에서는 12px, 다른 그룹 사이에는 24~32px을 둡니다.'),
+    '컴포넌트 내부':X('컴포넌트 내부','패딩 규칙','칩 8/12, 버튼 12/16, 카드 12/16을 기본으로 합니다.')}},
+  'Dimmed & Shadow':{q:['Dimmed','Shadow','Blur'],a:{
+    'Dimmed':X('Dimmed','오버레이 배경','rgba(0,0,0,0.6)을 사용합니다. 팝업·바텀시트 공통이에요.'),
+    'Shadow':X('Shadow','띄움 표현','기본 2px 2px 12px rgba(0,0,0,0.08), 입력 바는 0 6px 12px / 0 20px 60px rgba(0,0,0,0.1)입니다.'),
+    'Blur':X('Blur','배경 흐림','유리 표면은 backdrop-blur 4px, 배경 그래픽은 150~180px을 사용해요.')}},
+  'Iconography':{q:['그리드','선 두께','색상'],a:{
+    '그리드':X('Iconography','아이콘 그리드','24×24 프레임 안에서 15~16px 실루엣으로 그립니다.'),
+    '선 두께':X('선 두께','스트로크','기본 1.2px, 12px 이하 소형 아이콘은 0.6px을 사용합니다.'),
+    '색상':X('색상','아이콘 컬러','기본 #000, 비활성 rgba(66,71,81,0.6), 강조는 #2063FF입니다.')}},
+  'Radius':{q:['한 눈에 보기','버튼','카드','말풍선'],a:{
+    '한 눈에 보기':X('Radius','라운드 값','2 · 4 · 8 · 18 · 20 · 22 · 999를 사용합니다.'),
+    '버튼':X('버튼','CTA와 칩','CTA는 8, 칩은 999(pill), 홈 카테고리 칩은 18을 씁니다.'),
+    '카드':X('카드','8px','답변 카드와 팝업은 8, 바텀시트 상단은 20입니다.'),
+    '말풍선':X('말풍선','꼬리 있는 라운드','보낸 말풍선 20/2/20/20, 받은 말풍선 2/20/20/20입니다.')}},
+  'CTA Button':{q:['Normal','Disabled'],a:{
+    'Normal':C('CTA Button / Normal','높이 44, 라운드 8',[[['Fill','#4185FF'],['Label','#FFFFFF']]]),
+    'Disabled':C('CTA Button / Disabled','조건 미충족 상태',[[['Fill','#E0E3E9'],['Label','#8C93A0']]])}},
+  'Utility Button':{q:['Text','Icon','Link'],a:{
+    'Text':X('Utility Button / Text','보조 액션','14px SemiBold, 컬러 #424751. 밑줄은 링크에만 사용해요.'),
+    'Icon':X('Utility Button / Icon','아이콘 단독','24×24 터치 영역, 라운드 4, hover 시 rgba(0,0,0,0.05).'),
+    'Link':X('Utility Button / Link','외부 이동','밑줄 + #424751. 이동 대상이 외부일 때만 사용합니다.')}},
+  'Option Chip':{q:['Normal','Selected'],a:{
+    'Normal':C('Option Chip / Normal','높이 33, 라운드 999',[[['Border','#E0E3E9'],['Label','#000000']]]),
+    'Selected':C('Option Chip / Selected','선택 상태',[[['Border','#2063FF'],['Label','#2063FF']]])}},
+  'Option Selector':{q:['단일 선택','다중 선택'],a:{
+    '단일 선택':X('Option Selector','한 개만 선택','칩을 가로로 나열하고 선택된 하나만 파란 테두리로 표시해요.'),
+    '다중 선택':X('Option Selector','여러 개 선택','선택된 항목마다 테두리를 바꾸고, 상단에 선택 개수를 노출합니다.')}},
+  'Selection Control':{q:['Checkbox','Radio','Toggle'],a:{
+    'Checkbox':X('Checkbox','다중 선택','18×18, 라운드 4, 선택 시 #4185FF 채움.'),
+    'Radio':X('Radio','단일 선택','18×18 원형, 선택 시 안쪽 8px 원 #4185FF.'),
+    'Toggle':X('Toggle','즉시 적용','44×24, 켜짐 #4185FF / 꺼짐 #D8DFE5.')}},
+  'Text Field':{q:['Default','Approve','Error'],a:{
+    'Default':C('Text Field / Default','높이 43, 라벨 12px',[[['Border','#C8CDD4'],['Placeholder','#8C93A0']]]),
+    'Approve':C('Text Field / Approve','입력 완료',[[['Border','#000000'],['Text','#000000']]]),
+    'Error':C('Text Field / Error','형식 오류',[[['Border','#D62E2E'],['Message','#D62E2E']]])}},
+  'Popup':{q:['크기','구성','버튼'],a:{
+    '크기':X('Popup','기본 규격','너비 312, 라운드 8, 좌우 여백 24. 배경은 dimmed 60%.'),
+    '구성':X('Popup','구성 요소','닫기 → 일러스트 → 타이틀 16px → 설명 12px → CTA 순서입니다.'),
+    '버튼':X('Popup','버튼 배치','단일 CTA는 가로 꽉 채움, 두 개면 8px 간격으로 나눕니다.')}},
+  'Tooltip':{q:['위치','내용'],a:{
+    '위치':X('Tooltip','노출 위치','대상 위 8px, 화면 밖으로 나가면 아래로 뒤집습니다.'),
+    '내용':X('Tooltip','문구 길이','한 줄 24자 이내, 최대 두 줄까지 권장합니다.')}}
+};
+GUIDE['기타 문의'] = {q:['담당자에게 직접 문의하고 싶어요','원하는 답변을 찾지 못했어요','가이드에 없는 경우에는 어떻게 해야 하나요?','잘못된 답변을 발견했어요','새로운 가이드나 항목을 제안하고 싶어요'],a:{
+  '원하는 답변을 찾지 못했어요':E('원하는 답변을 찾지 못했다면?','원하는 답변을 찾지 못했다면 질문을 조금 다르게 입력해 보세요.\n컴포넌트명이나 확인하려는 속성을 함께 입력하면 더 정확한 답변을 받을 수 있어요.\n\n예) Button의 높이를 변경할 수 있어?','메일로 문의하기'),
+  '가이드에 없는 경우에는 어떻게 해야 하나요?':E('가이드에 없는 경우라면?','가이드에 정의되지 않은 항목은 임의로 적용하기보다 담당자 확인을 권장해요.\n필요한 내용을 정리해 디자인 시스템 담당자에게 문의해 주세요.','메일로 문의하기'),
+  '잘못된 답변을 발견했어요':E('잘못된 답변을 발견했다면?','답변에 잘못된 내용이 있다면 알려주세요.\n\n질문 내용과 잘못된 답변을 함께 전달해 주시면 확인하는 데 도움이 돼요.','오류 제보하기'),
+  '새로운 가이드나 항목을 제안하고 싶어요':E('새로운 가이드나 항목을 제안하고 싶다면?','새롭게 필요한 가이드나 개선이 필요한 항목이 있다면 제안해 주세요.\n\n제안 내용과 필요한 이유를 함께 전달해 주시면 검토에 도움이 돼요.','가이드 제안하기'),
+  '담당자에게 직접 문의하고 싶어요':E('추가 확인이 필요한 내용은 담당자에게 문의해 주세요.','담당자 : 강지수 (Felix)\nE-mail: felix.kang@cheilpengtai.com','')}};
+function relatedFor(cat){
+  if(cat === '기타 문의') return [];
+  if(!USE_DB) return [];
+  var owner = S.topic || (isTopic(cat) ? cat : TOPICS.filter(function(t){ return SECTIONS[t].indexOf(cat) > -1; })[0]);
+  if(!owner) return [];
+  return SECTIONS[owner].filter(function(s){ return s !== cat; }).slice(0, 3);
+}
+
+/* ── DB 우선: data/ 폴더에 내용이 있으면 메뉴·답변을 DB에서 구성 ── */
+var DB = window.MOA_DB || [];
+var USE_DB = DB.length > 0;
+
+/* 주제(파일) 목록과 주제별 섹션 목록 */
+var TOPICS = [], SECTIONS = {};
+if(USE_DB){
+  DB.forEach(function(ch){
+    if(TOPICS.indexOf(ch.topic) < 0){ TOPICS.push(ch.topic); SECTIONS[ch.topic] = []; }
+    if(ch.section && SECTIONS[ch.topic].indexOf(ch.section) < 0) SECTIONS[ch.topic].push(ch.section);
+  });
+  var GROUPS = [
+    {en:'Foundation', ko:'공통 스타일', items:['Color','Typeface','Spacing','Dimmed & Shadow','Iconography','Radius']},
+    {en:'Element', ko:'기본 요소', items:['CTA Button','Utility Button','Badge','Chip','Option Chip','Option Selector','Selection Control','Indicator','Divider']},
+    {en:'Component', ko:'조합 UI', items:['Popup']}
+  ];
+  var grouped = [];
+  MENU = GROUPS.map(function(g){
+    var items = g.items.filter(function(t){ return TOPICS.indexOf(t) > -1; });
+    grouped = grouped.concat(items);
+    return { en:g.en, ko:g.ko, items:items };
+  });
+  var rest = TOPICS.filter(function(t){ return grouped.indexOf(t) < 0; });
+  if(rest.length) MENU.push({ en:'Etc', ko:'기타', items:rest });
+  MENU = MENU.filter(function(s){ return s.items.length; });
+  var ROWS = [
+    ['Color','Typeface','Spacing'],
+    ['CTA Button','Utility Button'],
+    ['Popup','Dimmed & Shadow'],
+    ['Iconography','Radius']
+  ];
+  HOME_CHIPS = ROWS.map(function(r){
+    return r.filter(function(t){ return TOPICS.indexOf(t) > -1; });
+  }).filter(function(r){ return r.length; });
+}
+
+function isTopic(name){ return TOPICS.indexOf(name) > -1; }
+function inDb(name){
+  return isTopic(name) || DB.some(function(c){ return c.section === name; });
+}
+function dbFor(topic, section){
+  return DB.filter(function(c){
+    return (!topic || c.topic === topic) && c.section === section;
+  });
+}
+
+function dbAnswer(section, chunks){
+  var csv = chunks.filter(function(c){ return c.kind === 'csv' && c.row; });
+  if(csv.length){
+    var keys = Object.keys(csv[0].row);
+    var hexKey = keys.filter(function(k){ return /^(hex|color|value)$/i.test(k); })[0];
+    var sizeKey = keys.filter(function(k){ return /^(size|fontsize|px)$/i.test(k); })[0];
+    var nameKey = keys[0];
+    var desc = csv[0].source + ' · ' + csv.length + '항목';
+    if(hexKey){
+      var rows = [];
+      for(var i = 0; i < csv.length; i += 2){
+        rows.push(csv.slice(i, i + 2).map(function(c){ return [c.row[nameKey], c.row[hexKey]]; }));
+      }
+      return { kind:'colors', title:section, desc:desc, rows:rows };
+    }
+    if(sizeKey){
+      return { kind:'type', title:section, desc:desc, items: csv.map(function(c){
+        return [c.row[sizeKey], keys.filter(function(k){ return k !== nameKey && k !== sizeKey; }).map(function(k){ return c.row[k]; }).filter(Boolean).join(', ')];
+      })};
+    }
+  }
+  var text = chunks.map(function(c){
+    return (c.title && c.title !== c.section ? c.title + '\n' : '') + c.text;
+  }).join('\n\n').trim();
+  return { kind:'text', title:section, desc:chunks[0].source, text:text };
+}
+
+/* ── state ───────────────────────────────────────────────────── */
+var S = {screen:'home', cat:null, topic:null, history:[], connected:true, key:'', hasKey:false};
+var $ = function(id){return document.getElementById(id);};
+var el = function(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n;};
+
+function toast(msg){var t=$('toast');t.textContent=msg;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('on');},1500);}
+function post(msg){parent.postMessage({pluginMessage:msg},'*');}
+
+function show(screen){
+  if(S.screen !== screen && S.screen) S.history.push(S.screen);
+  S.screen = screen;
+  $('pgHome').classList.toggle('hide', screen!=='home');
+  $('pgChat').classList.toggle('hide', screen!=='chat');
+  $('pgKey').classList.toggle('hide', screen!=='key');
+  $('bgHome').classList.toggle('hide', screen!=='home');
+  $('bgChat').classList.toggle('hide', screen!=='chat');
+  $('bgIng').classList.toggle('hide', screen!=='chat');
+  if(screen!=='chat') setIng(false);
+  $('bgKey').classList.toggle('hide', screen!=='key');
+  $('topbar').classList.toggle('hide', screen!=='chat' && screen!=='key');
+  $('bar').classList.toggle('hide', screen!=='chat' && screen!=='home');
+  $('head').classList.toggle('transparent', screen==='key');
+  if(screen==='chat') $('topTitle').textContent = (S.topic && S.topic !== S.cat ? S.topic + ' · ' : '') + (S.cat || 'Chat');
+  if(screen==='key') $('topTitle').textContent = '설정';
+}
+function back(){
+  var prev = S.history.pop() || 'home';
+  S.screen = null;
+  show(prev); S.history.pop();
+}
+
+/* ── home chips ──────────────────────────────────────────────── */
+var moa = $('moaMotion'), moaImg = $('moaImg'), moaOk = true;
+function moaBounce(){ moa.classList.remove('play'); void moa.offsetWidth; moa.classList.add('play'); }
+moa.addEventListener('animationend', function(){ moa.classList.remove('play'); });
+moaImg.onerror = function(){ if(moaOk){ moaOk = false; moaImg.src = moaImg.dataset.still; } };
+new Image().src = moaImg.dataset.motion;
+moa.addEventListener('mouseenter', function(){
+  if(!moaOk){ moaBounce(); return; }
+  moaImg.src = moaImg.dataset.motion + '?t=' + Date.now();
+});
+moa.addEventListener('mouseleave', function(){
+  if(moaOk) moaImg.src = moaImg.dataset.still;
+});
+moa.onclick = function(){
+  if(!moaOk){ moaBounce(); return; }
+  moaImg.src = moaImg.dataset.motion + '?t=' + Date.now();
+};
+
+HOME_CHIPS.forEach(function(row){
+  var r = el('div','home-row');
+  row.forEach(function(label){
+    var b = el('button','mchip',label);
+    b.onclick = function(){ openCategory(label); };
+    r.appendChild(b);
+  });
+  $('homeChips').appendChild(r);
+});
+
+/* ── 전체 메뉴 ───────────────────────────────────────────────── */
+MENU.forEach(function(sec, i){
+  var s = el('div','sec'), inner = el('div','sec-in'), h = el('div','sec-h');
+  h.appendChild(el('span','en',sec.en));
+  h.appendChild(el('span','ko',sec.ko));
+  inner.appendChild(h);
+  var chips = el('div','sec-chips');
+  sec.items.forEach(function(label){
+    var b = el('button','chip sm',label);
+    b.onclick = function(){ closeMenu(); openCategory(label, USE_DB ? label : sec.en); };
+    chips.appendChild(b);
+  });
+  inner.appendChild(chips);
+  s.appendChild(inner);
+  if(i < MENU.length-1) s.appendChild(el('div','divider'));
+  $('sheetList').appendChild(s);
+});
+
+/* ── chat ────────────────────────────────────────────────────── */
+var STAR = '<svg width="20" height="20" viewBox="0 0 20 20"><defs><linearGradient id="ti1" x1="0.208" y1="0.094" x2="0.792" y2="0.906"><stop offset="0.26%" stop-color="#A3E7FF"/><stop offset="99.86%" stop-color="#3790FF"/></linearGradient><linearGradient id="ti3" x1="0.175" y1="0.120" x2="0.825" y2="0.880"><stop offset="0%" stop-color="#2063FF"/><stop offset="100%" stop-color="#9383FF"/></linearGradient><linearGradient id="ti2" x1="0.161" y1="0.132" x2="0.839" y2="0.868"><stop offset="0.1%" stop-color="#37A1FF"/><stop offset="99.87%" stop-color="#D98DFF"/></linearGradient></defs><g transform="translate(1.851 1) scale(1.28565)"><path d="M 6.318 0 C 7.423 0 8.318 0.895 8.318 2 L 8.318 6.783 C 8.321 6.81 8.322 6.837 8.324 6.864 C 8.325 6.872 8.325 6.881 8.326 6.889 C 8.33 6.944 8.33 6.999 8.329 7.054 C 8.329 7.065 8.328 7.076 8.328 7.088 C 8.326 7.133 8.324 7.178 8.319 7.223 C 8.317 7.248 8.313 7.274 8.309 7.3 C 8.304 7.339 8.297 7.378 8.289 7.417 C 8.284 7.44 8.279 7.463 8.273 7.486 C 8.264 7.524 8.253 7.561 8.242 7.599 C 8.234 7.625 8.226 7.652 8.217 7.679 C 8.204 7.715 8.19 7.751 8.176 7.786 C 8.166 7.808 8.157 7.83 8.147 7.852 C 8.072 8.016 7.974 8.171 7.854 8.312 C 7.843 8.325 7.832 8.338 7.821 8.351 C 7.789 8.386 7.755 8.42 7.721 8.454 C 7.706 8.468 7.692 8.483 7.678 8.496 C 7.646 8.525 7.611 8.552 7.577 8.579 C 7.56 8.593 7.544 8.607 7.526 8.62 C 7.494 8.644 7.461 8.666 7.427 8.688 C 7.404 8.703 7.381 8.719 7.358 8.732 C 7.349 8.738 7.341 8.745 7.332 8.75 L 3.002 11.25 C 2.045 11.802 0.822 11.474 0.269 10.518 C -0.283 9.561 0.045 8.338 1.002 7.786 L 2.331 7.018 L 1 6.25 C 0.043 5.698 -0.284 4.474 0.268 3.518 C 0.821 2.561 2.043 2.234 3 2.786 L 4.318 3.547 L 4.318 2 C 4.318 0.895 5.214 0 6.318 0 Z" fill="url(#ti1)"/><rect x="4.318" y="9" width="4" height="5" rx="2" fill="url(#ti3)"/><path transform="translate(4.302 2.517)" d="M 5.329 0.268 C 6.286 -0.284 7.509 0.044 8.062 1.001 C 8.614 1.957 8.286 3.181 7.329 3.733 L 6 4.5 L 7.33 5.268 C 8.287 5.82 8.615 7.044 8.063 8.001 C 7.51 8.957 6.287 9.285 5.33 8.733 L 1 6.233 C 0.996 6.231 0.992 6.227 0.988 6.225 C 0.94 6.197 0.894 6.167 0.848 6.134 C 0.839 6.128 0.83 6.123 0.821 6.117 C 0.678 6.013 0.549 5.888 0.436 5.745 C 0.422 5.728 0.408 5.711 0.395 5.694 C 0.37 5.661 0.348 5.626 0.325 5.591 C 0.312 5.571 0.299 5.552 0.286 5.532 C 0.28 5.521 0.273 5.511 0.267 5.501 C 0.25 5.472 0.237 5.442 0.222 5.413 C 0.213 5.396 0.204 5.379 0.195 5.362 C 0.175 5.32 0.157 5.277 0.14 5.234 C 0.133 5.215 0.125 5.197 0.118 5.178 C 0.103 5.136 0.09 5.093 0.077 5.05 C 0.072 5.033 0.068 5.017 0.064 5 C 0.05 4.948 0.04 4.896 0.03 4.844 C 0.029 4.835 0.027 4.827 0.026 4.818 C 0.018 4.77 0.012 4.722 0.008 4.674 C 0.006 4.653 0.004 4.632 0.003 4.611 C 0.001 4.566 0 4.521 0 4.476 C 0 4.459 0 4.442 0.001 4.424 C 0.003 4.378 0.007 4.332 0.012 4.287 C 0.014 4.265 0.017 4.243 0.02 4.221 C 0.025 4.184 0.032 4.146 0.039 4.109 C 0.045 4.082 0.049 4.055 0.056 4.029 C 0.066 3.985 0.079 3.943 0.093 3.9 C 0.098 3.884 0.103 3.867 0.109 3.851 C 0.124 3.807 0.14 3.764 0.158 3.721 C 0.167 3.702 0.175 3.682 0.184 3.663 C 0.204 3.618 0.227 3.575 0.25 3.533 C 0.256 3.522 0.262 3.511 0.268 3.501 C 0.27 3.496 0.272 3.492 0.275 3.488 C 0.303 3.439 0.335 3.392 0.367 3.346 C 0.373 3.339 0.377 3.331 0.382 3.324 C 0.411 3.284 0.442 3.245 0.474 3.208 C 0.487 3.192 0.5 3.176 0.514 3.161 C 0.542 3.129 0.572 3.1 0.603 3.071 C 0.619 3.055 0.635 3.038 0.653 3.022 C 0.684 2.994 0.716 2.967 0.749 2.941 C 0.767 2.926 0.785 2.911 0.804 2.897 C 0.834 2.875 0.864 2.854 0.896 2.834 C 0.922 2.816 0.948 2.798 0.976 2.782 C 0.983 2.777 0.992 2.773 0.999 2.768 L 5.329 0.268 Z" fill="url(#ti2)"/></g></svg>';
+
+function openCategory(cat, topic){
+  S.cat = cat;
+  S.topic = topic || (USE_DB && isTopic(cat) ? cat : null);
+  var g = GUIDE[cat];
+  var con = $('chatCon');
+  con.innerHTML = '';
+  var intro = el('div','intro');
+  var title = el('div','title');
+  title.innerHTML = STAR;
+  var h1 = el('h1');
+  h1.textContent = (cat === '기타 문의')
+    ? '기타문의사항이에요.\n어떤게 궁금하신가요?'
+    : cat + '의 구성이에요.\n어떤게 궁금하신가요?';
+  h1.className = 'sweep';
+  setTimeout(function(){ h1.className = ''; }, 2000);
+  ['.bar .glow','.bar .grad','.bar .rim'].forEach(function(sel){
+    var n = document.querySelector(sel);
+    n.classList.remove('sweep'); void n.offsetWidth; n.classList.add('sweep');
+    setTimeout(function(){ n.classList.remove('sweep'); }, 2000);
+  });
+  title.appendChild(h1);
+  intro.appendChild(title);
+  var qs = el('div','qchips');
+  var fromDb = USE_DB && inDb(cat);
+  var qlist = (!fromDb && g) ? g.q : null;
+  if(fromDb){
+    var owner = S.topic || (isTopic(cat) ? cat : TOPICS.filter(function(t){ return SECTIONS[t].indexOf(cat) > -1; })[0]);
+    S.topic = owner || null;
+    qlist = owner ? SECTIONS[owner].slice(0, 16) : [cat];
+  }
+  (qlist || ['한 눈에 보기']).forEach(function(q){
+    var b = el('button','chip',q);
+    b.onclick = function(){
+      Array.prototype.forEach.call(qs.children, function(c){c.classList.remove('sel');});
+      b.classList.add('sel');
+      ask(q);
+    };
+    qs.appendChild(b);
+  });
+  intro.appendChild(qs);
+  con.appendChild(intro);
+  show('chat');
+}
+
+function setIng(on){ $('bgIng').classList.toggle('on', !!on); }
+function mdPlain(text){
+  return String(text)
+    .replace(/`([^`]*)`/g, '$1')
+    .replace(/\*\*([^*]*)\*\*/g, '$1')
+    .replace(/^>\s?/gm, '')
+    .replace(/^\s*[-*]\s+/gm, '• ')
+    .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '$1')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
+function scrollDown(){ var c=$('chatCon'); c.scrollTop = c.scrollHeight; }
+
+function ask(q){
+  var con = $('chatCon');
+  var r = el('div','row-user');
+  r.appendChild(el('div','bub-user',q));
+  con.appendChild(r); scrollDown();
+
+  var botRow = el('div','row-bot');
+  var av = el('div','avatar');
+  av.innerHTML = '<img src="../assets/img-profile.png" alt="Moa">';
+  var body = el('div','bot-body');
+  var ing = el('div','bub-ing');
+  ing.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
+  body.appendChild(ing);
+  botRow.appendChild(av); botRow.appendChild(body);
+  con.appendChild(botRow); scrollDown();
+  setIng(true);
+
+  setTimeout(function(){
+    body.removeChild(ing);
+    setIng(false);
+    var catInDb = USE_DB && inDb(S.cat);
+    var gc = GUIDE[S.cat];
+    if(!catInDb && gc && gc.a[q]){ renderAnswer(body, gc.a[q]); return; }
+    if(USE_DB){
+      var exact = dbFor(S.topic, q);
+      if(exact.length){ renderAnswer(body, dbAnswer(q, exact)); return; }
+      window.moaAsk(q, S.key).then(function(res){
+        renderAnswer(body, { kind:'text', title:q, desc:(res.sources && res.sources[0]) || '', text:res.text });
+      }).catch(function(err){
+        renderAnswer(body, { kind:'text', title:q, desc:'', text:'답변을 가져오지 못했습니다. 네트워크와 API 키를 확인해 주세요. (' + err.message + ')' });
+      });
+      return;
+    }
+    var g = GUIDE[S.cat];
+    var a = (g && g.a[q]) || X(q, S.cat || '', 'data/ 폴더에 가이드 파일을 넣고 빌드하면 실제 답변이 표시됩니다.');
+    renderAnswer(body, a);
+  }, 900);
+}
+
+function renderAnswer(body, a){
+  var card = el('div','card');
+  var h = el('div','card-h');
+  h.appendChild(el('div','t', a.title));
+  if(a.desc) h.appendChild(el('div','d', a.desc));
+  card.appendChild(h);
+
+  if(a.kind === 'colors'){
+    var grid = el('div','sw-grid'), flat = [];
+    a.rows.forEach(function(row){
+      var r = el('div','sw-row');
+      row.forEach(function(it){
+        flat.push(it[0]+' '+it[1]);
+        var s = el('button','sw');
+        var box = el('div','chipbox'); box.style.background = it[1];
+        var meta = el('div','meta');
+        meta.appendChild(el('div','n', it[0]));
+        meta.appendChild(el('div','h', it[1]));
+        s.appendChild(box); s.appendChild(meta);
+        s.title = '클릭하면 선택한 요소에 적용';
+        s.onclick = function(){ post({type:'apply-fill', hex:it[1], name:it[0]}); };
+        r.appendChild(s);
+      });
+      if(row.length === 1) r.appendChild(el('div','sw'));
+      grid.appendChild(r);
+    });
+    card.appendChild(grid);
+    body.appendChild(card);
+    addActions(body, flat.join('\n'));
+  } else if(a.kind === 'type'){
+    var wrap = el('div','tp-list');
+    a.items.forEach(function(it){
+      var r = el('button','tp-row');
+      r.appendChild(el('span','a', it[0]));
+      r.appendChild(el('span','b', it[1]));
+      r.title = '클릭하면 선택한 텍스트에 적용';
+      r.onclick = function(){ post({type:'apply-fontsize', size:parseInt(it[0],10), label:it[0]}); };
+      wrap.appendChild(r);
+    });
+    card.appendChild(wrap);
+    body.appendChild(card);
+    addActions(body, a.items.map(function(i){return i[0]+' · '+i[1];}).join('\n'));
+  } else {
+    var p = el('p');
+    card.appendChild(p);
+    body.appendChild(card);
+    var plain = mdPlain(a.text);
+    typeText(p, plain, function(){ addActions(body, plain, a.cta); });
+  }
+  scrollDown();
+}
+
+function typeText(node, text, done){
+  var i = 0;
+  var caret = el('span','caret','▍');
+  node.parentNode.appendChild(caret);
+  (function step(){
+    node.textContent = text.slice(0, i);
+    scrollDown();
+    if(i++ < text.length){ setTimeout(step, 16); }
+    else { if(caret.parentNode) caret.parentNode.removeChild(caret); if(done) done(); }
+  })();
+}
+
+function addActions(body, copyText, cta){
+  var after = el('div','after');
+
+  var rel = relatedFor(S.cat);
+  if(rel.length){
+    var chips = el('div','qchips');
+    rel.forEach(function(q){
+      var b = el('button','chip',q);
+      b.onclick = function(){ ask(q); };
+      chips.appendChild(b);
+    });
+    after.appendChild(chips);
+  }
+
+  var bl = el('button','backlink');
+  if(cta){
+    var ctaWrap = el('div','qchips');
+    var cb = el('button','chip sm', cta);
+    cb.onclick = function(){ post({type:'open-mail', label:cta}); toast(cta + ' — 담당자 메일로 연결해요'); };
+    ctaWrap.appendChild(cb);
+    after.appendChild(ctaWrap);
+  }
+
+  bl.innerHTML = '<span style="position:relative;width:16px;height:16px;flex-shrink:0;display:block"><svg width="11.738" height="11.2" viewBox="0 0 11.738 11.2" style="position:absolute;left:2.369px;top:2.13px"><path d="M 5.184 0.174 C 5.416 -0.058 5.793 -0.058 6.026 0.174 C 6.258 0.406 6.258 0.782 6.026 1.015 L 2.036 5 L 11.139 5 C 11.47 5 11.738 5.269 11.738 5.6 C 11.738 5.931 11.47 6.199 11.139 6.199 L 2.037 6.199 L 6.026 10.185 C 6.258 10.417 6.258 10.793 6.026 11.026 C 5.793 11.258 5.416 11.258 5.184 11.026 L 0.174 6.021 C -0.058 5.788 -0.058 5.412 0.174 5.18 L 5.184 0.174 Z" fill-rule="nonzero"/></svg></span><span>이전으로</span>';
+  bl.onclick = function(){ openCategory(S.cat, S.topic); };
+  after.appendChild(bl);
+
+  body.appendChild(after);
+  scrollDown();
+}
+
+function copyToClipboard(text){
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.cssText='position:fixed;opacity:0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); toast('복사했어요'); }catch(e){ toast('복사에 실패했어요'); }
+  document.body.removeChild(ta);
+}
+
+/* ── input bar ───────────────────────────────────────────────── */
+var msg = $('msgInput');
+function autoGrow(){
+  msg.style.height = 'auto';
+  var line = 17, max = line * 20;
+  msg.style.height = Math.min(msg.scrollHeight, max) + 'px';
+}
+msg.addEventListener('input', function(){ $('bar').classList.toggle('typing', msg.value.trim().length > 0); autoGrow(); });
+msg.addEventListener('keydown', function(e){ if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send(); } });
+$('btnSend').onclick = send;
+function send(){
+  var v = msg.value.trim();
+  if(!v) return;
+  if(!S.connected){ $('discOverlay').classList.remove('hide'); return; }
+  msg.value = ''; $('bar').classList.remove('typing'); autoGrow();
+  if(S.screen !== 'chat'){ S.cat = S.cat || (TOPICS[0] || 'Color'); openCategory(S.cat, S.topic); }
+  ask(v);
+}
+
+/* ── chrome events ───────────────────────────────────────────── */
+$('btnEtc').onclick = function(){ openCategory('기타 문의'); };
+$('btnMenu').onclick = function(){ $('menuOverlay').classList.remove('hide'); };
+$('menuClose').onclick = closeMenu;
+function closeMenu(){
+  var o = $('menuOverlay');
+  if(o.classList.contains('hide') || o.classList.contains('closing')) return;
+  o.classList.add('closing');
+  setTimeout(function(){ o.classList.add('hide'); o.classList.remove('closing'); }, 260);
+}
+$('btnBack').onclick = back;
+$('btnClose').onclick = function(){ post({type:'close'}); };
+$('btnSettings').onclick = function(){ show('key'); };
+$('btnRefresh').onclick = function(){ if(S.cat) openCategory(S.cat, S.topic); toast('대화를 초기화했어요'); };
+$('statusDot').parentNode.addEventListener('contextmenu', function(e){ e.preventDefault(); setConnected(!S.connected); });
+$('discClose').onclick = function(){ $('discOverlay').classList.add('hide'); };
+$('discGo').onclick = function(){ $('discOverlay').classList.add('hide'); show('key'); };
+
+function setConnected(v){
+  S.connected = v;
+  $('statusDot').classList.toggle('off', !v);
+  if(!v) $('discOverlay').classList.remove('hide');
+}
+
+/* ── API key ─────────────────────────────────────────────────── */
+var keyInput = $('keyInput'), keyBox = $('keyBox'), keySave = $('keySave');
+keyInput.addEventListener('input', function(){
+  var v = keyInput.value.trim();
+  keyBox.classList.remove('err');
+  keyBox.classList.toggle('on', v.length > 0);
+  keySave.disabled = v.length === 0;
+});
+$('keyClear').onclick = function(){ keyInput.value=''; keyBox.classList.remove('on','err'); keySave.disabled = true; };
+keySave.onclick = function(){
+  var v = keyInput.value.trim();
+  if(v.length < 20 || v.indexOf(' ') > -1){ keyBox.classList.remove('on'); keyBox.classList.add('err'); return; }
+  S.key = v; S.hasKey = true; setConnected(true);
+  post({type:'save-key', key:v});
+  toast('API 키를 저장했어요');
+  S.history = [];
+  show('home');
+};
+
+window.onmessage = function(e){
+  var m = e.data.pluginMessage; if(!m) return;
+  if(m.type === 'key'){
+    if(m.key){ keyInput.value = m.key; keyBox.classList.add('on'); keySave.disabled = false; S.key = m.key; S.hasKey = true; show('home'); }
+    else { show('key'); }
+  }
+  if(m.type === 'toast') toast(m.text);
+};
+show('home');
+post({type:'load-key'});
+</script>
+</body>
+</html>

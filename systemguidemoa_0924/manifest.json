@@ -1,0 +1,16 @@
+{
+  "name": "System Guide Moa",
+  "id": "moa-system-guide",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "index.html",
+  "editorType": ["figma", "figjam"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": [
+      "https://generativelanguage.googleapis.com",
+      "https://cdn.jsdelivr.net"
+    ],
+    "reasoning": "Gemini API 호출 및 마스코트 애니메이션 로드"
+  }
+}
