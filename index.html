@@ -238,6 +238,11 @@ input{font:inherit;border:0;outline:0;background:none}
 .sec-h .en{font-size:14px;font-weight:600;line-height:20px}
 .sec-h .ko{font-size:14px;font-weight:600;line-height:20px;color:#757575}
 .sec-chips{display:flex;flex-wrap:wrap;gap:8px 6px}
+.mtopics{display:flex;flex-direction:column;gap:16px}
+.mtopic{display:flex;flex-direction:row;align-items:flex-start;gap:8px}
+.mtopic .sec-chips{flex:1;min-width:0;gap:4px;padding-top:4px}
+.chip.xs{height:24px;padding:4px 8px;font-size:11px;line-height:14px}
+.mtopic-h{flex-shrink:0}
 .divider{height:1px;background:#DDD}
 .modal{position:absolute;left:24px;top:163px;width:312px;overflow:hidden;border-radius:8px;background:#fff;display:flex;flex-direction:column;animation:up .22s ease-out}
 .modal-head{height:44px;display:flex;padding:12px 16px 8px;justify-content:flex-end;align-items:center}
@@ -534,8 +539,8 @@ var MENU = [
 var HOME_CHIPS = [
   ['Color','Typeface','Spacing'],
   ['CTA Button','Utility Button'],
-  ['Popup','Dimmed & Shadow'],
-  ['Iconography','Radius']
+  ['Popup','Chip','Option Chip'],
+  ['Tab','Radius']
 ];
 var C = function(t,d,rows){return {kind:'colors',title:t,desc:d,rows:rows};};
 var T = function(t,d,items){return {kind:'type',title:t,desc:d,items:items};};
@@ -655,15 +660,6 @@ if(USE_DB){
   var rest = TOPICS.filter(function(t){ return grouped.indexOf(t) < 0; });
   if(rest.length) MENU.push({ en:'Etc', ko:'기타', items:rest });
   MENU = MENU.filter(function(s){ return s.items.length; });
-  var ROWS = [
-    ['Color','Typeface','Spacing'],
-    ['CTA Button','Utility Button'],
-    ['Popup','Dimmed & Shadow'],
-    ['Iconography','Radius']
-  ];
-  HOME_CHIPS = ROWS.map(function(r){
-    return r.filter(function(t){ return TOPICS.indexOf(t) > -1; });
-  }).filter(function(r){ return r.length; });
 }
 
 function isTopic(name){ return TOPICS.indexOf(name) > -1; }
@@ -778,19 +774,72 @@ HOME_CHIPS.forEach(function(row){
   $('homeChips').appendChild(r);
 });
 
+var OVERVIEW = '한 눈에 보기';
+var TYPE_CHIPS = {
+  'Color':['Primary Color','Secondary Color','GrayScale','Neutral Color','Theme'],
+  'Typeface':['Display','Heading','Title','Body','Label','Caption'],
+  'Spacing':['Inset','Gap','Grid','Section'],
+  'CTA Button':['Primary Action Button','Secondary Action Button','Tertiary Action Button'],
+  'Popup':['Confirmation','Contents','Input Data','Notification'],
+  'Chip':['Action','Select'],
+  'Option Chip':['Color','Label'],
+  'Radius':['Pill','Control','Surface','Overlay'],
+  'Dimmed & Shadow':['Dimmed','Shadow'],
+  'Iconography':['Creation','Usage','Grid & Keyline','Anatomy','Stroke Terminal','Corners','Angle','Typeface Align','Logo','Spaces'],
+  'Badge':['Filled','Label','Dot','Number','Icon'],
+  'Selection Control':['CheckBox','Radio','Switch'],
+  'Indicator':['Arrow','Bar','Dot','Number','ScrollIndicator'],
+  'Divider':['Horizontal','Vertical'],
+  'Option Selector':['Color','Image','Label','Meta']
+};
+function chipsFor(topic){
+  if(!USE_DB || !isTopic(topic)) return (GUIDE[topic] && GUIDE[topic].q) || [OVERVIEW];
+  return [OVERVIEW].concat(TYPE_CHIPS[topic] || SECTIONS[topic].filter(function(s){ return s !== OVERVIEW; }));
+}
+function typeChunks(topic, q){
+  var key = q.replace(/\s+Color$/i, '').toLowerCase();
+  var secs = (SECTIONS[topic] || []).filter(function(s){ return s.toLowerCase().indexOf(key) > -1; });
+  return DB.filter(function(c){ return c.topic === topic && secs.indexOf(c.section) > -1; });
+}
+function overviewFor(topic){
+  var secs = SECTIONS[topic] || [];
+  var text = secs.map(function(s){
+    var c = dbFor(topic, s)[0];
+    var line = c ? mdPlain(c.text).split('\n').filter(Boolean)[0] || '' : '';
+    line = line.replace(/^•\s*/, '');
+    if(line.length > 60) line = line.slice(0, 60) + '…';
+    return '• ' + s + (line ? '\n  ' + line : '');
+  }).join('\n');
+  var src = (DB.filter(function(c){ return c.topic === topic; })[0] || {}).source || '';
+  return { kind:'text', title:topic, desc:src + (secs.length ? ' · ' + secs.length + '개 항목' : ''), text:text };
+}
 /* ── 전체 메뉴 ───────────────────────────────────────────────── */
 MENU.forEach(function(sec, i){
   var s = el('div','sec'), inner = el('div','sec-in'), h = el('div','sec-h');
   h.appendChild(el('span','en',sec.en));
   h.appendChild(el('span','ko',sec.ko));
   inner.appendChild(h);
-  var chips = el('div','sec-chips');
+  var list = el('div','mtopics');
   sec.items.forEach(function(label){
-    var b = el('button','chip sm',label);
-    b.onclick = function(){ closeMenu(); openCategory(label, USE_DB ? label : sec.en); };
-    chips.appendChild(b);
+    var topic = USE_DB ? label : sec.en;
+    var t = el('div','mtopic');
+    var th = el('button','chip sm mtopic-h',label);
+    th.onclick = function(){ closeMenu(); openCategory(label, topic); };
+    t.appendChild(th);
+    var chips = el('div','sec-chips');
+    chipsFor(label).filter(function(q){ return q !== OVERVIEW; }).forEach(function(q){
+      var b = el('button','chip xs',q);
+      b.onclick = function(){
+        closeMenu(); openCategory(label, topic);
+        var hit = Array.prototype.filter.call(document.querySelectorAll('#chatCon .intro .chip'), function(c){ return c.textContent === q; })[0];
+        if(hit) hit.click(); else ask(q);
+      };
+      chips.appendChild(b);
+    });
+    t.appendChild(chips);
+    list.appendChild(t);
   });
-  inner.appendChild(chips);
+  inner.appendChild(list);
   s.appendChild(inner);
   if(i < MENU.length-1) s.appendChild(el('div','divider'));
   $('sheetList').appendChild(s);
@@ -827,9 +876,9 @@ function openCategory(cat, topic){
   if(fromDb){
     var owner = S.topic || (isTopic(cat) ? cat : TOPICS.filter(function(t){ return SECTIONS[t].indexOf(cat) > -1; })[0]);
     S.topic = owner || null;
-    qlist = owner ? SECTIONS[owner].slice(0, 16) : [cat];
+    qlist = owner ? chipsFor(owner) : [cat];
   }
-  (qlist || ['한 눈에 보기']).forEach(function(q){
+  (qlist || [OVERVIEW]).forEach(function(q){
     var b = el('button','chip',q);
     b.onclick = function(){
       Array.prototype.forEach.call(qs.children, function(c){c.classList.remove('sel');});
@@ -881,8 +930,11 @@ function ask(q){
     var gc = GUIDE[S.cat];
     if(!catInDb && gc && gc.a[q]){ renderAnswer(body, gc.a[q]); return; }
     if(USE_DB){
+      if(q === OVERVIEW && S.topic && isTopic(S.topic)){ renderAnswer(body, overviewFor(S.topic)); return; }
       var exact = dbFor(S.topic, q);
       if(exact.length){ renderAnswer(body, dbAnswer(q, exact)); return; }
+      var typed = S.topic ? typeChunks(S.topic, q) : [];
+      if(typed.length){ renderAnswer(body, dbAnswer(q, typed)); return; }
       window.moaAsk(q, S.key).then(function(res){
         renderAnswer(body, { kind:'text', title:q, desc:(res.sources && res.sources[0]) || '', text:res.text });
       }).catch(function(err){
