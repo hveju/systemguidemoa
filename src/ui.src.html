@@ -141,7 +141,7 @@ input{font:inherit;border:0;outline:0;background:none}
 .step .tx{min-width:0;display:flex;flex-direction:column;gap:2px}
 .step .t{font-size:12px;font-weight:600;line-height:16px;letter-spacing:-0.02em;color:#000}
 .step.skip .t{color:#8C93A0}
-.step .d{font-size:11px;font-weight:400;line-height:15px;color:#5C6473;word-break:break-all}
+.step .d{font-size:11px;font-weight:400;line-height:15px;color:#5C6473;word-break:break-all;white-space:pre-line}
 .step.error .d{color:#D62E2E}
 .step.warn .d{color:#A86E00}
 @keyframes stepSpin{to{transform:rotate(360deg)}}
@@ -488,6 +488,7 @@ Gemini API 키가 필요해요</h1>
 </div>
 
 <script>window.MOA_DB = __DB_JSON__;</script>
+<script>window.MOA_TOKENS = __TOKENS_JSON__;</script>
 <script>__GEMINI_JS__</script>
 <script>
 /* ── fallback data (data/ 폴더가 비었을 때만 사용) ────────────── */

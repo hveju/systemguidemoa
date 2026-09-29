@@ -140,3 +140,18 @@ fs.writeFileSync('preview/ui.preview.html', build(n => `../assets/img-${n}.png`)
 
 console.log(`chunks: ${chunks.length}`);
 ```
+
+
+## 디자인 토큰 (data/tokens/)
+
+Figma Variables를 W3C 토큰 형식(`*.tokens.json`)으로 내보내 `data/tokens/`에 둡니다.
+
+- `Value.tokens.json` — Primitive
+- `Light BG.tokens.json` — Semantic
+- `Typography.tokens.json` — Typeface
+- `Component/Light.tokens.json`, `Component/Dark.tokens.json` — Component (Light/Dark 모드)
+
+빌드 시 `$value`가 있는 노드를 경로(예: `tab/standard/label/normal`)로 펼치고, 이름 앞 두 단계로 묶어 `tokens.json`을 만든 뒤
+`__TOKENS_JSON__` 토큰을 그 내용으로 치환해 `window.MOA_TOKENS`에 넣습니다.
+색상은 `hex`(알파가 1 미만이면 %), 별칭은 `com.figma.aliasData.targetVariableName`을 괄호 안에, 모드가 여럿이면 `Light … · Dark …`로 적습니다.
+챗봇은 3단계에서 가이드 문서(MOA_DB)와 토큰(MOA_TOKENS)을 병렬로 검색해 가이드 최대 5건, 토큰 최대 4건을 근거로 씁니다.
