@@ -126,7 +126,17 @@ input{font:inherit;border:0;outline:0;background:none}
 .bub-ing i:nth-child(2){width:8px;height:8px}
 .bub-ing i:nth-child(3){width:10px;height:10px}
 .bub-ing i:nth-child(2){animation-delay:.2s}.bub-ing i:nth-child(3){animation-delay:.4s}
+.bub-ing .ing-t{display:none;font-size:12px;font-weight:500;line-height:16px;letter-spacing:-0.02em;color:#5C6473;background:linear-gradient(90deg,#8C93A0 0%,#4185FF 50%,#8C93A0 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:ingShine 1.6s linear infinite}
+.bub-ing.long{display:flex;flex-direction:row;align-items:center;gap:8px;width:auto;max-width:none;white-space:nowrap}
+.bub-ing.long .ing-t{white-space:nowrap;flex-shrink:0}
+.bub-ing.long .ing-t{display:inline}
+@keyframes ingShine{from{background-position:200% 0}to{background-position:-200% 0}}
 @keyframes blink{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-2px)}}
+.hx{display:inline-flex;align-items:center;gap:3px;white-space:nowrap;vertical-align:baseline}
+.hx i{display:inline-block;width:10px;height:10px;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14);background-image:linear-gradient(45deg,#E0E3E9 25%,transparent 25%,transparent 75%,#E0E3E9 75%),linear-gradient(45deg,#E0E3E9 25%,#fff 25%,#fff 75%,#E0E3E9 75%);background-size:6px 6px;background-position:0 0,3px 3px;position:relative;top:1px;cursor:pointer;overflow:hidden}
+.hx i b{display:block;width:100%;height:100%}
+.hx i:hover{box-shadow:inset 0 0 0 1px rgba(0,0,0,.14),0 0 0 2px #D6E4FF}
+.bub-note{align-self:flex-start;max-width:100%;border-radius:2px 20px 20px 20px;background:#fff;box-shadow:0 0 2px 0 rgba(0,0,0,.04);padding:10px 14px;font-size:13px;font-weight:500;line-height:19px;letter-spacing:-0.02em;color:#000;animation:stepIn .25s cubic-bezier(.22,1,.36,1)}
 .steps{align-self:stretch;border-radius:2px 20px 20px 20px;background:#fff;box-shadow:0 0 2px 0 rgba(0,0,0,.04);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
 .step{display:flex;flex-direction:row;gap:8px;align-items:flex-start;animation:stepIn .25s cubic-bezier(.22,1,.36,1)}
 .step .ic{position:relative;width:14px;height:14px;margin-top:1px;flex-shrink:0;border-radius:50%}
@@ -207,9 +217,7 @@ input{font:inherit;border:0;outline:0;background:none}
 
 /* ── intro (home.fig 1:50) ── */
 #pgIntro{overflow:hidden;background:rgb(238,243,247)}
-#pgIntro .ibg{position:absolute;left:0;top:0;width:360px;height:640px;background:radial-gradient(402.492px 382.194px at 100% 100%, rgb(255,205,255) 0%, rgba(255,255,255,0.4) 70.19%, rgba(197,224,255,0) 100%), radial-gradient(291.772px 329.25px at 20.83% 8.2%, rgba(255,255,255,0.2) 0%, rgb(164,211,251) 100%)}
-#pgIntro .im{position:absolute;left:0;top:0;transform-origin:0 0;background-position:center;background-size:cover;background-repeat:no-repeat}
-#pgIntro .glow{position:absolute;left:-108px;top:361px;width:273px;height:204px;opacity:.2;border-radius:50%;background:radial-gradient(136.5px 102px at 50% 50%, rgb(63,239,255) 0%, rgba(63,239,255,0) 100%)}
+#pgIntro .ibg{position:absolute;left:0;top:0;width:360px;height:640px;background-position:center;background-size:cover;background-repeat:no-repeat}
 #pgIntro .itxt{position:absolute;left:0;top:100px;width:360px;display:flex;flex-direction:column;gap:20px;padding:0 32px;color:#000;letter-spacing:-0.01em}
 #pgIntro .itxt h1{font-size:30px;font-weight:700;line-height:1.33;white-space:pre-line}
 #pgIntro .itxt h1 span{font-weight:300}
@@ -317,10 +325,7 @@ input{font:inherit;border:0;outline:0;background:none}
 
   <!-- intro (home.fig) -->
   <div class="page hide" id="pgIntro">
-    <div class="ibg"></div>
-    <div class="im" style="transform:matrix(0.938,0.346,-0.346,0.938,299.461,244);width:124.835px;height:105.278px;opacity:.8;filter:blur(8px);background-image:url(__IMG_INTRO_544067__)"></div>
-    <div class="glow"></div>
-    <div class="im" style="transform:matrix(-0.559,-0.829,0.829,-0.559,277.5,280.266);width:17.001px;height:17.001px;opacity:.7;filter:blur(3px);background-image:url(__IMG_INTRO_ef9269__)"></div>
+    <div class="ibg" style="background-image:url(__IMG_INTRO_BG__)"></div>
     <div class="itxt">
       <h1><span>반가워요!</span>
 디자인시스템 가이드 봇
@@ -328,8 +333,6 @@ input{font:inherit;border:0;outline:0;background:none}
       <p>컴포넌트에 대해 궁금하신 점을
 물어보면 바로 찾아드릴게요</p>
     </div>
-    <div class="im" style="left:-3px;top:324px;width:381px;height:208px;background-image:url(__IMG_INTRO_482d4e__)"></div>
-    <div class="im" style="transform:matrix(-0.95,-0.312,0.312,-0.95,156.09,849.445);width:420.011px;height:354.555px;filter:blur(16px);background-image:url(__IMG_INTRO_e39163__)"></div>
     <div class="ibottom"><button class="icta" id="btnAsk">물어보러 가기</button></div>
   </div>
 
@@ -813,6 +816,7 @@ var STAR = '<svg width="20" height="20" viewBox="0 0 20 20"><defs><linearGradien
 function openCategory(cat, topic){
   S.cat = cat;
   S.topic = topic || (USE_DB && isTopic(cat) ? cat : null);
+  S.convo = [];
   var g = GUIDE[cat];
   var con = $('chatCon');
   con.innerHTML = '';
@@ -868,7 +872,65 @@ function mdPlain(text){
 
 function scrollDown(){ var c=$('chatCon'); c.scrollTop = c.scrollHeight; }
 
-function ask(q){
+/* 한 채팅창 안의 대화 기록 — 카테고리를 새로 열면 초기화 */
+function remember(q, text, topics){
+  S.convo = S.convo || [];
+  S.convo.push({ q: q, a: text, topics: topics && topics.length ? topics : (S.topic ? [S.topic] : []) });
+  if(S.convo.length > 10) S.convo.shift();
+}
+var AVATAR_HTML = '<img src="__IMG_PROFILE__" alt="Moa">';
+/* 입력한 질문의 주제가 지금 채팅창과 다르면 맞는 카테고리로 이동 */
+function detectTopics(q){
+  if(!USE_DB || typeof moaTokenize !== 'function' || !window.MOA_GLOSSARY && typeof MOA_GLOSSARY === 'undefined') return [];
+  var names = {};
+  TOPICS.concat(['Tab']).forEach(function(t){ names[t.toLowerCase().replace(/[^a-z가-힣]/g, '')] = t; });
+  var found = [];
+  moaTokenize(q).forEach(function(t){
+    var k = t.replace(/[^a-z가-힣]/g, '');
+    var hit = MOA_GLOSSARY[t] || names[k];
+    if(!hit) Object.keys(MOA_GLOSSARY).forEach(function(g){ if(!hit && g.length > 1 && t.indexOf(g) === 0) hit = MOA_GLOSSARY[g]; });
+    if(hit && found.indexOf(hit) < 0 && (isTopic(hit) || hit === 'Tab')) found.push(hit);
+  });
+  /* 더 구체적인 주제가 있으면 일반 주제는 뺌 (유틸리티 버튼 > 버튼, 옵션칩 > 칩) */
+  [['Utility Button','CTA Button'],['Option Chip','Chip']].forEach(function(p){ if(found.indexOf(p[0]) > -1) found = found.filter(function(t){ return t !== p[1]; }); });
+  var comp = found.filter(function(t){ return MOA_FOUNDATION.indexOf(t) < 0; });
+  return comp.concat(found.filter(function(t){ return comp.indexOf(t) < 0; }));
+}
+function relatedTopic(a, b){
+  if(!a || !b) return false;
+  return a === b || a.indexOf(b) > -1 || b.indexOf(a) > -1;
+}
+function redirectTopic(q){
+  if(S.cat === '기타 문의' && etcIntent(q)) return null;
+  var found = detectTopics(q);
+  if(!found.length) return null;
+  var cur = S.cat === '기타 문의' ? null : (S.topic || S.cat);
+  if(cur && found.some(function(t){ return relatedTopic(t, cur); })) return null;
+  return found[0];
+}
+function ask(q, typed){
+  if(typed){
+    var mv = redirectTopic(q);
+    if(mv){
+      var con0 = $('chatCon');
+      var ur = el('div','row-user'); ur.appendChild(el('div','bub-user', q)); con0.appendChild(ur);
+      var br = el('div','row-bot'), av0 = el('div','avatar');
+      av0.innerHTML = AVATAR_HTML;
+      var bb = el('div','bot-body'), note = el('div','bub-note');
+      var dots = el('div','bub-ing');
+      dots.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
+      bb.appendChild(dots); br.appendChild(av0); br.appendChild(bb); con0.appendChild(br); scrollDown();
+      setTimeout(function(){
+        bb.removeChild(dots);
+        var np = el('p'); note.appendChild(np); bb.appendChild(note); scrollDown();
+        typeText(np, '해당 질문에 맞는 채팅창으로 이동합니다.', function(){
+          setTimeout(function(){ openCategory(mv, mv); ask(q); }, 700);
+        });
+      }, 500);
+      return;
+    }
+  }
+  S.curQ = q;
   var con = $('chatCon');
   var r = el('div','row-user');
   r.appendChild(el('div','bub-user',q));
@@ -876,10 +938,10 @@ function ask(q){
 
   var botRow = el('div','row-bot');
   var av = el('div','avatar');
-  av.innerHTML = '<img src="__IMG_PROFILE__" alt="Moa">';
+  av.innerHTML = AVATAR_HTML;
   var body = el('div','bot-body');
   var ing = el('div','bub-ing');
-  ing.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
+  ing.innerHTML = '<span class="dots"><i></i><i></i><i></i></span><span class="ing-t">답변을 찾고 있어요</span>';
   body.appendChild(ing);
   botRow.appendChild(av); botRow.appendChild(body);
   con.appendChild(botRow); scrollDown();
@@ -904,29 +966,64 @@ function ask(q){
       if(exact.length){ renderAnswer(body, dbAnswer(q, exact)); return; }
       var typed = S.topic ? typeChunks(S.topic, q) : [];
       if(typed.length){ renderAnswer(body, dbAnswer(q, typed)); return; }
-      var steps = el('div','steps'), rows = [];
-      body.appendChild(steps); setIng(true);
-      var onStep = function(i, status, detail){
-        if(status === 'skip' && !detail && !rows[i]) return;
-        var row = rows[i];
-        if(!row){
-          row = rows[i] = el('div','step');
-          row.innerHTML = '<span class="ic"></span><span class="tx"><span class="t"></span><span class="d"></span></span>';
-          row.querySelector('.t').textContent = (i + 1) + '단계. ' + window.MOA_STEPS[i];
-          steps.appendChild(row);
+      setIng(true);
+      ing.classList.add('long'); body.appendChild(ing); scrollDown();
+      var dropIng = function(){ if(ing.parentNode) ing.parentNode.removeChild(ing); };
+      var onStep = function(){};
+      var live = null, liveP = null;
+      /* Gemini가 "가이드에 해당 내용이 없습니다"로 시작하면, 그 문장이 끝날 때까지 화면에 띄우지 않고
+         뒤에 실제 답이 이어지면 그 문장은 빼고 보여줌 */
+      var NA = window.MOA_NO_ANSWER || '';
+      var stripNA = function(t){
+        var s = String(t).trim();
+        if(NA && NA.indexOf(s) === 0) return '';
+        if(!NA || s.indexOf('가이드에 해당 내용이 없') !== 0) return s;
+        return s.replace(/^가이드에 해당 내용이 없습니다\.?\s*(디자인 시스템 담당자에게 문의해 주세요\.?)?\s*/, '').trim();
+      };
+      var onDelta = function(t){
+        t = stripNA(t || '');
+        if(!t) return;
+        dropIng();
+        if(!live){
+          live = el('div','card');
+          var lh = el('div','card-h'); lh.appendChild(el('div','t', q)); live.appendChild(lh);
+          liveP = el('p'); live.appendChild(liveP);
+          live.appendChild(el('span','caret','▍'));
+          body.appendChild(live);
         }
-        row.className = 'step ' + status;
-        row.querySelector('.d').textContent = detail || '';
-        row.querySelector('.d').style.display = detail ? '' : 'none';
+        paintHex(liveP, mdPlain(t));
         scrollDown();
       };
-      window.moaAsk(q, S.key, { onStep:onStep, topic:S.topic }).then(function(res){
-        setIng(false);
-        renderAnswer(body, { kind:'text', title:q, desc:(res.sources && res.sources[0]) || '', text:res.text });
+      window.moaAsk(q, S.key, { onStep:onStep, onDelta:onDelta, topic:S.topic, history:(S.convo || []).slice() }).then(function(res){
+        setIng(false); dropIng();
+        if(res.grounded === false){
+          renderAnswer(body, { kind:'text', title:'답변할 수 없어요', desc:'', text:res.text + (res.reason ? '\n\n이유: ' + res.reason : ''), topics:res.topics });
+          return;
+        }
+        var finRaw = stripNA(res.text);
+        if(!finRaw){
+          if(live && live.parentNode) live.parentNode.removeChild(live);
+          renderAnswer(body, { kind:'text', title:'답변할 수 없어요', desc:'', text:NA + '\n\n이유: 6단계(최종 답변 생성) · 검색된 근거 안에서 질문에 맞는 답을 찾지 못했어요', topics:res.topics });
+          return;
+        }
+        res.text = finRaw;
+        if(live){
+          var fin = mdPlain(res.text);
+          paintHex(liveP, fin);
+          var caret = live.querySelector('.caret'); if(caret) caret.parentNode.removeChild(caret);
+          var src = res.sources && res.sources[0];
+          if(src) live.querySelector('.card-h').appendChild(el('div','d', src));
+          remember(q, q + '\n' + fin, res.topics); S.curQ = null;
+          addActions(body, fin, '');
+          scrollDown();
+        } else {
+          renderAnswer(body, { kind:'text', title:q, desc:(res.sources && res.sources[0]) || '', text:res.text, topics:res.topics });
+        }
       }).catch(function(err){
-        setIng(false);
+        setIng(false); dropIng();
+        if(live && live.parentNode) live.parentNode.removeChild(live);
         var at = err.step > -1 ? (err.step + 1) + '단계(' + window.MOA_STEPS[err.step] + ')에서 ' : '';
-        renderAnswer(body, { kind:'text', title:q, desc:'', text:'답변을 가져오지 못했습니다. ' + at + '오류가 발생했어요.\n' + err.message });
+        renderAnswer(body, { kind:'text', title:'답변을 가져오지 못했어요', desc:'', text:at + '오류가 발생했어요.\n\n이유: ' + err.message });
       });
       return;
     }
@@ -937,6 +1034,11 @@ function ask(q){
 }
 
 function renderAnswer(body, a){
+  if(S.curQ != null){
+    var memo = a.text || (a.rows ? [].concat.apply([], a.rows).map(function(it){ return it[0] + ' ' + it[1]; }).join('\n') : '') || (a.items ? a.items.map(function(i){ return i[0] + ' · ' + i[1]; }).join('\n') : '');
+    remember(S.curQ, (a.title ? a.title + '\n' : '') + memo, a.topics);
+    S.curQ = null;
+  }
   var card = el('div','card');
   var h = el('div','card-h');
   h.appendChild(el('div','t', a.title));
@@ -983,10 +1085,33 @@ function renderAnswer(body, a){
     card.appendChild(p);
     body.appendChild(card);
     var plain = mdPlain(a.text);
-    typeText(p, plain, function(){ addActions(body, plain, a.cta); });
+    if(a.instant){ paintHex(p, plain); addActions(body, plain, a.cta); }
+    else typeText(p, plain, function(){ paintHex(p, plain); addActions(body, plain, a.cta); });
   }
   scrollDown();
 }
+
+/* 답변 속 HEX 코드 옆에 작은 컬러 칩 — 클릭하면 선택한 요소에 채우기 적용 */
+var HEX_RE = /#([0-9A-Fa-f]{8}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})\b(\s*(\d{1,3})%)?/g;
+function paintHex(node, text){
+  var esc = function(s){ return s.replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var out = '', i = 0, m;
+  HEX_RE.lastIndex = 0;
+  while((m = HEX_RE.exec(text))){
+    var h = m[1]; if(h.length === 3) h = h.replace(/./g, '$&$&');
+    var alpha = m[3] != null ? Math.min(100, +m[3]) / 100 : (h.length === 8 ? parseInt(h.slice(6), 16) / 255 : 1);
+    var hex6 = '#' + h.slice(0, 6).toUpperCase();
+    var r = parseInt(h.slice(0,2),16), g = parseInt(h.slice(2,4),16), b = parseInt(h.slice(4,6),16);
+    out += esc(text.slice(i, m.index)) + '<span class="hx"><i data-hex="' + hex6 + '" title="' + hex6 + ' · 클릭하면 선택한 요소에 적용"><b style="background:rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')"></b></i>' + esc(m[0]) + '</span>';
+    i = m.index + m[0].length;
+  }
+  node.innerHTML = out + esc(text.slice(i));
+}
+document.addEventListener('click', function(e){
+  var t = e.target.closest && e.target.closest('.hx i');
+  if(!t) return;
+  post({type:'apply-fill', hex:t.getAttribute('data-hex'), name:t.getAttribute('data-hex')});
+});
 
 function typeText(node, text, done){
   var i = 0;
@@ -1001,6 +1126,7 @@ function typeText(node, text, done){
 }
 
 function undoLast(){
+  if(S.convo && S.convo.length) S.convo.pop();
   var con = $('chatCon');
   var bots = con.querySelectorAll('.row-bot');
   var bot = bots[bots.length - 1];
@@ -1075,8 +1201,8 @@ function send(){
   if(!v) return;
   if(!S.connected){ $('discOverlay').classList.remove('hide'); return; }
   msg.value = ''; $('bar').classList.remove('typing'); autoGrow();
-  if(S.screen !== 'chat'){ S.cat = S.cat || (TOPICS[0] || 'Color'); openCategory(S.cat, S.topic); }
-  ask(v);
+  if(S.screen !== 'chat'){ var tp = detectTopics(v)[0]; if(tp){ openCategory(tp, tp); ask(v); return; } S.cat = S.cat || (TOPICS[0] || 'Color'); openCategory(S.cat, S.topic); }
+  ask(v, true);
 }
 
 /* ── chrome events ───────────────────────────────────────────── */

@@ -155,3 +155,8 @@ Figma Variables를 W3C 토큰 형식(`*.tokens.json`)으로 내보내 `data/toke
 `__TOKENS_JSON__` 토큰을 그 내용으로 치환해 `window.MOA_TOKENS`에 넣습니다.
 색상은 `hex`(알파가 1 미만이면 %), 별칭은 `com.figma.aliasData.targetVariableName`을 괄호 안에, 모드가 여럿이면 `Light … · Dark …`로 적습니다.
 챗봇은 3단계에서 가이드 문서(MOA_DB)와 토큰(MOA_TOKENS)을 병렬로 검색해 가이드 최대 5건, 토큰 최대 4건을 근거로 씁니다.
+
+
+## 홈(인트로) 배경
+
+`__IMG_INTRO_BG__` → `assets/intro-bg.jpg`를 data URI로 치환합니다(미리보기는 `../assets/intro-bg.jpg`).
