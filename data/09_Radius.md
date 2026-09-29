@@ -1,4 +1,4 @@
-# Radius (라운드)
+# Radius
 
 DB 등록: 2차
 담당자: Daisy
@@ -7,17 +7,19 @@ DB 등록: 2차
 작업상태: 진행 중
 하위 항목: Pill (https://app.notion.com/p/Pill-3ba15929183280c390cbec83a305bf22?pvs=21), Control (https://app.notion.com/p/Control-3ba1592918328097b57df0bac6575a38?pvs=21), Surface (https://app.notion.com/p/Surface-3ba15929183280c59f7ff6b2a6e8cf37?pvs=21), Overlay (https://app.notion.com/p/Overlay-3ba1592918328043a4e4f981b4bddafc?pvs=21)
 
+# Radius (라운드)
+
 ## 0. 메타
 
-### 0.1. 분류
+### 0.1. 분류 (Category)
 
-- `Foundation / Radius`
+1. Foundation / Radius
 
-### 0.2. 타입 종류
+### 0.2. 타입 종류 (Types)
 
 Pill, Control, Surface, Overlay
 
-### 0.3. 타입별 요소 (키워드)
+### 0.3. 타입 별 요소 (keyword)
 
 - **Pill** : 완전라운드 알약버튼 칩 뱃지 태그
 - **Control** : 버튼 입력필드 체크박스 토글 소형컨트롤
@@ -26,7 +28,7 @@ Pill, Control, Surface, Overlay
 
 ### 0.4. Figma Node ID
 
-- N/A
+미정(TBD)
 
 ## 1. 개요
 
@@ -41,9 +43,7 @@ UI 요소의 모서리 곡률(Corner Radius)을 제어하여 컴포넌트의 목
 - 카드, 패널 등 화면 내부의 인라인 면적을 구획할 때 → **Surface** 사용
 - 모달, 바텀시트 등 화면 위에 뜨는 최상위 플로팅 레이어일 때 → **Overlay** 사용
 
-## 2. 사용 규칙
-
-> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[ALLOW]`: 예외 허용 · `[AVOID]`: 금지
+## 2. 사용 규칙 (Usage Rules)
 
 ### 2.1. 공통 규칙
 
@@ -66,7 +66,38 @@ UI 요소의 모서리 곡률(Corner Radius)을 제어하여 컴포넌트의 목
 - **[type=Surface][MUST]** 컨테이너의 면적 크기에 맞춰 12px ~ 20px 범위 내에서 선택 적용한다.
 - **[type=Overlay][MUST]** 반응형 디바이스 환경에 따라 PC 환경은 24px, Mobile 환경은 12px을 구분 적용한다.
 
-## 3. 상태별 가이드
+## 3. 스펙 및 토큰 (Design Tokens)
+
+### 3.1. 공통
+
+- **너비(Width)**: 해당 없음(N/A) — 대상 컴포넌트 스펙에 따름
+- **정렬(Align)**: 해당 없음(N/A)
+- **레이블 폰트(Label Font)**: 해당 없음(N/A)
+- **레이블 굵기(Font Weight)**: 해당 없음(N/A)
+- **라운드 규칙(Radius Rule)**: 위계 및 공간 스케일 준수 (Pill: Height 1/2 · Control: 4~12px · Surface: 12~20px · Overlay: PC 24px / Mo 12px)
+- **라벨이 한글일 경우**: 해당 없음(N/A)
+
+### 3.2. type = Pill
+
+- **라운드(Radius)**: 높이의 1/2 (또는 9999px)
+- **적용 컴포넌트 예시**: Pill Button, Chip, Badge, Tag
+
+### 3.3. type = Control
+
+- **라운드(Radius)**: 4px ~ 12px
+- **적용 컴포넌트 예시**: Button, Input Field, Checkbox, Toggle, Dropdown Menu
+
+### 3.4. type = Surface
+
+- **라운드(Radius)**: 12px ~ 20px
+- **적용 컴포넌트 예시**: Card, Container, Panel, Section Box
+
+### 3.5. type = Overlay
+
+- **라운드(Radius)**: PC = 24px / Mobile = 12px
+- **적용 컴포넌트 예시**: Modal, Dialog, Bottom Sheet, Toast, Tooltip, Popover
+
+## 4. 상태별 가이드 (States)
 
 Radius 토큰은 파운데이션(Foundation) 스타일 속성이므로 hover, disabled, pressed, focused 등 컴포넌트 상태 변화와 관계없이 동일한 라운드 값을 유지한다.
 

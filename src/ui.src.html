@@ -127,6 +127,25 @@ input{font:inherit;border:0;outline:0;background:none}
 .bub-ing i:nth-child(3){width:10px;height:10px}
 .bub-ing i:nth-child(2){animation-delay:.2s}.bub-ing i:nth-child(3){animation-delay:.4s}
 @keyframes blink{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-2px)}}
+.steps{align-self:stretch;border-radius:2px 20px 20px 20px;background:#fff;box-shadow:0 0 2px 0 rgba(0,0,0,.04);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.step{display:flex;flex-direction:row;gap:8px;align-items:flex-start;animation:stepIn .25s cubic-bezier(.22,1,.36,1)}
+.step .ic{position:relative;width:14px;height:14px;margin-top:1px;flex-shrink:0;border-radius:50%}
+.step.run .ic{border:1.5px solid #D6E4FF;border-top-color:#4185FF;animation:stepSpin .8s linear infinite}
+.step.done .ic{background:#4185FF}
+.step.warn .ic{background:#F2A60C}
+.step.error .ic{background:#D62E2E}
+.step.skip .ic{background:#E0E3E9}
+.step.done .ic:after,.step.warn .ic:after{content:"";position:absolute;left:4.5px;top:2.5px;width:3px;height:6px;border:solid #fff;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+.step.error .ic:before,.step.error .ic:after{content:"";position:absolute;left:6.25px;top:3px;width:1.5px;height:8px;background:#fff;border-radius:1px;transform:rotate(45deg)}
+.step.error .ic:after{transform:rotate(-45deg)}
+.step .tx{min-width:0;display:flex;flex-direction:column;gap:2px}
+.step .t{font-size:12px;font-weight:600;line-height:16px;letter-spacing:-0.02em;color:#000}
+.step.skip .t{color:#8C93A0}
+.step .d{font-size:11px;font-weight:400;line-height:15px;color:#5C6473;word-break:break-all}
+.step.error .d{color:#D62E2E}
+.step.warn .d{color:#A86E00}
+@keyframes stepSpin{to{transform:rotate(360deg)}}
+@keyframes stepIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 .card{align-self:stretch;width:100%;border-radius:8px;background:#fff;padding:12px 16px;display:flex;flex-direction:column;gap:12px}
 .card-h{display:flex;flex-direction:column;gap:2px}
 .card-h .t{font-size:14px;font-weight:600;line-height:1.33;color:#000}
@@ -186,6 +205,18 @@ input{font:inherit;border:0;outline:0;background:none}
 .bar .send svg path{fill:url(#sendGrad)}
 .bar.typing .send{opacity:1;transform:translateX(0)}
 
+/* ── intro (home.fig 1:50) ── */
+#pgIntro{overflow:hidden;background:rgb(238,243,247)}
+#pgIntro .ibg{position:absolute;left:0;top:0;width:360px;height:640px;background:radial-gradient(402.492px 382.194px at 100% 100%, rgb(255,205,255) 0%, rgba(255,255,255,0.4) 70.19%, rgba(197,224,255,0) 100%), radial-gradient(291.772px 329.25px at 20.83% 8.2%, rgba(255,255,255,0.2) 0%, rgb(164,211,251) 100%)}
+#pgIntro .im{position:absolute;left:0;top:0;transform-origin:0 0;background-position:center;background-size:cover;background-repeat:no-repeat}
+#pgIntro .glow{position:absolute;left:-108px;top:361px;width:273px;height:204px;opacity:.2;border-radius:50%;background:radial-gradient(136.5px 102px at 50% 50%, rgb(63,239,255) 0%, rgba(63,239,255,0) 100%)}
+#pgIntro .itxt{position:absolute;left:0;top:100px;width:360px;display:flex;flex-direction:column;gap:20px;padding:0 32px;color:#000;letter-spacing:-0.01em}
+#pgIntro .itxt h1{font-size:30px;font-weight:700;line-height:1.33;white-space:pre-line}
+#pgIntro .itxt h1 span{font-weight:300}
+#pgIntro .itxt p{font-size:16px;font-weight:300;line-height:1.5;white-space:pre-line}
+#pgIntro .ibottom{position:absolute;left:0;top:568px;width:360px;height:72px;padding:12px 16px 16px;display:flex;flex-direction:column}
+#pgIntro .icta{height:44px;align-self:stretch;border-radius:999px;background:#fff;display:flex;justify-content:center;align-items:center;padding:12px 16px;font-size:14px;font-weight:700;line-height:19px;letter-spacing:-0.02em;color:#000}
+#pgIntro .icta:hover{background:#F4F6F9}
 /* ── API key screen (2:597 / 2:611 / 2:625) ── */
 .key-img{display:none}
 .key-body{position:absolute;left:24px;top:190px;width:312px;display:flex;flex-direction:column;gap:24px;z-index:5}
@@ -284,8 +315,26 @@ input{font:inherit;border:0;outline:0;background:none}
   </div>
   <div class="bg-key hide" id="bgKey"></div>
 
+  <!-- intro (home.fig) -->
+  <div class="page hide" id="pgIntro">
+    <div class="ibg"></div>
+    <div class="im" style="transform:matrix(0.938,0.346,-0.346,0.938,299.461,244);width:124.835px;height:105.278px;opacity:.8;filter:blur(8px);background-image:url(__IMG_INTRO_544067__)"></div>
+    <div class="glow"></div>
+    <div class="im" style="transform:matrix(-0.559,-0.829,0.829,-0.559,277.5,280.266);width:17.001px;height:17.001px;opacity:.7;filter:blur(3px);background-image:url(__IMG_INTRO_ef9269__)"></div>
+    <div class="itxt">
+      <h1><span>반가워요!</span>
+디자인시스템 가이드 봇
+모아입니다</h1>
+      <p>컴포넌트에 대해 궁금하신 점을
+물어보면 바로 찾아드릴게요</p>
+    </div>
+    <div class="im" style="left:-3px;top:324px;width:381px;height:208px;background-image:url(__IMG_INTRO_482d4e__)"></div>
+    <div class="im" style="transform:matrix(-0.95,-0.312,0.312,-0.95,156.09,849.445);width:420.011px;height:354.555px;filter:blur(16px);background-image:url(__IMG_INTRO_e39163__)"></div>
+    <div class="ibottom"><button class="icta" id="btnAsk">물어보러 가기</button></div>
+  </div>
+
   <!-- home -->
-  <div class="page" id="pgHome">
+  <div class="page hide" id="pgHome">
     <div class="home-con">
       <div class="home-top">
         <div class="hero">
@@ -622,6 +671,7 @@ function show(screen){
   var prevScreen = S.screen || (S.backFrom ? 'x' : null); S.backFrom = false;
   if(S.screen !== screen && S.screen) S.history.push(S.screen);
   S.screen = screen;
+  $('pgIntro').classList.toggle('hide', screen!=='intro');
   $('pgHome').classList.toggle('hide', screen!=='home');
   $('pgChat').classList.toggle('hide', screen!=='chat');
   $('pgKey').classList.toggle('hide', screen!=='key');
@@ -639,7 +689,7 @@ function show(screen){
   S.navDir = null;
 }
 function slideIn(screen, dir){
-  var ids = {home:['pgHome','bgHome'], chat:['pgChat','bgChat'], key:['pgKey','bgKey']}[screen] || [];
+  var ids = {intro:['pgIntro'], home:['pgHome','bgHome'], chat:['pgChat','bgChat'], key:['pgKey','bgKey']}[screen] || [];
   var from = dir === 'back' ? '-32px' : '32px';
   ids.forEach(function(id, i){
     var n = $(id); if(!n || !n.animate) return;
@@ -730,27 +780,13 @@ MENU.forEach(function(sec, i){
   h.appendChild(el('span','en',sec.en));
   h.appendChild(el('span','ko',sec.ko));
   inner.appendChild(h);
-  var list = el('div','mtopics');
+  var chips = el('div','sec-chips');
   sec.items.forEach(function(label){
-    var topic = USE_DB ? label : sec.en;
-    var t = el('div','mtopic');
-    var th = el('button','chip sm mtopic-h',label);
-    th.onclick = function(){ closeMenu(); openCategory(label, topic); };
-    t.appendChild(th);
-    var chips = el('div','sec-chips');
-    chipsFor(label).filter(function(q){ return q !== OVERVIEW; }).forEach(function(q){
-      var b = el('button','chip xs',q);
-      b.onclick = function(){
-        closeMenu(); openCategory(label, topic);
-        var hit = Array.prototype.filter.call(document.querySelectorAll('#chatCon .intro .chip'), function(c){ return c.textContent === q; })[0];
-        if(hit) hit.click(); else ask(q);
-      };
-      chips.appendChild(b);
-    });
-    t.appendChild(chips);
-    list.appendChild(t);
+    var b = el('button','chip sm',label);
+    b.onclick = function(){ closeMenu(); openCategory(label, USE_DB ? label : sec.en); };
+    chips.appendChild(b);
   });
-  inner.appendChild(list);
+  inner.appendChild(chips);
   s.appendChild(inner);
   if(i < MENU.length-1) s.appendChild(el('div','divider'));
   $('sheetList').appendChild(s);
@@ -846,10 +882,29 @@ function ask(q){
       if(exact.length){ renderAnswer(body, dbAnswer(q, exact)); return; }
       var typed = S.topic ? typeChunks(S.topic, q) : [];
       if(typed.length){ renderAnswer(body, dbAnswer(q, typed)); return; }
-      window.moaAsk(q, S.key).then(function(res){
+      var steps = el('div','steps'), rows = [];
+      body.appendChild(steps); setIng(true);
+      var onStep = function(i, status, detail){
+        if(status === 'skip' && !detail && !rows[i]) return;
+        var row = rows[i];
+        if(!row){
+          row = rows[i] = el('div','step');
+          row.innerHTML = '<span class="ic"></span><span class="tx"><span class="t"></span><span class="d"></span></span>';
+          row.querySelector('.t').textContent = (i + 1) + '단계. ' + window.MOA_STEPS[i];
+          steps.appendChild(row);
+        }
+        row.className = 'step ' + status;
+        row.querySelector('.d').textContent = detail || '';
+        row.querySelector('.d').style.display = detail ? '' : 'none';
+        scrollDown();
+      };
+      window.moaAsk(q, S.key, { onStep:onStep, topic:S.topic }).then(function(res){
+        setIng(false);
         renderAnswer(body, { kind:'text', title:q, desc:(res.sources && res.sources[0]) || '', text:res.text });
       }).catch(function(err){
-        renderAnswer(body, { kind:'text', title:q, desc:'', text:'답변을 가져오지 못했습니다. 네트워크와 API 키를 확인해 주세요. (' + err.message + ')' });
+        setIng(false);
+        var at = err.step > -1 ? (err.step + 1) + '단계(' + window.MOA_STEPS[err.step] + ')에서 ' : '';
+        renderAnswer(body, { kind:'text', title:q, desc:'', text:'답변을 가져오지 못했습니다. ' + at + '오류가 발생했어요.\n' + err.message });
       });
       return;
     }
@@ -1014,7 +1069,8 @@ function closeMenu(){
   setTimeout(function(){ o.classList.add('hide'); o.classList.remove('closing'); }, 260);
 }
 $('btnBack').onclick = back;
-$('btnClose').onclick = function(){ post({type:'close'}); };
+$('btnClose').onclick = function(){ show(S.screen === 'home' ? 'intro' : 'home'); };
+$('btnAsk').onclick = function(){ show('key'); };
 $('btnSettings').onclick = function(){ show('key'); };
 $('btnRefresh').onclick = function(){ if(S.cat) openCategory(S.cat, S.topic); toast('대화를 초기화했어요'); };
 $('statusDot').parentNode.addEventListener('contextmenu', function(e){ e.preventDefault(); setConnected(!S.connected); });
@@ -1049,12 +1105,11 @@ keySave.onclick = function(){
 window.onmessage = function(e){
   var m = e.data.pluginMessage; if(!m) return;
   if(m.type === 'key'){
-    if(m.key){ keyInput.value = m.key; keyBox.classList.add('on'); keySave.disabled = false; S.key = m.key; S.hasKey = true; show('home'); }
-    else { show('key'); }
+    if(m.key){ keyInput.value = m.key; keyBox.classList.add('on'); keySave.disabled = false; S.key = m.key; S.hasKey = true; }
   }
   if(m.type === 'toast') toast(m.text);
 };
-show('home');
+show('intro');
 post({type:'load-key'});
 </script>
 </body>

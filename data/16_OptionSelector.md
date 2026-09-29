@@ -7,17 +7,19 @@ DB 등록: 2차
 작업상태: 진행 중
 하위 항목: Color (https://app.notion.com/p/Color-3ba15929183280828f7ae9e6719a03dc?pvs=21), Image (https://app.notion.com/p/Image-3ba159291832802a8cc6fcf8bb0e4a67?pvs=21), Label  (https://app.notion.com/p/Label-3ba15929183280d89974ea2b6e90caae?pvs=21), Meta (https://app.notion.com/p/Meta-3ba159291832802cbea0db474a1a6962?pvs=21)
 
+# Option Selector (옵션 선택)
+
 ## 0. 메타
 
-### 0.1. 분류
+### 0.1. 분류(Category)
 
-- `Element / Option Selector`
+- Component / Option Selector
 
-### 0.2. 타입 종류
+### 0.2. 타입 종류 (Types)
 
 - `Color`, `Image`, `Label`, `Meta`
 
-### 0.3. 타입별 요소 (키워드)
+### 0.3. 타입 별 요소 (keyword)
 
 - Color : `색상 선택` `원형 스와치` `Inner Circle`
 - Image : `이미지 선택` `썸네일` `로고`
@@ -25,8 +27,6 @@ DB 등록: 2차
 - Meta : `라벨+부가정보` `정렬 4종`
 
 ### 0.4. Figma Node ID
-
-- N/A
 
 ---
 
@@ -49,9 +49,10 @@ DB 등록: 2차
 
 ---
 
-## 2. 사용 규칙
+## 2. 사용 규칙 (Usage Rules)
 
-> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[ALLOW]`: 예외 허용 · `[AVOID]`: 금지
+> `[MUST]` : 강제 · `[SHOULD]` : 권장 · `[ALLOW]` : 예외 허용 · `[AVOID]` : 금지
+> 
 
 ### 2.1. 공통 규칙
 
@@ -66,24 +67,24 @@ DB 등록: 2차
 - `[MUST]` 텍스트 옵션은 `Label`(Medium/Large/XLarge)
 - `[MUST]` 라벨+부가정보 동시 노출은 `Meta`(서브타입별 scope 상이)
 
-### 2.3. Color 규칙
+### 2.3. Type=Color 규칙
 
 - `[MUST]` PC는 `Hover` 상태가 있다(Border 48x48, `#2189FF` 70%). Mobile은 `Hover` 없이 `Selected`만 강조된다.
 - `[MUST]` Inner Circle 크기는 PC `36x36`, Mobile `24x24`로 다르다.
 
-### 2.4. Image 규칙
+### 2.4. Type=Image 규칙
 
 - `[MUST]` Container+Border+Image로 구성된다.
 - `[MUST]` Disabled는 Image에 `Opacity 30%`를 추가로 적용한다.
 - 참고: Figma에는 `Bezel` 타입이 있었으나, 삼성닷컴에서 현재 사용 중인 UI가 아니므로 제외. 실사용이 확인되면 다시 추가 예정.
 
-### 2.5. Label 규칙
+### 2.5. Type=Label 규칙
 
 - `[MUST]` Size는 `Medium`/`Large`/`XLarge` 3종이며 Radius가 다르다(Medium 4px, Large 8px, XLarge 6px).
 - `[MUST]` `XLarge`는 SEC 전용이며, `Selected_hover`(PC)/`Pressed_selected`(Mobile)라는 복합 상태가 추가로 있다 — 선택된 항목을 다시 호버/누르면 라벨이 `#BBBBBB`로 옅어진다. Medium/Large에는 이 상태가 없다.
 - `[ALLOW]` Disabled는 Medium/Large는 라벨·컨테이너에 `50%` 투명도를 적용하고, `XLarge`는 라벨을 `#BBBBBB`로 대체한다 — 사이즈별로 처리 방식이 다르다.
 
-### 2.6. Meta 규칙
+### 2.6. Type=Meta 규칙
 
 - `[MUST]` 정렬 방식에 따라 4개 서브타입으로 나뉜다: `Left Aligned Data`, `Right Aligned Data`, `Left Icon + Right Aligned Data`, `Bottom Aligned Data`
 - `[ALLOW]` Icon이 포함되는 서브타입만 Icon 컬러가 상태별로 바뀐다(Normal/Selected `#000000`, Disabled `#BBBBBB`)

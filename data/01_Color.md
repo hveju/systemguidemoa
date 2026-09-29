@@ -7,30 +7,13 @@ DB 등록: 1차
 작업상태: 진행 중
 하위 항목: Primary Color (https://app.notion.com/p/Primary-Color-3981592918328061a90fe60615a6f12a?pvs=21), Secondary Color (https://app.notion.com/p/Secondary-Color-39815929183280029da6e1518e68fedf?pvs=21), Grayscale (https://app.notion.com/p/Grayscale-3981592918328044a673e7cc430308e4?pvs=21), Neutral Color (https://app.notion.com/p/Neutral-Color-398159291832808bb835ec1aa700ae82?pvs=21), Theme (https://app.notion.com/p/Theme-3981592918328018b333d4813df1ac32?pvs=21)
 
+# Colors (컬러)
+
 ## 0. 메타
 
-### 0.1. 분류
-
-- `Foundation / Colors`
-
-### 0.2. 타입 종류
-
-- `Primary`, `Secondary`, `Grayscale`, `Neutral`, `Theme`, `Alpha`, `States`, `Event Extension`
-
-### 0.3. 타입별 요소 (키워드)
-
-- `Primary`: 브랜드 핵심 컬러
-- `Secondary`: 브랜드 보조 컬러
-- `Grayscale`: 텍스트 및 기본 UI 컬러
-- `Neutral`: 배경 및 표면 컬러
-- `Theme`: 라이트·다크 배경 대비
-- `Alpha`: 투명도 조합
-- `States`: 상태 표현 컬러
-- `Event Extension`: 기획전·시즌 컬러 확장
-
-### 0.4. Figma Node ID
-
-- `18403:36225` (foundation / color 최상위 프레임)
+- **분류(Category)**: Foundation / Colors — Primary·Secondary·Grayscale·Neutral·Theme·Alpha·States·컬러 확장 규칙을 한 페이지로 통합
+- **타입 종류(Types)**: `Primary`, `Secondary`, `Grayscale`, `Neutral`, `Theme`, `Alpha`, `States`, `Event Extension(컬러 확장 규칙)`
+- **Figma Node ID**: `18403:36225` (foundation / color 최상위 프레임)
 
 ---
 
@@ -54,9 +37,10 @@ DB 등록: 1차
 
 ---
 
-## 2. 사용 규칙
+## 2. 사용 규칙 (Usage Rules)
 
 > `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[ALLOW]`: 예외 허용 · `[AVOID]`: 금지
+> 
 
 ### 2.1. 공통 규칙
 
@@ -78,37 +62,37 @@ DB 등록: 1차
 - `[SHOULD]` 특정 영역 배경이 어둡거나 밝으면 `Type=Theme` 규칙을 확인한다.
 - `[SHOULD]` 반투명이 필요하면 `Type=Alpha` 공식을 확인한다.
 
-### 2.3. Primary 규칙
+### 2.3. Type=Primary 규칙
 
 - `[MUST]` 브랜드 핵심 액션(주요 버튼, 로고 컬러 등)에 사용한다.
 - `[ALLOW]` `Skyblue`(베이스)는 카드 등의 **배경색**으로도 사용된다 — 브랜드 액션 전용이 아니다.
 
-### 2.4. Secondary 규칙
+### 2.4. Type=Secondary 규칙
 
 - `[SHOULD]` 브랜드 아이덴티티 보강(스카이블루와 조합)이 필요할 때만 사용한다.
 - `[ALLOW]` `Teal`은 가격 할인율 퍼센티지(%), '추천' 등 정보성 태그의 텍스트 컬러로도 사용 가능하다.
 - `[ALLOW]` `Coral`은 경고/오류 상태 컬러로도 사용 가능하다 (`States` 4.1 참고).
 - `[ALLOW]` `Orange Dark`/`Teal Dark`는 텍스트 시인성 확보 목적으로 사용할 수 있다.
 
-### 2.5. Grayscale 규칙
+### 2.5. Type=Grayscale 규칙
 
 - `[MUST]` 텍스트/배경/구분선 위계 전체를 Grayscale 10단계로 관리한다.
 - `[AVOID]` 어두운 배경(`#313131` 등, 예: Snackbar) 위에서 명도 대비가 부족한 `Grayscale 70(#555555)` 이하를 본문 텍스트로 사용하지 않는다.
 
-### 2.6. Neutral 규칙
+### 2.6. Type=Neutral 규칙
 
 - `[SHOULD]` 배경·카드 표면 등 넓은 면적에 사용하며, 텍스트 컬러로는 비권장이다.
 
-### 2.7. Theme 규칙 (라이트/다크 배경 대비)
+### 2.7. Type=Theme 규칙 (라이트/다크 배경 대비)
 
 > 다크모드는 글로벌에서 앱 전체로 자주 쓰이지만 KR에서는 거의 쓰지 않아, 이 문서에서도 "특정 영역 배경이 어두운 경우 텍스트 컬러를 고르는" 최소 기준만 정의한다.
-
+> 
 - `[MUST]` 라이트 배경에서 텍스트 컬러가 필요하면 각 컬러의 `Dark` 계열(`Skyblue Dark`, `Coral Dark`)을 사용한다.
 - `[MUST]` 다크 배경(앱 전체든 특정 섹션이든)에서 텍스트 컬러가 필요하면 각 컬러의 `Light` 계열(`Skyblue Light`, `Coral Light`)을 사용한다.
 - `[SHOULD]` KR에서는 앱 전체 다크모드보다 특정 영역(카드/배너/섹션)의 배경만 어두운 경우에 적용하는 게 일반적이다.
 - `[AVOID]` `color-theme-white`/`color-theme-black`(3.6 참고, 앱 전체 바탕면/전경 역할)을 KR 서비스의 전체 테마 전환 목적으로 그대로 적용하지 않는다 — Global 전용 패턴에 가깝다.
 
-### 2.8. Alpha 규칙 (투명도)
+### 2.8. Type=Alpha 규칙 (투명도)
 
 - 피그마 경로 공식: `Colors/Alpha/{컬러명}/Opacity/{수치}` (예: `Colors/Alpha/Black/Opacity/20`)
 - 코드 토큰명 공식: `color-alpha-{컬러명}-opacity-{수치}`
@@ -116,7 +100,7 @@ DB 등록: 1차
 - `[MUST]` 배경(면)에 알파를 적용하면, 같은 요소의 텍스트/아이콘도 동일 `opacity`로 매칭한다.
 - `[ALLOW]` `Input` 컴포넌트의 비활성 테두리는 알파 대신 `Grayscale/20` 고정값을 사용할 수 있다 (`States` 참고).
 
-### 2.9. 컬러 확장 규칙 (기획전/시즌 신규 컬러)
+### 2.9. Type=컬러 확장 규칙 (기획전/시즌 신규 컬러)
 
 - `[SHOULD]` 신규 Key Color는 메인/서브 합쳐 최대 1~2개로 시작한다.
 - `[MUST]` 메인 컬러보다 밝은 톤이 필요하면 신규 Hex 대신 메인 컬러 + `Opacity(5~90)` 조합을 사용한다.

@@ -1,4 +1,4 @@
-# Dimmed & Shadow (딤드 & 그림자)
+# Dimmed&Shadow
 
 DB 등록: 2차
 담당자: semi
@@ -8,22 +8,9 @@ DB 등록: 2차
 
 ## 0. 메타
 
-### 0.1. 분류
-
-- `Foundation / Dimmed & Shadow`
-
-### 0.2. 타입 종류
-
-- `Dimmed`, `Shadow`
-
-### 0.3. 타입별 요소 (키워드)
-
-- `Dimmed`: 반투명, 딤, 딤드
-- `Shadow`: 그림자
-
-### 0.4. Figma Node ID
-
-- N/A
+- **분류(Category)**: Foundation / Effects — Dimmed·Shadow 통합
+- **타입 종류(Types)**: `Dimmed`(01/02), `Shadow`(01/02)
+- **Figma Node ID**: 미정(TBD)
 
 ---
 
@@ -42,23 +29,24 @@ DB 등록: 2차
 
 ---
 
-## 2. 사용 규칙
+## 2. 사용 규칙 (Usage Rules)
 
 > `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[ALLOW]`: 예외 허용 · `[AVOID]`: 금지
+> 
 
 ### 2.1. 공통 규칙
 
 - `[MUST]` Dimmed·Shadow 모두 정의된 hex+투명도(+offset/blur/spread) 조합만 사용하며, 임의로 새 수치를 만들지 않는다.
 - `[MUST]` Dimmed·Shadow는 항상 `Black(#000000)` 기반만 사용한다. 다른 색 기반 오버레이/그림자는 쓰지 않는다.
 
-### 2.2. Dimmed 규칙
+### 2.2. Type=Dimmed 규칙
 
 - `[MUST]` `Dimmed 01`(60%)을 기본값으로 사용한다 — 대부분의 팝업이 여기 해당한다.
 - `[MUST]` 팝업이 **영상 재생** 화면인 경우에는 `Dimmed 02`(90%)를 사용한다.
 - `[MUST]` 영상 재생 화면인 경우, 닫기(X) 버튼은 팝업 내부가 아니라 Dimmed 영역(팝업 바깥)에 위치시킨다.
 - `[SHOULD]` 위 두 경우(화면 대부분 차지 / 영상 재생) 중 어디에도 명확히 안 걸리면, 기본값인 `Dimmed 01`을 우선 적용한다.
 
-### 2.3. Shadow 규칙
+### 2.3. Type=Shadow 규칙
 
 - `[MUST]` `Shadow`는 `Shadow 01`, `Shadow 02` 두 단계만 공식으로 정의한다. 이 두 값 외에는 임의로 새 수치를 만들지 않는다.
 - `[SHOULD]` 실제로는 이 두 단계와 다른 수치가 여기저기 쓰이고 있지만, 사용이 워낙 제각각이라 그 전부를 규칙화하지는 않는다. 규격 외 비슷한 수치일 때, `Shadow 01`/`Shadow 02` 중 더 가까운 쪽으로 맞추는 것을 우선 검토한다.

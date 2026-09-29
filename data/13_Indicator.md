@@ -9,28 +9,12 @@ DB 등록: 2차
 
 ## 0. 메타
 
-### 0.1. 분류
-
-- `Element / Indicator`
-
-### 0.2. 타입 종류
-
-- `Arrow`, `Bar(PCOnly)`, `Dot`, `Number`, `ScrollIndicator`
-
-### 0.3. 타입별 요소 (키워드)
-
-- `Arrow`: 이전·다음 이동
-- `Bar(PCOnly)`: PC 전용 진행 상태
-- `Dot`: 점 형태 위치 표시
-- `Number`: 현재 순서와 전체 개수
-- `ScrollIndicator`: 스크롤 진행 및 이동
-
-### 0.4. Figma Node ID
-
-- **File**: `Chatbot_Design-System_v1.6_SEC`
-- **File Key**: `yJ2Na1iQvtZwUnyCbBJXCy`
-- **Node ID**: `18659:26309`
-- **Link**: https://www.figma.com/design/yJ2Na1iQvtZwUnyCbBJXCy/Chatbot_Design-System_v1.6_SEC?node-id=18659-26309
+- **분류(Category)**: Component / Indicator — 콘텐츠의 현재 위치·진행 상태·이동 가능 여부를 표현하는 인디케이터
+- **타입 종류(Types)**: `Arrow`, `Bar(PCOnly)`, `Dot`, `Number`, `ScrollIndicator`
+- **Figma 파일**: `Chatbot_Design-System_v1.6_SEC`
+- **Figma File Key**: `yJ2Na1iQvtZwUnyCbBJXCy`
+- **Figma Section Node**: `18659:26309`
+- **Figma Link**: `https://www.figma.com/design/yJ2Na1iQvtZwUnyCbBJXCy/Chatbot_Design-System_v1.6_SEC?node-id=18659-26309`
 
 ## 1. 개요
 
@@ -50,9 +34,10 @@ DB 등록: 2차
 | `Number` | 현재 순서와 전체 개수를 숫자로 표현 | 카드/콘텐츠 순번, 슬라이드 | `target`, `device`, `case`, `play` |
 | `ScrollIndicator` | 스크롤 진행 상태와 이전/다음 이동을 함께 제공 | PC·모바일 가로 스크롤 콘텐츠 | `device`, `case`, `theme`, `show_button` |
 
-## 2. 사용 규칙
+## 2. 사용 규칙 (Usage Rules)
 
-> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[ALLOW]`: 예외 허용 · `[AVOID]`: 금지
+> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[DON'T]`: 금지
+> 
 
 ### 2.1. 공통 규칙
 
@@ -62,8 +47,8 @@ DB 등록: 2차
 - `[MUST]` 인디케이터의 크기, 선 두께, 점 크기, 버튼 크기를 임의 변경하지 않는다.
 - `[SHOULD]` 하나의 콘텐츠 묶음에는 같은 종류의 위치 표현 방식을 일관되게 사용한다.
 - `[SHOULD]` 콘텐츠 개수와 화면 밀도에 맞춰 `Dot`, `Number`, `Bar` 중 인지하기 쉬운 형태를 선택한다.
-- `[AVOID]` 실제 이동 또는 선택이 불가능한 상태에서 활성화된 화살표 버튼을 노출하지 않는다.
-- `[AVOID]` 현재 위치와 무관하게 임의 항목을 `selected`로 표시하지 않는다.
+- `[DON'T]` 실제 이동 또는 선택이 불가능한 상태에서 활성화된 화살표 버튼을 노출하지 않는다.
+- `[DON'T]` 현재 위치와 무관하게 임의 항목을 `selected`로 표시하지 않는다.
 
 ### 2.2. Type 선택 규칙
 
@@ -72,4 +57,4 @@ DB 등록: 2차
 - `[SHOULD]` 현재 순번과 전체 개수를 명확히 알려야 하면 `Number`를 사용한다.
 - `[SHOULD]` 여러 콘텐츠의 진행 상태를 넓은 PC 영역에서 보여줄 때 `Bar(PCOnly)`를 사용한다.
 - `[SHOULD]` 가로 스크롤 콘텐츠의 진행 상태와 양방향 이동을 함께 제공할 때 `ScrollIndicator`를 사용한다.
-- `[AVOID]` `Bar(PCOnly)`를 모바일용 인디케이터로 사용하지 않는다.
+- `[DON'T]` `Bar(PCOnly)`를 모바일용 인디케이터로 사용하지 않는다.

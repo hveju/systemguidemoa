@@ -6,24 +6,26 @@ DB 등록: 2차
 작업: 2026년 9월 14일 오후 1:58
 작업상태: 진행 중
 
+# Divider (구분선)
+
 ## 0. 메타
 
-### 0.1. 분류
+### 0.1. 분류(Category)
 
-- `Element / Divider`
+- Element / Divider
 
-### 0.2. 타입 종류
+### 0.2. 타입 종류 (Types)
 
 - `Horizontal`, `Vertical`
 
-### 0.3. 타입별 요소 (키워드)
+### 0.3. 타입 별 요소 (keyword)
 
 - Horizontal : `가로 구분선` `Height` `상하 콘텐츠 구분`
 - Vertical : `세로 구분선` `Width` `좌우 요소 구분`
 
 ### 0.4. Figma Node ID
 
-- N/A
+- 비고 : Figma 원본 에셋은 Dark BG/Light BG 페이지로 나뉘어 캡처돼 있음(테마별 프레임 단위 캡처) — 문서는 실제 쓰임 기준인 Type(Horizontal/Vertical) 우선 구조로 정리함.
 
 ---
 
@@ -45,9 +47,10 @@ DB 등록: 2차
 
 ---
 
-## 2. 사용 규칙
+## 2. 사용 규칙 (Usage Rules)
 
-> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[ALLOW]`: 예외 허용 · `[AVOID]`: 금지
+> `[MUST]` : 강제 · `[SHOULD]` : 권장 · `[ALLOW]` : 예외 허용 · `[AVOID]` : 금지
+> 
 
 ### 2.1. 공통 규칙
 
@@ -60,12 +63,12 @@ DB 등록: 2차
 - `[MUST]` 수평 콘텐츠 구분엔 `Horizontal`.
 - `[MUST]` 같은 줄에 나열된 요소 구분엔 `Vertical`.
 
-### 2.3. Horizontal 규칙
+### 2.3. Type=Horizontal 규칙
 
 - `[SHOULD]` Light BG 기본은 `Default`, 더 옅은 구분이 필요할 때만 `Light Gray` 사용.
 - `[MUST]` Dark BG는 `Default`(`#555555`) 고정.
 
-### 2.4. Vertical 규칙
+### 2.4. Type=Vertical 규칙
 
 - `[MUST]` Light BG는 `Default` 1종만 확인됨 — `Light Gray`는 Horizontal 전용.
 - `[MUST]` Dark BG는 `Default` 고정.

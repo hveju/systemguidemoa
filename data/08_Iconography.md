@@ -8,24 +8,9 @@ DB 등록: 2차
 
 ## 0. 메타
 
-### 0.1. 분류
-
-- `Foundation / Iconography`
-
-### 0.2. 타입 종류
-
-- `Creation`, `Usage`, `Grid & Keyline`, `Anatomy`, `Stroke Terminal`, `Corners`, `Angle`, `Typeface Align`, `Logo`, `Spaces`
-
-### 0.3. 타입별 요소 (키워드)
-
-- `Usage`: `Bold`, `Regular`, `Light`
-- `Creation`: 아이콘 제작 원칙
-- `Grid & Keyline`: 그리드 및 키라인
-- `Anatomy`: 아이콘 구조
-
-### 0.4. Figma Node ID
-
-- N/A
+- **분류(Category)**: Foundation / Icon — Iconography Guideline (v1.6에서 정책 요약 추가)
+- **타입 종류(Types)**: `Creation`, `Usage(Stroke Type: Bold/Regular/Light)`, `Grid & Keyline`, `Anatomy`, `Stroke Terminal`, `Corners`, `Angle`, `Typeface Align`, `Logo`, `Spaces`
+- **Figma Node ID**: 미정(TBD)
 
 ---
 
@@ -48,9 +33,10 @@ DB 등록: 2차
 
 ---
 
-## 2. 사용 규칙
+## 2. 사용 규칙 (Usage Rules)
 
 > `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[ALLOW]`: 예외 허용 · `[AVOID]`: 금지
+> 
 
 ### 2.1. 공통 규칙 (Creation)
 
@@ -65,17 +51,17 @@ DB 등록: 2차
 - `[AVOID]` 하나의 아이콘 그룹 안에서 서로 다른 stroke type을 섞어 쓰지 않는다.
 - `[MUST]` 각 stroke type마다 정의된 사이즈 규칙(2.3~2.5)을 따른다.
 
-### 2.3. Bold 규칙
+### 2.3. Type=Bold 규칙
 
 - Exterior stroke `8px`, Interior stroke `7 / 7.5px`
 - 사이즈 variation: `12×12` / `16×16` / `24×24`
 
-### 2.4. Regular 규칙
+### 2.4. Type=Regular 규칙
 
 - Exterior stroke `5px`, Interior stroke `4 / 4.5px`
 - 사이즈 variation: `24×24` / `36×36` / `48×48`
 
-### 2.5. Light 규칙
+### 2.5. Type=Light 규칙
 
 - Exterior stroke `3px`, Interior stroke `3px`
 - 사이즈 variation: `64×64` / `72×72` / `96×96`
@@ -89,7 +75,7 @@ DB 등록: 2차
 ### 2.7. Anatomy (구조 용어 정의)
 
 > 규칙이 아니라, 아이콘의 각 부분을 지칭하는 공통 용어입니다. 챗봇이 "Exterior stroke가 뭐야?" 같은 질문에 답할 때 참고합니다.
-
+> 
 - `Exterior stroke` / `Interior stroke`: 외곽선 / 내부선
 - `Exterior stroke terminal` / `Interior stroke terminal`: 외곽선 끝단 / 내부선 끝단
 - `Corner`: 모서리
@@ -129,3 +115,10 @@ DB 등록: 2차
 
 - `[MUST]` `24px` 아이콘 기준으로 **터치 타겟 영역 40px**을 확보한다.
 - `[MUST]` 아이콘 주변에 **Clearance area(여백)**를 확보해 다른 요소와 겹치지 않게 한다.
+
+---
+
+## 99. 관련 피그마 좌표 (Figma Coordinate)
+
+- **Section Link**: 미정(TBD)
+- **Component Set Link**: 미정(TBD)

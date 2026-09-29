@@ -7,26 +7,13 @@ DB 등록: 1차
 작업상태: 진행 중
 하위 항목: Confirmation (https://app.notion.com/p/Confirmation-39d159291832806d925afec8971b9fa1?pvs=21), Input Data (https://app.notion.com/p/Input-Data-39d15929183280cfbf19ee91ca3bd5a0?pvs=21), Notification (https://app.notion.com/p/Notification-39d15929183280d4a7a7d381afdea8e8?pvs=21), Contents (https://app.notion.com/p/Contents-39d159291832806b822dd26808d3538e?pvs=21)
 
+# Popup (팝업)
+
 ## 0. 메타
 
-### 0.1. 분류
-
-- `Component / Popup`
-
-### 0.2. 타입 종류
-
-- `Confirmation`, `Contents`, `Input Data`, `Notification`
-
-### 0.3. 타입별 요소 (키워드)
-
-- `Confirmation`: 확인·취소 결정
-- `Contents`: 정보·미디어 전달
-- `Input Data`: 입력·동의·옵션 비교
-- `Notification`: 시스템 알림·경고·앱 다운로드
-
-### 0.4. Figma Node ID
-
-- N/A
+- **분류(Category)** : `Component / Popup`
+- **타입(Types)** : `Confirmation`, `Contents`, `Input Data`, `Notification`
+- **피그마 노드 ID(Figma Node ID) :**
 
 ---
 
@@ -59,9 +46,7 @@ DB 등록: 1차
 
 ---
 
-## 2. 사용 규칙
-
-> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[ALLOW]`: 예외 허용 · `[AVOID]`: 금지
+## 2. 사용_규칙
 
 ### 2.1. 공통
 
@@ -113,7 +98,7 @@ Q4. 위 셋 다 아니고, 사용자가 자발적으로 보는 정보/미디어�
 - `[SHOULD]` 이미지·영상 자체를 몰입감 있게 강조할 땐 `layout=Media`
 - `[ALLOW]` Input Data의 Compare는 PC/Mobile 모두 Bottom Sheet를 사용한다 (PC 전용 예외가 아니라, Compare 자체가 Bottom Sheet 고정 case)
 
-### 2.3. Type별 규칙
+### 2.3. 타입별 규칙
 
 #### 2.3.1. Confirmation
 

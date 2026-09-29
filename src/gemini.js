@@ -1,81 +1,223 @@
 /* Gemini 연동 — DB 데이터에만 근거해 답변.
    플러그인 UI(iframe)에서 직접 호출합니다. manifest.json의
-   networkAccess.allowedDomains에 generativelanguage.googleapis.com 이 있어야 합니다. */
+   networkAccess.allowedDomains에 generativelanguage.googleapis.com 이 있어야 합니다.
+   답변은 6단계로 진행되며, opts.onStep(index, status, detail)으로 진행 상황을 알립니다.
+   status: 'run' | 'done' | 'warn' | 'error' | 'skip' */
 
-var MOA_MODEL = 'gemini-2.0-flash';
+/* 앞에서부터 시도하고, 모델이 없으면(404) 다음 모델로 넘어갑니다. */
+var MOA_MODELS = ['gemini-3.5-flash', 'gemini-3.1-flash-lite', 'gemini-2.5-flash'];
 
-var MOA_SYSTEM = "너는 사내 디자인 시스템 전용 AI 어시스턴트 \"모아(MOA)\"이다.\n\n모아는 제공된 <context>에 포함된 디자인 시스템 DB(Glossary, FAQ, Category, Component, Variant 등)를 유일한 정보 출처로 사용한다. <context>에 없는 정보는 일반적인 디자인 지식, 다른 디자인 시스템, 추측, 임의의 해석으로 보완하거나 생성하지 않는다.\n\n모든 질문은 다음 순서로 처리한다.\n\n→ 1단계. 질문 범위 및 의도 확인\n→ 2단계. Glossary 용어 맵핑\n→ 3단계. 관련 DB 병렬 검색\n→ 4단계. 검색 결과 매칭 및 우선순위 적용\n→ 5단계. 답변 가능 여부 검증\n→ 6단계. 최종 답변 생성\n\n[핵심 규칙]\n\n- Glossary에 정의된 용어만 공식 디자인 시스템 용어로 정규화한다.\n- Glossary에 없는 표현을 임의로 디자인 시스템 용어로 해석하지 않는다.\n- Component, Platform, Variant, State, Property가 불명확하면 임의로 선택하지 않는다.\n- 여러 후보가 존재하면 필요한 조건을 사용자에게 확인한다.\n- 질문의 조건과 정확히 일치하는 DB 데이터를 우선 사용한다.\n- 비슷한 Component나 Variant의 값을 대신 사용하지 않는다.\n- 존재하지 않는 Variant 조합을 임의로 생성하지 않는다.\n- 일반 규칙보다 질문 조건에 정확히 일치하는 구체적인 규칙을 우선한다.\n- inherit는 상위 데이터를 실제로 확인한 후 해당 값을 사용한다.\n- TBD는 미정으로 처리하고 실제 값처럼 사용하지 않는다.\n- N/A는 해당 속성이 적용되지 않는 것으로 처리한다.\n- Deprecated 데이터는 현재 사용 값으로 답하지 않는다.\n- 서로 다른 DB 데이터의 값을 임의로 조합하지 않는다.\n- FAQ는 질문의 의도와 관련 답변 형식을 확인하기 위한 참고 데이터로 사용한다.\n- FAQ에 구체적인 수치, 토큰, Variant, State 등의 정보가 있는 경우 상세 DB에서 다시 확인한다.\n- FAQ와 상세 DB의 내용이 충돌하면 질문 조건에 정확히 일치하는 상세 DB의 값을 우선한다.\n- <context>에서 확인할 수 없는 값이나 규칙은 추측하지 않는다.\n- <context>에 필요한 정보가 없다는 사실만으로 해당 정보가 실제 DB에 존재하지 않는다고 단정하지 않는다.\n\n[답변 검증]\n\n최종 답변을 생성하기 전에 다음을 확인한다.\n\n- 답변의 모든 값이 <context>에 존재하는가?\n- 질문의 Component와 일치하는가?\n- Platform이 일치하는가?\n- Variant가 일치하는가?\n- State가 일치하는가?\n- Property가 일치하는가?\n- 다른 Component의 값을 가져오지 않았는가?\n- TBD 또는 N/A를 실제 값처럼 사용하지 않았는가?\n- Deprecated 값을 현재 기준의 값으로 사용하지 않았는가?\n- inherit가 필요한 경우 상위 값을 실제로 확인했는가?\n\n검증되지 않은 정보는 답변에 포함하지 않는다.\n\n[응답 규칙]\n\n- 사용자의 질문에 필요한 내용만 간결하게 답한다.\n- 한국어로 답한다.\n- 단순한 질문은 2~4문장 이내로 답한다.\n- 여러 조건이나 속성을 비교해야 하는 경우 필요한 범위에서 표 또는 목록을 사용할 수 있다.\n- 인사말, 사족, 일반적인 설명은 포함하지 않는다.\n- 컬러 HEX, 수치, 컴포넌트 이름, Variant 이름 등 DB에 정의된 값은 원문 그대로 사용한다.\n- 값의 반올림, 변환, 임의의 단위 변경을 하지 않는다.\n- 검색된 FAQ에 응답 예시와 변수가 있다면 해당 형식과 변수 구조를 유지하고, <context>에서 확인된 값으로 정확하게 치환한다.\n- 답변에 필요한 정보만 제공하며 확인되지 않은 추가 정보를 덧붙이지 않는다.\n\n[Fallback]\n\n- 용어가 불명확하면 어떤 용어를 의미하는지 확인한다.\n- Component 후보가 여러 개면 어떤 Component인지 확인한다.\n- Platform, Variant, State 등 필수 조건이 부족하고 조건에 따라 답변이 달라질 수 있으면 필요한 조건을 확인한다.\n- <context>에서 질문의 조건에 맞는 데이터를 확인할 수 없는 경우 다음 문구를 그대로 사용한다.\n\n\"가이드에 해당 내용이 없습니다. 디자인 시스템 담당자에게 문의해 주세요.\"\n\n항상 추측보다 확인, 일반 지식보다 DB, 그럴듯한 답변보다 검증된 답변을 우선한다.";
+var MOA_STEPS = [
+  '질문 범위 및 의도 확인',
+  'Glossary 용어 맵핑',
+  '관련 DB 병렬 검색',
+  '검색 결과 매칭 및 우선순위 적용',
+  '답변 가능 여부 검증',
+  '최종 답변 생성'
+];
 
-/* ── 검색: 질문과 관련된 chunk 추출 ──────────────────────────── */
+var MOA_NO_ANSWER = '가이드에 해당 내용이 없습니다. 디자인 시스템 담당자에게 문의해 주세요.';
+
+var MOA_SYSTEM = [
+  '당신은 사내 디자인 시스템 가이드 챗봇 "모아"입니다.',
+  '',
+  '규칙:',
+  '1. 아래 <context>에 주어진 내용만 근거로 답하세요. context에 없는 내용은 절대 답하지 않습니다.',
+  '2. 일반적인 디자인 지식, 다른 디자인 시스템, 추측, 보완 설명을 덧붙이지 마세요.',
+  '3. context에서 답을 찾을 수 없으면 정확히 이렇게만 답하세요: "' + MOA_NO_ANSWER + '"',
+  '4. 한국어로, 2~4문장으로 간결하게 답하세요. 인사말이나 사족은 넣지 않습니다.',
+  '5. 컬러 HEX, 수치, 컴포넌트 이름은 context에 적힌 그대로 옮기세요. 반올림하거나 바꾸지 않습니다.'
+].join('\n');
+
+/* 한글·약어 → DB 토픽 이름 */
+var MOA_GLOSSARY = {
+  '컬러':'Color','색상':'Color','색':'Color','color':'Color','hex':'Color','테마':'Color','다크':'Color',
+  '폰트':'Typeface','서체':'Typeface','글꼴':'Typeface','타이포':'Typeface','타이포그래피':'Typeface','typeface':'Typeface','font':'Typeface',
+  '간격':'Spacing','여백':'Spacing','패딩':'Spacing','마진':'Spacing','spacing':'Spacing','그리드':'Spacing',
+  'cta':'CTA Button','버튼':'CTA Button','button':'CTA Button',
+  '유틸리티':'Utility Button','utility':'Utility Button',
+  '팝업':'Popup','모달':'Popup','다이얼로그':'Popup','popup':'Popup',
+  '딤':'Dimmed & Shadow','딤드':'Dimmed & Shadow','그림자':'Dimmed & Shadow','섀도우':'Dimmed & Shadow','shadow':'Dimmed & Shadow','dimmed':'Dimmed & Shadow',
+  '아이콘':'Iconography','icon':'Iconography','iconography':'Iconography',
+  '라운드':'Radius','모서리':'Radius','곡률':'Radius','radius':'Radius',
+  '뱃지':'Badge','배지':'Badge','badge':'Badge',
+  '칩':'Chip','chip':'Chip',
+  '체크박스':'Selection Control','라디오':'Selection Control','스위치':'Selection Control','토글':'Selection Control','checkbox':'Selection Control',
+  '인디케이터':'Indicator','indicator':'Indicator','페이지네이션':'Indicator',
+  '구분선':'Divider','디바이더':'Divider','divider':'Divider',
+  '옵션칩':'Option Chip','옵션':'Option Chip',
+  '옵션셀렉터':'Option Selector','셀렉터':'Option Selector','selector':'Option Selector'
+};
+
 function moaTokenize(s){
-  return String(s).toLowerCase().replace(/[^\uac00-\ud7a3a-z0-9#.]+/g,' ').split(' ').filter(function(t){ return t.length > 1; });
+  return String(s).toLowerCase().replace(/[^\uac00-\ud7a3a-z0-9#.]+/g,' ').split(' ').filter(function(t){ return t.length > 1 || /[\uac00-\ud7a3]/.test(t); });
 }
 
+function moaHead(ch){ return String(ch.title || ch.section || ch.group || ''); }
+
+function moaScore(ch, qs){
+  var head = moaHead(ch).toLowerCase();
+  var hay = (head + ' ' + (ch.text || '')).toLowerCase();
+  var score = 0;
+  qs.forEach(function(t){
+    if(head.indexOf(t) > -1) score += 3;
+    var i = -1, n = 0;
+    while((i = hay.indexOf(t, i + 1)) > -1){ n++; if(n > 4) break; }
+    score += n;
+  });
+  return score;
+}
+
+/* 기존 호환용 단순 검색 */
 function moaSearch(query, limit){
-  var db = window.MOA_DB || [];
   var qs = moaTokenize(query);
   if(!qs.length) return [];
-  var scored = db.map(function(ch){
-    var title = [ch.topic, ch.group, ch.section].filter(Boolean).join(' ').toLowerCase();
-    var hay = (title + ' ' + ch.text).toLowerCase();
-    var score = 0;
-    qs.forEach(function(t){
-      if(title.indexOf(t) > -1) score += 3;
-      var i = -1, n = 0;
-      while((i = hay.indexOf(t, i + 1)) > -1){ n++; if(n > 4) break; }
-      score += n;
-    });
-    return { ch: ch, score: score };
-  }).filter(function(r){ return r.score > 0; });
-  scored.sort(function(a,b){ return b.score - a.score; });
-  return scored.slice(0, limit || 6).map(function(r){ return r.ch; });
+  return (window.MOA_DB || []).map(function(ch){ return { ch: ch, score: moaScore(ch, qs) }; })
+    .filter(function(r){ return r.score > 0; })
+    .sort(function(a,b){ return b.score - a.score; })
+    .slice(0, limit || 6).map(function(r){ return r.ch; });
 }
 
 function moaContext(chunks){
   return chunks.map(function(ch){
-    return '### ' + [ch.topic, ch.group, ch.section].filter(Boolean).join(' / ') + '\n' + ch.text;
+    return '### ' + (ch.source || '') + (moaHead(ch) ? ' / ' + moaHead(ch) : '') + '\n' + ch.text;
   }).join('\n\n');
 }
 
-/* ── 호출 ────────────────────────────────────────────────────── */
-function moaAsk(question, apiKey){
-  var hits = moaSearch(question, 6);
-  if(!hits.length){
-    return Promise.resolve({
-      text: '가이드에 해당 내용이 없습니다. 디자인 시스템 담당자에게 문의해 주세요.',
-      sources: [], grounded: false
-    });
-  }
-  if(!apiKey){
-    return Promise.resolve({
-      text: hits[0].text, sources: hits.map(function(h){ return h.source; }), grounded: true, offline: true
-    });
-  }
+function moaWait(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
 
-  var url = 'https://generativelanguage.googleapis.com/v1beta/models/' + MOA_MODEL + ':generateContent?key=' + encodeURIComponent(apiKey);
-  var body = {
-    systemInstruction: { parts: [{ text: MOA_SYSTEM }] },
-    contents: [{ role: 'user', parts: [{ text: '<context>\n' + moaContext(hits) + '\n</context>\n\n질문: ' + question }] }],
-    generationConfig: { temperature: 0, maxOutputTokens: 512 }
-  };
+function moaFail(msg){ var e = new Error(msg); e.moa = true; return e; }
 
-  return fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  }).then(function(res){
-    if(!res.ok) throw new Error('HTTP ' + res.status);
-    return res.json();
-  }).then(function(json){
-    var cand = json.candidates && json.candidates[0];
-    var text = cand && cand.content && cand.content.parts && cand.content.parts[0] && cand.content.parts[0].text;
-    return {
-      text: (text || '').trim() || '가이드에 해당 내용이 없습니다. 디자인 시스템 담당자에게 문의해 주세요.',
-      sources: hits.map(function(h){ return h.source; }),
-      grounded: true
-    };
+function moaCall(model, apiKey, body){
+  var url = 'https://generativelanguage.googleapis.com/v1beta/models/' + model + ':generateContent?key=' + encodeURIComponent(apiKey);
+  return fetch(url, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(body) })
+    .catch(function(){ throw moaFail('네트워크 연결 실패 · 인터넷 연결과 manifest의 allowedDomains를 확인해 주세요'); })
+    .then(function(res){
+      return res.json().catch(function(){ return {}; }).then(function(json){
+        if(res.ok) return json;
+        var m = (json.error && json.error.message) || '';
+        var e = moaFail('HTTP ' + res.status + (m ? ' · ' + m : ''));
+        e.status = res.status;
+        throw e;
+      });
+    });
+}
+
+/* ── 6단계 파이프라인 ───────────────────────────────────────── */
+function moaAsk(question, apiKey, opts){
+  opts = opts || {};
+  var report = opts.onStep || function(){};
+  var cur = -1;
+  function begin(i){ cur = i; report(i, 'run'); return moaWait(opts.stepDelay == null ? 280 : opts.stepDelay); }
+  function end(i, detail, status){ report(i, status || 'done', detail || ''); }
+  function skipRest(from, detail){ for(var k = from; k < MOA_STEPS.length; k++) report(k, 'skip', k === from ? detail : ''); }
+
+  var qs, topics = [], hits = [], db = window.MOA_DB || [];
+
+  return Promise.resolve()
+  /* 1 */
+  .then(function(){ return begin(0); })
+  .then(function(){
+    qs = moaTokenize(question);
+    if(!qs.length) throw moaFail('질문에서 키워드를 찾지 못했어요');
+    end(0, '키워드 ' + qs.slice(0, 6).join(', '));
+  })
+  /* 2 */
+  .then(function(){ return begin(1); })
+  .then(function(){
+    var names = {};
+    db.forEach(function(c){ if(c.topic) names[c.topic.toLowerCase()] = c.topic; });
+    qs.forEach(function(t){
+      var hit = MOA_GLOSSARY[t] || names[t];
+      if(!hit) Object.keys(MOA_GLOSSARY).forEach(function(k){ if(!hit && k.length > 1 && t.indexOf(k) === 0) hit = MOA_GLOSSARY[k]; });
+      if(hit && topics.indexOf(hit) < 0) topics.push(hit);
+    });
+    if(!topics.length && opts.topic) topics.push(opts.topic);
+    end(1, topics.length ? topics.join(', ') : '매핑된 용어 없음 · 전체 DB 검색', topics.length ? 'done' : 'warn');
+  })
+  /* 3 */
+  .then(function(){ return begin(2); })
+  .then(function(){
+    if(!db.length) throw moaFail('DB가 비어 있어요 · data/ 폴더를 넣고 다시 빌드해 주세요');
+    var groups = {};
+    db.forEach(function(c){ (groups[c.topic || c.source || '기타'] = groups[c.topic || c.source || '기타'] || []).push(c); });
+    var keys = Object.keys(groups);
+    return Promise.all(keys.map(function(k){
+      return Promise.resolve().then(function(){
+        return groups[k].map(function(ch){ return { ch: ch, score: moaScore(ch, qs) }; }).filter(function(r){ return r.score > 0; });
+      });
+    })).then(function(res){
+      var all = [].concat.apply([], res);
+      hits = all;
+      end(2, keys.length + '개 DB · ' + all.length + '건 검색됨', all.length ? 'done' : 'warn');
+    });
+  })
+  /* 4 */
+  .then(function(){ return begin(3); })
+  .then(function(){
+    hits.forEach(function(r){ if(topics.indexOf(r.ch.topic) > -1) r.score *= 2; });
+    hits.sort(function(a,b){ return b.score - a.score; });
+    hits = hits.slice(0, 6).map(function(r){ return r.ch; });
+    end(3, hits.length ? hits.slice(0, 3).map(function(c){ return (c.topic ? c.topic + ' › ' : '') + moaHead(c); }).join(' / ') : '매칭된 결과 없음', hits.length ? 'done' : 'warn');
+  })
+  /* 5 */
+  .then(function(){ return begin(4); })
+  .then(function(){
+    if(!hits.length){
+      end(4, '가이드에 근거가 없어 답변할 수 없어요', 'warn');
+      skipRest(5, '생략');
+      return { text: MOA_NO_ANSWER, sources: [], grounded: false, done: true };
+    }
+    if(!apiKey){
+      end(4, 'API 키 없음 · 가이드 원문으로 대신 답변', 'warn');
+      skipRest(5, '생략');
+      return { text: hits[0].text, sources: hits.map(function(h){ return h.source; }), grounded: true, offline: true, done: true };
+    }
+    end(4, '근거 ' + hits.length + '건 · 답변 가능');
+  })
+  /* 6 */
+  .then(function(early){
+    if(early && early.done) return early;
+    return begin(5).then(function(){
+      var body = {
+        systemInstruction: { parts: [{ text: MOA_SYSTEM }] },
+        contents: [{ role: 'user', parts: [{ text: '<context>\n' + moaContext(hits) + '\n</context>\n\n질문: ' + question }] }],
+        generationConfig: { temperature: 0, maxOutputTokens: 2048 }
+      };
+      var tried = [];
+      function next(i){
+        var model = MOA_MODELS[i];
+        tried.push(model);
+        report(5, 'run', model + ' 호출 중');
+        return moaCall(model, apiKey, body).catch(function(err){
+          if(err.status === 404 && i + 1 < MOA_MODELS.length) return next(i + 1);
+          if(err.status === 400 || err.status === 403) err.message += ' · API 키를 확인해 주세요';
+          if(err.status === 429) err.message += ' · 사용량 한도 초과';
+          err.message = model + ' · ' + err.message;
+          throw err;
+        }).then(function(json){ return { json: json, model: model }; });
+      }
+      return next(0);
+    }).then(function(r){
+      var cand = r.json.candidates && r.json.candidates[0];
+      var parts = (cand && cand.content && cand.content.parts) || [];
+      var text = parts.filter(function(p){ return p.text && !p.thought; }).map(function(p){ return p.text; }).join('').trim();
+      if(!text){
+        var why = (r.json.promptFeedback && r.json.promptFeedback.blockReason) || (cand && cand.finishReason) || '빈 응답';
+        throw moaFail(r.model + ' · 답변이 비어 있어요 (' + why + ')');
+      }
+      end(5, r.model + ' · 완료');
+      return { text: text, sources: hits.map(function(h){ return h.source; }), grounded: true, model: r.model };
+    });
+  })
+  .catch(function(err){
+    if(cur > -1) report(cur, 'error', err.message || String(err));
+    for(var k = cur + 1; k < MOA_STEPS.length; k++) report(k, 'skip', '');
+    err.step = cur;
+    throw err;
   });
 }
 
+window.MOA_STEPS = MOA_STEPS;
 window.moaAsk = moaAsk;
 window.moaSearch = moaSearch;

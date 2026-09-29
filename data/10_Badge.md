@@ -7,17 +7,20 @@ DB 등록: 2차
 작업상태: 진행 중
 하위 항목: Filled (https://app.notion.com/p/Filled-39815929183280b59c0df8020be565e8?pvs=21), Label (https://app.notion.com/p/Label-39815929183280b5a381d3b546b94736?pvs=21), Dot (https://app.notion.com/p/Dot-398159291832802e91efd66fba6a2335?pvs=21), Number (https://app.notion.com/p/Number-39815929183280828893e3df3dab2785?pvs=21), Icon (https://app.notion.com/p/Icon-39d159291832804680eac15aa79867fb?pvs=21), 백업 (https://app.notion.com/p/3d71592918328037bc68e9d8193cf736?pvs=21)
 
+# **Badge (뱃지)**
+
 ## 0. 메타
 
-### 0.1. 분류
+### 0.1. 분류(Category)
 
-- `Element / Badge`
+- `Badge`
+- `Element`
 
-### 0.2. 타입 종류
+### 0.2. 타입 종류 (Types)
 
 - `filled`, `label`, `dot`, `number`, `icon`
 
-### 0.3. 타입별 요소 (키워드)
+### 0.3. 타입 별 요소 (kyeword)
 
 - `filled`: 사용규칙, 사용처 정의, 스펙 및 토큰
 - `label`: 사용규칙, 사용처 정의, 스펙 및 토큰
@@ -27,11 +30,9 @@ DB 등록: 2차
 
 ### 0.4. Figma Node ID
 
-- N/A
-
 ---
 
-## 1. 개요
+## 1. 개요 (Overview)
 
 ### 1.1. 정의
 
@@ -49,9 +50,7 @@ DB 등록: 2차
 
 ---
 
-## 2. 사용 규칙
-
-> `[MUST]`: 강제 · `[SHOULD]`: 권장 · `[ALLOW]`: 예외 허용 · `[AVOID]`: 금지
+## 2. 사용 규칙 (Usage Rules)
 
 ### 2.1. 공통 규칙 (Common Rules)
 
@@ -69,23 +68,23 @@ DB 등록: 2차
 
 ---
 
-### 2.3. 제약 및 예외 사항 (Edge Cases)
+## 3. 제약 및 예외 사항 (Edge Cases)
 
-#### 2.3.1. 공통 및 영역 진입 제약 사항
+### 3.1. 공통 및 영역 진입 제약 사항
 
 - `[component = product_card]`일 때, `[AVOID]` 해당 영역에 `type = filled` 적용은 불가하며, `[MUST]` 오직 `type = label` 스펙만 강제 적용한다.
 - `[type = label]`일 때, `[MUST]` `container = none`, `border = none` 속성을 유지하며, 임의로 테두리나 배경색을 추가할 수 없다.
 - `[type = dot]`일 때, `[MUST]` 어떠한 경우에도 `width: hug_contents` 속성을 적용할 수 없으며, 오직 `width: 4px`, `height: 4px` 고정 크기만 허용한다.
 - `[type = dot]`일 때, `[MUST]` `label: none`, `border: none` 규칙을 강제 유지해야 하며, 임의의 레이블 폰트나 테두리를 추가할 수 없다.
 
-#### 2.3.2. 데이터 수량 및 형태 가변 제약 사항
+### 3.2. 데이터 수량 및 형태 가변 제약 사항
 
 - `[type = number]`이고 `[count > 99]`일 때, `[MUST]` `case = max`, `label = '99+'`, `widthType = fixed`, `width = 23px`, `height = 16px` 고정 크기 속성을 강제 적용하며 가변(`Hug Contents`) 속성을 원천 배제한다.
 - `[type = number]`이고 `[count <= 99]`일 때, `[MUST]` 동적 가변(`Hug`) 및 너비 확장 행위를 일체 금지하며, 어떠한 상황에서도 배지 형태가 찌그러지지 않도록 항상 고정 크기 `width = 16px`, `height = 16px`를 강제 유지한다.
 - `[type = number]`일 때, `[MUST]` `label = [0-9]` 규칙을 준수하여 오직 숫자만 허용하며, 특수 기호 및 한글/영어 문자 단독 표기를 절대 금지한다. (단, `case = max`일 때의 `99+` 레이블은 예외로 허용한다.)
 - `[layoutContext = flexible_font]`일 때, `[SHOULD]` 결합하는 컴포넌트 가이드라인에 특수 규격이 명시되어 있는 경우 가독성 확보를 위해 예외적으로 레이블 폰트 크기(`fontSize`)를 해당 컴포넌트에 맞춰 가변 적용할 수 있다. 단, 케이스별 지정된 고유 컬러 토큰 스펙은 변경 없이 그대로 유지해야 한다.
 
-#### 2.3.3. 결합형 레이아웃 및 앵커링 정렬 제약 사항
+### 3.3. 결합형 레이아웃 및 앵커링 정렬 제약 사항
 
 - `[content = typography_or_icon]`일 때, `[MUST]` 텍스트 또는 아이콘 컴포넌트 우상단에 결합할 경우 글자의 어센더(`Ascender`) 라인 및 행간 레이아웃을 침범하지 않도록 상대 위치(`Absolute Positioning`) 마진 규칙을 준수한다. `(상세 마진 수치 기준: 미정/TBD)`
 - `[placement = icon_context]`일 때, `[MUST]` 아래의 상대 위치 가이드라인 및 대칭 정렬 규격을 준수하여 결합한다.
@@ -110,7 +109,7 @@ DB 등록: 2차
     - `moVerticalGap` : `8px`
     - `alignment` : `center_middle` (콘텐츠 기준 중앙정렬 레이아웃 상속)
 
-#### 2.3.4. 외부 데이터 연동 및 대체 정책 (Fallback Policy)
+### 3.4. 외부 데이터 연동 및 Fallback Policy
 
 - `[MUST]` Figma Component Variant 또는 노션 DB 연동이 유효할 경우 해당 최신 스펙을 우선 조회하여 응답합니다.
 - `[MUST]` 연동이 불가하거나 스펙이 미정(`TBD`)인 상태에서 질문을 받을 경우, 본 문서의 요약 스펙을 기반으로 답변하되 "최신 디자인 시스템 피그마 라이브러리와 수치가 일부 다를 수 있음"을 안내 메시지에 명시합니다.
