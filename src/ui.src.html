@@ -588,6 +588,19 @@ GUIDE['기타 문의'] = {q:['담당자에게 직접 문의하고 싶어요','�
   '잘못된 답변을 발견했어요':E('잘못된 답변을 발견했다면?','답변에 잘못된 내용이 있다면 알려주세요.\n\n질문 내용과 잘못된 답변을 함께 전달해 주시면 확인하는 데 도움이 돼요.','오류 제보하기'),
   '새로운 가이드나 항목을 제안하고 싶어요':E('새로운 가이드나 항목을 제안하고 싶다면?','새롭게 필요한 가이드나 개선이 필요한 항목이 있다면 제안해 주세요.\n\n제안 내용과 필요한 이유를 함께 전달해 주시면 검토에 도움이 돼요.','가이드 제안하기'),
   '담당자에게 직접 문의하고 싶어요':E('추가 확인이 필요한 내용은 담당자에게 문의해 주세요.','담당자 : 강지수 (Felix)\nE-mail: felix.kang@cheilpengtai.com','')}};
+var ETC_INTENTS = [
+  ['잘못된 답변을 발견했어요', /잘못|틀린|틀렸|오류|이상한답|답이이상/],
+  ['새로운 가이드나 항목을 제안하고 싶어요', /제안|추가해|추가요청|새로운(가이드|항목)|개선/],
+  ['가이드에 없는 경우에는 어떻게 해야 하나요?', /가이드에없|정의(되지|안)|없는경우/],
+  ['원하는 답변을 찾지 못했어요', /못찾|답(변)?이?(없|안나)|원하는답/],
+  ['담당자에게 직접 문의하고 싶어요', /담당자|문의|연락|메일|felix|강지수|직접물어/]
+];
+function etcIntent(q){
+  var t = String(q).replace(/\s+/g, '').toLowerCase();
+  var list = S.cat === '기타 문의' ? ETC_INTENTS : ETC_INTENTS.slice(-1).map(function(x){ return [x[0], /담당자|felix|강지수/]; });
+  for(var i = 0; i < list.length; i++) if(list[i][1].test(t)) return list[i][0];
+  return null;
+}
 function relatedFor(cat){
   if(cat === '기타 문의') return [];
   if(!USE_DB) return [];
@@ -661,6 +674,7 @@ function dbAnswer(section, chunks){
 }
 
 /* ── state ───────────────────────────────────────────────────── */
+/* key: 창을 닫기 전까지 메모리에만 보관 */
 var S = {screen:'home', cat:null, topic:null, history:[], connected:true, key:'', hasKey:false};
 var $ = function(id){return document.getElementById(id);};
 var el = function(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n;};
@@ -877,6 +891,13 @@ function ask(q){
     var catInDb = USE_DB && inDb(S.cat);
     var gc = GUIDE[S.cat];
     if(!catInDb && gc && gc.a[q]){ renderAnswer(body, gc.a[q]); return; }
+    var etcKey = etcIntent(q);
+    if(etcKey){ renderAnswer(body, GUIDE['기타 문의'].a[etcKey]); return; }
+    if(S.cat === '기타 문의'){
+      var contact = GUIDE['기타 문의'].a['담당자에게 직접 문의하고 싶어요'];
+      renderAnswer(body, E('기타 문의 항목에서 찾지 못했어요.', '위 항목 중 하나를 선택하거나 담당자에게 문의해 주세요.\n\n' + contact.text, ''));
+      return;
+    }
     if(USE_DB){
       if(q === OVERVIEW && S.topic && isTopic(S.topic)){ renderAnswer(body, overviewFor(S.topic)); return; }
       var exact = dbFor(S.topic, q);
@@ -1097,7 +1118,6 @@ keySave.onclick = function(){
   var v = keyInput.value.trim();
   if(v.length < 20 || v.indexOf(' ') > -1){ keyBox.classList.remove('on'); keyBox.classList.add('err'); return; }
   S.key = v; S.hasKey = true; setConnected(true);
-  post({type:'save-key', key:v});
   toast('API 키를 저장했어요');
   S.history = [];
   show('home');
@@ -1111,7 +1131,6 @@ window.onmessage = function(e){
   if(m.type === 'toast') toast(m.text);
 };
 show('intro');
-post({type:'load-key'});
 </script>
 </body>
 </html>
