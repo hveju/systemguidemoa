@@ -126,11 +126,6 @@ input{font:inherit;border:0;outline:0;background:none}
 .bub-ing i:nth-child(2){width:8px;height:8px}
 .bub-ing i:nth-child(3){width:10px;height:10px}
 .bub-ing i:nth-child(2){animation-delay:.2s}.bub-ing i:nth-child(3){animation-delay:.4s}
-.bub-ing .ing-t{display:none;font-size:12px;font-weight:500;line-height:16px;letter-spacing:-0.02em;color:#5C6473;background:linear-gradient(90deg,#8C93A0 0%,#4185FF 50%,#8C93A0 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:ingShine 1.6s linear infinite}
-.bub-ing.long{display:flex;flex-direction:row;align-items:center;gap:8px;width:auto;max-width:none;white-space:nowrap}
-.bub-ing.long .ing-t{white-space:nowrap;flex-shrink:0}
-.bub-ing.long .ing-t{display:inline}
-@keyframes ingShine{from{background-position:200% 0}to{background-position:-200% 0}}
 @keyframes blink{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-2px)}}
 .hx{display:inline-flex;align-items:center;gap:3px;white-space:nowrap;vertical-align:baseline}
 .hx i{display:inline-block;width:10px;height:10px;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14);background-image:linear-gradient(45deg,#E0E3E9 25%,transparent 25%,transparent 75%,#E0E3E9 75%),linear-gradient(45deg,#E0E3E9 25%,#fff 25%,#fff 75%,#E0E3E9 75%);background-size:6px 6px;background-position:0 0,3px 3px;position:relative;top:1px;cursor:pointer;overflow:hidden}
@@ -217,7 +212,9 @@ input{font:inherit;border:0;outline:0;background:none}
 
 /* ── intro (home.fig 1:50) ── */
 #pgIntro{overflow:hidden;background:rgb(238,243,247)}
-#pgIntro .ibg{position:absolute;left:0;top:0;width:360px;height:640px;background-position:center;background-size:cover;background-repeat:no-repeat}
+#pgIntro .ibg{position:absolute;left:0;top:0;width:360px;height:640px;background:radial-gradient(402.492px 382.194px at 100% 100%, rgb(255,205,255) 0%, rgba(255,255,255,0.4) 70.19%, rgba(197,224,255,0) 100%), radial-gradient(291.772px 329.25px at 20.83% 8.2%, rgba(255,255,255,0.2) 0%, rgb(164,211,251) 100%)}
+#pgIntro .im{position:absolute;left:0;top:0;transform-origin:0 0;background-position:center;background-size:cover;background-repeat:no-repeat}
+#pgIntro .glow{position:absolute;left:-108px;top:361px;width:273px;height:204px;opacity:.2;border-radius:50%;background:radial-gradient(136.5px 102px at 50% 50%, rgb(63,239,255) 0%, rgba(63,239,255,0) 100%)}
 #pgIntro .itxt{position:absolute;left:0;top:100px;width:360px;display:flex;flex-direction:column;gap:20px;padding:0 32px;color:#000;letter-spacing:-0.01em}
 #pgIntro .itxt h1{font-size:30px;font-weight:700;line-height:1.33;white-space:pre-line}
 #pgIntro .itxt h1 span{font-weight:300}
@@ -325,7 +322,10 @@ input{font:inherit;border:0;outline:0;background:none}
 
   <!-- intro (home.fig) -->
   <div class="page hide" id="pgIntro">
-    <div class="ibg" style="background-image:url(../assets/intro-bg.jpg)"></div>
+    <div class="ibg"></div>
+    <div class="im" style="transform:matrix(0.938,0.346,-0.346,0.938,299.461,244);width:124.835px;height:105.278px;opacity:.8;filter:blur(8px);background-image:url(../assets/intro2x-544067.png)"></div>
+    <div class="glow"></div>
+    <div class="im" style="transform:matrix(-0.559,-0.829,0.829,-0.559,277.5,280.266);width:17.001px;height:17.001px;opacity:.7;filter:blur(3px);background-image:url(../assets/intro2x-ef9269.png)"></div>
     <div class="itxt">
       <h1><span>반가워요!</span>
 디자인시스템 가이드 봇
@@ -333,6 +333,8 @@ input{font:inherit;border:0;outline:0;background:none}
       <p>컴포넌트에 대해 궁금하신 점을
 물어보면 바로 찾아드릴게요</p>
     </div>
+    <div class="im" style="left:-3px;top:324px;width:381px;height:208px;background-image:url(../assets/intro2x-482d4e.png)"></div>
+    <div class="im" style="transform:matrix(-0.95,-0.312,0.312,-0.95,156.09,849.445);width:420.011px;height:354.555px;filter:blur(16px);background-image:url(../assets/intro2x-e39163.png)"></div>
     <div class="ibottom"><button class="icta" id="btnAsk">물어보러 가기</button></div>
   </div>
 
@@ -544,15 +546,6 @@ var MOA_GLOSSARY = {
   '구분선':'Divider','디바이더':'Divider','divider':'Divider',
   '옵션칩':'Option Chip','옵션':'Option Chip',
   '옵션셀렉터':'Option Selector','셀렉터':'Option Selector','selector':'Option Selector',
-  /* 하위 타입·영문 용어 → 카테고리 */
-  'body':'Typeface','bodytext':'Typeface','본문':'Typeface','바디':'Typeface','heading':'Typeface','헤딩':'Typeface','display':'Typeface','디스플레이':'Typeface',
-  'caption':'Typeface','캡션':'Typeface','행간':'Typeface','자간':'Typeface','lineheight':'Typeface','letterspacing':'Typeface','pretendard':'Typeface','프리텐다드':'Typeface','글자크기':'Typeface','폰트크기':'Typeface',
-  'primary':'Color','secondary':'Color','grayscale':'Color','gray':'Color','grey':'Color','그레이':'Color','회색':'Color','neutral':'Color','뉴트럴':'Color','프라이머리':'Color','세컨더리':'Color','alpha':'Color',
-  'inset':'Spacing','인셋':'Spacing','gap':'Spacing','갭':'Spacing','padding':'Spacing','margin':'Spacing',
-  'pill':'Radius','corner':'Radius','라운딩':'Radius',
-  'confirmation':'Popup','notification':'Popup','알림':'Popup','바텀시트':'Popup','bottomsheet':'Popup',
-  'dim':'Dimmed & Shadow','elevation':'Dimmed & Shadow',
-  'checkbox':'Selection Control','radio':'Selection Control','switch':'Selection Control','toggle':'Selection Control',
   '탭':'Tab','tab':'Tab','툴팁':'Tooltip','tooltip':'Tooltip','스낵바':'Snackbar','snackbar':'Snackbar',
   '텍스트필드':'Text Field','입력창':'Text Field','인풋':'Text Field','검색':'Search','검색창':'Search','search':'Search',
   '슬라이더':'Slider','slider':'Slider','리스트':'List','목록':'List','메뉴':'Menu','드롭다운':'Menu','필터':'Filter','filter':'Filter',
@@ -1294,16 +1287,9 @@ function ask(q, typed){
       var br = el('div','row-bot'), av0 = el('div','avatar');
       av0.innerHTML = AVATAR_HTML;
       var bb = el('div','bot-body'), note = el('div','bub-note');
-      var dots = el('div','bub-ing');
-      dots.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
-      bb.appendChild(dots); br.appendChild(av0); br.appendChild(bb); con0.appendChild(br); scrollDown();
-      setTimeout(function(){
-        bb.removeChild(dots);
-        var np = el('p'); note.appendChild(np); bb.appendChild(note); scrollDown();
-        typeText(np, '해당 질문에 맞는 채팅창으로 이동합니다.', function(){
-          setTimeout(function(){ openCategory(mv, mv); ask(q); }, 700);
-        });
-      }, 500);
+      note.textContent = mv + ' 질문이라 ' + mv + ' 질문창으로 이동해서 답변할게요.';
+      bb.appendChild(note); br.appendChild(av0); br.appendChild(bb); con0.appendChild(br); scrollDown();
+      setTimeout(function(){ openCategory(mv, mv); ask(q); }, 1200);
       return;
     }
   }
@@ -1318,7 +1304,7 @@ function ask(q, typed){
   av.innerHTML = AVATAR_HTML;
   var body = el('div','bot-body');
   var ing = el('div','bub-ing');
-  ing.innerHTML = '<span class="dots"><i></i><i></i><i></i></span><span class="ing-t">답변을 찾고 있어요</span>';
+  ing.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
   body.appendChild(ing);
   botRow.appendChild(av); botRow.appendChild(body);
   con.appendChild(botRow); scrollDown();
@@ -1344,8 +1330,6 @@ function ask(q, typed){
       var typed = S.topic ? typeChunks(S.topic, q) : [];
       if(typed.length){ renderAnswer(body, dbAnswer(q, typed)); return; }
       setIng(true);
-      ing.classList.add('long'); body.appendChild(ing); scrollDown();
-      var dropIng = function(){ if(ing.parentNode) ing.parentNode.removeChild(ing); };
       var onStep = function(){};
       var live = null, liveP = null;
       /* Gemini가 "가이드에 해당 내용이 없습니다"로 시작하면, 그 문장이 끝날 때까지 화면에 띄우지 않고
@@ -1360,7 +1344,6 @@ function ask(q, typed){
       var onDelta = function(t){
         t = stripNA(t || '');
         if(!t) return;
-        dropIng();
         if(!live){
           live = el('div','card');
           var lh = el('div','card-h'); lh.appendChild(el('div','t', q)); live.appendChild(lh);
@@ -1372,7 +1355,7 @@ function ask(q, typed){
         scrollDown();
       };
       window.moaAsk(q, S.key, { onStep:onStep, onDelta:onDelta, topic:S.topic, history:(S.convo || []).slice() }).then(function(res){
-        setIng(false); dropIng();
+        setIng(false);
         if(res.grounded === false){
           renderAnswer(body, { kind:'text', title:'답변할 수 없어요', desc:'', text:res.text + (res.reason ? '\n\n이유: ' + res.reason : ''), topics:res.topics });
           return;
@@ -1397,7 +1380,7 @@ function ask(q, typed){
           renderAnswer(body, { kind:'text', title:q, desc:(res.sources && res.sources[0]) || '', text:res.text, topics:res.topics });
         }
       }).catch(function(err){
-        setIng(false); dropIng();
+        setIng(false);
         if(live && live.parentNode) live.parentNode.removeChild(live);
         var at = err.step > -1 ? (err.step + 1) + '단계(' + window.MOA_STEPS[err.step] + ')에서 ' : '';
         renderAnswer(body, { kind:'text', title:'답변을 가져오지 못했어요', desc:'', text:at + '오류가 발생했어요.\n\n이유: ' + err.message });
