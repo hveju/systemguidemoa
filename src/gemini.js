@@ -18,19 +18,64 @@ var MOA_STEPS = [
 
 var MOA_NO_ANSWER = '가이드에 해당 내용이 없습니다. 디자인 시스템 담당자에게 문의해 주세요.';
 
-var MOA_SYSTEM = [
-  '당신은 사내 디자인 시스템 가이드 챗봇 "모아"입니다.',
-  '',
-  '규칙:',
-  '1. 아래 <context>에 주어진 내용만 근거로 답하세요. context에 없는 내용은 절대 답하지 않습니다.',
-  '2. 일반적인 디자인 지식, 다른 디자인 시스템, 추측, 보완 설명을 덧붙이지 마세요.',
-  '3. context에서 답을 전혀 찾을 수 없을 때만 정확히 이렇게만 답하세요: "' + MOA_NO_ANSWER + '" 일부라도 답할 수 있으면 이 문장을 쓰지 말고, 찾은 내용만 답하세요.',
-  '4. 한국어로, 2~4문장으로 간결하게 답하세요. 인사말이나 사족은 넣지 않습니다.',
-  '5. 컬러 HEX, 수치, 컴포넌트 이름은 context에 적힌 그대로 옮기세요. 반올림하거나 바꾸지 않습니다.',
-  '8. "언제 사용해?", "언제 써?", "어떤 상황에서 써?"처럼 사용 시점을 묻는 질문은 적용 상황을 답하는 질문입니다. context의 "적용 상황"·"사용처"·"사용 기준" 항목에서 어떤 상황에 어떤 타입을 쓰는지 "~할 때 → 타입" 형태로 답하고, 컬러값·수치 같은 스펙은 나열하지 마세요.',
-  '7. 앞선 대화는 사용자가 무엇을 이어서 묻는지 파악하는 데만 쓰세요. "그럼", "그건", "다크모드는?"처럼 짧은 후속 질문은 앞선 질문의 대상에 대한 질문으로 해석합니다. 근거는 항상 마지막 <context>만 사용합니다.',
-  '6. context의 "토큰" 항목은 Figma 변수입니다. 토큰을 답할 때는 토큰 이름(예: tab/standard/label/normal)과 값을 함께 적고, Light/Dark 값이 있으면 둘 다 적으세요. 괄호 안은 참조하는 상위 토큰입니다.'
+/* ── 프롬프트: data/prompts/*.md ─────────────────────────────
+   1) 빌드 때 index.html 안에 인라인된 window.MOA_PROMPTS (항상 있음, 오프라인 동작)
+   2) 질문할 때마다 최신 파일을 다시 읽어 덮어씀 (30초 캐시)
+      - 브라우저 미리보기(http): 같은 프로젝트의 data/prompts/
+      - Figma 플러그인: GitHub main 브랜치의 data/prompts/ (push하면 바로 반영)
+   읽기에 실패하면 1)을 그대로 씁니다. */
+var MOA_PROMPT_FILES = ['01_role.md', '02_exception.md', '03_output.md'];
+var MOA_PROMPT_REPO = 'https://raw.githubusercontent.com/hveju/systemguidemoa/main/data/prompts/';
+var MOA_PROMPT_TTL = 30000;
+var moaLive = null, moaLiveAt = 0, moaLiveFrom = '';
+
+/* 노션 메타(첫 **[ 이전 줄)와 이미지 줄을 지우고 본문만 남김 */
+function moaPromptBody(md){
+  var lines = String(md).replace(/\r/g, '').split('\n');
+  var i = lines.findIndex(function(l){ return /^\*\*\[/.test(l.trim()); });
+  if(i > 0) lines = lines.slice(i);
+  return lines.filter(function(l){ return !/^!\[/.test(l.trim()); }).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+/* 프롬프트 파일이 정하지 않는, 앱 동작에 필요한 규칙 */
+var MOA_RULES = [
+  '[시스템 연동 규칙]',
+  '<context>의 "토큰" 항목은 Figma 변수입니다. 토큰을 답할 때는 토큰 이름(예: tab/standard/label/normal)과 값을 함께 적고, Light/Dark 값이 있으면 둘 다 적으세요. 괄호 안은 참조하는 상위 토큰입니다.',
+  '앞선 대화는 사용자가 무엇을 이어서 묻는지 파악하는 데만 쓰세요. "그럼", "그건", "다크모드는?"처럼 짧은 후속 질문은 앞선 질문의 대상에 대한 질문으로 해석합니다. 근거는 항상 마지막 <context>만 사용합니다.',
+  '"언제 사용해?"처럼 사용 시점을 묻는 질문은 context의 "적용 상황"·"사용처"·"사용 기준" 항목에서 "~할 때 → 타입" 형태로 답하세요.',
+  '[데이터 없음]일 때는 다른 말을 붙이지 말고 정확히 이 문장만 답하세요: "' + MOA_NO_ANSWER + '"'
 ].join('\n');
+
+function moaPrompts(){ return moaLive || window.MOA_PROMPTS || []; }
+function moaSystem(){
+  var p = moaPrompts();
+  if(!p.length) return MOA_RULES;
+  return p.map(function(x){ return x.text; }).join('\n\n') + '\n\n' + MOA_RULES;
+}
+function moaFetchText(url, ms){
+  var ctl = typeof AbortController === 'function' ? new AbortController() : null;
+  var t = setTimeout(function(){ if(ctl) ctl.abort(); }, ms);
+  return fetch(url + '?t=' + Date.now(), { cache: 'no-store', signal: ctl ? ctl.signal : undefined })
+    .then(function(r){ clearTimeout(t); if(!r.ok) throw new Error(r.status); return r.text(); });
+}
+function moaLoadPrompts(force){
+  if(!force && moaLiveAt && Date.now() - moaLiveAt < MOA_PROMPT_TTL) return Promise.resolve(moaPrompts());
+  var bases = [];
+  if(/^https?:/.test(location.protocol)) bases.push({ url: (/\/preview\//.test(location.pathname) ? '../' : '') + 'data/prompts/', from: '로컬 data/prompts' });
+  bases.push({ url: MOA_PROMPT_REPO, from: 'GitHub data/prompts' });
+  var tryBase = function(i){
+    if(i >= bases.length) return Promise.reject();
+    return Promise.all(MOA_PROMPT_FILES.map(function(f){
+      return moaFetchText(bases[i].url + f, 2500).then(function(md){ return { file: f, text: moaPromptBody(md) }; });
+    })).then(function(list){
+      if(list.some(function(x){ return !x.text; })) throw new Error('empty');
+      moaLive = list; moaLiveFrom = bases[i].from; return list;
+    }).catch(function(){ return tryBase(i + 1); });
+  };
+  moaLiveAt = Date.now();
+  return tryBase(0).catch(function(){ moaLiveFrom = ''; return moaPrompts(); });
+}
+function moaPromptSource(){ return moaLive ? moaLiveFrom + ' (최신)' : (window.MOA_PROMPTS && window.MOA_PROMPTS.length ? '빌드 내장' : '기본값'); }
 
 /* 한글·약어 → DB 토픽 이름 */
 var MOA_GLOSSARY = {
@@ -296,9 +341,10 @@ function moaAsk(question, apiKey, opts){
   /* 6 */
   .then(function(early){
     if(early && early.done) return early;
-    return begin(5).then(function(){
+    return begin(5).then(function(){ return moaLoadPrompts(); }).then(function(){
+      report(5, 'run', '프롬프트: ' + moaPromptSource());
       var body = {
-        systemInstruction: { parts: [{ text: MOA_SYSTEM }] },
+        systemInstruction: { parts: [{ text: moaSystem() }] },
         contents: [].concat.apply([], hist.map(function(h){
           return [{ role: 'user', parts: [{ text: h.q }] }, { role: 'model', parts: [{ text: String(h.a || '').slice(0, 1200) }] }];
         })).concat([{ role: 'user', parts: [{ text: '<context>\n' + moaContext(hits) + '\n</context>\n\n질문: ' + question + (usage ? MOA_USAGE_HINT : '') }] }]),
@@ -350,7 +396,7 @@ function moaAsk(question, apiKey, opts){
       return next(0);
     }).then(function(r){
       var text = r.text;
-      end(5, r.model + ' · 완료');
+      end(5, r.model + ' · 완료 · 프롬프트: ' + moaPromptSource());
       return { text: text, sources: hits.map(function(h){ return h.source; }), grounded: true, model: r.model, topics: topics };
     });
   })
@@ -366,3 +412,5 @@ window.MOA_STEPS = MOA_STEPS;
 window.MOA_NO_ANSWER = MOA_NO_ANSWER;
 window.moaAsk = moaAsk;
 window.moaSearch = moaSearch;
+window.moaLoadPrompts = moaLoadPrompts;
+window.moaSystem = moaSystem;

@@ -65,6 +65,20 @@ Skyblue,#2189FF,핵심 액션
 
 총 142개 chunk. 홈 카테고리 칩은 파일명 순서대로 나열되고, 넘치면 스크롤됩니다.
 
+## 챗봇 프롬프트 (data/prompts/)
+
+Gemini의 system instruction이 되는 파일입니다. 가이드 DB(chunk)로는 읽지 않습니다.
+
+| 파일 | 내용 |
+|---|---|
+| `01_role.md` | 기본 역할 프롬프트 |
+| `02_exception.md` | 응답 예외 프롬프트 |
+| `03_output.md` | 출력 프롬프트 |
+
+- 파일명은 바꾸지 마세요 (`src/gemini.js`의 `MOA_PROMPT_FILES`, 빌드의 `PROMPT_FILES`와 맞아야 함).
+- 노션에서 내려받은 그대로 붙여 넣어도 됩니다. 첫 `**[` 줄 이전의 메타와 이미지 줄은 자동 제거됩니다.
+- 질문할 때마다 최신 파일을 읽습니다 (GitHub main → 실패 시 빌드 내장본). 수정 후 GitHub에 push하면 재빌드 없이 반영됩니다. 재빌드하면 내장본도 갱신됩니다.
+
 ## 답변 범위
 
 Gemini 연결 시에도 이 폴더 밖의 지식은 사용하지 않습니다. 관련 내용이 없으면 모델이 추측하지 않고 "가이드에 해당 내용이 없습니다"로 답합니다 (`src/gemini.js`의 system instruction).

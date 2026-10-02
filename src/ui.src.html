@@ -322,10 +322,7 @@ input{font:inherit;border:0;outline:0;background:none}
 
   <!-- intro (home.fig) -->
   <div class="page hide" id="pgIntro">
-    <div class="ibg"></div>
-    <div class="im" style="transform:matrix(0.938,0.346,-0.346,0.938,299.461,244);width:124.835px;height:105.278px;opacity:.8;filter:blur(8px);background-image:url(__IMG_INTRO_544067__)"></div>
-    <div class="glow"></div>
-    <div class="im" style="transform:matrix(-0.559,-0.829,0.829,-0.559,277.5,280.266);width:17.001px;height:17.001px;opacity:.7;filter:blur(3px);background-image:url(__IMG_INTRO_ef9269__)"></div>
+    <div class="ibg" style="background:url(__IMG_INTROBG__) center/cover no-repeat"></div>
     <div class="itxt">
       <h1><span>반가워요!</span>
 디자인시스템 가이드 봇
@@ -333,8 +330,6 @@ input{font:inherit;border:0;outline:0;background:none}
       <p>컴포넌트에 대해 궁금하신 점을
 물어보면 바로 찾아드릴게요</p>
     </div>
-    <div class="im" style="left:-3px;top:324px;width:381px;height:208px;background-image:url(__IMG_INTRO_482d4e__)"></div>
-    <div class="im" style="transform:matrix(-0.95,-0.312,0.312,-0.95,156.09,849.445);width:420.011px;height:354.555px;filter:blur(16px);background-image:url(__IMG_INTRO_e39163__)"></div>
     <div class="ibottom"><button class="icta" id="btnAsk">물어보러 가기</button></div>
   </div>
 
@@ -494,6 +489,7 @@ Gemini API 키가 필요해요</h1>
 
 <script>window.MOA_DB = __DB_JSON__;</script>
 <script>window.MOA_TOKENS = __TOKENS_JSON__;</script>
+<script>window.MOA_PROMPTS = __PROMPTS_JSON__;</script>
 <script>__GEMINI_JS__</script>
 <script>
 /* ── fallback data (data/ 폴더가 비었을 때만 사용) ────────────── */

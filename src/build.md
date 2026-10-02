@@ -7,6 +7,7 @@
 | `__FONT_CSS__` | `assets/pretendard-inline.css` 내용 (base64 @font-face) |
 | `__DB_JSON__` | `data/` 폴더의 md/csv를 파싱한 chunk 배열 |
 | `__GEMINI_JS__` | `src/gemini.js` 내용 |
+| `__PROMPTS_JSON__` | `data/prompts/*.md` 본문 배열 `[{file, text}]` (Gemini system instruction) |
 | `__IMG_HOME__` | 홈 마스코트 |
 | `__IMG_KEY__` | 키 화면 마스코트 |
 | `__IMG_KEYBG__` | 설정 화면 배경 |
@@ -14,6 +15,7 @@
 | `__IMG_MASCOT__` | 메뉴 배너 마스코트 |
 | `__IMG_PROFILE__` | 챗봇 프로필 |
 | `__IMG_SMALL__` | 메뉴 배너 소형 이미지 |
+| `__IMG_INTROBG__` | 인트로 배경 (마스코트·로고 포함 한 장) |
 
 출력:
 
@@ -76,7 +78,7 @@ const splitCsv = (line) => {
 
 const chunks = [];
 for (const name of fs.readdirSync('data').sort()) {
-  if (name === 'README.md') continue;
+  if (name === 'README.md' || !/\.(md|csv)$/i.test(name)) continue;   // tokens/, prompts/ 폴더 제외
   const key  = name.replace(/\.(md|csv)$/i, '');
   const base = label(key);
   const raw  = fs.readFileSync(path.join('data', name), 'utf8');
@@ -118,19 +120,30 @@ for (const name of fs.readdirSync('data').sort()) {
   flush();
 }
 
+/* 챗봇 프롬프트 — 노션 메타(첫 **[ 이전)와 이미지 줄 제거 */
+const PROMPT_FILES = ['01_role.md', '02_exception.md', '03_output.md'];
+const promptBody = (md) => {
+  let L = md.replace(/\r/g, '').split('\n');
+  const i = L.findIndex(l => /^\*\*\[/.test(l.trim()));
+  if (i > 0) L = L.slice(i);
+  return L.filter(l => !/^!\[/.test(l.trim())).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+};
+const prompts = PROMPT_FILES.map(f => ({ file: f, text: promptBody(fs.readFileSync(path.join('data/prompts', f), 'utf8')) }));
+
 const map = {
   __IMG_HOME__: 'home', __IMG_KEY__: 'key', __IMG_KEYBG__: 'keybg',
   __IMG_SAD__: 'sad', __IMG_MASCOT__: 'mascot',
-  __IMG_PROFILE__: 'profile', __IMG_SMALL__: 'small'
+  __IMG_PROFILE__: 'profile', __IMG_SMALL__: 'small', __IMG_INTROBG__: 'introbg'
 };
 
 const build = (get) => {
   let h = src
     .split('__FONT_CSS__').join(font)
     .split('__DB_JSON__').join(JSON.stringify(chunks))
-    .split('__GEMINI_JS__').join(gem);
+    .split('__GEMINI_JS__').join(gem)
+    .split('__PROMPTS_JSON__').join(JSON.stringify(prompts).replace(/<\//g, '<\\/'));
   for (const [tok, name] of Object.entries(map)) h = h.split(tok).join(get(name));
-  if (/__(IMG|DB|GEMINI|FONT)_/.test(h)) throw new Error('unresolved token');
+  if (/__(IMG|DB|GEMINI|FONT|PROMPTS)_/.test(h)) throw new Error('unresolved token');
   return h;
 };
 
