@@ -1,0 +1,2206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function (m, a, z, e) {
+  var s, t, u, v;
+  try {
+    t = m.sessionStorage.getItem('maze-us');
+  } catch (err) {}
+
+  if (!t) {
+    t = new Date().getTime();
+    try {
+      m.sessionStorage.setItem('maze-us', t);
+    } catch (err) {}
+  }
+u = document.currentScript || (function () {
+    var w = document.getElementsByTagName('script');
+    return w[w.length - 1];
+  })();
+  v = u && u.nonce;
+
+  s = a.createElement('script');
+  s.src = z + '?apiKey=' + e;
+  s.async = true;
+  if (v) s.setAttribute('nonce', v);
+  a.getElementsByTagName('head')[0].appendChild(s);
+  m.mazeUniversalSnippetApiKey = e;
+})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', 'd0000a3-f0c7-4e09-a555-4a538dd6a88e');
+</script>
+<meta charset="utf-8">
+<title>System Guide Moa</title>
+<style id="pretendard-inline">__FONT_CSS__</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{height:100%}
+body{width:100%;min-height:100%;height:auto;display:flex;overflow:hidden;background:#1E1E1E}
+@media (min-width:377px),(min-height:673px){body{padding:16px 0;overflow:auto}}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:#000;letter-spacing:-0.02em}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input{font:inherit;border:0;outline:0;background:none}
+#app{position:relative;width:360px;height:640px;min-height:640px;flex:0 0 auto;margin:auto;overflow:hidden;background:#fff}
+.hide{display:none !important}
+
+/* ── web: draggable window (브라우저에서만, Figma 플러그인 안에서는 미적용) ── */
+body.web{display:block;padding:0 !important;overflow:hidden;height:100vh}
+#win{position:fixed;left:0;top:0;width:360px;border-radius:13px;overflow:hidden;background:#fff;box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 2px 14px rgba(0,0,0,.15),0 24px 48px rgba(0,0,0,.18);z-index:1000}
+body.web #app{margin:0}
+#webbg{position:fixed;inset:0;min-width:790px;min-height:641px;overflow:hidden;z-index:0;user-select:none;-webkit-user-select:none;pointer-events:none;letter-spacing:0;box-sizing:border-box}
+#webbg .fr{position:absolute;inset:0;border-style:solid;border-width:561.5px 245.5px 79.5px 504.5px;border-image-slice:1123 491 159 1009 fill;border-image-repeat:stretch;box-sizing:border-box}
+#webbg .tx{position:absolute;white-space:nowrap;line-height:1}
+#webbg .tool{position:absolute;left:calc(504.5px + (100% - 750px)/2);bottom:2.5px;height:63.5px;transform:translateX(-50%)}
+body.web{background:#1E1E1E}
+
+
+
+/* ── header  (2:288 / 2:304) ── */
+.head{position:absolute;left:0;top:0;width:360px;height:40px;background:#fff;display:flex;padding:16px;justify-content:space-between;align-items:center;z-index:30}
+.head.transparent{background:#fff}
+.head .brand{display:flex;gap:8px;align-items:center;height:20px}
+.sym{position:relative;width:20px;height:20px;flex-shrink:0}
+.sym .sq{position:absolute;left:0;top:0;width:20px;height:20px;border-radius:6.4px;background:linear-gradient(-45deg,#80B0FB 0%,#715FE2 100%)}
+.sym .in{position:absolute;left:2.951px;top:3px;width:14.094px;height:14px;overflow:hidden}
+.sym .in i{position:absolute;left:0;top:0;width:4px;height:9px;border-radius:2px;transform-origin:0 0}
+.head .name{font-size:12px;font-weight:600;line-height:15.96px;white-space:nowrap}
+.iconbtn{width:24px;height:24px;border-radius:4px;display:flex;justify-content:center;align-items:center;flex-shrink:0}
+.iconbtn:hover{background:rgba(0,0,0,.05)}
+
+/* ── top bar (2:330) ── */
+.topbar{position:absolute;left:0;top:40px;width:360px;height:41px;background:#fff;border:1px solid rgba(0,0,0,.1);display:flex;padding:8px 16px;justify-content:space-between;align-items:center;z-index:30}
+.fbar{position:absolute;left:0;top:81px;width:360px;height:44px;box-sizing:border-box;background:#fff;border-bottom:1px solid rgba(0,0,0,.1);display:flex;align-items:center;gap:4px;padding:0 12px 0 16px;z-index:29;transform:translateY(-100%);opacity:0;pointer-events:none;transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .26s ease .04s}
+.fbar.on{transition:transform .26s cubic-bezier(.22,1,.36,1),opacity .18s ease}
+.fbar.on{transform:none;opacity:1;pointer-events:auto}
+.fbar input{flex:1;min-width:0;height:28px;border:0;outline:0;border-radius:6px;background:#F4F6F9;padding:0 10px;font:inherit;font-size:12px;font-weight:500;color:#000}
+.fbar input:focus{box-shadow:inset 0 0 0 1px #2063FF}
+.fbar .fcnt{min-width:36px;text-align:right;font-size:11px;font-weight:500;color:#707070;margin-right:2px}
+.fbar button{width:24px;height:24px;border-radius:4px;display:flex;justify-content:center;align-items:center;flex-shrink:0}
+.fbar button:hover{background:rgba(0,0,0,.05)}
+.fbar button:disabled{opacity:.3;pointer-events:none}
+[data-old] .acts,[data-old] .backlink,[data-old] .qchips{display:none}
+mark.fhit{background:#FFE58A;color:#000;border-radius:2px}
+mark.fhit.cur{background:#FFB938}
+.topbar .lead{display:flex;align-items:center;align-self:stretch;width:260px}
+.topbar .back{width:24px;align-self:stretch;display:flex;align-items:center;justify-content:center}
+.topbar .title{width:248px;font-size:12px;font-weight:600;line-height:15.96px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar .tools{width:52px;display:flex;gap:4px;justify-content:flex-end;align-items:center;align-self:stretch}
+.topbar .tool{position:relative;width:24px;align-self:stretch;display:flex;align-items:center;justify-content:center}
+.dot{position:absolute;left:20px;top:3px;width:4px;height:4px;border-radius:50%;background:#00BC06}
+.dot.off{background:#D62E2E}
+
+.page{position:absolute;left:0;top:0;width:360px;height:640px;z-index:10}
+
+/* ── home background (2:639 + 02_bg white overlay) ── */
+.bg-home{position:absolute;inset:0;overflow:hidden;background:#fff;z-index:1}
+.bg-home .g1{position:absolute;left:0;top:0;width:360px;height:640px;background:linear-gradient(180deg,rgba(0,200,255,0) 39.71%,rgba(0,200,255,.6) 76.29%);animation:sheen 14s ease-in-out infinite}
+.bg-home .b1{position:absolute;left:0;top:0;width:291.555px;height:259.621px;filter:blur(60px);transform-origin:0 0;will-change:transform;animation:stateBlue 9s ease-in-out infinite}
+.bg-home .b2{position:absolute;left:191px;top:268px;width:299px;height:350px;filter:blur(60px);will-change:transform,opacity;animation:statePink 9s ease-in-out infinite}
+.bg-home .b3{position:absolute;left:-70px;top:352px;width:320px;height:300px;filter:blur(60px);will-change:transform,opacity;animation:stateCyan 9s ease-in-out infinite}
+@keyframes stateBlue{0%{transform:matrix(-0.915,-0.403,0.403,-0.915,91.088,633.899);opacity:.8}33%{transform:matrix(-0.915,-0.403,0.403,-0.915,168.088,556.899);opacity:.9}66%{transform:matrix(-0.915,-0.403,0.403,-0.915,58.088,668.899);opacity:.7}100%{transform:matrix(-0.915,-0.403,0.403,-0.915,91.088,633.899);opacity:.8}}
+@keyframes statePink{0%{transform:translate(0,0) scale(1);opacity:.55}33%{transform:translate(-152px,-118px) scale(.94);opacity:.5}66%{transform:translate(-186px,44px) scale(1.12);opacity:.85}100%{transform:translate(0,0) scale(1);opacity:.55}}
+@keyframes stateCyan{0%{transform:translate(0,0) scale(1.06);opacity:.85}33%{transform:translate(-26px,58px) scale(.94);opacity:.7}66%{transform:translate(196px,-34px) scale(1.12);opacity:.9}100%{transform:translate(0,0) scale(1.06);opacity:.85}}
+@keyframes sheen{0%{opacity:.85}50%{opacity:1}100%{opacity:.85}}
+.bg-home .blur{position:absolute;left:0;top:0;width:360px;height:640px;background:rgba(255,255,255,.28)}
+.bg-home .fade{position:absolute;left:0;top:540px;width:360px;height:100px;background:linear-gradient(0deg,rgba(245,246,250,.6) 40%,rgba(245,246,250,0) 100%)}
+.bg-home .wh{position:absolute;left:0;top:0;width:360px;height:640px;background:linear-gradient(180deg,#fff 28.59%,rgba(255,255,255,0) 41.41%)}
+@media (prefers-reduced-motion:reduce){.bg-home .b1,.bg-home .b2,.bg-home .b3,.bg-home .g1{animation:none}}
+
+.bg-flat{position:absolute;inset:0;background:#F5F6FA;z-index:1}
+.bg-ing{position:absolute;inset:0;overflow:hidden;z-index:2;opacity:0;transition:opacity .5s ease;pointer-events:none}
+.bg-ing.on{opacity:1}
+.bg-ing .wrap{position:absolute;left:-105px;top:36px;width:562px;height:733px;opacity:.4;overflow:hidden}
+.bg-ing .ig{position:absolute;left:105px;top:0;width:360px;height:700px;background:linear-gradient(180deg,rgba(63,239,255,0) 39.71%,rgb(63,239,255) 76.29%)}
+.bg-ing .i1{position:absolute;left:0;top:358px;width:365px;height:375px;filter:blur(90px)}
+.bg-ing .i2{position:absolute;left:263px;top:378px;width:299px;height:350px;filter:blur(90px)}
+.bg-ing .iblur{position:absolute;left:0;top:0;width:360px;height:640px;background:linear-gradient(180deg,rgba(255,255,255,0) 30.16%,rgba(255,255,255,.5) 100%)}
+.bg-key{position:absolute;inset:0;overflow:hidden;background:#F8F9FC url(__IMG_KEYBG__) center / 360px 640px no-repeat;z-index:1}
+
+/* ── home content (2:639) ── */
+.home-con{position:absolute;left:0;top:72px;bottom:78px;width:360px;display:flex;flex-direction:column;gap:20px;align-items:flex-start;z-index:5;min-height:0}
+.home-top{padding:24px;height:200px;display:flex;flex-direction:column;gap:10px;align-self:stretch}
+.hero{height:152px;display:flex;flex-direction:column;gap:13px;align-items:center;align-self:stretch}
+.hero-mark{position:relative;width:236px;height:91px}
+.hero-mark .guide,.hero-mark .search{position:absolute;top:0;height:40px;font-size:30px;font-weight:600;line-height:40px;text-align:center;white-space:nowrap;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-mark .guide{left:2px;width:80px;background-image:linear-gradient(79deg,#0D2598 7.88%,#0077FF 92.12%)}
+.hero-mark .search{left:141px;width:95px;background-image:linear-gradient(91deg,#2063FF 8.27%,#FFCDFF 99.14%)}
+.hero-mark .mascot{position:absolute;left:73px;top:1px;width:90px;height:90px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hero-mark .mascot img{will-change:transform}
+.hero-mark .mascot:active img{transform:scale(.95)}
+.hero-mark .mascot img{position:absolute;left:-21px;top:-18px;width:120px;height:120px;object-fit:cover}
+.hero-sub{align-self:stretch;min-height:48px;font-size:16px;font-weight:600;line-height:24px;text-align:center;white-space:pre-line;word-break:keep-all;text-wrap:balance;color:#000000}
+.home-chips{height:226px;display:flex;flex-direction:column;gap:32px;align-items:center;align-self:stretch}
+.home-select{padding:0 24px;display:flex;flex-direction:column;gap:10px;align-items:center;align-self:stretch}
+.home-chips{height:auto;flex:1 1 auto;min-height:0;overflow:hidden;gap:20px;justify-content:flex-start}
+.home-info{margin-top:0;margin-bottom:16px}
+.home-select{flex:0 0 auto;min-height:0;padding-top:10px;padding-bottom:10px;overflow-y:auto;-ms-overflow-style:none;scrollbar-width:none}
+.home-select::-webkit-scrollbar{display:none}
+.home-row{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;justify-content:center}
+.mchip{position:relative;height:36px;border-radius:18px;background:rgba(255,255,255,.6);box-shadow:inset 0 0 0 1px rgba(255,255,255,.4),2px 2px 12px 0 rgba(0,0,0,.08);padding:8px 16px;display:flex;justify-content:center;align-items:center;font-size:14px;font-weight:500;line-height:20px;white-space:nowrap;transition:background .18s,box-shadow .18s}
+.mchip::before{content:"";position:absolute;inset:0;border-radius:18px;padding:1px;background:linear-gradient(135deg,rgba(255,255,255,.4) 0%,rgba(65,133,255,.8) 50%,#FFFFFF 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .18s;pointer-events:none}
+.mchip:hover,.mchip.on{background:radial-gradient(34.109px 61.516px at 49.24% 51.39%,rgba(65,133,255,.6) 0%,rgba(65,133,255,.1) 100%);box-shadow:2px 2px 12px 0 rgba(0,0,0,.16)}
+.mchip:hover::before,.mchip.on::before{opacity:1}
+.home-info{width:152px;display:flex;flex-direction:row;gap:2px;align-items:center}
+.home-info .qi{width:18px;height:18px;position:relative;color:rgba(0,0,0,.6)}
+.home-info .qi svg{position:absolute;left:2.25px;top:2.25px}
+.home-info span{font-size:14px;font-weight:700;line-height:20px;color:rgba(0,0,0,.6);white-space:nowrap}
+.hero-sub.desc{color:rgba(0,0,0,.6)}
+.hero-sub{transition:opacity .16s ease,transform .16s ease,color .16s ease}
+.hero-sub.fade{opacity:0;transform:translateY(3px)}
+
+/* ── chat (2:726) ── */
+.chat-con{position:absolute;left:0;top:80px;width:360px;bottom:0;overflow-y:auto;overflow-x:hidden;padding-bottom:104px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;z-index:5;scrollbar-width:none}
+.chat-con::-webkit-scrollbar{display:none}
+.light{position:absolute;left:0;top:550px;width:360px;height:90px;background:linear-gradient(0deg,#F5F6FA 54.4%,rgba(245,246,250,0) 100%);z-index:20;pointer-events:none}
+.intro{padding:24px 24px 0;display:flex;flex-direction:column;gap:20px;align-self:stretch}
+.intro .title{display:flex;flex-direction:column;gap:4px;align-self:stretch}
+.intro h1{font-size:24px;font-weight:600;line-height:32px;color:#424751;white-space:pre-line}
+.intro h1.sweep{color:transparent;background-image:linear-gradient(90deg,#424751 0%,#2063FF 22%,#00C8FF 42%,#D98DFF 62%,#424751 84%);background-size:280% 100%;background-position:100% 0;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:titleSweep 2s ease-out forwards}
+@keyframes titleSweep{from{background-position:100% 0}to{background-position:0 0}}
+.star{position:relative;width:20px;height:20px}
+.intro .title>svg{display:block;transform-origin:50% 50%}
+.intro .title>svg.spin{animation:logoSpin .6s cubic-bezier(.3,0,.2,1)}
+@keyframes logoSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.star i{position:absolute;left:0;top:0;width:14px;height:14px;border-radius:1px;transform:matrix(0.707,0.707,-0.707,0.707,10,0);transform-origin:0 0;background:linear-gradient(225deg,#00C8FF 4.54%,#2063FF 48.31%,#FFB8FF 92.93%);clip-path:path("M 0.494 1.755 C 0.299 0.991 0.997 0.275 1.765 0.454 C 5.487 1.32 8.261 1.32 12.403 0.387 C 13.134 0.223 13.8 0.872 13.653 1.607 C 12.862 5.542 12.801 8.317 13.621 12.315 C 13.775 13.067 13.078 13.734 12.332 13.549 C 8.366 12.568 5.607 12.611 1.729 13.547 C 0.969 13.73 0.274 13.032 0.461 12.273 C 1.412 8.426 1.492 5.674 0.494 1.755 Z")}
+.qchips{display:flex;flex-wrap:wrap;gap:6px 4px;align-self:stretch}
+.chip{height:33px;border-radius:999px;background:#fff;box-shadow:inset 0 0 0 1px #E0E3E9;padding:8px 12px;display:flex;justify-content:center;align-items:center;font-size:13px;font-weight:500;line-height:17px;color:#000;white-space:nowrap}
+.chip:hover{box-shadow:inset 0 0 0 1px #B9C6DC}
+.chip.sel{box-shadow:inset 0 0 0 1px #2063FF;font-weight:600;color:#2063FF}
+.chip.sm{height:32px;font-size:12px;line-height:15.96px}
+.row-user{padding:0 24px;display:flex;justify-content:flex-end;align-self:stretch}
+.bub-user{border-radius:20px 2px 20px 20px;background:#4185FF;padding:10px 14px;font-size:14px;font-weight:600;line-height:19px;color:#fff;text-align:left;max-width:276px;box-sizing:border-box;overflow-wrap:anywhere}
+.row-bot{padding:0 24px;display:flex;flex-direction:column;gap:8px;align-items:flex-start;align-self:stretch}
+.avatar{position:relative;width:28px;height:28px;border-radius:50%;background:#E7F3FF;overflow:hidden;flex-shrink:0}
+.avatar img{position:absolute;left:0;top:0;width:28px;height:28px;object-fit:cover;object-position:center}
+.bot-body{align-self:stretch;min-width:0;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.bub-ing{width:60px;height:39px;border-radius:2px 20px 20px 20px;background:#fff;box-shadow:0 0 2px 0 rgba(0,0,0,.04);padding:10px 14px;display:flex;gap:8px;align-items:center;box-sizing:border-box}
+.bub-ing .dots{width:32px;height:10px;display:flex;flex-direction:row;gap:4px;align-items:center;justify-content:center;flex-shrink:0}
+.bub-ing i{flex-shrink:0;border-radius:50%;background:rgba(32,99,255,.3);animation:blink 1.2s infinite}
+.bub-ing i:nth-child(1){width:6px;height:6px}
+.bub-ing i:nth-child(2){width:8px;height:8px}
+.bub-ing i:nth-child(3){width:10px;height:10px}
+.bub-ing i:nth-child(2){animation-delay:.2s}.bub-ing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-2px)}}
+.hx{display:inline-flex;align-items:center;gap:3px;white-space:nowrap;vertical-align:baseline}
+.hx i{display:inline-block;width:10px;height:10px;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14);position:relative;top:1px;cursor:pointer;overflow:hidden}
+.hx i b{display:block;width:100%;height:100%;border-radius:inherit}
+.hx i.lite{box-shadow:none;background-image:none}
+.hx i.lite b{box-shadow:inset 0 0 0 1px rgba(112,112,112,.4)}
+.hx i:hover{box-shadow:inset 0 0 0 1px rgba(0,0,0,.14),0 0 0 2px #D6E4FF}
+.bub-note{align-self:flex-start;max-width:276px;box-sizing:border-box;border-radius:2px 20px 20px 20px;background:#fff;box-shadow:0 0 2px 0 rgba(0,0,0,.04);padding:10px 14px;font-size:13px;font-weight:500;line-height:19px;letter-spacing:-0.02em;color:#424751;animation:stepIn .25s cubic-bezier(.22,1,.36,1)}
+.steps{align-self:stretch;border-radius:2px 20px 20px 20px;background:#fff;box-shadow:0 0 2px 0 rgba(0,0,0,.04);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.step{display:flex;flex-direction:row;gap:8px;align-items:flex-start;animation:stepIn .25s cubic-bezier(.22,1,.36,1)}
+.step .ic{position:relative;width:14px;height:14px;margin-top:1px;flex-shrink:0;border-radius:50%}
+.step.run .ic{border:1.5px solid #D6E4FF;border-top-color:#4185FF;animation:stepSpin .8s linear infinite}
+.step.done .ic{background:#4185FF}
+.step.warn .ic{background:#F2A60C}
+.step.error .ic{background:#D62E2E}
+.step.skip .ic{background:#E0E3E9}
+.step.done .ic:after,.step.warn .ic:after{content:"";position:absolute;left:4.5px;top:2.5px;width:3px;height:6px;border:solid #fff;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+.step.error .ic:before,.step.error .ic:after{content:"";position:absolute;left:6.25px;top:3px;width:1.5px;height:8px;background:#fff;border-radius:1px;transform:rotate(45deg)}
+.step.error .ic:after{transform:rotate(-45deg)}
+.step .tx{min-width:0;display:flex;flex-direction:column;gap:2px}
+.step .t{font-size:12px;font-weight:600;line-height:16px;letter-spacing:-0.02em;color:#000}
+.step.skip .t{color:#8C93A0}
+.step .d{font-size:11px;font-weight:400;line-height:15px;color:#5C6473;word-break:break-all;white-space:pre-line}
+.step.error .d{color:#D62E2E}
+.step.warn .d{color:#A86E00}
+@keyframes stepSpin{to{transform:rotate(360deg)}}
+@keyframes stepIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.card{align-self:flex-start;width:100%;max-width:276px;box-sizing:border-box;border-radius:8px;background:#fff;padding:16px;display:flex;flex-direction:column;gap:12px}
+.card-h{display:flex;flex-direction:column;gap:2px}
+.card-h .t{font-size:14px;font-weight:600;line-height:1.33;color:#000}
+.card-h .d{font-size:12px;font-weight:400;line-height:1.33;color:#000}
+.card p{font-size:13px;font-weight:400;line-height:1.5;color:#424751;white-space:pre-wrap}
+.card p .ah{display:block;margin:12px 0 4px;font-size:13px;font-weight:700;line-height:1.5;color:inherit}
+.card p .ah.f{margin-top:0}
+.card,.lcard{word-break:keep-all;overflow-wrap:anywhere}
+.tk{color:#000000}
+.li{display:flex;gap:4px;align-items:baseline}
+.li>i{flex:none;font-style:normal}
+.li>span{flex:1;min-width:0}
+.sw .chipbox.lite,.lcard .lsw .sw.lite{box-shadow:inset 0 0 0 1px rgba(112,112,112,.4)}
+.sw-grid{display:flex;flex-direction:column;gap:8px}
+.sw-row{display:flex;flex-direction:row;gap:12px}
+.sw{flex:1;min-width:0;display:flex;flex-direction:row;gap:12px;align-items:center;height:33px;border-radius:4px;text-align:left}
+.sw:hover{background:rgba(65,133,255,.08)}
+.sw .chipbox{width:16px;height:16px;border-radius:2px;flex-shrink:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.sw .meta{display:flex;flex-direction:column;min-width:0}
+.sw .n{font-size:13px;font-weight:500;line-height:17px;color:#000;white-space:nowrap}
+.sw .h{font-size:12px;font-weight:400;line-height:16px;color:#000000}
+.tp-list{display:flex;flex-direction:column;gap:8px}
+.tp-row{display:flex;flex-direction:row;gap:8px;align-items:baseline;text-align:left}
+.tp-row .a{font-size:13px;font-weight:500;line-height:1.33;color:#000;white-space:nowrap}
+.tp-row .b{flex:1;font-size:12px;font-weight:400;line-height:1.33;text-align:right;color:#000000}
+.tp-row:hover .a{color:#2063FF}
+.acts{display:flex;gap:12px;align-items:center}
+.acts button{display:flex;gap:4px;align-items:center;font-size:12px;font-weight:600;color:#555}
+.acts button:hover{color:#2063FF}
+.after{display:flex;flex-direction:column;gap:12px;align-self:stretch;width:100%}
+.backlink{display:flex;gap:2px;align-items:center;height:16px;border-radius:16px;background:none;box-shadow:none;padding:0;font-size:12px;font-weight:600;line-height:16px;letter-spacing:-.02em;color:#555;align-self:flex-start}
+.backlink:hover{color:#2063FF}
+.backlink svg{flex-shrink:0;fill:currentColor;transform:rotate(90deg);transform-origin:50% 50%}
+.caret{color:#424751;animation:caret 1s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+#btnSettings.hl{border-radius:50%;animation:setHl .6s ease-in-out 3}
+@keyframes setHl{0%,100%{box-shadow:0 0 0 0 rgba(65,133,255,0);background-color:transparent}50%{box-shadow:0 0 0 3px rgba(65,133,255,.4),0 0 12px 3px rgba(65,133,255,.4);background-color:rgba(65,133,255,.4)}}
+
+/* ── bottom bar (2:237 / 1:22) ── */
+.bar{position:absolute;left:0;top:auto;bottom:0;width:360px;min-height:72px;padding:12px 16px 16px;display:flex;flex-direction:column;gap:10px;z-index:25;transform:translateZ(0)}
+.bar .shell{position:relative;min-height:44px;display:flex;flex-direction:row;gap:8px;align-items:flex-end;align-self:stretch}
+.bar .menu{width:44px;height:44px;flex-shrink:0;border-radius:22px;background:rgba(255,255,255,.8);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);box-shadow:0 6px 12px 0 rgba(0,0,0,.1),0 20px 60px 0 rgba(0,0,0,.1);display:flex;justify-content:center;align-items:center;flex-shrink:0;transform:translateZ(0)}
+.bar .menu .ic{position:relative;width:16px;height:16px}
+.bar .menu .ic i{position:absolute;left:1px;display:block;width:14px;height:1.5px;background:#424751;border-radius:.75px}
+.bar .menu .ic i:nth-child(1){top:3.25px}
+.bar .menu .ic i:nth-child(2){top:7.25px}
+.bar .menu .ic i:nth-child(3){top:11.25px}
+.bar .glow{position:absolute;left:52px;right:0;top:0;bottom:0;z-index:0;border-radius:22px;background:linear-gradient(90deg,rgba(211,231,255,.9) 0%,rgba(0,200,255,.9) 25%,rgba(65,133,255,.9) 50%,rgba(255,216,255,.9) 75%,rgba(211,231,255,.9) 100%);background-size:220% 100%;background-repeat:repeat;filter:blur(10px);opacity:0;transition:opacity .25s;pointer-events:none}
+.bar.typing .glow{opacity:.65;animation:rimFlow 6s linear infinite}
+.bar .grad{position:absolute;left:52px;right:0;top:0;bottom:0;z-index:0;border-radius:22px;mix-blend-mode:multiply;background:linear-gradient(90deg,rgba(211,231,255,.5) 0%,rgba(0,200,255,.5) 25%,rgba(65,133,255,.5) 50%,rgba(255,216,255,.5) 75%,rgba(211,231,255,.5) 100%);background-size:220% 100%;background-repeat:repeat;opacity:0;transition:opacity .25s;pointer-events:none}
+.bar.typing .grad{animation:rimFlow 6s linear infinite}
+.bar .rim{position:absolute;left:52px;right:0;top:0;bottom:0;z-index:3;border-radius:22px;padding:1.2px;background:linear-gradient(90deg,rgba(211,231,255,.95) 0%,rgba(0,200,255,.95) 25%,rgba(65,133,255,.95) 50%,rgba(255,216,255,.95) 75%,rgba(211,231,255,.95) 100%);background-size:220% 100%;background-repeat:repeat;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .25s;pointer-events:none}
+.bar.typing .grad{opacity:1}
+.bar.typing .rim{opacity:1;animation:rimFlow 6s linear infinite}
+@keyframes rimFlow{from{background-position:0 0}to{background-position:-220% 0}}
+.bar .glow.sweep,.bar .grad.sweep,.bar .rim.sweep{opacity:1;background-size:220% 100%;background-position:100% 0;animation:barSweep 2s ease-out forwards}
+@keyframes barSweep{from{background-position:100% 0;opacity:.25}60%{opacity:1}to{background-position:0 0;opacity:0}}
+.bar .field{position:relative;min-height:44px;min-width:0;border-radius:22px;background-color:rgba(255,255,255,.8);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);box-shadow:0 6px 12px 0 rgba(0,0,0,.1),0 20px 60px 0 rgba(0,0,0,.1);display:flex;flex-direction:row;gap:15px;padding:13px 16px;align-items:center;flex:1;overflow:hidden;transform:translateZ(0)}
+.bar.typing .field{gap:15px}
+.bar .lead{flex:1;min-width:0;display:flex;flex-direction:row;gap:4px;align-items:center}
+.bar .ai{position:relative;width:16px;height:16px;flex-shrink:0;transform-origin:50% 50%;transition:transform .14s cubic-bezier(.4,0,1,1),opacity .14s ease-in,width .14s ease-out,margin .14s ease-out}
+.bar.typing .ai{transform:translateX(14px) scale(.3);opacity:0;width:0;margin-right:-4px}
+.bar textarea{flex:1;min-width:0;height:17px;max-height:340px;padding:0;font:inherit;font-size:14px;font-weight:500;line-height:17px;letter-spacing:-0.02em;color:#424751;background:none;border:0;outline:0;resize:none;overflow-y:auto;scrollbar-width:none;display:block}
+.bar textarea::-webkit-scrollbar{display:none}
+.bar textarea::placeholder{color:rgba(66,71,81,.6)}
+.bar .send{width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:#424751;flex-shrink:0;align-self:flex-end;margin:-4px 0 -3.5px;opacity:0;transform:translateX(-36px);transition:opacity .14s ease,transform .26s cubic-bezier(.2,.9,.3,1.3)}
+.bar .send svg path{fill:url(#sendGrad)}
+.bar.typing .send{opacity:1;transform:translateX(0)}
+
+/* ── intro (home.fig 1:50) ── */
+#pgIntro{overflow:hidden;background:rgb(238,243,247)}
+#pgIntro .ibg{position:absolute;left:0;top:0;width:360px;height:640px;background:radial-gradient(402.492px 382.194px at 100% 100%, rgb(255,205,255) 0%, rgba(255,255,255,0.4) 70.19%, rgba(197,224,255,0) 100%), radial-gradient(291.772px 329.25px at 20.83% 8.2%, rgba(255,255,255,0.2) 0%, rgb(164,211,251) 100%)}
+#pgIntro .im{position:absolute;left:0;top:0;transform-origin:0 0;background-position:center;background-size:cover;background-repeat:no-repeat}
+#pgIntro .glow{position:absolute;left:-108px;top:361px;width:273px;height:204px;opacity:.2;border-radius:50%;background:radial-gradient(136.5px 102px at 50% 50%, rgb(63,239,255) 0%, rgba(63,239,255,0) 100%)}
+#pgIntro .itxt{position:absolute;left:0;top:100px;width:360px;display:flex;flex-direction:column;gap:20px;padding:0 32px;color:#000;letter-spacing:-0.01em}
+#pgIntro .itxt h1{font-size:30px;font-weight:700;line-height:1.33;white-space:pre-line}
+#pgIntro .itxt h1 span{font-weight:300}
+#pgIntro .itxt p{font-size:16px;font-weight:300;line-height:1.5;white-space:pre-line}
+#pgIntro .ibottom{position:absolute;left:0;top:568px;width:360px;height:72px;padding:12px 16px 16px;display:flex;flex-direction:column}
+#pgIntro .icta{height:44px;align-self:stretch;border-radius:999px;background:#fff;display:flex;justify-content:center;align-items:center;padding:12px 16px;font-size:14px;font-weight:700;line-height:19px;letter-spacing:-0.02em;color:#000}
+#pgIntro .icta:hover{background:#F4F6F9}
+/* ── API key screen (2:597 / 2:611 / 2:625) ── */
+.key-img{display:none}
+.key-body{position:absolute;left:24px;top:190px;width:312px;display:flex;flex-direction:column;gap:24px;z-index:5}
+.key-text{display:flex;flex-direction:column;gap:12px}
+.key-text h1{font-size:24px;font-weight:600;line-height:32px;color:#000;white-space:pre-line}
+.key-text a{align-self:flex-start;font-size:14px;font-weight:600;line-height:19px;color:#424751;text-decoration:underline}
+.field-box{width:312px;display:flex;flex-direction:column;justify-content:center}
+.field-box .lab{align-self:stretch;font-size:12px;font-weight:500;line-height:16px;letter-spacing:-0.02em;color:#5C6473}
+.field-box .inp{height:43px;align-self:stretch;border:0;border-bottom:1px solid #C8CDD4;border-radius:0;background:none;display:flex;flex-direction:row;gap:10px;padding:8px 0 10px;align-items:center;box-sizing:border-box}
+.field-box.on .inp{border-bottom-color:#000}
+.field-box.err .inp{border-bottom-color:#D62E2E;height:45px;padding:10px 0}
+.field-box input{flex:1;min-width:0;font-size:16px;font-weight:500;line-height:22px;letter-spacing:-0.02em;color:#000}
+.field-box input::placeholder{color:#8C93A0}
+.field-box .clear{position:relative;width:24px;height:24px;flex-shrink:0;display:none}
+.field-box.on .clear,.field-box.err .clear{display:flex;align-items:center;justify-content:center}
+.field-box .clear i{position:absolute;left:5px;top:5px;width:14px;height:14px;border-radius:50%;background:#8C93A0}
+.field-box .clear svg{position:absolute;left:9.083px;top:9.083px}
+.err-msg{margin-top:8px;align-self:stretch;font-size:12px;font-weight:400;line-height:16px;color:#D62E2E;display:none}
+.field-box.err .err-msg{display:block}
+.key-usage{margin-top:8px;display:none;align-items:center;gap:6px;font-size:11px;font-weight:500;line-height:15px;letter-spacing:-0.02em;color:#5C6473}
+.key-usage.on{display:flex}
+.field-box.err .key-usage{display:none}
+.key-usage i{width:4px;height:4px;border-radius:50%;background:#00BC06;flex-shrink:0}
+.key-usage b{font-weight:600;color:#000}
+.key-usage.low b{color:#D62E2E}
+.key-cta{position:absolute;left:24px;top:404px;width:312px;z-index:5}
+.cta{width:100%;height:44px;border-radius:8px;background:#4185FF;display:flex;justify-content:center;align-items:center;font-size:14px;font-weight:600;line-height:20px;color:#fff}
+.cta[disabled]{background:#E0E3E9;color:#8C93A0;cursor:default}
+.key-info{position:absolute;left:0;top:485px;width:360px;height:155px;padding:24px 24px 32px;display:flex;flex-direction:column;gap:8px;z-index:5}
+.key-info h2{font-size:12px;font-weight:600;line-height:19px;color:#000}
+.key-info p{font-size:12px;font-weight:400;line-height:1.5;color:#424751;white-space:pre-line}
+
+/* ── overlays ── */
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:60}
+.sheet{position:absolute;left:0;top:80px;width:360px;height:560px;overflow:hidden;border-radius:20px 20px 0 0;background:#fff;padding-bottom:24px;display:flex;flex-direction:column;animation:sheetUp .34s cubic-bezier(.2,.85,.25,1)}
+@keyframes up{from{transform:translateY(24px);opacity:.6}}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes sheetDown{from{transform:translateY(0)}to{transform:translateY(100%)}}
+@keyframes dimIn{from{background:rgba(0,0,0,0)}}
+@keyframes dimOut{to{background:rgba(0,0,0,0)}}
+#menuOverlay{animation:dimIn .3s ease}
+#menuOverlay.closing{animation:dimOut .26s ease-in forwards}
+#menuOverlay.closing .sheet{animation:sheetDown .26s cubic-bezier(.5,0,.75,0) forwards}
+.sheet-head{height:40px;display:flex;flex-direction:row;gap:12px;padding:8px 14px 8px 24px;align-items:center;align-self:stretch}
+.sheet-head span{flex:1;font-size:12px;font-weight:600;line-height:16px}
+.sheet-banner{position:relative;height:48px;overflow:hidden;background:#EBEEFA;display:flex;padding:0 24px;align-items:center}
+.sheet-banner span{font-size:12px;font-weight:600;line-height:16px}
+.sheet-banner .img{position:absolute;left:247px;top:0;width:82px;height:56px;overflow:hidden}
+.sheet-banner .img .s1{position:absolute;left:48px;top:0;width:34px;height:34px;object-fit:cover}
+.sheet-banner .img .s2{position:absolute;left:0;top:1px;width:58px;height:55px;object-fit:contain}
+.sheet-list{flex:1;overflow-y:auto;padding:22px 0 10px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none}
+.sheet-list::-webkit-scrollbar{display:none}
+.sec{padding:0 24px;display:flex;flex-direction:column;gap:12px}
+.sec-in{display:flex;flex-direction:column;gap:12px}
+.sec-h{display:flex;flex-direction:row;gap:4px;align-items:flex-end}
+.sec-h .en{font-size:14px;font-weight:600;line-height:20px}
+.sec-h .ko{font-size:14px;font-weight:600;line-height:20px;color:#757575}
+.sec-chips{display:flex;flex-wrap:wrap;gap:8px 6px}
+.mtopics{display:flex;flex-direction:column;gap:16px}
+.mtopic{display:flex;flex-direction:row;align-items:flex-start;gap:8px}
+.mtopic .sec-chips{flex:1;min-width:0;gap:4px;padding-top:4px}
+.chip.xs{height:24px;padding:4px 8px;font-size:11px;line-height:14px}
+.mtopic-h{flex-shrink:0}
+.divider{height:1px;background:#DDD}
+.modal{position:absolute;left:24px;top:163px;width:312px;overflow:hidden;border-radius:8px;background:#fff;display:flex;flex-direction:column;animation:up .22s ease-out}
+.modal-head{height:44px;display:flex;padding:12px 16px 8px;justify-content:flex-end;align-items:center}
+.modal-body{display:flex;flex-direction:column;gap:20px;align-items:center}
+.modal-mid{width:280px;display:flex;flex-direction:column;gap:20px;justify-content:center;align-items:center}
+.modal-art{position:relative;width:120px;height:80px}
+.modal-art .e1{position:absolute;left:13px;top:67px;width:55px;height:9px;border-radius:50%;background:rgba(59,130,237,.8)}
+.modal-art .e2{position:absolute;left:59px;top:68px;width:55px;height:9px;border-radius:50%;background:rgba(59,130,237,.2)}
+.modal-art img{position:absolute;left:10px;top:5px;width:100px;height:70px;object-fit:cover}
+.modal-txt{display:flex;flex-direction:column;gap:8px;align-self:stretch}
+.modal-txt h2{font-size:16px;font-weight:600;line-height:22px;text-align:center;color:#000}
+.modal-txt p{font-size:12px;font-weight:400;line-height:16px;text-align:center;color:#555;white-space:pre-line}
+.modal-bottom{height:72px;padding:12px 16px 16px;display:flex;align-self:stretch}
+.toast{position:absolute;left:50%;top:512px;transform:translateX(-50%);background:rgba(0,0,0,.82);color:#fff;font-size:12px;font-weight:600;padding:8px 14px;border-radius:999px;z-index:80;opacity:0;transition:opacity .18s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+.bub-ing{width:auto;min-width:60px}
+.bub-ing .ing-t{font-size:13px;font-weight:500;line-height:19px;letter-spacing:-0.02em;color:#424751;white-space:nowrap;animation:stepIn .25s cubic-bezier(.22,1,.36,1)}
+.sheet-banner{padding:10px 24px}
+.sheet-banner span{font-size:13px;line-height:16px;letter-spacing:-0.02em}
+.sheet-banner .img{left:250px;top:7px;width:79px;height:56px}
+.sheet-banner .img .s1{left:45px}
+.sec-h .en{letter-spacing:-0.02em}
+.sec-h .ko{font-size:13px;line-height:17px;letter-spacing:-0.02em}
+.sec-chips{flex-direction:column;flex-wrap:nowrap;gap:8px}
+.sec-row{display:flex;flex-direction:row;gap:6px;align-items:center}
+.sec .chip.sm{letter-spacing:-0.02em;transition:background .15s,box-shadow .15s}
+.sec .chip.sm:hover{background:#E0E3E9;box-shadow:none}
+.lcard{align-self:flex-start;width:276px;max-width:100%;border-radius:8px;background:#fff;padding:12px 16px 16px;display:flex;flex-direction:column;gap:12px;box-sizing:border-box;animation:stepIn .25s cubic-bezier(.22,1,.36,1)}
+.lcard .lt{display:flex;flex-direction:column;gap:2px}
+.lcard .lt b{font-size:14px;font-weight:600;line-height:20px;letter-spacing:-0.02em;color:#000;white-space:pre-line}
+.lcard .lt span{font-size:12px;font-weight:400;line-height:16px;letter-spacing:-0.02em;color:#424751;white-space:pre-line}
+.lcard .lrows{display:flex;flex-direction:column;gap:8px}
+.lcard .litems{display:flex;flex-direction:column;gap:12px}
+.lcard .litem{display:flex;flex-direction:column;gap:4px}
+.lcard .litem b{font-size:13px;font-weight:500;line-height:17px;letter-spacing:-0.02em;color:#000}
+.lcard .litem span{font-size:13px;font-weight:400;line-height:20px;letter-spacing:-0.02em;color:#424751}
+.lcard .lsw{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:12px;row-gap:8px}
+.lcard .lsw .it{display:flex;gap:12px;align-items:center;height:33px}
+.lcard .lsw .sw{display:block;width:16px;height:16px;padding:0;border-radius:2px;flex:0 0 16px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.lcard .lsw .nm{display:flex;flex-direction:column;min-width:0}
+.lcard .lsw .nm b{font-size:13px;font-weight:500;line-height:17px;letter-spacing:-0.02em;color:#000;white-space:nowrap}
+.lcard .lsw .nm span{font-size:12px;font-weight:400;line-height:16px;letter-spacing:-0.02em;color:#5C6473;white-space:nowrap}
+.lcard .lrow{display:flex;gap:8px;align-items:flex-start}
+.lcard .lrow .a{font-size:13px;font-weight:500;line-height:1.33;letter-spacing:-0.02em;color:#000;white-space:nowrap}
+.lcard .lrow .b{flex:1;font-size:12px;font-weight:400;line-height:1.33;letter-spacing:-0.02em;color:#000000;text-align:right}
+.lcard .lnote{display:flex;gap:2px;font-size:13px;font-weight:400;line-height:20px;letter-spacing:-0.02em;color:#5C6473}
+.lcard .limg{display:block;width:100%;height:auto;border-radius:4px}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- backgrounds -->
+  <div class="bg-home" id="bgHome">
+    <div class="g1"></div>
+    <svg class="b1" viewBox="0 0 291.555 259.621"><path d="M 143.884 5.42 C 91.884 -17.78 46.217 39.087 29.884 70.42 C -78.116 216.42 134.884 254.42 220.884 259.42 C 306.884 264.42 310.884 174.42 251.884 152.42 C 192.884 130.42 187.884 135.42 176.884 103.42 C 165.884 71.42 208.884 34.42 143.884 5.42 Z" fill="rgba(32,99,255,0.6)"/></svg>
+    <svg class="b2" viewBox="0 0 299 350"><path d="M 23.464 134.416 C 63.42 75.308 185.284 20.347 241.222 0.256 C 337.115 -9.466 285.173 260.799 283.175 313.296 C 281.177 365.793 287.17 354.127 161.311 326.906 C 35.451 299.686 137.337 272.465 73.409 216.079 C 9.48 159.692 -26.48 208.301 23.464 134.416 Z" fill="rgb(255,217,254)"/></svg>
+    <svg class="b3" viewBox="0 0 291.555 259.621"><path d="M 143.884 5.42 C 91.884 -17.78 46.217 39.087 29.884 70.42 C -78.116 216.42 134.884 254.42 220.884 259.42 C 306.884 264.42 310.884 174.42 251.884 152.42 C 192.884 130.42 187.884 135.42 176.884 103.42 C 165.884 71.42 208.884 34.42 143.884 5.42 Z" fill="rgb(255,217,254)"/></svg>
+    <div class="blur"></div>
+    <div class="fade"></div>
+    <div class="wh"></div>
+  </div>
+  <div class="bg-flat hide" id="bgChat"></div>
+  <div class="bg-ing hide" id="bgIng">
+    <div class="wrap">
+      <div class="ig"></div>
+      <svg class="i1" viewBox="0 0 365 375"><path d="M 194.863 78.634 C 161.084 119.632 72.885 145.499 33.008 153.308 C 2.983 194.794 -33.704 289.187 59.749 334.87 C 176.566 391.975 328.569 384.653 360.94 334.87 C 393.311 285.087 221.604 267.517 217.382 191.378 C 213.159 115.239 296.198 128.417 328.569 40.564 C 360.94 -47.288 237.086 27.386 194.863 78.634 Z" fill="rgb(0,119,245)"/></svg>
+      <svg class="i2" viewBox="0 0 299 350"><path d="M 23.464 134.416 C 63.42 75.308 185.284 20.347 241.222 0.256 C 337.115 -9.466 285.173 260.799 283.175 313.296 C 281.177 365.793 287.17 354.127 161.311 326.906 C 35.451 299.686 137.337 272.465 73.409 216.079 C 9.48 159.692 -26.48 208.301 23.464 134.416 Z" fill="rgb(255,216,255)"/></svg>
+    </div>
+    <div class="iblur"></div>
+  </div>
+  <div class="bg-key hide" id="bgKey"></div>
+
+  <!-- intro (home.fig) -->
+  <div class="page hide" id="pgIntro">
+    <div class="ibg" style="background:url(__IMG_INTROBG__) center/cover no-repeat"></div>
+    <div class="itxt">
+      <h1 style="font-size:24px"><span style="font-weight:700">반가워요!</span>
+디자인시스템 가이드 챗봇
+모아입니다</h1>
+      <p style="font-weight:400">컴포넌트에 대해 궁금하신 점을
+물어보면 바로 찾아드릴게요</p>
+    </div>
+    <div class="ibottom"><button class="icta" id="btnAsk">물어보러 가기</button></div>
+  </div>
+
+  <!-- home -->
+  <div class="page hide" id="pgHome">
+    <div class="home-con">
+      <div class="home-top">
+        <div class="hero">
+          <div class="hero-mark">
+            <span class="guide">Guide</span>
+            <span class="search">Search</span>
+            <button class="mascot" id="moaMotion" aria-label="모아"><img id="moaImg" src="__IMG_HOME__" data-still="__IMG_HOME__" data-motion="__IMG_MOAHI__" data-turn="__IMG_MOATURN__" data-teacher="__IMG_MOATEACHER__" alt="Moa"></button>
+          </div>
+          <div class="hero-sub">카테고리를 선택하거나
+질문을 검색해 보세요.</div>
+        </div>
+      </div>
+      <div class="home-chips">
+        <div class="home-select" id="homeChips"></div>
+        <button class="home-info" id="btnEtc">
+          <span class="qi"><svg width="13.501" height="13.501" viewBox="0 0 13.501 13.501" style="left: 0.25px"><path d="M 6.671 0 C 2.946 0.043 -0.042 3.112 0 6.83 C 0.043 10.549 3.112 13.543 6.83 13.5 C 10.549 13.458 13.543 10.389 13.5 6.671 C 13.458 2.952 10.389 -0.042 6.671 0 Z M 6.8 10.432 C 6.462 10.432 6.18 10.162 6.174 9.825 C 6.168 9.487 6.438 9.205 6.775 9.205 C 7.113 9.205 7.395 9.475 7.395 9.813 C 7.395 10.15 7.125 10.432 6.787 10.432 L 6.8 10.432 Z M 6.91 7.947 C 6.849 7.972 6.781 7.978 6.714 7.984 C 6.456 7.984 6.217 7.83 6.125 7.573 C 6.014 7.254 6.186 6.904 6.505 6.793 C 6.873 6.665 7.916 6.149 7.91 5.517 C 7.91 4.995 7.573 4.535 7.076 4.37 C 6.763 4.265 6.431 4.284 6.137 4.431 C 5.842 4.578 5.621 4.83 5.517 5.137 C 5.407 5.456 5.063 5.628 4.738 5.523 C 4.419 5.413 4.247 5.069 4.351 4.744 C 4.56 4.124 5.002 3.621 5.591 3.333 C 6.18 3.044 6.843 2.995 7.462 3.21 C 8.45 3.541 9.119 4.468 9.131 5.511 C 9.15 7.131 7.131 7.88 6.898 7.959 L 6.91 7.947 Z" fill="currentColor"/></svg></span>
+          <span>기타 문의가 있으신가요?</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- chat -->
+  <div class="page hide" id="pgChat">
+    <div class="chat-con" id="chatCon"></div>
+    <div class="light"></div>
+  </div>
+
+  <!-- API key -->
+  <div class="page hide" id="pgKey">
+    <img class="key-img" src="__IMG_KEY__" alt="">
+    <div class="key-body">
+      <div class="key-text">
+        <h1>시작하려면
+Gemini API 키가 필요해요</h1>
+        <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">발급하러 가기</a>
+      </div>
+      <div class="field-box" id="keyBox">
+        <span class="lab">키 입력</span>
+        <div class="inp">
+          <input id="keyInput" type="text" placeholder="키를 입력해 주세요." autocomplete="off" spellcheck="false">
+          <button class="clear" id="keyClear" aria-label="지우기"><i></i><svg width="5.833" height="5.833" viewBox="0 0 5.833 5.833"><path d="M 5.833 0.587 L 5.246 0 L 2.917 2.329 L 0.587 0 L 0 0.587 L 2.329 2.917 L 0 5.246 L 0.587 5.833 L 2.917 3.504 L 5.246 5.833 L 5.833 5.246 L 3.504 2.917 L 5.833 0.587 Z" fill="#fff"/></svg></button>
+        </div>
+        <div class="err-msg" id="keyErr">키 형식이 올바르지 않습니다</div>
+        <div class="key-usage" id="keyUsage"></div>
+      </div>
+    </div>
+    <div class="key-cta"><button class="cta" id="keySave" disabled>저장하고 시작하기</button></div>
+    <div class="key-info">
+      <h2>키 발급 방법</h2>
+      <p>1. 발급하러 가기를 눌러 Google AI Studio에 로그인하세요.
+2. 좌측 메뉴에서 ‘Get API key’를 선택하세요.
+3. ‘Create API key’ 버튼을 눌러 새 키를 생성하세요.
+4. 생성된 키를 복사해 입력창에 붙여넣으세요.</p>
+    </div>
+  </div>
+
+  <!-- chrome -->
+  <div class="head" id="head">
+    <div class="brand">
+      <div class="sym">
+        <div class="sq"></div>
+        <div class="in">
+          <i style="left:5.05px;top:0;background:#C1DDFF"></i>
+          <i style="transform:matrix(0.5,-0.866,0.866,0.5,0,5.25);background:#C1DDFF"></i>
+          <i style="transform:matrix(-0.5,-0.866,0.866,-0.5,2,12.25);background:#C1DDFF"></i>
+          <i style="left:5.05px;top:9px;height:5px;border-radius:2px;background:#E6F2FF"></i>
+          <i style="transform:matrix(-0.5,-0.866,-0.866,0.5,14.094,5.25);background:#fff"></i>
+          <i style="transform:matrix(0.5,-0.866,-0.866,-0.5,12.094,12.25);background:#fff"></i>
+        </div>
+      </div>
+      <span class="name">System Guide Moa</span>
+    </div>
+    <button class="iconbtn" id="btnClose" aria-label="닫기">
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M0.75 0.75 L11.25 11.25 M11.25 0.75 L0.75 11.25" stroke="#000" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <div class="topbar hide" id="topbar">
+    <div class="lead">
+      <button class="back" id="btnBack" aria-label="뒤로">
+        <svg width="6" height="12" viewBox="0 0 6 12"><path d="M5.4 0.6 L0.6 6 L5.4 11.4" fill="none" stroke="#000" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <span class="title" id="topTitle">Color</span>
+    </div>
+    <div class="tools">
+      <button class="tool" id="btnRefresh" aria-label="새로고침">
+        <svg width="15" height="15" viewBox="0 0 16 16"><g fill="none" stroke="#000" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M13.4 6.4 A5.7 5.7 0 0 0 3.2 4.6"/><path d="M13.6 2.9 V6.5 H10"/><path d="M2.6 9.6 A5.7 5.7 0 0 0 12.8 11.4"/><path d="M2.4 13.1 V9.5 H6"/></g></svg>
+      </button>
+      <button class="tool" id="btnSettings" aria-label="설정">
+        <svg width="15" height="15" viewBox="-0.6 -0.6 16.2 16.2"><path d="M 12.545 9.545 L 13.096 9.785 L 13.096 9.784 L 12.545 9.545 Z M 12.77 10.786 L 12.342 11.206 L 12.346 11.211 L 12.77 10.786 Z M 12.811 10.827 L 13.236 10.403 L 13.236 10.403 L 12.811 10.827 Z M 10.841 12.716 L 11.265 12.292 L 11.261 12.287 L 10.841 12.716 Z M 9.6 12.491 L 9.839 13.041 L 9.84 13.041 L 9.6 12.491 Z M 6.191 13.575 L 6.791 13.575 C 6.791 13.569 6.791 13.563 6.791 13.557 L 6.191 13.575 Z M 5.455 12.545 L 5.215 13.096 C 5.227 13.101 5.239 13.106 5.252 13.11 L 5.455 12.545 Z M 4.214 12.77 L 3.794 12.342 L 3.789 12.346 L 4.214 12.77 Z M 4.173 12.811 L 4.597 13.236 L 4.597 13.236 L 4.173 12.811 Z M 2.243 10.882 L 1.819 10.458 L 1.819 10.458 L 2.243 10.882 Z M 2.284 10.841 L 2.708 11.265 L 2.713 11.261 L 2.284 10.841 Z M 2.509 9.6 L 1.959 9.839 L 1.959 9.84 L 2.509 9.6 Z M 1.425 6.191 L 1.425 6.791 C 1.431 6.791 1.437 6.791 1.443 6.791 L 1.425 6.191 Z M 2.455 5.455 L 1.904 5.215 C 1.899 5.227 1.894 5.239 1.89 5.252 L 2.455 5.455 Z M 2.23 4.214 L 2.658 3.794 L 2.654 3.789 L 2.23 4.214 Z M 4.159 2.284 L 3.735 2.708 L 3.739 2.713 L 4.159 2.284 Z M 5.4 2.509 L 5.4 1.909 C 5.318 1.909 5.236 1.926 5.16 1.959 L 5.4 2.509 Z M 5.455 2.509 L 5.455 3.109 C 5.537 3.109 5.618 3.092 5.693 3.06 L 5.455 2.509 Z M 9.545 2.455 L 9.785 1.904 L 9.784 1.904 L 9.545 2.455 Z M 10.786 2.23 L 11.206 2.658 L 11.211 2.654 L 10.786 2.23 Z M 10.827 2.189 L 10.403 1.764 L 10.403 1.764 L 10.827 2.189 Z M 12.757 4.118 L 12.333 3.694 L 12.333 3.694 L 12.757 4.118 Z M 12.716 4.159 L 12.292 3.735 L 12.287 3.739 L 12.716 4.159 Z M 12.491 5.4 L 13.091 5.4 C 13.091 5.318 13.074 5.236 13.041 5.16 L 12.491 5.4 Z M 12.491 5.455 L 11.891 5.455 C 11.891 5.537 11.908 5.618 11.94 5.693 L 12.491 5.455 Z M 12.545 9.545 L 11.995 9.306 C 11.715 9.95 11.848 10.702 12.342 11.206 L 12.77 10.786 L 13.199 10.367 C 13.052 10.216 13.008 9.986 13.096 9.785 L 12.545 9.545 Z M 12.77 10.786 L 12.346 11.211 L 12.387 11.252 L 12.811 10.827 L 13.236 10.403 L 13.195 10.362 L 12.77 10.786 Z M 12.811 10.827 L 12.387 11.252 C 12.685 11.549 12.685 12.035 12.387 12.333 L 12.811 12.757 L 13.236 13.181 C 14.002 12.415 14.002 11.169 13.236 10.403 L 12.811 10.827 Z M 12.811 12.757 L 12.387 12.333 C 12.09 12.63 11.604 12.63 11.306 12.333 L 10.882 12.757 L 10.458 13.181 C 11.224 13.947 12.469 13.947 13.236 13.181 L 12.811 12.757 Z M 10.882 12.757 L 11.306 12.333 L 11.265 12.292 L 10.841 12.716 L 10.417 13.14 L 10.458 13.181 L 10.882 12.757 Z M 10.841 12.716 L 11.261 12.287 C 10.757 11.794 10.005 11.66 9.36 11.941 L 9.6 12.491 L 9.84 13.041 C 10.041 12.953 10.27 12.997 10.421 13.145 L 10.841 12.716 Z M 9.6 12.491 L 9.361 11.94 C 8.739 12.21 8.318 12.825 8.318 13.52 L 8.918 13.52 L 9.518 13.52 C 9.518 13.316 9.643 13.126 9.839 13.041 L 9.6 12.491 Z M 8.918 13.52 L 8.318 13.52 L 8.318 13.636 L 8.918 13.636 L 9.518 13.636 L 9.518 13.52 L 8.918 13.52 Z M 8.918 13.636 L 8.318 13.636 C 8.318 14.055 7.973 14.4 7.555 14.4 L 7.555 15 L 7.555 15.6 C 8.636 15.6 9.518 14.718 9.518 13.636 L 8.918 13.636 Z M 7.555 15 L 7.555 14.4 C 7.136 14.4 6.791 14.055 6.791 13.636 L 6.191 13.636 L 5.591 13.636 C 5.591 14.718 6.473 15.6 7.555 15.6 L 7.555 15 Z M 6.191 13.636 L 6.791 13.636 L 6.791 13.575 L 6.191 13.575 L 5.591 13.575 L 5.591 13.636 L 6.191 13.636 Z M 6.191 13.575 L 6.791 13.557 C 6.77 12.857 6.335 12.224 5.657 11.981 L 5.455 12.545 L 5.252 13.11 C 5.447 13.18 5.585 13.366 5.591 13.593 L 6.191 13.575 Z M 5.455 12.545 L 5.694 11.995 C 5.05 11.715 4.298 11.848 3.794 12.342 L 4.214 12.77 L 4.633 13.199 C 4.784 13.052 5.014 13.008 5.215 13.096 L 5.455 12.545 Z M 4.214 12.77 L 3.789 12.346 L 3.748 12.387 L 4.173 12.811 L 4.597 13.236 L 4.638 13.195 L 4.214 12.77 Z M 4.173 12.811 L 3.748 12.387 C 3.451 12.685 2.965 12.685 2.667 12.387 L 2.243 12.811 L 1.819 13.236 C 2.585 14.002 3.831 14.002 4.597 13.236 L 4.173 12.811 Z M 2.243 12.811 L 2.667 12.387 C 2.37 12.09 2.37 11.604 2.667 11.306 L 2.243 10.882 L 1.819 10.458 C 1.053 11.224 1.053 12.469 1.819 13.236 L 2.243 12.811 Z M 2.243 10.882 L 2.667 11.306 L 2.708 11.265 L 2.284 10.841 L 1.86 10.417 L 1.819 10.458 L 2.243 10.882 Z M 2.284 10.841 L 2.713 11.261 C 3.206 10.757 3.34 10.005 3.059 9.36 L 2.509 9.6 L 1.959 9.84 C 2.047 10.041 2.003 10.27 1.855 10.421 L 2.284 10.841 Z M 2.509 9.6 L 3.06 9.361 C 2.79 8.739 2.175 8.318 1.48 8.318 L 1.48 8.918 L 1.48 9.518 C 1.684 9.518 1.874 9.643 1.959 9.839 L 2.509 9.6 Z M 1.48 8.918 L 1.48 8.318 L 1.364 8.318 L 1.364 8.918 L 1.364 9.518 L 1.48 9.518 L 1.48 8.918 Z M 1.364 8.918 L 1.364 8.318 C 0.945 8.318 0.6 7.973 0.6 7.555 L 0 7.555 L -0.6 7.555 C -0.6 8.636 0.282 9.518 1.364 9.518 L 1.364 8.918 Z M 0 7.555 L 0.6 7.555 C 0.6 7.136 0.945 6.791 1.364 6.791 L 1.364 6.191 L 1.364 5.591 C 0.282 5.591 -0.6 6.473 -0.6 7.555 L 0 7.555 Z M 1.364 6.191 L 1.364 6.791 L 1.425 6.791 L 1.425 6.191 L 1.425 5.591 L 1.364 5.591 L 1.364 6.191 Z M 1.425 6.191 L 1.443 6.791 C 2.143 6.77 2.776 6.335 3.019 5.657 L 2.455 5.455 L 1.89 5.252 C 1.82 5.447 1.634 5.585 1.407 5.591 L 1.425 6.191 Z M 2.455 5.455 L 3.005 5.694 C 3.285 5.05 3.152 4.298 2.658 3.794 L 2.23 4.214 L 1.801 4.633 C 1.948 4.784 1.992 5.014 1.904 5.215 L 2.455 5.455 Z M 2.23 4.214 L 2.654 3.789 L 2.613 3.748 L 2.189 4.173 L 1.764 4.597 L 1.805 4.638 L 2.23 4.214 Z M 2.189 4.173 L 2.613 3.748 C 2.315 3.451 2.315 2.965 2.613 2.667 L 2.189 2.243 L 1.764 1.819 C 0.998 2.585 0.998 3.831 1.764 4.597 L 2.189 4.173 Z M 2.189 2.243 L 2.613 2.667 C 2.91 2.37 3.396 2.37 3.694 2.667 L 4.118 2.243 L 4.542 1.819 C 3.776 1.053 2.531 1.053 1.764 1.819 L 2.189 2.243 Z M 4.118 2.243 L 3.694 2.667 L 3.735 2.708 L 4.159 2.284 L 4.583 1.86 L 4.542 1.819 L 4.118 2.243 Z M 4.159 2.284 L 3.739 2.713 C 4.243 3.206 4.995 3.34 5.64 3.059 L 5.4 2.509 L 5.16 1.959 C 4.959 2.047 4.73 2.003 4.579 1.855 L 4.159 2.284 Z M 5.4 2.509 L 5.4 3.109 L 5.455 3.109 L 5.455 2.509 L 5.455 1.909 L 5.4 1.909 L 5.4 2.509 Z M 5.455 2.509 L 5.693 3.06 C 6.315 2.79 6.736 2.175 6.736 1.48 L 6.136 1.48 L 5.536 1.48 C 5.536 1.684 5.412 1.874 5.216 1.959 L 5.455 2.509 Z M 6.136 1.48 L 6.736 1.48 L 6.736 1.364 L 6.136 1.364 L 5.536 1.364 L 5.536 1.48 L 6.136 1.48 Z M 6.136 1.364 L 6.736 1.364 C 6.736 0.945 7.081 0.6 7.5 0.6 L 7.5 0 L 7.5 -0.6 C 6.419 -0.6 5.536 0.282 5.536 1.364 L 6.136 1.364 Z M 7.5 0 L 7.5 0.6 C 7.919 0.6 8.264 0.945 8.264 1.364 L 8.864 1.364 L 9.464 1.364 C 9.464 0.282 8.581 -0.6 7.5 -0.6 L 7.5 0 Z M 8.864 1.364 L 8.264 1.364 L 8.264 1.425 L 8.864 1.425 L 9.464 1.425 L 9.464 1.364 L 8.864 1.364 Z M 8.864 1.425 L 8.264 1.425 C 8.264 2.121 8.685 2.735 9.307 3.005 L 9.545 2.455 L 9.784 1.904 C 9.588 1.819 9.464 1.629 9.464 1.425 L 8.864 1.425 Z M 9.545 2.455 L 9.306 3.005 C 9.95 3.285 10.702 3.152 11.206 2.658 L 10.786 2.23 L 10.367 1.801 C 10.216 1.948 9.986 1.992 9.785 1.904 L 9.545 2.455 Z M 10.786 2.23 L 11.211 2.654 L 11.252 2.613 L 10.827 2.189 L 10.403 1.764 L 10.362 1.805 L 10.786 2.23 Z M 10.827 2.189 L 11.252 2.613 C 11.549 2.315 12.035 2.315 12.333 2.613 L 12.757 2.189 L 13.181 1.764 C 12.415 0.998 11.169 0.998 10.403 1.764 L 10.827 2.189 Z M 12.757 2.189 L 12.333 2.613 C 12.63 2.91 12.63 3.396 12.333 3.694 L 12.757 4.118 L 13.181 4.542 C 13.947 3.776 13.947 2.531 13.181 1.764 L 12.757 2.189 Z M 12.757 4.118 L 12.333 3.694 L 12.292 3.735 L 12.716 4.159 L 13.14 4.583 L 13.181 4.542 L 12.757 4.118 Z M 12.716 4.159 L 12.287 3.739 C 11.794 4.243 11.66 4.995 11.941 5.64 L 12.491 5.4 L 13.041 5.16 C 12.953 4.959 12.997 4.73 13.145 4.579 L 12.716 4.159 Z M 12.491 5.4 L 11.891 5.4 L 11.891 5.455 L 12.491 5.455 L 13.091 5.455 L 13.091 5.4 L 12.491 5.4 Z M 12.491 5.455 L 11.94 5.693 C 12.21 6.315 12.825 6.736 13.52 6.736 L 13.52 6.136 L 13.52 5.536 C 13.316 5.536 13.126 5.412 13.041 5.216 L 12.491 5.455 Z M 13.52 6.136 L 13.52 6.736 L 13.636 6.736 L 13.636 6.136 L 13.636 5.536 L 13.52 5.536 L 13.52 6.136 Z M 13.636 6.136 L 13.636 6.736 C 14.055 6.736 14.4 7.081 14.4 7.5 L 15 7.5 L 15.6 7.5 C 15.6 6.419 14.718 5.536 13.636 5.536 L 13.636 6.136 Z M 15 7.5 L 14.4 7.5 C 14.4 7.919 14.055 8.264 13.636 8.264 L 13.636 8.864 L 13.636 9.464 C 14.718 9.464 15.6 8.581 15.6 7.5 L 15 7.5 Z M 13.636 8.864 L 13.636 8.264 L 13.575 8.264 L 13.575 8.864 L 13.575 9.464 L 13.636 9.464 L 13.636 8.864 Z M 13.575 8.864 L 13.575 8.264 C 12.879 8.264 12.265 8.685 11.995 9.307 L 12.545 9.545 L 13.096 9.784 C 13.181 9.588 13.371 9.464 13.575 9.464 L 13.575 8.864 Z" fill="#000" fill-rule="nonzero"/><path transform="translate(5.455 5.455)" d="M 4.091 2.045 L 3.491 2.045 C 3.491 2.844 2.844 3.491 2.045 3.491 L 2.045 4.091 L 2.045 4.691 C 3.506 4.691 4.691 3.506 4.691 2.045 L 4.091 2.045 Z M 2.045 4.091 L 2.045 3.491 C 1.247 3.491 0.6 2.844 0.6 2.045 L 0 2.045 L -0.6 2.045 C -0.6 3.506 0.584 4.691 2.045 4.691 L 2.045 4.091 Z M 0 2.045 L 0.6 2.045 C 0.6 1.247 1.247 0.6 2.045 0.6 L 2.045 0 L 2.045 -0.6 C 0.584 -0.6 -0.6 0.584 -0.6 2.045 L 0 2.045 Z M 2.045 0 L 2.045 0.6 C 2.844 0.6 3.491 1.247 3.491 2.045 L 4.091 2.045 L 4.691 2.045 C 4.691 0.584 3.506 -0.6 2.045 -0.6 L 2.045 0 Z" fill="#000" fill-rule="nonzero"/></svg>
+        <i class="dot" id="statusDot"></i>
+      </button>
+    </div>
+  </div>
+  <div class="fbar" id="fbar" role="search">
+    <input id="fInput" type="text" placeholder="대화 내용 검색" autocomplete="off" spellcheck="false">
+    <span class="fcnt" id="fCnt"></span>
+    <button id="fPrev" aria-label="이전 결과"><svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 5 L5 1 L9 5" fill="none" stroke="#000" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button id="fNext" aria-label="다음 결과"><svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1 L5 5 L9 1" fill="none" stroke="#000" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button id="fClose" aria-label="검색 닫기"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1 1 L9 9 M9 1 L1 9" fill="none" stroke="#000" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+  </div>
+
+  <div class="bar" id="bar">
+    <div class="shell">
+      <div class="glow"></div>
+      <div class="grad"></div>
+      <div class="rim"></div>
+      <button class="menu" id="btnMenu" aria-label="전체 메뉴"><span class="ic"><i></i><i></i><i></i></span></button>
+      <div class="field">
+        <div class="lead">
+          <span class="ai">
+            <svg width="16" height="16" viewBox="0 0 16 16"><defs><linearGradient id="ai1" x1="0.208" y1="0.094" x2="0.792" y2="0.906"><stop offset="0.26%" stop-color="#A3E7FF"/><stop offset="99.86%" stop-color="#3790FF"/></linearGradient><linearGradient id="ai3" x1="0.175" y1="0.120" x2="0.825" y2="0.880"><stop offset="0%" stop-color="#2063FF"/><stop offset="100%" stop-color="#9383FF"/></linearGradient><linearGradient id="ai2" x1="0.161" y1="0.132" x2="0.839" y2="0.868"><stop offset="0.1%" stop-color="#37A1FF"/><stop offset="99.87%" stop-color="#D98DFF"/></linearGradient></defs><g transform="translate(1.749 1)"><path d="M 6.318 0 C 7.423 0 8.318 0.895 8.318 2 L 8.318 6.783 C 8.321 6.81 8.322 6.837 8.324 6.864 C 8.325 6.872 8.325 6.881 8.326 6.889 C 8.33 6.944 8.33 6.999 8.329 7.054 C 8.329 7.065 8.328 7.076 8.328 7.088 C 8.326 7.133 8.324 7.178 8.319 7.223 C 8.317 7.248 8.313 7.274 8.309 7.3 C 8.304 7.339 8.297 7.378 8.289 7.417 C 8.284 7.44 8.279 7.463 8.273 7.486 C 8.264 7.524 8.253 7.561 8.242 7.599 C 8.234 7.625 8.226 7.652 8.217 7.679 C 8.204 7.715 8.19 7.751 8.176 7.786 C 8.166 7.808 8.157 7.83 8.147 7.852 C 8.072 8.016 7.974 8.171 7.854 8.312 C 7.843 8.325 7.832 8.338 7.821 8.351 C 7.789 8.386 7.755 8.42 7.721 8.454 C 7.706 8.468 7.692 8.483 7.678 8.496 C 7.646 8.525 7.611 8.552 7.577 8.579 C 7.56 8.593 7.544 8.607 7.526 8.62 C 7.494 8.644 7.461 8.666 7.427 8.688 C 7.404 8.703 7.381 8.719 7.358 8.732 C 7.349 8.738 7.341 8.745 7.332 8.75 L 3.002 11.25 C 2.045 11.802 0.822 11.474 0.269 10.518 C -0.283 9.561 0.045 8.338 1.002 7.786 L 2.331 7.018 L 1 6.25 C 0.043 5.698 -0.284 4.474 0.268 3.518 C 0.821 2.561 2.043 2.234 3 2.786 L 4.318 3.547 L 4.318 2 C 4.318 0.895 5.214 0 6.318 0 Z" fill="url(#ai1)"/><rect x="4.318" y="9" width="4" height="5" rx="2" fill="url(#ai3)"/><path transform="translate(4.302 2.517)" d="M 5.329 0.268 C 6.286 -0.284 7.509 0.044 8.062 1.001 C 8.614 1.957 8.286 3.181 7.329 3.733 L 6 4.5 L 7.33 5.268 C 8.287 5.82 8.615 7.044 8.063 8.001 C 7.51 8.957 6.287 9.285 5.33 8.733 L 1 6.233 C 0.996 6.231 0.992 6.227 0.988 6.225 C 0.94 6.197 0.894 6.167 0.848 6.134 C 0.839 6.128 0.83 6.123 0.821 6.117 C 0.678 6.013 0.549 5.888 0.436 5.745 C 0.422 5.728 0.408 5.711 0.395 5.694 C 0.37 5.661 0.348 5.626 0.325 5.591 C 0.312 5.571 0.299 5.552 0.286 5.532 C 0.28 5.521 0.273 5.511 0.267 5.501 C 0.25 5.472 0.237 5.442 0.222 5.413 C 0.213 5.396 0.204 5.379 0.195 5.362 C 0.175 5.32 0.157 5.277 0.14 5.234 C 0.133 5.215 0.125 5.197 0.118 5.178 C 0.103 5.136 0.09 5.093 0.077 5.05 C 0.072 5.033 0.068 5.017 0.064 5 C 0.05 4.948 0.04 4.896 0.03 4.844 C 0.029 4.835 0.027 4.827 0.026 4.818 C 0.018 4.77 0.012 4.722 0.008 4.674 C 0.006 4.653 0.004 4.632 0.003 4.611 C 0.001 4.566 0 4.521 0 4.476 C 0 4.459 0 4.442 0.001 4.424 C 0.003 4.378 0.007 4.332 0.012 4.287 C 0.014 4.265 0.017 4.243 0.02 4.221 C 0.025 4.184 0.032 4.146 0.039 4.109 C 0.045 4.082 0.049 4.055 0.056 4.029 C 0.066 3.985 0.079 3.943 0.093 3.9 C 0.098 3.884 0.103 3.867 0.109 3.851 C 0.124 3.807 0.14 3.764 0.158 3.721 C 0.167 3.702 0.175 3.682 0.184 3.663 C 0.204 3.618 0.227 3.575 0.25 3.533 C 0.256 3.522 0.262 3.511 0.268 3.501 C 0.27 3.496 0.272 3.492 0.275 3.488 C 0.303 3.439 0.335 3.392 0.367 3.346 C 0.373 3.339 0.377 3.331 0.382 3.324 C 0.411 3.284 0.442 3.245 0.474 3.208 C 0.487 3.192 0.5 3.176 0.514 3.161 C 0.542 3.129 0.572 3.1 0.603 3.071 C 0.619 3.055 0.635 3.038 0.653 3.022 C 0.684 2.994 0.716 2.967 0.749 2.941 C 0.767 2.926 0.785 2.911 0.804 2.897 C 0.834 2.875 0.864 2.854 0.896 2.834 C 0.922 2.816 0.948 2.798 0.976 2.782 C 0.983 2.777 0.992 2.773 0.999 2.768 L 5.329 0.268 Z" fill="url(#ai2)"/></g></svg>
+          </span>
+          <textarea id="msgInput" rows="1" placeholder="궁금한 점을 입력해 주세요" autocomplete="off"></textarea>
+        </div>
+        <button class="send" id="btnSend" aria-label="보내기">
+          <svg width="15.5" height="15.5" viewBox="0 0 15.5 15.5"><defs><linearGradient id="sendGrad" x1="0.854" y1="0.146" x2="0.146" y2="0.854"><stop offset="4.54%" stop-color="#00C8FF"/><stop offset="48.31%" stop-color="#2063FF"/><stop offset="92.93%" stop-color="#FFCDFF"/></linearGradient></defs><path d="M 14.502 0.042 C 14.773 -0.053 15.076 0.016 15.28 0.22 C 15.484 0.423 15.553 0.726 15.458 0.998 L 10.557 14.998 C 10.456 15.288 10.188 15.486 9.881 15.499 C 9.573 15.512 9.29 15.336 9.165 15.055 L 6.807 9.752 L 11.28 5.28 C 11.573 4.987 11.573 4.513 11.28 4.22 C 10.987 3.927 10.512 3.927 10.219 4.22 L 5.747 8.691 L 0.445 6.335 C 0.164 6.21 -0.012 5.926 0.001 5.619 C 0.013 5.312 0.212 5.044 0.502 4.942 L 14.502 0.042 Z" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 전체 메뉴 -->
+  <div class="overlay hide" id="menuOverlay">
+    <div class="sheet">
+      <div class="sheet-head">
+        <span>전체 메뉴</span>
+        <button class="iconbtn" id="menuClose" aria-label="닫기"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M0.75 0.75 L11.25 11.25 M11.25 0.75 L0.75 11.25" stroke="#000" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="sheet-banner" id="menuEtc" role="button" tabindex="0" style="cursor:pointer">
+        <span>기타 문의가 있으신가요?</span>
+        <div class="img"><img class="s1" src="__IMG_SMALL__" alt=""><img class="s2" src="__IMG_MASCOT__" alt=""></div>
+      </div>
+      <div class="sheet-list" id="sheetList"></div>
+    </div>
+  </div>
+
+  <!-- 연결 끊김 -->
+  <div class="overlay hide" id="discOverlay">
+    <div class="modal">
+      <div class="modal-head"><button class="iconbtn" id="discClose" aria-label="닫기"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M0.75 0.75 L11.25 11.25 M11.25 0.75 L0.75 11.25" stroke="#000" stroke-width="1.2" stroke-linecap="round"/></svg></button></div>
+      <div class="modal-body">
+        <div class="modal-mid">
+          <div class="modal-art"><div class="e1"></div><div class="e2"></div><img src="__IMG_SAD__" alt=""></div>
+          <div class="modal-txt">
+            <h2>연결이 끊어졌습니다.</h2>
+            <p>Gemini와의 연결이 해제되어 챗봇을 이용할 수 
+없습니다. 네트워크 상태를 확인하거나 설정에서 
+제미나이 키를 변경해 주세요.</p>
+          </div>
+        </div>
+        <div class="modal-bottom"><button class="cta" id="discGo">설정으로 이동</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>window.MOA_DB = __DB_JSON__;</script>
+<script>window.MOA_TOKENS = __TOKENS_JSON__;</script>
+<script>window.MOA_TOKEN_UNITS = __UNITS_JSON__;</script>
+<script>window.MOA_PROMPTS = __PROMPTS_JSON__;</script>
+<script>window.MOA_GLOSSARY_DB = __GLOSSARY_JSON__;</script>
+<script>window.MOA_FAQ = __FAQ_JSON__;</script>
+<script>window.MOA_EGG_MD = __EASTEREGG_JSON__;</script>
+<script>__GEMINI_JS__</script>
+<script>window.MOA_LANDING = {"Color":{"title":"Color의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Primary Color","Secondary Color","Grayscale","Neutral Color","Theme","Accent"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Primary Color","rows":[["Black","#000000"],["White","#FFFFFF"],["Skyblue","#2189FF"],["Skyblue Dark","#006BEA"],["Skyblue Light","#68AEFF"]],"text":"브랜드 아이덴티티를 표현하는 대표 색상"},{"title":"Secondary Color","rows":[["Coral","#EF3434"],["Coral Dark","#D62E2E"],["Coral Light","#F36E6E"],["Orange","#F66700"],["Orange Dark","#C74700"],["Sea Blue","#00B3E3"],["Teal","#00838F"],["Teal Dark","#007D89"]],"text":"브랜드 아이덴티티를 보강하는 경우 선택"},{"title":"Grayscale Color","rows":[["0_F7","#F7F7F7"],["1_EE","#EEEEEE"],["2_DD","#DDDDDD"],["3_BB","#BBBBBB"],["4_AA","#AAAAAA"],["5_8F","#8F8F8F"],["6_75","#757575"],["7_55","#555555"],["8_31","#313131"],["9_1C","#1C1C1C"]],"text":"텍스트·배경·구분선 등의 시각적 위계를 설정"},{"title":"Neutral Color","rows":[["Neutral Blue","#F5F7FE"],["Neutral Beige","#F7F5F2"],["Neutral Orange","#FEF6F3"],["Neutral Pink","#F6F0F5"]],"text":"배경·카드 표면에 은은한 톤이 필요한 경우 선택"},{"title":"Theme","imgs":["img_color_theme_01"],"text":"배경 밝기에 따라 텍스트 명도 대비 조정"},{"title":"Accent","rows":[["Rating_star","#FFAA4E"]],"imgs":["img_color_theme_02"],"text":"Accent는 상품평 별점에만 사용하는 전용 색상"}]},"Primary Color":{"bubbles":[{"title":"Primary Color는 브랜드의 핵심\n아이덴티티를 표현하거나 주요 액션을\n강조해요.","items":[["Black & White","디자인 시스템의 기본 컬러입니다."],["Skyblue 계열","활성화 상태를 나타내며, 확인·성공 등 긍정적인 상태와 메시지를 전달하는 데 사용합니다."]],"rows":[["Black","#000000"],["White","#FFFFFF"],["Skyblue","#2189FF"],["Skyblue Dark","#006BEA"],["Skyblue Light","#68AEFF"]]}],"followups":["투명도 적용 규칙","컬러 확장 규칙"]},"Secondary Color":{"bubbles":[{"title":"Secondary Color는 보조 강조나 정보성\n요소를 표현해야 하는 경우에 사용해요.","items":[["Coral 계열","경고·오류 등 부정적인 상태를 표현하는 용도로 사용합니다."],["Orange 계열","Skyblue와 조합하여 브랜드 아이덴티티를 표현할 때 보조적으로 사용합니다."],["Teal 계열","할인율(%)이나 추천 등 정보성 태그의 텍스트 컬러로 사용할 수 있습니다."]],"rows":[["Coral","#EF3434"],["Coral Dark","#D62E2E"],["Coral Light","#F36E6E"],["Orange","#F66700"],["Orange Dark","#C74700"],["Sea Blue","#00B3E3"],["Teal","#00838F"],["Teal Dark","#007D89"]]}],"followups":["투명도 적용 규칙","컬러 확장 규칙"]},"Grayscale":{"bubbles":[{"title":"Grayscale은 텍스트·배경·구분선 등의 시각적 위계를 설정해야 하는 경우 사용해요.","rows":[["0_F7","#F7F7F7"],["1_EE","#EEEEEE"],["2_DD","#DDDDDD"],["3_BB","#BBBBBB"],["4_AA","#AAAAAA"],["5_8F","#8F8F8F"],["6_75","#757575"],["7_55","#555555"],["8_31","#313131"],["9_1C","#1C1C1C"]],"text":"텍스트·배경·구분선의 시각적 위계는 정의된 Grayscale 10단계를 기준으로 관리합니다."}],"followups":["투명도 적용 규칙","컬러 확장 규칙"]},"Neutral Color":{"bubbles":[{"title":"Neutral Color는 배경이나 카드 표면에\n은은한 컬러를 적용해야 하는 경우 사용해요.","rows":[["Neutral Blue","#F5F7FE"],["Neutral Beige","#F7F5F2"],["Neutral Orange","#FEF6F3"],["Neutral Pink","#F6F0F5"]],"text":"텍스트 컬러로는 사용을 권장하지 않습니다."}],"followups":["투명도 적용 규칙","컬러 확장 규칙"]},"Theme":{"bubbles":[{"title":"Theme는 배경의 밝기에 따라 텍스트 컬러의 명도 대비를 조정해야 해요.","note":"배경과 충분한 대비가 없는 텍스트 색상은 사용하지 마세요","imgs":["img_color_theme_01"],"text":"KR은 전체 다크모드 대신 어두운 특정 영역을 기준으로 적용합니다.\n\n라이트 배경에는 Dark 계열, 다크 배경에는 Light 계열을 사용하며, 텍스트와 배경의 명도 대비는 최소 4.5:1 이상을 유지합니다."}],"followups":["투명도 적용 규칙","컬러 확장 규칙"]},"Accent":{"bubbles":[{"title":"Accent는 상품평 별점에만 사용하는 전용 색상이에요.","imgs":["img_color_theme_02"],"text":"#FFAA4E는 기존 상품평 별점 컴포넌트에 적용된 색상입니다.\n\n컬러 가이드에서 사용 용도를 확인할 수 있도록 별도로 정의한 색상입니다."}],"followups":["투명도 적용 규칙","컬러 확장 규칙"]}}},"Typeface":{"title":"Typeface의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Display","Heading","Title","Body","Caption"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Display","rows":[["large","size: 56px / line height: 67px"],["medium","size: 48px / line height: 58px"],["small","size: 40px / line height: 48px"]],"text":"시각적 강조를 위한 최상위 대형 텍스트"},{"title":"Heading","rows":[["large","size: 48px / line height: 58px"],["medium","size: 40px / line height: 48px"],["small","size: 32px / line height: 39px"]],"text":"페이지 및 섹션의 정보 위계를 나타내는 제목"},{"title":"Title","rows":[["XLarge","size: 36px / line height: 44px"],["large","size: 32px / line height: 39px"],["medium","size: 28px / line height: 38px"],["small","size: 24px / line height: 32px"],["XSmall","size: 20px / line height: 27px"],["XXSmall","size: 16px / line height: 21px"]],"text":"카드, 리스트, 배너 등 개별 콘텐츠와 컴포넌트의 제목"},{"title":"Body","rows":[["XLarge","size: 20px / line height: 27px"],["large","size: 18px / line height: 24px"],["medium","size: 16px / line height: 21px"],["small","size: 14px / line height: 19px"],["XSmall","size: 13px / line height: 19px"],["XXSmall","size: 12px / line height: 16px"]],"text":"본문, 주요 설명 및 인터랙션 요소의 레이블에 사용하는 텍스트"},{"title":"Caption","rows":[["large","size: 14px / line height: 19px"],["medium","size: 12px / line height: 16px"],["small","size: 10px / line height: 13px"]],"text":"디스크립션, 유의사항 및 보조 정보에 사용하는 텍스트"}]},"Display":{"bubbles":[{"title":"Display는 시각적 임팩트가 중요한 최상위 대형 텍스트 영역에 사용해요.","text":"메인 히어로, 브랜드 캠페인, 프로모션 등 시각적 임팩트가 중요한 영역에 사용해요. 화면에서 가장 강조해야 하는 메시지를 전달하고, 콘텐츠의 주목도를 높이는 역할을 해요.\n\n일반적인 본문이나 버튼의 기능성 텍스트에는 사용하지 않아요."}],"followups":["스펙 및 토큰"]},"Heading":{"bubbles":[{"title":"Heading은 화면의 핵심 타이틀과 콘텐츠 섹션의 헤드카피 영역에 사용해요.","text":"페이지의 대표 타이틀과 주요 콘텐츠 영역의 섹션 제목에 사용해요. 콘텐츠의 시작과 영역별 구조를 명확하게 구분하여 정보의 위계를 형성해요.\n\n일반적인 본문이나 버튼의 기능성 텍스트에는 사용하지 않아요."}],"followups":["스펙 및 토큰"]},"Title":{"bubbles":[{"title":"Title은 카드, 컴포넌트 등 중·소단위 요소의 제목에 사용해요.","text":"배너, 상품 카드, 콘텐츠 리스트 등 개별 콘텐츠의 제목에 사용해요. 각 콘텐츠의 핵심 정보를 강조하고, 반복되는 컴포넌트 간의 정보 구조를 명확하게 구분해요.\n\n일반적인 본문이나 버튼의 기능성 텍스트에는 사용하지 않아요."}],"followups":["스펙 및 토큰"]},"Body":{"bubbles":[{"title":"Body는 본문 텍스트 및 서술형 정보에 사용해요.","text":"본문, 상품 설명, 이용 방법 등 주요 정보를 전달하는 서술형 텍스트에 사용해요. 버튼, 탭, 입력 요소 등 인터랙션 컴포넌트의 기능과 선택 항목을 안내하는 레이블에도 적용해요.\n\n페이지나 콘텐츠의 제목보다는 정보 전달과 가독성을 중심으로 사용해요."}],"followups":["스펙 및 토큰"]},"Caption":{"bubbles":[{"title":"Caption은 면책 조항, 보조 수치 등 낮은 정보 위계 영역에 사용해요.","text":"유의사항, 디스크립션, 면책 조항 등 주요 콘텐츠를 보완하는 텍스트에 사용해요. 테이블 텍스트, 입력 필드 항목명, 보조 수치 등 상대적으로 정보 위계가 낮은 영역에도 적용해요.\n\n주요 정보와 구분되는 시각적 위계를 형성하여 부가 정보를 명확하게 전달해요."}],"followups":["스펙 및 토큰"]}}},"Spacing":{"title":"Spacing의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Inset","Gap","Grid"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Inset","rows":[["Element Inset","요소의 내부 여백"],["Component Inset","컴포넌트의 내부 여백"],["Section Inset","섹션 영역의 내부 여백"]],"imgs":["img_spacing_all_01"],"text":"컴포넌트 및 요소 내부의 여백 기준"},{"title":"Gap","rows":[["Element Gap","요소 간 간격"],["Component Gap","컴포넌트 간 간격"],["Section Gap","섹션 간 간격"]],"imgs":["img_spacing_all_02"],"text":"요소와 요소 사이의 간격 기준"},{"title":"Grid","rows":[["Section Grid","섹션 내부 균일한 간격"]],"imgs":["img_spacing_all_03"],"text":"섹션 내 그리드 기반 반복 요소의 간격 기준"}]},"Inset":{"bubbles":[{"title":"Inset은 요소 내부 여백에 사용해요.","note":"요소 간 외부 간격에는 Inset을 사용하지 않습니다.","imgs":["img_spacing_all_01"],"text":"버튼, 카드, 모달, 입력 필드처럼 컨테이너 내부\n요소와 경계 사이의 간격을 설정할 때 사용합니다.\n\n필요한 경우 상·하 Padding을 다르게 적용할 수 있지만, 정의된 Spacing Token 내에서만 사용해요."}],"followups":["스펙 및 토큰"]},"Gap":{"bubbles":[{"title":"Gap은 요소와 요소 사이의 간격에 사용해요.","imgs":["img_spacing_all_02"],"text":"버튼 그룹, 칩, 아이콘과 텍스트처럼 여러 요소가 나란히 배치되거나 반복될 때 간격을 설정합니다.\n\n가로·세로 방향에 따라 Gap을 다르게 적용할 수 있지만, 정의된 Spacing Token 내에서만 사용해요."}],"followups":["스펙 및 토큰"]},"Grid":{"bubbles":[{"title":"Grid는 섹션 내 그리드 기반 반복 요소의 간격에 사용해요.","note":"요소 내부 여백이나 섹션 간 구분에는 Gap을 사용하지 않습니다.","imgs":["img_spacing_all_03"],"text":"버튼 그룹, 칩, 아이콘과 텍스트처럼 여러 요소가 나란히 배치되거나 반복될 때 간격을 설정합니다.\n\n가로·세로 방향에 따라 Gap을 다르게 적용할 수 있지만, 정의된 Spacing Token 내에서만 사용해요."}],"followups":["스펙 및 토큰"]}}},"CTA Button":{"title":"CTA Button의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Primary Action Button","Secondary Action Button","Tertiary Action Button","Icon Trailing Number Button","Icon Contained Button"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Primary Action Button","imgs":["img_CTA Button_all_01","img_CTA Button_all_02"],"text":"주요 액션에 사용"},{"title":"Secondary Action Button","imgs":["img_CTA Button_all_03"],"text":"보조 액션에 사용"},{"title":"Tertiary Action Button","imgs":["img_CTA Button_all_04","img_CTA Button_all_05"],"text":"강조 없이 가볍게 제공할 때 사용"},{"title":"Icon Trailing Number Button","imgs":["img_CTA Button_all_06"],"text":"잔여 목록의 개수를 직관적으로 확인할 수 있는 버튼"},{"title":"Icon Contained Button","imgs":["img_CTA Button_all_07"],"text":"특정 기능을 바로 실행해야 할 때 사용"}]},"Primary Action Button":{"bubbles":[{"title":"Primary Action Button은 주요 액션에\n사용해요.","text":"페이지의 핵심 액션이나, 강하게 강조해야 하는 액션에 사용해요. 사용 용도에 따라서 Filled, Emphasis 이렇게 두가지 타입이 있어요."},{"title":"Filled (Primary)는 우선순위가 높은\n주요 액션에 적용해요.","rows":[["Large","48px"],["Default","40px"],["Small","32px"]],"imgs":["img_CTA Button_all_01"],"text":"페이지의 핵심 액션이나, 주요 액션에 사용해요.\n(예: Buy now, Add to cart)"},{"title":"Filled (Emphasis)는 즉각적인 주목이\n필요한 최우선 액션에 사용해요.","rows":[["Large","48px"],["Default","40px"],["Small","32px"]],"note":"리뷰 보기처럼 보조 액션에는 쓰지 않아요.","imgs":["img_CTA Button_all_02"],"text":"즉각적인 주목이 필요한 최우선 액션에만 사용하며,\n페이지당 1개, 오른쪽 상단 배치를 권장해요."}],"followups":["스펙 및 토큰","CTA Button Icon"]},"Secondary Action Button":{"bubbles":[{"title":"Secondary Action Button은 보조 액션에\n사용해요.","text":"핵심 액션을 보조하는 중간 강조의 액션에 써요.\nOutlined / Standard이 있어요."},{"title":"Outlined (Standard)는 중간 수준의 강조에 사용하는 테두리 버튼이에요.","rows":[["Large","48px"],["Default","40px"],["Small","32px"]],"imgs":["img_CTA Button_all_03"],"text":"Primary 버튼 오른쪽에 함께 배치하며, 추가 정보,\n더보기 등에 사용해요. 앞이나 뒤에 아이콘을 붙일 수 있어요. (예: ∨ 펼치기, ↗ 새 창)"}],"followups":["스펙 및 토큰","CTA Button Icon"]},"Tertiary Action Button":{"bubbles":[{"title":"Tertiary Action Button은 강조 없이 가볍게 제공할 때 사용해요.","text":"Primary, Secondary보다 가볍게 제공하는 선택적\n액션에 써요."},{"title":"Underlined (Standard)는 강조를 최소화한 3순위 액션에 사용해요.","rows":[["Large","16px"],["Default","14px"],["Small (MO only)","12px"]],"imgs":["img_CTA Button_all_04"],"text":"강조를 최소화한 텍스트 액션이며, 밑줄이 가운데에서 양옆으로 늘어나요. 모바일은 Pressed상태에 밑줄이 노출되요."},{"title":"Label (Standard)는 시각적 강조 없이\n3순위 액션에 사용하는 텍스트에 적용해요.","rows":[["Default","14px"]],"imgs":["img_CTA Button_all_05"],"text":"강조 없이 덧붙이는 보조 액션이며,\n앞이나 뒤에 16px 아이콘을 붙일 수 있어요."}],"followups":["스펙 및 토큰","CTA Button Icon"]},"Icon Trailing Number Button":{"bubbles":[{"title":"Icon Trailing Number Button는 잔여 목록의 개수를 직관적으로 확인할 수 있는 버튼","imgs":["img_CTA Button_all_06"],"text":"높이 40px 버튼 안에 24px × 24px 아이콘을 배치합니다.\n\n사용자가 전체 규모를 가늠 할 수 있도록, 잔여 콘텐츠 수가 노출되는 ‘더보기’ 버튼에 많이 사용되요."}],"followups":["스펙 및 토큰","CTA Button Icon"]},"Icon Contained Button":{"bubbles":[{"title":"Icon Contained Button는 화면 공간을 절약하면서 특정 기능을 바로 실행해야 할 때 사용해요.","imgs":["img_CTA Button_all_07"],"text":"높이 40px 버튼 안에 24px × 24px 아이콘을 배치합니다."}],"followups":["스펙 및 토큰","CTA Button Icon"]}}},"CTA Button Icon":{"title":"CTA Button Icon의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Standard","Toggle","Play","Coupon"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Standard 버튼 아이콘","imgs":["img_CTA Button Icon_all_01"],"text":"누르면 한 번에 실행되는 버튼을 아이콘으로 제공"},{"title":"Toggle 버튼 아이콘","imgs":["img_CTA Button Icon_all_02","img_CTA Button Icon_all_02.5"],"text":"켜고 끄는 버튼을 아이콘으로 제공"},{"title":"Play 버튼 아이콘","imgs":["img_CTA Button Icon_all_03"],"text":"영상을 재생하거나 멈추는 버튼을 아이콘으로 제공"},{"title":"Coupon 버튼","imgs":["img_CTA Button Icon_all_04"],"text":"사용자가 바로 쿠폰을 다운로드 할 수 있게 쿠폰 받기 버튼으로 제공"}]},"Standard":{"bubbles":[{"title":"Standard 버튼은 누르면 한 번에 실행되는\n기능을 아이콘으로 제공해요.","imgs":["img_CTA Button Icon_all_01"],"text":"장바구니·비교함에서 항목 삭제할때는 휴지통 아이콘을 사용해요.\n\n제품 페이지 공유, 메뉴얼·자료는 다운로드 아이콘을 사용해요.\n\n안내 문구 옆 정보는 (i) 아이콘으로 툴팁을 열어요."}],"followups":["스펙 및 토큰","CTA Button"]},"Toggle":{"bubbles":[{"title":"Toggle 버튼은 켜고 끄는 버튼을 아이콘으로 제공해요.","imgs":["img_CTA Button Icon_all_02"],"text":"제품 목록 카드의 이미지 모서리에 둔 위시리스트 및 제품 상세 페이지의 위시리스트 담기·빼기는 하트 아이콘을 사용해요.\n\n품절 제품의 재입고 알림 받기·끄기는 벨 아이콘을 사용해요.\n\n실제 사용 크기는 Icon 24x24, Container 40x40로 구성됩니다."},{"title":"Toggle Arrow 버튼은 텍스트박스를 켜고 끄는 버튼을 아이콘으로 제공해요.","rows":[["Expand","PC 24 x 24, MO 16 x 16"],["Collapse","PC 24 x 24, MO 16 x 16"]],"imgs":["img_CTA Button Icon_all_02.5"],"text":"제품 목록 카드의 이미지 모서리에 둔 위시리스트 및 제품 상세 페이지의 위시리스트 담기·빼기는 하트 아이콘을 사용해요.\n\n품절 제품의 재입고 알림 받기·끄기는 벨 아이콘을 사용해요.\n\n실제 사용 크기는 Icon 24x24, Container 40x40로 구성됩니다."}],"followups":["스펙 및 토큰","CTA Button","Tooltip"]},"Play":{"bubbles":[{"title":"Play 버튼은 영상을 재생하거나 멈추는 기능을 아이콘으로 제공해요.","rows":[["Default","PC 96 x 96, MO 56 x 56"],["Small","PC 36 x 36, MO 24 x 24"]],"imgs":["img_CTA Button Icon_all_03"],"text":"Default 사이즈는 메인 KV·제품 소개 영역의 영상 재생에 사용해요.\n\nSmall 사이즈는 제품 갤러리 썸네일·카드 안의\n영상에 사용해요.\n\n비디오 썸네일 배경에 따라서 Play, Pause 버튼은 line 형태, fill 버튼중에 알맞게 골라 사용하면 되요."}],"followups":["스펙 및 토큰","CTA Button"]},"Coupon":{"bubbles":[{"title":"Coupon 버튼은 사용자가 바로 쿠폰을 다운로드 할 수 있게 쿠폰 받기 버튼으로 제공해요.","rows":[["Default","108 x 40"],["Small","91 x 32"]],"imgs":["img_CTA Button Icon_all_04"],"text":"Default 사이즈는 메인 KV·제품 소개 영역의 영상 재생에 사용해요.\n\nSmall 사이즈는 제품 갤러리 썸네일·카드 안의\n영상에 사용해요."}],"followups":["스펙 및 토큰","CTA Button"]}}},"Popup":{"title":"Popup의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Confirmation","Input Data","Notification","Contents"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Confirmation","imgs":["img_Popup_all_01"],"text":"명확하고 직접적인 사용자 응답을 요청할 때 사용"},{"title":"Input Data","imgs":["img_Popup_all_02"],"text":"복잡한 입력을 받거나 선택 가능한 값을 제공할 때\n사용"},{"title":"Notification","imgs":["img_Popup_all_03"],"text":"사용자 행동에 대한 피드백을 간결한 메시지로\n제공할 때 사용"},{"title":"Contents","imgs":["img_Popup_all_04"],"text":"입력이나 선택 없이 콘텐츠를 전달할 때 사용"}]},"Confirmation":{"bubbles":[{"title":"Confirmation은 명확하고 직접적인 응답을 요청할 때 사용해요.","note":"본문에 이미 제공한 설명이나 정보를 Popup에 그대로 반복하지 않습니다.","imgs":["img_Popup_all_01"],"text":"확인·계속 등 사용자의 의사결정을 요청하며, PC와 모바일 모두 Standard 구성으로 제공합니다.\n\n제목·부제 없는 No Title 구성이 가능하며, 캡션도 생략할 수 있습니다."}],"followups":["스펙 및 토큰","CTA Button","Dimmed & Shadow"]},"Input Data":{"bubbles":[{"title":"Input Data는 복잡한 입력을 받거나\n선택 가능한 값을 제공할 때 사용해요.","note":"본문에 이미 제공한 설명이나 정보를 Popup에 그대로 반복하지 않습니다.","imgs":["img_Popup_all_02"],"text":"리뷰 작성·날짜 선택 등에 사용하며, Input Field와 Selection Control을 포함할 수 있습니다.\n\n제목·부제를 생략한 No Title 구성을 사용할 수 있으며, 캡션도 생략할 수 있습니다."}],"followups":["스펙 및 토큰","CTA Button","Text Field","Selection Control","Dimmed & Shadow"]},"Notification":{"bubbles":[{"title":"Notification은 사용자 행동에 대한 피드백을 간결한 메시지로 제공할 때 사용해요.","note":"본문에 이미 제공한 설명이나 정보를 Popup에 그대로 반복하지 않습니다.","imgs":["img_Popup_all_03"],"text":"경고와 같은 처리 결과나 앱 다운로드를 제공할 때 적용합니다.\n\nDefault는 제목 없이 본문만 사용할 수 있습니다. Alert는 Supporting Visual, App Download는 App Icon을 포함하며, App Download는 모바일 전용입니다."}],"followups":["스펙 및 토큰","CTA Button","Dimmed & Shadow"]},"Contents":{"bubbles":[{"title":"Contents는 입력이나 선택 없이 콘텐츠를\n전달할 때 사용해요.","note":"본문에 이미 제공한 설명이나 정보를 Popup에 그대로 반복하지 않습니다.","imgs":["img_Popup_all_04"],"text":"현재 화면의 맥락을 유지하면서 추가 설명·이미지·동영상을 제공합니다.\n\n단독 이미지·동영상은 Media로 제공하며, 원본 비율을 유지해 중앙 정렬합니다."}],"followups":["스펙 및 토큰","CTA Button","Dimmed & Shadow"]}}},"Dimmed & Shadow":{"title":"Dimmed & Shadow의\n구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Dimmed","Shadow"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Dimmed","rows":[["Dimmed 01","#000000 60%"],["Dimmed 02","#000000 90%"]],"imgs":["img_dimmedshadow_dimmed_01"],"text":"팝업·모달 등의 배경을 어둡게 처리"},{"title":"Shadow","imgs":["img_dimmedshadow_shadow_01"],"text":"UI 요소에 입체감과 깊이감을 부여"}]},"Dimmed":{"bubbles":[{"title":"Dimmed는 팝업·모달 등의 주요 콘텐츠에\n집중시켜야 하는 경우 사용해요.","rows":[["Dimmed 01","#000000 60%"],["Dimmed 02","#000000 90%"]],"imgs":["img_dimmedshadow_dimmed_01"],"text":"대부분의 팝업은 Dimmed 01(60%)를 사용하며,\n영상 재생 화면인 경우에는 Dimmed 02(90%)를 사용합니다."}]},"Shadow":{"bubbles":[{"title":"Shadow는 UI 요소 간 시각적 위계를\n구분해야 하는 경우 사용해요.","imgs":["img_dimmedshadow_shadow_01"],"text":"실제로는 다양한 수치가 사용되고 있으나,\n모든 값을 별도로 정의하지 않습니다.\n\n기존 스타일과 유사한 경우 Shadow 01 또는 Shadow 02 중 가까운 값으로 통일합니다."}]}}},"Iconography":{"title":"Iconography의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Bold","Regular","Light"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Bold","rows":[["Exterior Stroke","8px"],["Interior Stroke","7 / 7.5px"],["Size","12x12 / 16x16 / 24x24"]],"imgs":["img_iconography_bold_01"],"text":"작은 크기에서도 명확한 형태 표현이 필요한 경우 사용"},{"title":"Regular","rows":[["Exterior Stroke","5px"],["Interior Stroke","4 / 4.5px"],["Size","24x24 / 36x36 / 48x48"]],"imgs":["img_iconography_all_01"],"text":"일반적인 UI 요소에 균형 잡힌 굵기가 필요한 경우\n사용"},{"title":"Light","rows":[["Exterior Stroke","3px"],["Interior Stroke","3px"],["Size","64x64 / 72x72 / 96x96"]],"imgs":["img_iconography_all_02"],"text":"큰 크기에서 가벼운 형태 표현이 필요한 경우 사용"}]},"Bold":{"bubbles":[{"title":"Bold Style은 작은 크기에서도 명확한\n형태 표현이 필요한 경우 사용해요.","imgs":["img_iconography_bold_01"],"text":"96×96px 제작 그리드 기준 외곽선은 8px,\n내부선은 7~7.5px로 설정합니다.\n\n실제 사용 크기는 12×12, 16×16, 24×24px로\n구성되며, 24px Bold 타입은 GNB 영역에 한해 사용합니다."}],"followups":["Stroke","Keyline Shapes","Corners","Angle"]},"Regular":{"bubbles":[{"title":"Regular Style은 일반적인 UI 요소에\n균형 잡힌 굵기가 필요한 경우 사용해요.","imgs":["img_iconography_all_01"],"text":"96×96px 제작 그리드 기준 외곽선은 5px,\n내부선은 4~4.5px로 설정합니다,\n\n실제 사용 크기는 24×24, 36×36, 48×48px로 구성됩니다."}],"followups":["Stroke","Keyline Shapes","Corners","Angle"]},"Light":{"bubbles":[{"title":"Light Style은 큰 크기에서 가벼운 형태\n표현이 필요한 경우 사용해요.","imgs":["img_iconography_all_02"],"text":"96×96px 제작 그리드 기준 외곽선과 내부선은 모두 3px로 설정하며,\n\n실제 사용 크기는 64×64, 72×72, 96×96px로 구성됩니다."}],"followups":["Stroke","Keyline Shapes","Corners","Angle"]}}},"Radius":{"title":"Radius의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","4px","6px","8px","20px","24px","Max","None"],"answers":{"핵심만 보기":{"bubbles":[{"title":"4 px","imgs":["img_radius_all_01"],"text":"작은 UI 요소의 컨테이너에 사용\n적용: Option Chip, Option Selector, Check Box"},{"title":"6 px","imgs":["img_radius_all_02"],"text":"버튼, 툴팁 등 중간 크기 컴포넌트의 컨테이너에 사용\n적용: Snackbar, Text Field, Tooltip"},{"title":"8 px","imgs":["Menu/img_menu_all_01"],"text":"큰 컴포넌트 또는 그룹화된 버튼에 사용\n적용: Menu - Dropdown, Option Selector"},{"title":"20 px","imgs":["img_radius_all_04"],"text":"카드, 배너, 이미지 등 중간 크기 컨테이너에 사용\n적용: Card, Banner, Image"},{"title":"24 px","imgs":["img_radius_all_05"],"text":"여러 UI 요소로 구성된 팝업 등 복합 컴포넌트에 사용\n적용: Popup - PC"},{"title":"Max : 999xp","rows":[["’N’px (50%)","높이 값의 50% 수치로 적용 가능"]],"imgs":["img_radius_all_06"],"text":"버튼(CTA)과 같이 알약 형태의 높이가 고정된 요소에 사용\n적용: Button (CTA), Indicator, Number Counter, Scroll, Search Field"},{"title":"None : 0px","imgs":["img_radius_all_07"],"text":"리스트 또는 전체 화면 팝업 등 화면 너비를 가득 채우는 컨테이너에 사용\n적용: List, Popup - Full Screen"}]},"4px":{"bubbles":[{"title":"4px은 작은 UI 요소의 컨테이너에 사용해요.","imgs":["img_radius_all_01"],"text":"뱃지, 옵션 칩, 체크박스, 옵션 셀렉터 등의 작은 엘리먼트 코너에 적용해요."}],"followups":["스펙 및 토큰","Option Chip","Filter","Tab"]},"6px":{"bubbles":[{"title":"6px은 버튼, 툴팁 등 중간 크기 컴포넌트의 컨테이너에 사용해요.","imgs":["img_radius_all_02"],"text":"스낵바(토스트 알림), 텍스트 필드, 툴팁 등의 코너에 적용해요."}],"followups":["스펙 및 토큰","Snackbar","Text Field","Tooltip"]},"8px":{"bubbles":[{"title":"8px은 큰 컴포넌트 또는 그룹화된 버튼에 사용해요.","imgs":["Menu/img_menu_all_01"],"text":"드롭다운 메뉴, 옵센 셀렉터 등의 코너에 적용해요."}],"followups":["스펙 및 토큰","Menu","Option Selector"]},"20px":{"bubbles":[{"title":"20px은 중간 크기 컨테이너에 사용해요.","imgs":["img_radius_all_04"],"text":"카드, 배너, 이미지 등의 코너에 적용해요."}],"followups":["스펙 및 토큰"]},"24px":{"bubbles":[{"title":"24px은 여러 UI 요소로 구성된 팝업 등 복합 컴포넌트에 사용해요.","imgs":["img_radius_all_05"],"text":"팝업, 또는 대형 컨테이너의 코너에 적용해요."}],"followups":["스펙 및 토큰","Popup"]},"Max":{"bubbles":[{"title":"Max : 999xp은 높이가 고정된 요소에 사용해요.","imgs":["img_radius_all_06"],"text":"버튼(CTA), 인디케이터, 스크롤 등 알약(Pill) 형태 컴포넌트의 코너에 적용해요.\n\n컴포넌트 높이 값의 50% 수치로 적용 가능해요."}],"followups":["Button (CTA)","Indicator","Scroll"]},"None":{"bubbles":[{"title":"None : 0px은 화면 너비를 가득 채우는 컨테이너에 사용해요.","imgs":["img_radius_all_07"],"text":"리스트 또는 전체 화면 팝업 등의 코너에 적용해요."}],"followups":["List","Popup"]}}},"Badge":{"title":"Badge의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Filled","Label","Dot","Number","Icon"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Filled","imgs":["img_badge_all_01"],"text":"핵심 정보를 강조할 때 사용"},{"title":"Label","imgs":["img_badge_all_02"],"text":"배경 없이 텍스트만 노출하여 강조할 때 사용"},{"title":"Dot","imgs":["img_badge_all_03"],"text":"최소형 뱃지로 신규 정보 존재 여부를 알릴 때 사용"},{"title":"Number","imgs":["img_badge_all_04"],"text":"알림, 장바구니 등 수량을 표시할 때 사용"},{"title":"Icon","imgs":["img_badge_all_05"],"text":"오늘보장, 빠른배송 등 정형화된 에셋형으로 사용"}]},"Filled":{"bubbles":[{"title":"Filled 뱃지는 배경과 텍스트로 핵심 세일즈 정보를 강조할 때 사용해요.","note":"프로덕트 카드 내부에서는 사용하지 않습니다. (카드 내부는 Label 타입만 사용)","imgs":["img_badge_all_01"],"text":"혜택, 프로모션, 기획전 등 시각적으로 강조해야 하는 정보를 표현할 때 사용합니다."}],"followups":["스펙 및 토큰","Typeface","Spacing","Radius"]},"Label":{"bubbles":[{"title":"Label 뱃지는 배경 없이 텍스트만 노출하여 강조할 때 사용해요.","note":"임의의 container나 border를 추가하지 않습니다.","imgs":["img_badge_all_02"],"text":"프로덕트 카드, 텍스트 리스트 등 정보가 밀집된 영역에서 간결한 강조가 필요할 때 사용합니다."}],"followups":["스펙 및 토큰","Typeface"]},"Dot":{"bubbles":[{"title":"Dot 뱃지는 최소형 뱃지로 신규 정보 존재 여부를 알려줄 때 사용해요.","note":"width =4px, height=4px 고정 크기를 사용합니다.","imgs":["img_badge_all_03"],"text":"구체적인 텍스트나 숫자 없이 업데이트, 신규 정보 등의 존재 여부만 전달할 때 사용합니다."}],"followups":["스펙 및 토큰"]},"Number":{"bubbles":[{"title":"Number 뱃지는 확인해야 할 정보의 수량을 표시할 때 사용해요.","note":"수량이 99 이상일 경우 99+로 표기하며, 숫자 외 특수 기호 등을 단독으로 사용하지 않습니다.","imgs":["img_badge_all_04"],"text":"알림, 장바구니, 메시지 등 구체적인 수량을 표현해야 할 때 사용합니다."}],"followups":["스펙 및 토큰","Typeface","Spacing"]},"Icon":{"bubbles":[{"title":"Icon 뱃지는 정형화된 아이콘 에셋으로 상태 정보를 제공할 때 사용해요.","note":"텍스트 가독성 또는 레이아웃 조정을 위해 에셋을 임의 축소하거나 크기를 변경하지 않습니다.","imgs":["img_badge_all_05"],"text":"오늘보장, 빠른배송 등 물류/배송 상태를 파편화 없이 일관된 비주얼로 표현할 때 사용합니다."}],"followups":["스펙 및 토큰"]}}},"Chip":{"title":"Chip의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Action Chip","Select Chip"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Action Chip","imgs":["img_Chip_all_01"],"text":"항목 선택 시 관련 동작을 실행하거나 해당 항목과 연관된 콘텐츠를 표시할 때 사용"},{"title":"Select Chip","imgs":["img_Chip_all_02"],"text":"여러 항목을 선택하거나 선택 해제하고, 선택 결과에 따라 콘텐츠나 조건을 변경할 때 사용"}]},"Action Chip":{"bubbles":[{"title":"Action Chip은 항목 선택 시 관련 동작을 실행하거나 해당 항목과 연관된 콘텐츠를 표시할 때 사용해요.","note":"칩 레이블은 가독성을 위해 최대 22자로 제한하고, 한 줄로 표시합니다.","imgs":["img_Chip_all_01"],"text":"간결한 속성이나 항목을 표시하며, 사용자가 항목을 선택하여 콘텐츠를 필터링하거나 특정 동작을 실행할 때 사용해요.\n\n칩 레이블은 명확하고 쉽게 알아볼 수 있도록 간결하고 일관된 스타일로 작성해요."}],"followups":["스펙 및 토큰","Filter","Tab"]},"Select Chip":{"bubbles":[{"title":"Select Chip은 여러 항목을 선택하거나 선택 해제하고, 선택 결과에 따라 콘텐츠나 조건을 변경할 때 사용해요.","note":"칩 레이블은 가독성을 위해 최대 22자로 제한하고, 한 줄로 표시합니다.","imgs":["img_Chip_all_02"],"text":"Select Chip은 선택 항목을 삭제할 수 있도록 오른쪽에 삭제 아이콘을 배치해요.\n\n칩 레이블은 명확하고 쉽게 알아볼 수 있도록 간결하고 일관된 스타일로 작성해요."}],"followups":["스펙 및 토큰","Selection Control"]}}},"Selection Control":{"title":"Selection Control의\n구성이에요. 어떤게 궁금하신가요?","chips":["핵심만 보기","Check Box","Radio","Switch"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Check Box","imgs":["img_Selection Control_all_01"],"text":"하나 이상의 옵션을 선택할 때 사용"},{"title":"Radio","imgs":["img_Selection Control_all_02"],"text":"여러 옵션 중 하나만 선택할 때 사용"},{"title":"Switch","imgs":["img_Selection Control_all_03"],"text":"설정을 켜고 끌 때 사용"}]},"Check Box":{"bubbles":[{"title":"Check Box는 하나 이상의 옵션을 선택할 때 사용해요.","note":"정의되지 않은 기능에 사용하지 않아요.","imgs":["img_Selection Control_all_01"],"text":"여러 개를 골라도 되는 선택에 써요.\n(예: 필터의 조건 목록)\n\n상태는 On / Off 두 가지예요. 선택할 수 없을 때는 비활성(Disabled)으로 보여줘요.\n\n상위·하위 구조에서는 상위를 선택하면 하위가\n모두 선택되고, 하위를 하나라도 해제하면 상위도 해제돼요."}],"followups":["스펙 및 토큰","Option Chip"]},"Radio":{"bubbles":[{"title":"Radio는 여러 옵션 중 하나만 선택할 때 사용해요.","note":"여러 개를 동시에 선택하게 하거나, 옵션을 하나만 제공하면 안 돼요.","imgs":["img_Selection Control_all_02"],"text":"반드시 하나만 골라야 하는 선택에 써요.\n\n상태는 On / Off 두 가지예요. 마우스를 올리면 Hover, 선택할 수 없을 때는 비활성(Disabled)으로 보여줘요.\n\n새 옵션을 고르면 이전 선택은 자동으로 해제돼요."}],"followups":["스펙 및 토큰","Option Chip"]},"Switch":{"bubbles":[{"title":"Switch는 설정을 켜고 끌 때 사용해요.","note":"정의되지 않은 기능에 쓰면 안 돼요.","imgs":["img_Selection Control_all_03"],"text":"단독으로 쓰이거나 켜짐·꺼짐 두 가지뿐인 옵션에 써요.\n\n라벨은 Switch 바로 옆에 두어요.\n\n누르는 즉시 상태가 바뀌고 결과가 바로 반영되며, 별도의 저장·확인 버튼을 거치지 않아요."}],"followups":["스펙 및 토큰","Option Chip"]}}},"Indicator":{"title":"Indicator의\n구성이에요. 어떤게 궁금하신가요?","chips":["핵심만 보기","Dot","Arrow","Number","Scroll","Bar"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Dot 인디게이터","imgs":["img_Indicator_all_01"],"text":"카드형 콘텐츠의 범위와 현재 위치를 보여줄 때"},{"title":"Arrow 인디게이터","imgs":["img_Indicator_all_02"],"text":"이전·다음 콘텐츠로 이동할 때"},{"title":"Number 인디게이터","imgs":["img_Indicator_all_03"],"text":"현재 위치와 전체 개수를 숫자로 보여줄 때"},{"title":"Scroll 인디게이터","imgs":["img_Indicator_all_04"],"text":"보이는 영역 밖 콘텐츠를 가로로 탐색할 때"},{"title":"Bar 인디게이터","imgs":["img_Indicator_all_05","img_Indicator_all_06"],"text":"영상 등 재생 시간이 있는 콘텐츠의 위치·진행을 보여줄 때"}]},"Dot":{"bubbles":[{"title":"Dot 인디게이터는 카드형 콘텐츠의 범위와 현재 위치를 보여줄 때 사용해요.","note":"Medium·Small 크기의 점은 More than 7 타입에서만 써요.","imgs":["img_Indicator_all_01"],"text":"카드 단위로 나뉠 콘텐츠(캐러셀 등)에 써요.\n\n콘텐츠 영역의 하단 중앙에 두어요.\n\n기본은 최대 7개, 컨트롤(Play/Pause) 없이 써요. 7개가 넘으면 끝쪽 점이 작아지는 More than 7 타입을 써요.\n\n자동 재생 콘텐츠에는 Play/Pause 아이콘이 붙은 with icon 타입을 써요."}],"followups":["스펙 및 토큰"]},"Arrow":{"bubbles":[{"title":"Arrow 인디게이터는 이전·다음 콘텐츠로 이동할 때 사용해요.","note":"접근성용 화살표 영역은 이미지 안에 투명하게 두고, 화면에 보이게 노출하면 안 돼요.","imgs":["img_Indicator_all_02"],"text":"이전·다음 콘텐츠로 넘기는 데 쓰고, 맥락에 따라 두 가지 스타일을 써요.\n\n처음에는 다음 화살표만, 중간에는 양쪽, 끝에서는 이전 화살표만 동작해요."}],"followups":["스펙 및 토큰"]},"Number":{"bubbles":[{"title":"Number 인디게이터는 현재 위치와 전체 개수를 숫자로 보여줄 때 사용해요.","note":"최대 99개까지만 표시해요.","imgs":["img_Indicator_all_03"],"text":"현재 / 전체(예: 1 / 5) 형식으로 보여줘요.\n\n콘텐츠 개수가 많아 점으로 보여주기 어려울 때 숫자로 위치를 알려줘요."}],"followups":["스펙 및 토큰"]},"Scroll":{"bubbles":[{"title":"Scroll 인디게이터는 보이는 영역 밖 콘텐츠를 가로로 탐색할 때 사용해요.","note":"카드 단위로 나뉠 콘텐츠에는 Scroll이 아니라 Dot을 써요.","imgs":["img_Indicator_all_04"],"text":"가로로 이어지는 연속 스크롤 콘텐츠에 써요.\n\n처음에는 이전 화살표가, 끝에서는 다음 화살표가 비활성화돼요.\n\n화면 폭과 레이아웃 제약에 맞는 인디케이터를\n선택해요."}],"followups":["스펙 및 토큰"]},"Bar":{"bubbles":[{"title":"Bar 인디게이터는 이전·다음 콘텐츠로 이동할 때 사용해요.","note":"접근성용 화살표 영역은 이미지 안에 투명하게 두고, 화면에 보이게 노출하면 안 돼요.","imgs":["img_Indicator_all_05","img_Indicator_all_06"],"text":"영상처럼 재생 시간이 있는 미디어 콘텐츠의 위치와 진행 상황을 보여줄 때 사용해요.\n\nPC에서만 사용해요."}],"followups":["스펙 및 토큰"]}}},"Divider":{"title":"Divider의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Horizontal","Vertical"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Horizontal","rows":[["Height","1px"],["Style","Solid"],["Light BG","#DDDDDD / #EEEEEE"],["Dark BG","#555555"]],"imgs":["img_Divider_all_01"],"text":"세로로 정렬된 콘텐츠를 구분할 때 사용"},{"title":"Vertical","rows":[["Width","1px"],["Style","Solid"],["Light BG","#DDDDDD"],["Dark BG","#555555"]],"imgs":["img_Divider_all_02"],"text":"가로로 정렬된 콘텐츠를 구분할 때 사용"}]},"Horizontal":{"bubbles":[{"title":"Horizontal은 세로로 정렬된 콘텐츠를\n구분할 때 사용해요.","note":"색상·두께·불투명도는 임의로 변경하지 않습니다.","imgs":["img_Divider_all_01"],"text":"가로 실선을 사용하며, 콘텐츠의 영역이나 그룹 간 경계가 필요한 곳에만 적용합니다."}],"followups":["스펙 및 토큰","List","Menu","Spacing"]},"Vertical":{"bubbles":[{"title":"Vertical은 가로로 정렬된 콘텐츠를\n구분할 때 사용해요.","note":"색상·두께·불투명도는 임의로 변경하지 않습니다.","imgs":["img_Divider_all_02"],"text":"세로 실선을 사용하며, 콘텐츠의 영역이나 그룹 간 경계가 필요한 곳에만 적용합니다."}],"followups":["스펙 및 토큰","List","Menu","Spacing"]}}},"Option Chip":{"title":"Option Chip의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Color","Label"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Color","imgs":["img_option chip_all_01"],"text":"제품 등의 컬러 옵션 선택"},{"title":"Label","imgs":["img_option chip_all_02"],"text":"스펙 등의 텍스트 옵션 선택"}]},"Color":{"bubbles":[{"title":"Color 칩은 제품의 컬러 옵션을 시각적으로 제공할 때 사용해요.","imgs":["img_option chip_all_01"],"text":"색상 자체가 선택 대상인 경우 사용하며, 선택된 컬러의 속성명을 함께 제공합니다."}],"followups":["스펙 및 토큰","Spacing","Typeface"]},"Label":{"bubbles":[{"title":"Label 칩은 텍스트 기반의 옵션을 선택할 때 사용해요.","imgs":["img_option chip_all_02"],"text":"제품의 주요 사양이나 필터 조건을 선택하거나 필터링할 때 사용합니다."}],"followups":["스펙 및 토큰","Spacing","Radius","Typeface"]}}},"Option Selector":{"title":"Option Selector의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Image","Label","Meta","Color"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Image","imgs":["img_Option Selector_all_01"],"text":"이미지·로고를 보고 옵션을 선택할 때 사용"},{"title":"Label","imgs":["img_Option Selector_all_02"],"text":"텍스트 옵션을 선택할 때 사용"},{"title":"Meta","imgs":["img_Option Selector_all_03"],"text":"메인 텍스트와 보조 정보를 확인하며 옵션을 선택할 때 사용"},{"title":"Color","imgs":["img_Option Selector_all_04"],"text":"컬러 옵션을 선택할 때 사용"}]},"Image":{"bubbles":[{"title":"Image는 이미지·로고를 보고 옵션을\n선택할 때 사용해요.","imgs":["img_Option Selector_all_01"],"text":"대표 이미지나 로고로 선택 가능한 옵션을 제공합니다. 각 이미지는 옵션 영역 안에서 중앙 정렬해 일관된 형태로 보여줍니다."}],"followups":["스펙 및 토큰","Option Chip","Selection Control"]},"Label":{"bubbles":[{"title":"Label은 텍스트 옵션을 선택할 때 사용해요.","imgs":["img_Option Selector_all_02"],"text":"짧은 텍스트로 선택 가능한 옵션을 제공합니다.\n이미지나 보조 정보 없이 옵션명만으로 항목을\n확인하고 선택할 때 사용합니다."}],"followups":["스펙 및 토큰","Option Chip","Selection Control"]},"Meta":{"bubbles":[],"followups":["스펙 및 토큰","Option Chip","Selection Control"]},"Color":{"bubbles":[{"title":"Color는 컬러 옵션을 선택할 때 사용해요.","imgs":["img_Option Selector_all_04"],"text":"원형 컬러칩으로 제품의 색상 옵션을 제공합니다. 컬러칩은 Inner Circle과 Inner Circle Border로 구성됩니다."}],"followups":["스펙 및 토큰","Option Chip","Selection Control"]}}},"Tooltip":{"title":"Tooltip의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Standard","Label","Meta","Bubble"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Standard","imgs":["img_Tooltip_all_01"],"text":"제목과 본문을 함께 제공하거나 본문을 항목별로\n나누어 설명할 때 사용"},{"title":"Label","imgs":["img_Tooltip_all_02"],"text":"요소의 의미나 짧은 안내를 간단한 텍스트로 제공할 때 사용"},{"title":"Meta","imgs":["img_Tooltip_all_03"],"text":"항목별 명칭과 금액 등의 데이터를 함께 확인할 때\n사용"},{"title":"Bubble","imgs":["img_Tooltip_all_04"],"text":"관련 요소를 말풍선으로 가리켜 짧은 안내나 보충 설명을 제공할 때 사용"}]},"Standard":{"bubbles":[{"title":"Standard는 제목과 본문을 함께 제공하거나 본문을 항목별로 나누어 설명할 때 사용해요.","note":"버튼 등 주요 UI 요소와 중요한 콘텐츠를 가리지 않도록 배치합니다.","imgs":["img_Tooltip_all_01"],"text":"Standard A와 Standard B로 제공하며, 여러 본문 항목과 글머리 기호로 내용을 나누어 보여줍니다. 콘텐츠에 따라 제목과 닫기 아이콘을 생략할 수 있습니다."}],"followups":["스펙 및 토큰","CTA Button Icon"]},"Label":{"bubbles":[{"title":"Label은 요소의 의미나 짧은 안내를\n간단한 텍스트로 제공할 때 사용해요.","note":"버튼 등 주요 UI 요소와 중요한 콘텐츠를 가리지 않도록 배치합니다.","imgs":["img_Tooltip_all_02"],"text":"별도의 제목 없이 Body Text로 안내 내용을 구성합니다."}],"followups":["스펙 및 토큰","CTA Button Icon","Dimmed & Shadow"]},"Meta":{"bubbles":[{"title":"Meta는 항목별 명칭과 금액 등의 데이터를\n함께 확인할 때 사용해요.","note":"버튼 등 주요 UI 요소와 중요한 콘텐츠를 가리지 않도록 배치합니다.","imgs":["img_Tooltip_all_03"],"text":"항목명은 왼쪽, 대응하는 데이터는 오른쪽에 정렬해 함께 보여줍니다. 필요한 경우 제목·부제·글머리 기호·추가 설명을 포함할 수 있습니다."}],"followups":["스펙 및 토큰","CTA Button Icon","Divider"]},"Bubble":{"bubbles":[{"title":"Bubble은 관련 요소를 말풍선으로 가리켜\n짧은 안내나 보충 설명을 제공할 때 사용해요.","note":"버튼 등 주요 UI 요소와 중요한 콘텐츠를 가리지 않도록 배치합니다.","imgs":["img_Tooltip_all_04"],"text":"안내 문구를 기본으로 제공하며, 필요한 경우 그 아래에 Description Text을 추가합니다.\n\n관련 요소의 위치에 맞춰 말풍선 꼬리를 중앙·오른쪽·왼쪽 중 선택할 수 있습니다."}],"followups":["스펙 및 토큰","CTA Button Icon"]}}},"Tab":{"title":"Tab의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Standard / Anchor","Icon","Outlined","Filled","Toggle","Underlined / Standard / Primary"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Standard / Anchor","imgs":["img_Tab_all_01"],"text":"텍스트로 콘텐츠를 구분하고 전환할 때 사용"},{"title":"Icon","imgs":["img_Tab_all_02"],"text":"아이콘과 텍스트를 함께 제공하는 카드형 탭에 사용"},{"title":"Outlined","imgs":["img_Tab_all_03"],"text":"둥근 테두리로 선택 상태를 구분할 때 사용"},{"title":"Filled","imgs":["img_Tab_all_04"],"text":"배경색을 채워 선택된 항목을 강조할 때 사용"},{"title":"Toggle","imgs":["img_Tab_all_05"],"text":"컨테이너와 테두리로 선택 상태를 강조할 때 사용"},{"title":"Underlined / Standard / Primary","imgs":["img_Tab_all_06"],"text":"PC에서 밑줄로 선택 상태를 구분할 때 사용"}]},"Standard / Anchor":{"bubbles":[{"title":"Standard / Anchor는 텍스트 레이블과 Underline으로 콘텐츠를 구분하고 전환하는 탭이에요.","imgs":["img_Tab_all_01"],"text":"텍스트 중심으로 카테고리를 구분하고, 선택항목을 하단 밑줄로 표시합니다."}],"followups":["스펙 및 토큰","Badge","Chip"]},"Icon":{"bubbles":[{"title":"Icon은 아이콘과 텍스트로 구성된 카드형 탭이에요.","imgs":["img_Tab_all_02"],"text":"아이콘을 통해 항목의 의미를 시각적으로 전달하고 콘텐츠를 전환할 수 있습니다."}],"followups":["스펙 및 토큰","Badge","Chip"]},"Outlined":{"bubbles":[{"title":"Outlined은 둥근 외곽 테두리로 선택 상태를 표현하는 탭이에요.","imgs":["img_Tab_all_03"],"text":"테두리의 색상과 두께로 선택 항목을 구분합니다."}],"followups":["스펙 및 토큰","Badge","Chip"]},"Filled":{"bubbles":[{"title":"Filled는 선택된 항목의 배경색을 채워 강조하는 탭이에요.","imgs":["img_Tab_all_04"],"text":"선택된 항목에 검정색 배경과 흰색 텍스트를 적용해 활성 상태를 명확하게 표현합니다."}],"followups":["스펙 및 토큰","Badge","Chip"]},"Toggle":{"bubbles":[{"title":"Toggle은 선택된 항목의 컨테이너와 테두리를 강조하는 탭이에요.","imgs":["img_Tab_all_05"],"text":"선택 시 흰색 컨테이너와 검정색 테두리로 구분합니다."}],"followups":["스펙 및 토큰","Badge","Chip"]},"Underlined / Standard / Primary":{"bubbles":[{"title":"Underlined / Standard / Primary는 PC에서 사용하는 하단 밑줄 탭이에요.","imgs":["img_Tab_all_06"],"text":"텍스트 레이블 하단에 하단 밑줄을 표시해 선택된 항목을 구분합니다."}],"followups":["스펙 및 토큰","Badge","Chip"]}}},"List":{"title":"List의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Header","Item Default","Item Indent","Item Selection"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Header","imgs":["img_List_all_01"],"text":"클릭이나 탭으로 리스트를 펼치거나 접는 제목 영역"},{"title":"Item Default","imgs":["img_List_all_02"],"text":"아래의 하위 항목으로, 각 항목을 대표하는 제목 영역"},{"title":"Item Indent","imgs":["img_List_all_03"],"text":"아이콘과 텍스트를 함께 제공하는 카드형 탭에 사용"},{"title":"Item Selection","imgs":["img_List_all_04"],"text":"아이콘과 텍스트를 함께 제공하는 카드형 탭에 사용"}]},"Header":{"bubbles":[{"title":"Header은 하위 항목 그룹을 대표하며,\n클릭이나 탭으로 리스트를 펼치거나 접는\n제목 영역이에요.","note":"기본적으로 상위 세 개의 Header만 펼치고 나머지는 접어 둡니다.\nHeader 사이에는 구분선을 두어 그룹 간 경계를 구분합니다.","imgs":["img_List_all_01"],"text":"리스트 헤더, 아코디언, 펼치기 접기, 그룹 제목,\n카테고리 제목에 사용합니다."}],"followups":["스펙 및 토큰","Typeface","Spacing","Option Chip"]},"Item Default":{"bubbles":[{"title":"Item Default은 아래의 하위 항목으로,\n각 항목을 대표하는 제목 영역 이에요.","imgs":["img_List_all_02"],"text":"리스트 아이템, 하위 항목, 목록 항목에\n사용합니다."}],"followups":["스펙 및 토큰","Typeface","Spacing","Option Chip"]},"Item Indent":{"bubbles":[{"title":"Item Indent는 단일 선택이 필요한 항목을\n나열하는 들여쓰기 항목 입니다.","note":"여러 항목을 동시에 선택해야 하는 경우에는 Item / Indent를 사용하지 않고 Item / Selection을 사용합니다.","imgs":["img_List_all_02"],"text":"들여쓰기 항목, 단일 선택 목록, 하위 목록에\n사용합니다."}],"followups":["스펙 및 토큰","Typeface","Spacing","Option Chip"]},"Item Selection":{"bubbles":[{"title":"Item Selection는 여러 항목을 보면서\n복수 선택할 수 있는 선택형 항목입니다.","note":"하나만 선택해야 하는 경우에는 Item / Selection을 사용하지 않고 Item / Indent를 사용합니다.","imgs":["img_List_all_02"],"text":"체크박스 리스트, 다중 선택 목록, 선택 리스트,\n필터 목록에 사용합니다."}],"followups":["스펙 및 토큰","Typeface","Spacing","Option Chip"]}}},"Menu":{"title":"Menu의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Drop down Menu","Icon Leading Menu","Select Field"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Drop down Menu","imgs":["img_menu_all_01"],"text":"콘텐츠 카테고리 등 여러 선택지 중 하나의 항목을 선택할 때 사용"},{"title":"Icon Leading Menu","imgs":["img_menu_all_02"],"text":"아이콘이나 버튼을 통해 옵션 목록을 일시적으로 표시할 때 사용"},{"title":"Select Field","imgs":["img_menu_all_03"],"text":"콘텐츠를 정렬하거나 정보를 선택하기 위해 여러 옵션 중 하나를 선택할 때 사용"}]},"Drop down Menu":{"bubbles":[{"title":"Dropdown Menu는 여러 선택지 중 하나를 선택할 수 있도록 옵션 목록을 표시하는 메뉴예요.","imgs":["img_menu_all_01"],"text":"콘텐츠의 카테고리나 항목을 선택할 때 사용해요.\n\nSelect Field 등 정의된 요소의 사용자 인터랙션을 통해 메뉴가 열리도록 구성하고, 독립적으로 사용하지 않아요.\n\n메뉴의 Item(리스트)은 현재 선택된 항목을 명확하게 확인할 수 있도록 선택 상태를 구분해 표시해요."}],"followups":["스펙 및 토큰","Filter","List","Chip"]},"Icon Leading Menu":{"bubbles":[{"title":"Icon Leading Menu는 아이콘이나 버튼을 선택했을 때 관련 옵션 목록을 표시하는 메뉴예요.","imgs":["img_menu_all_02"],"text":"특정 요소와 관련된 기능이나 추가 옵션을 제공할 때 사용해요.\n\n아이콘이나 버튼을 통해 메뉴를 호출하고, 사용자 인터랙션에 따라 옵션 목록을 일시적으로 표시해요."}],"followups":["스펙 및 토큰","Filter","List","Chip"]},"Select Field":{"bubbles":[{"title":"Select Field는 여러 선택지 중 하나를 선택하여 정보를 지정하거나 변경하는 컴포넌트예요.","imgs":["img_menu_all_03"],"text":"콘텐츠의 정렬 기준을 선택하거나 특정 정보를 설정할 때 사용해요.\n\n현재 선택된 값을 기본으로 표시하여 설정 상태를 확인할 수 있도록 하며, Select Field를 선택하면 연결된 Dropdown Menu가 표시되어 옵션을 선택할 수 있어요."}],"followups":["스펙 및 토큰","Option Selector","Filter","Tab"]}}},"Filter":{"title":"Filter의 구성이에요.\n어떤게 궁금하신가요?","chips":["Standard"],"answers":{"Standard":{"bubbles":[{"title":"Filter는 여러 옵션이나 상세 조건을 선택하여 원하는 콘텐츠를 탐색할 때 사용해요.","items":[["PC","PC에서는 여러 필터를 가로 방향으로 배치하고, Dropdown 아이콘을 사용합니다."],["MO","모바일에서는 컴팩트한 Button 형태로 제공하며, 클릭 시 Bottom Sheet Popup을 사용합니다."]],"imgs":["img_filter_standard_01","img_filter_standard_02"],"text":"PC·모바일 등 디바이스 환경에 따라 필터의 배치와 메뉴 노출 방식을 구분할 때 적용합니다."}],"followups":["스펙 및 토큰","Popup","Menu"]}}},"Text Field":{"title":"Text Field의 구성이에요.\n어떤게 궁금하신가요?","chips":["핵심만 보기","Single Line","Multi Line","Single Entry","Single Line(SEC)"],"answers":{"핵심만 보기":{"bubbles":[{"title":"Single Line","imgs":["img_Text Field_all_01"],"text":"한 줄에 들어가는 짧은 텍스트 입력에 사용"},{"title":"Multi Line","imgs":["img_Text Field_all_02"],"text":"여러 줄이 필요한 긴 텍스트 입력에 사용"},{"title":"Single Entry","imgs":["img_Text Field_all_03"],"text":"필터 패널에서 가격을 조정할 때 사용"},{"title":"Single Line(SEC)","imgs":["img_Text Field_all_04"],"text":"한총에서 한 줄의 텍스트를 입력할 때 사용"}]},"Single Line":{"bubbles":[{"title":"Single Line은 한 줄에 들어가는 짧은 텍스트를 입력할 때 사용해요.","imgs":["img_Text Field_all_01"],"text":"이메일, 검색어, 이름 등 간단한 정보를 입력할 때 사용하며, 하단 Input Line으로 입력 영역을 구분합니다."}],"followups":["스펙 및 토큰","Typeface","Color"]},"Multi Line":{"bubbles":[{"title":"Multi Line은 여러 줄이 필요한 긴 텍스트를 입력할 때 사용해요.","imgs":["img_Text Field_all_02"],"text":"문의 내용, 의견, 상세 설명 등 긴 메시지를 입력할 때 사용합니다."}],"followups":["스펙 및 토큰","Typeface","Color"]},"Single Entry":{"bubbles":[{"title":"Single Entry는 필터 패널에서 가격을 조정할 때 사용해요.","imgs":["img_Text Field_all_03"],"text":"최소-최대 값 범위를 입력하여 원하는 가격대의 결과를 필터링할 때 사용합니다. PC에서만 지원합니다."}],"followups":["스펙 및 토큰","Typeface","Color"]},"Single Line(SEC)":{"bubbles":[{"title":"Single Line(SEC)는 한총 환경에서 사용하는 박스형 한 줄 입력 필드예요.","imgs":["img_Text Field_all_04"],"text":"Container와 Border로 입력 영역을 구분하며, PC와 Mobile에 공통으로 적용합니다."}],"followups":["스펙 및 토큰","Typeface","Color"]}}}};</script>
+<script>
+/* ── 기본 데이터: 기타 문의 고정 답변 (가이드 데이터는 data/ 폴더에서) ── */
+var MENU = []; /* data/DB_guide 기준으로 아래에서 구성 */
+var HOME_CHIPS = [
+  ['Color','Typeface','Spacing'],
+  ['CTA Button','CTA Button Icon'],
+  ['Popup','Chip','Option Chip'],
+  ['Tab','Radius']
+];
+var C = function(t,d,rows){return {kind:'colors',title:t,desc:d,rows:rows};};
+var T = function(t,d,items){return {kind:'type',title:t,desc:d,items:items};};
+var X = function(t,d,text){return {kind:'text',title:t,desc:d,text:text};};
+var E = function(t,text,cta){return {kind:'text',title:t,desc:'',text:text,cta:cta||''};};
+
+var GUIDE = {};
+GUIDE['기타 문의'] = {q:['담당자에게 직접 문의하고 싶어요','원하는 답변을 찾지 못했어요','가이드에 없는 경우에는 어떻게 해야 하나요?','잘못된 답변을 발견했어요','새로운 가이드나 항목을 제안하고 싶어요'],a:{
+  '원하는 답변을 찾지 못했어요':E('원하는 답변을 찾지 못했다면?','원하는 답변을 찾지 못했다면 질문을 조금 다르게 입력해 보세요.\n컴포넌트명이나 확인하려는 속성을 함께 입력하면 더 정확한 답변을 받을 수 있어요.\n\n예) Button의 높이를 변경할 수 있어?',''),
+  '가이드에 없는 경우에는 어떻게 해야 하나요?':E('가이드에 없는 경우라면?','가이드에 정의되지 않은 항목은 임의로 적용하기보다 담당자 확인을 권장해요.\n필요한 내용을 정리해 디자인 시스템 담당자에게 문의해 주세요.\n\n담당자 : 강지수 (Felix)\nE-mail: felix.kang@cheilpengtai.com',''),
+  '잘못된 답변을 발견했어요':E('잘못된 답변을 발견했다면?','답변에 잘못된 내용이 있다면 알려주세요.\n\n질문 내용과 잘못된 답변을 함께 전달해 주시면 확인하는 데 도움이 돼요.\n\n담당자 : 강지수 (Felix)\nE-mail: felix.kang@cheilpengtai.com',''),
+  '새로운 가이드나 항목을 제안하고 싶어요':E('새로운 가이드나 항목을 제안하고 싶다면?','새롭게 필요한 가이드나 개선이 필요한 항목이 있다면 제안해 주세요.\n\n제안 내용과 필요한 이유를 함께 전달해 주시면 검토에 도움이 돼요.\n\n담당자 : 강지수 (Felix)\nE-mail: felix.kang@cheilpengtai.com',''),
+  '담당자에게 직접 문의하고 싶어요':E('추가 확인이 필요한 내용은 담당자에게 문의해 주세요.','담당자 : 강지수 (Felix)\nE-mail: felix.kang@cheilpengtai.com','')}};
+var ETC_INTENTS = [
+  ['잘못된 답변을 발견했어요', /잘못|틀린|틀렸|오류|이상한답|답이이상/],
+  ['새로운 가이드나 항목을 제안하고 싶어요', /제안|추가해|추가요청|새로운(가이드|항목)|개선/],
+  ['가이드에 없는 경우에는 어떻게 해야 하나요?', /가이드에없|정의(되지|안)|없는경우/],
+  ['원하는 답변을 찾지 못했어요', /못찾|답(변)?이?(없|안나)|원하는답/],
+  ['담당자에게 직접 문의하고 싶어요', /담당자|관리자|책임자|매니저|manager|운영자|운영팀|어드민|admin|오너|owner|디자인시스템팀|ds팀|dsteam|문의|연락|메일|felix|강지수|직접물어|누구한테|누구에게/]
+];
+function etcIntent(q){
+  var t = String(q).replace(/\s+/g, '').toLowerCase();
+  var list = S.cat === '기타 문의' ? ETC_INTENTS : ETC_INTENTS.slice(-1).map(function(x){ return [x[0], /담당자|관리자|책임자|매니저|manager|운영자|운영팀|어드민|admin|오너|owner|디자인시스템팀|ds팀|dsteam|felix|강지수/]; });
+  for(var i = 0; i < list.length; i++) if(list[i][1].test(t)) return list[i][0];
+  return null;
+}
+
+/* ── DB 우선: data/ 폴더에 내용이 있으면 메뉴·답변을 DB에서 구성 ── */
+var DB = window.MOA_DB || [];
+var USE_DB = DB.length > 0;
+
+/* 주제(파일) 목록과 주제별 섹션 목록 */
+var TOPICS = [], SECTIONS = {}, TYPE_INDEX = {};
+/* DB가 최신 파일로 바뀌면(gemini.js moaLoadDb) 주제·섹션 목록을 다시 만듦 */
+/* 가이드 파일이 없는 카테고리(Text Field 등)는 랜딩메뉴 설명을 가이드 근거로 사용 */
+function landingChunk(cat, md){
+  var txt = String(md).replace(/<!--[\s\S]*?-->/g, '').replace(/^# 타이틀[\s\S]*?(?=^## )/m, '')
+    .replace(/^!\[[^\]]*\]\([^)]*\)\s*$/gm, '').replace(/^추가 질문:.*$/gm, '').replace(/\n{3,}/g, '\n\n').trim();
+  return txt ? { source: 'landingmenu/' + cat + '/landing.md', topic: cat, group: cat, section: cat + ' 개요', text: txt, kind: 'landing' } : null;
+}
+function indexDb(){
+  var LMD = window.MOA_LANDING_MD || {};
+  Object.keys(LMD).forEach(function(cat){
+    if(DB.some(function(c){ return c.topic === cat; })) return;
+    var ch = landingChunk(cat, LMD[cat]); if(ch) DB.push(ch);
+  });
+  TOPICS.length = 0;
+  Object.keys(SECTIONS).forEach(function(k){ delete SECTIONS[k]; });
+  DB.forEach(function(ch){
+    if(TOPICS.indexOf(ch.topic) < 0){ TOPICS.push(ch.topic); SECTIONS[ch.topic] = []; }
+    if(ch.section && SECTIONS[ch.topic].indexOf(ch.section) < 0) SECTIONS[ch.topic].push(ch.section);
+  });
+  /* 타입 이름 → 카테고리 목록 (가이드의 'Type: Meta' 섹션 기준) — 여러 카테고리에 같은 타입이 있으면 질문 시 확인 */
+  Object.keys(TYPE_INDEX).forEach(function(k){ delete TYPE_INDEX[k]; });
+  DB.forEach(function(ch){
+    var m = /^type\s*[:=]\s*(.+)$/i.exec(String(ch.section || '').trim());
+    if(!m) return;
+    var k = m[1].trim().toLowerCase();
+    TYPE_INDEX[k] = TYPE_INDEX[k] || { name: m[1].trim(), topics: [] };
+    if(TYPE_INDEX[k].topics.indexOf(ch.topic) < 0) TYPE_INDEX[k].topics.push(ch.topic);
+  });
+  /* 토큰만 있는 컴포넌트도 카테고리로 인식 */
+  (window.MOA_TOKENS || []).forEach(function(ch){ if(ch.topic && TOPICS.indexOf(ch.topic) < 0){ TOPICS.push(ch.topic); SECTIONS[ch.topic] = []; } });
+  USE_DB = DB.length > 0;
+}
+window.moaOnDb = indexDb;
+indexDb();
+if(USE_DB){
+  MENU = [
+    {en:'Foundation', ko:'공통 스타일', rows:[['Color','Typeface','Spacing'],['Dimmed & Shadow','Iconography','Radius']]},
+    {en:'Element', ko:'기본 요소', rows:[['CTA Button','CTA Button Icon','Badge'],['Chip','Selection Control','Indicator'],['Divider','Option Chip','Option Selector']]},
+    {en:'Component', ko:'조합 UI', rows:[['Tooltip','Tab','List','Menu','Filter'],['Text Field','Popup']]}
+  ];
+}
+
+function isTopic(name){ return TOPICS.indexOf(name) > -1; }
+function inDb(name){
+  return isTopic(name) || DB.some(function(c){ return c.section === name; });
+}
+function dbFor(topic, section){
+  return DB.filter(function(c){
+    return (!topic || c.topic === topic) && c.section === section;
+  });
+}
+
+function dbAnswer(section, chunks){
+  var csv = chunks.filter(function(c){ return c.kind === 'csv' && c.row; });
+  if(csv.length){
+    var keys = Object.keys(csv[0].row);
+    var hexKey = keys.filter(function(k){ return /^(hex|color|value)$/i.test(k); })[0];
+    var sizeKey = keys.filter(function(k){ return /^(size|fontsize|px)$/i.test(k); })[0];
+    var nameKey = keys[0];
+    var desc = csv[0].source + ' · ' + csv.length + '항목';
+    if(hexKey){
+      var rows = [];
+      for(var i = 0; i < csv.length; i += 2){
+        rows.push(csv.slice(i, i + 2).map(function(c){ return [c.row[nameKey], c.row[hexKey]]; }));
+      }
+      return { kind:'colors', title:section, desc:desc, rows:rows };
+    }
+    if(sizeKey){
+      return { kind:'type', title:section, desc:desc, items: csv.map(function(c){
+        return [c.row[sizeKey], keys.filter(function(k){ return k !== nameKey && k !== sizeKey; }).map(function(k){ return c.row[k]; }).filter(Boolean).join(', ')];
+      })};
+    }
+  }
+  var text = chunks.map(function(c){
+    return (c.title && c.title !== c.section ? c.title + '\n' : '') + c.text;
+  }).join('\n\n').trim();
+  return { kind:'text', title:section, desc:chunks[0].source, text:text };
+}
+
+/* ── state ───────────────────────────────────────────────────── */
+/* key: 창을 닫기 전까지 메모리에만 보관 */
+var S = {screen:'home', cat:null, topic:null, history:[], connected:true, key:'', hasKey:false};
+var $ = function(id){return document.getElementById(id);};
+var el = function(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n;};
+
+function toast(msg){var t=$('toast');t.textContent=msg;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('on');},1500);}
+function post(msg){parent.postMessage({pluginMessage:msg},'*');}
+
+function show(screen){
+  var prevScreen = S.screen || (S.backFrom ? 'x' : null); S.backFrom = false;
+  if(S.screen !== screen && S.screen) S.history.push(S.screen);
+  S.screen = screen;
+  if(screen !== 'chat' && window.moaFindClose) moaFindClose();
+  $('pgIntro').classList.toggle('hide', screen!=='intro');
+  $('pgHome').classList.toggle('hide', screen!=='home');
+  $('pgChat').classList.toggle('hide', screen!=='chat');
+  $('pgKey').classList.toggle('hide', screen!=='key');
+  $('bgHome').classList.toggle('hide', screen!=='home');
+  $('bgChat').classList.toggle('hide', screen!=='chat');
+  $('bgIng').classList.toggle('hide', screen!=='chat');
+  if(screen!=='chat') setIng(false);
+  $('bgKey').classList.toggle('hide', screen!=='key');
+  $('topbar').classList.toggle('hide', screen!=='chat' && screen!=='key');
+  $('bar').classList.toggle('hide', screen!=='chat' && screen!=='home');
+  $('head').classList.toggle('transparent', screen==='key');
+  document.querySelector('#topbar .tools').classList.toggle('hide', screen==='key');
+  if(screen==='chat') $('topTitle').textContent = GENERAL;
+  if(screen==='key') $('topTitle').textContent = '설정';
+  if(prevScreen && prevScreen !== screen) slideIn(screen, S.navDir || 'fwd');
+  S.navDir = null;
+}
+function slideIn(screen, dir){
+  var ids = {intro:['pgIntro'], home:['pgHome','bgHome'], chat:['pgChat','bgChat'], key:['pgKey','bgKey']}[screen] || [];
+  var from = dir === 'back' ? '-32px' : '32px';
+  ids.forEach(function(id, i){
+    var n = $(id); if(!n || !n.animate) return;
+    n.getAnimations().forEach(function(a){ a.cancel(); });
+    var kf = i === 0
+      ? [{transform:'translateX(' + from + ')', opacity:0},{transform:'translateX(0)', opacity:1}]
+      : [{opacity:0},{opacity:1}];
+    n.animate(kf, {duration:300, easing:'cubic-bezier(.22,1,.36,1)'});
+  });
+}
+function back(){
+  var prev = S.history.pop() || 'home';
+  S.screen = null;
+  S.navDir = 'back'; S.backFrom = true;
+  show(prev); S.history.pop();
+}
+
+/* ── home chips ──────────────────────────────────────────────── */
+var moa = $('moaMotion'), moaImg = $('moaImg'), moaBlob = null, moaUrl = null, moaTok = 0;
+var moaFx = document.createElement('img');
+moaFx.alt = ''; moaFx.setAttribute('aria-hidden','true');
+moaFx.style.cssText = 'position:absolute;left:-21px;top:-18px;width:120px;height:120px;object-fit:cover;pointer-events:none;visibility:hidden;transform-origin:0 0;transform:translate(5.9px,9px) scale(.877)';
+moa.appendChild(moaFx);
+fetch(moaImg.dataset.motion).then(function(r){ return r.blob(); }).then(function(b){ moaBlob = b; });
+/* 호버: 인사(moa_hi) · 호버 중 클릭: 360° 회전(moa_360turn, 734ms 1회) 후 다시 인사 / 호버 해제 시 정지 */
+var moaTurnBlob = null, moaHover = false, moaTurning = 0, MOA_TURN_MS = 734;
+fetch(moaImg.dataset.turn).then(function(r){ return r.blob(); }).then(function(b){ moaTurnBlob = b; });
+/* 호버할 때마다 인사(moa_hi) ↔ 선생님(moa_teacher) 번갈아 */
+var moaTeachBlob = null, moaHoverN = 0, moaChipHover = false, moaChipOn = false, moaChipT = 0;
+fetch(moaImg.dataset.teacher).then(function(r){ return r.blob(); }).then(function(b){ moaTeachBlob = b; });
+function moaShow(blob, src, done){
+  var tok = ++moaTok, old = moaUrl;
+  moaUrl = blob ? URL.createObjectURL(blob) : src + (src.indexOf('data:') === 0 ? '' : '?t=' + Date.now());
+  var next = new Image(); next.src = moaUrl;
+  (next.decode ? next.decode() : Promise.resolve()).catch(function(){}).then(function(){
+    if(tok !== moaTok) return;
+    moaFx.src = moaUrl;
+    moaFx.style.visibility = 'visible';
+    moaImg.style.visibility = 'hidden';
+    if(old && old.indexOf('blob:') === 0) setTimeout(function(){ URL.revokeObjectURL(old); }, 500);
+    if(done) done(tok);
+  });
+}
+function moaPlay(){
+  moaTurning = 0;
+  moaShow(moaBlob, moaImg.dataset.motion);
+}
+function moaTurn(){
+  moaShow(moaTurnBlob, moaImg.dataset.turn, function(tok){
+    moaTurning = tok;
+    setTimeout(function(){
+      if(tok !== moaTok) return;
+      moaTurning = 0;
+      if(moaHover) moaPlay(); else moaStop();
+    }, MOA_TURN_MS);
+  });
+}
+function moaStop(){
+  moaTok++; moaTurning = 0;
+  moaImg.style.visibility = '';
+  moaFx.style.visibility = 'hidden';
+}
+moa.addEventListener('mouseenter', function(){ moaHover = true; if(!moaTurning) moaPlay(); });
+moa.addEventListener('mouseleave', function(){ moaHover = false; moaHoverN++; if(!moaTurning) moaStop(); });
+moa.onclick = function(){ if(!moaTurning) moaTurn(); };
+
+var HOME_DESC = {
+  'Color': '브랜드 느낌과 정보의 중요도를 전달하기 위해 정해둔 색상 체계예요.',
+  'Typeface': '화면에 쓰는 글꼴과 글자 크기, 굵기, 줄 간격 규칙이에요.',
+  'Spacing': '요소와 요소 사이, 화면 가장자리에 두는 여백의 기준이에요.',
+  'CTA Button': "'구매하기', '더 알아보기'처럼 사용자가 다음 행동을 하도록 이끄는 버튼이에요.",
+  'CTA Button Icon': '글자 없이 아이콘만으로 기능을 실행하는 버튼이에요. (재생, 닫기, 좋아요 등)',
+  'Popup': '화면 위에 떠서 중요한 안내나 선택을 요청하는 창이에요.',
+  'Chip': '키워드나 카테고리를 작은 알약 모양으로 보여주고, 눌러서 필터링할 수 있는 요소예요.',
+  'Option Chip': '색상, 용량처럼 제품 옵션 중 하나를 고를 때 쓰는 선택용 칩이에요.',
+  'Tab': '같은 화면 안에서 여러 콘텐츠를 나눠 두고 전환해서 볼 수 있게 하는 메뉴예요.',
+  'Radius': '버튼이나 카드 같은 요소의 모서리를 얼마나 둥글게 할지 정한 값이에요.'
+};
+var homeSub = document.querySelector('.hero-sub');
+var HOME_SUB_DEFAULT = homeSub.textContent;
+/* 칩 설명: 페이드 전환 */
+var homeSubT = 0, homeSubSwap = 0;
+function homeSubSet(t, isDesc){
+  clearTimeout(homeSubSwap);
+  if(homeSub.textContent === t){ homeSub.classList.toggle('desc', isDesc); homeSub.classList.remove('fade'); return; }
+  homeSub.classList.add('fade');
+  homeSubSwap = setTimeout(function(){ homeSub.textContent = t; homeSub.classList.toggle('desc', isDesc); homeSub.classList.remove('fade'); }, 160);
+}
+HOME_CHIPS.forEach(function(row){
+  var r = el('div','home-row');
+  row.forEach(function(label){
+    var b = el('button','mchip',label);
+    b.onclick = function(){ openCategory(label); };
+    b.addEventListener('mouseenter', function(){ var d = HOME_DESC[label]; clearTimeout(homeSubT); if(d) homeSubSet(d, true); moaChipHover = true; clearTimeout(moaChipT); if(!moaHover && !moaTurning && !moaChipOn){ moaChipOn = true; moaShow(moaTeachBlob, moaImg.dataset.teacher); } });
+    b.addEventListener('mouseleave', function(){ clearTimeout(homeSubT); homeSubSet(HOME_SUB_DEFAULT, false); moaChipHover = false; clearTimeout(moaChipT); moaChipT = setTimeout(function(){ if(!moaChipHover && moaChipOn){ moaChipOn = false; if(!moaHover && !moaTurning) moaStop(); } }, 120); });
+    r.appendChild(b);
+  });
+  $('homeChips').appendChild(r);
+});
+
+var OVERVIEW = '핵심만 보기';
+/* DB에서 바로 찾은 답변(하위 칩 등)도 타이틀을 "키워드 + 마무리 문구"로 */
+function moaJosa(word, pair){
+  var s = String(word).trim(), ch = s.charCodeAt(s.length - 1), has;
+  if(ch >= 0xAC00 && ch <= 0xD7A3) has = (ch - 0xAC00) % 28 > 0;
+  else has = /[lmnkpbt]$/i.test(s);
+  return has ? pair[0] : pair[1];
+}
+function moaLeadTitle(key){
+  if(typeof moaPickLead !== 'function') return null;
+  var l = moaPickLead(), k = String(key).trim();
+  if(l.indexOf('~을') === 0) return k + moaJosa(k, ['을','를']) + l.slice(2);
+  if(l.indexOf('~이') === 0) return k + moaJosa(k, ['이','가']) + l.slice(2);
+  if(l.indexOf('~은') === 0) return k + moaJosa(k, ['은','는']) + l.slice(2);
+  return k + l.slice(1);
+}
+function withLead(a, key){ var t = moaLeadTitle(key); if(t) a.title = t; return a; }
+
+/* ── 진행 상황 (답변 대기 중 순서대로 바뀌는 문구) ── */
+var MOA_PROGRESS = ['질문을 이해하고 있어요','관련 가이드를 찾고 있어요','딱 맞는 내용을 확인하고 있어요','답변을 정리하고 있어요'];
+var PROGRESS_MS = 1500;
+var LANDING_DELAY_MS = 1200; /* 랜딩메뉴: 로딩 점 애니메이션 한 번 보여준 뒤 답변 */
+function runProgress(ing){
+  var i = 0, t = el('span','ing-t',MOA_PROGRESS[0]); ing.appendChild(t);
+  var tm = setInterval(function(){
+    if(!ing.isConnected || ++i >= MOA_PROGRESS.length){ clearInterval(tm); return; }
+    var n = el('span','ing-t',MOA_PROGRESS[i]); ing.replaceChild(n, t); t = n; scrollDown();
+  }, PROGRESS_MS);
+}
+/* ── 랜딩 메뉴: data/landingmenu/<카테고리>/text/landing.json · images/img_*.png ── */
+var LANDING = window.MOA_LANDING || {};
+var LANDING_ROOT = /^(data|about|blob):/.test(location.protocol) ? 'https://raw.githubusercontent.com/uiuxcell/systemguidemoa/main/' : (/\/(preview|src)\//.test(location.pathname) ? '../' : '');
+/* 폴더명: '&'는 파일명에 못 쓰여서 ' - '로 (Dimmed & Shadow → Dimmed - Shadow) */
+function landingPath(cat){ return LANDING_ROOT + 'data/landingmenu/' + encodeURIComponent(cat.replace(/\s*&\s*/g, ' - ')) + '/'; }
+function landingImg(cat, name){ var i = name.indexOf('/'); if(i > 0){ cat = name.slice(0, i); name = name.slice(i + 1); } return landingPath(cat) + 'images/' + encodeURIComponent(name) + '.png'; }
+function moaParseLanding(md){
+  var out = { title:'', chips:[], answers:{} }, mode = null, cur = null, bub = null, buf = [];
+  var flush = function(){
+    if(!bub) return;
+    var t = buf.join('\n').replace(/^\n+|\n+$/g, '');
+    if(t) bub.text = t;
+    buf = []; bub = null;
+  };
+  String(md).replace(/\r/g, '').split('\n').forEach(function(line){
+    var m;
+    if(/^<!--/.test(line.trim())) return;
+    if(/^#\s+/.test(line)){ flush(); mode = /타이틀|title/i.test(line) ? 'title' : null; return; }
+    if((m = /^##\s+(.+)$/.exec(line))){ flush(); mode = 'chip'; var k = m[1].trim(); out.chips.push(k); cur = out.answers[k] = { bubbles:[] }; return; }
+    if((m = /^###(?:\s+(.*))?$/.exec(line)) && cur){ flush(); bub = { title:(m[1] || '').trim().replace(/\\n/g, '\n') }; cur.bubbles.push(bub); return; }
+    if(mode === 'title'){ if(line.trim()) out.title += (out.title ? '\n' : '') + line.trim(); return; }
+    if(!cur) return;
+    if((m = /^추가 질문\s*:\s*(.+)$/.exec(line.trim()))){ flush(); cur.followups = m[1].split(',').map(function(s){ return s.trim(); }).filter(Boolean); return; }
+    if(!bub) return;
+    if((m = /^!\[[^\]]*\]\(([^)]+)\)/.exec(line.trim()))){ (bub.imgs = bub.imgs || []).push(m[1].trim().replace(/\.png$/i, '')); return; }
+    if((m = /^\|(.+)\|\s*$/.exec(line.trim()))){ var cells = m[1].split('|').map(function(s){ return s.trim(); }); if(!/^-+$/.test(cells[0])) (bub.rows = bub.rows || []).push([cells[0], cells[1] || '']); return; }
+    if((m = /^-\s+([^:]+):\s*(.+)$/.exec(line.trim()))){ (bub.items = bub.items || []).push([m[1].trim(), m[2].trim()]); return; }
+    if((m = /^※\s*(.+)$/.exec(line.trim()))){ bub.note = (bub.note ? bub.note + '\n' : '') + m[1].trim(); return; }
+    buf.push(line.replace(/\s+$/, ''));
+  });
+  flush();
+  return out;
+}
+function landingFor(cat, q){
+  var L = LANDING[cat], a = L && L.answers && L.answers[q];
+  if(!a) return null;
+  return { cat:cat, bubbles:a.bubbles || a, followups:a.followups || null };
+}
+/* landing.md 최신본으로 덮어쓰기 (미리보기: 로컬 data/ · 플러그인: GitHub main, push하면 반영)
+   폴더 목록은 GitHub API로 읽어 새 카테고리 폴더도 반영. 30초 캐시 */
+var LANDING_TEXT_ROOT = LANDING_ROOT.indexOf('http') === 0 ? 'https://raw.githubusercontent.com/uiuxcell/systemguidemoa/main/' : LANDING_ROOT;
+var landingAt = 0, landingCats = null;
+function loadLanding(force){
+  if(!window.fetch || (!force && landingAt && Date.now() - landingAt < 30000)) return;
+  landingAt = Date.now();
+  var get = typeof moaFetchText === 'function' ? function(u){ return moaFetchText(u, 4000); } : function(u){ return fetch(u, {cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); }); };
+  var list = landingCats ? Promise.resolve(landingCats) : get('https://api.github.com/repos/uiuxcell/systemguidemoa/contents/data/landingmenu?ref=main').then(function(t){
+    landingCats = JSON.parse(t).filter(function(f){ return f.type === 'dir'; }).map(function(f){ return f.name.replace(/\s+-\s+/g, ' & '); });
+    setTimeout(function(){ landingCats = null; }, 300000);
+    return landingCats;
+  }).catch(function(){ return []; });
+  list.then(function(cats){
+    Object.keys(LANDING).forEach(function(c){ if(cats.indexOf(c) < 0) cats = cats.concat([c]); });
+    cats.forEach(function(cat){
+      get(LANDING_TEXT_ROOT + 'data/landingmenu/' + encodeURIComponent(cat.replace(/\s*&\s*/g, ' - ')) + '/text/landing.md')
+        .then(function(t){ var j = t && moaParseLanding(t); if(j && j.chips.length) LANDING[cat] = j;
+          if(t){ window.MOA_LANDING_MD = window.MOA_LANDING_MD || {}; var had = window.MOA_LANDING_MD[cat]; window.MOA_LANDING_MD[cat] = t; if(!had){ indexDb(); if(typeof moaBuildGlossary === 'function') moaBuildGlossary(); } } }).catch(function(){});
+    });
+  });
+}
+loadLanding(true);
+/* ── Easter egg: data/easteregg.md (정해진 질문 → 정해진 답변). 실행 중에 다시 읽어 덮어씀 (30초 캐시) ── */
+function moaEggNorm(s){ return String(s || '').toLowerCase().replace(/[\s?!.,~…"'“”‘’。？！]/g, ''); }
+function moaParseEgg(md){
+  var out = [], cur = null;
+  var done = function(){
+    if(!cur) return;
+    var L = cur.lines.join('\n').replace(/^\s+|\s+$/g, '').split('\n');
+    if(cur.q && !/^질문을 입력하세요/.test(cur.q) && L[0]) out.push({ q: cur.q, keys: [cur.q].concat(cur.alias).map(moaEggNorm).filter(Boolean), title: L[0].trim(), text: L.slice(1).join('\n').replace(/^\n+/, '') });
+    cur = null;
+  };
+  String(md).replace(/\r/g, '').replace(/<!--[\s\S]*?-->/g, '').split('\n').forEach(function(line){
+    var m;
+    if((m = /^##\s+(.+)$/.exec(line))){ done(); cur = { q: m[1].trim(), alias: [], lines: [] }; return; }
+    if(!cur) return;
+    if((m = /^같은 질문\s*:\s*(.*)$/.exec(line.trim()))){ cur.alias = m[1].split(',').map(function(s){ return s.trim(); }).filter(Boolean); return; }
+    cur.lines.push(line.replace(/\s+$/, ''));
+  });
+  done();
+  return out;
+}
+var EGG = moaParseEgg(window.MOA_EGG_MD || ''), eggAt = 0;
+function loadEgg(force){
+  if(!window.fetch || (!force && eggAt && Date.now() - eggAt < 30000)) return;
+  eggAt = Date.now();
+  var get = typeof moaFetchText === 'function' ? function(u){ return moaFetchText(u, 4000); } : function(u){ return fetch(u, {cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); }); };
+  get(LANDING_TEXT_ROOT + 'data/easteregg.md').then(function(t){ var list = moaParseEgg(t); if(list.length || /##/.test(t)) EGG = list; }).catch(function(){});
+}
+loadEgg(true);
+function eggFor(q){
+  var t = moaEggNorm(q);
+  if(!t) return null;
+  for(var i = 0; i < EGG.length; i++) if(EGG[i].keys.indexOf(t) > -1) return EGG[i];
+  return null;
+}
+function renderLanding(body, lp){
+  Array.prototype.slice.call(body.querySelectorAll('.bub-ing')).forEach(function(n){ n.parentNode.removeChild(n); });
+  setIng(false);
+  var memo = [], q = S.curQ; S.curQ = null;
+  var fromIntro = q != null && S.introChip === q; S.introChip = null;
+  /* 채팅 답변처럼 카드를 하나씩: 제목 → 본문 타이핑 → 표·이미지 → 다음 카드 */
+  (function next(i){
+    if(i >= lp.bubbles.length){
+      if(q != null) remember(q, memo.join('\n\n'));
+      addActions(body, memo.join('\n\n'), '', (q === OVERVIEW || !fromIntro) ? [] : lp.followups); /* 관련 칩: 카테고리 하위칩(핵심만 보기 제외) 답변에만 */
+      scrollDown();
+      return;
+    }
+    var b = lp.bubbles[i];
+    var c = el('div','lcard'), lt = el('div','lt');
+    var tb = null; if(b.title){ tb = el('b'); lt.appendChild(tb); }
+    c.appendChild(lt);
+    body.appendChild(c); scrollDown();
+    memo.push([b.title, b.text].concat((b.rows || []).map(function(r){ return r.join(' '); })).concat(b.note ? ['※ ' + b.note] : []).filter(Boolean).join('\n'));
+    var rest = function(){
+      var parts = [];
+      /* 설명 항목: 제목 + 설명 (1열) */
+      if(b.items && b.items.length){
+        var li = el('div','litems');
+        var tq = [];
+        b.items.forEach(function(r){ var w = el('div','litem'), x = el('b'), y = el('span'); w.appendChild(x); w.appendChild(y); li.appendChild(w); tq.push([x, r[0]], [y, r[1]]); });
+        c.appendChild(li);
+        return (function ty(k){ if(k >= tq.length){ b = Object.assign({}, b, { items:null }); return rest(); } typeText(tq[k][0], tq[k][1], function(){ ty(k + 1); }); })(0);
+      }
+      /* 컬러칩: 값이 #HEX인 행은 색 견본(2열)로 */
+      var HEX = /^#[0-9A-F]{6}$/i, sw = (b.rows || []).filter(function(r){ return HEX.test(r[1]); });
+      if(sw.length){
+        /* 컬러칩도 텍스트처럼 순서대로: 견본 등장 → 이름 타이핑 → HEX 타이핑 → 다음 칩 */
+        var g = el('div','lsw'); c.appendChild(g);
+        var swCaret = el('span','caret','▍'); swCaret.style.display = 'block'; c.appendChild(swCaret); scrollDown(); /* 컬러칩 작성 중 커서는 하단에 고정 */
+        return (function sty(k){
+          if(k >= sw.length){ if(swCaret.parentNode) swCaret.parentNode.removeChild(swCaret); b = Object.assign({}, b, { rows:(b.rows || []).filter(function(r){ return !HEX.test(r[1]); }) }); return rest(); }
+          var r = sw[k], it = el('div','it'), ch = el('i','sw'), nm = el('div','nm'), x = el('b'), y = el('span');
+          ch.style.background = r[1]; if(moaLite(r[1])) ch.classList.add('lite');
+          nm.appendChild(x); nm.appendChild(y); it.appendChild(ch); it.appendChild(nm);
+          it.style.animation = 'stepIn .25s cubic-bezier(.22,1,.36,1)';
+          g.appendChild(it); scrollDown();
+          typeText(x, r[0], function(){ typeText(y, r[1].toUpperCase(), function(){ sty(k + 1); }, true); }, true);
+        })(0);
+      }
+      var plain = (b.rows || []).filter(function(r){ return !HEX.test(r[1]); });
+      if(plain.length){
+        var rs = el('div','lrows');
+        plain.forEach(function(r){ var w = el('div','lrow'); w.appendChild(el('span','a',r[0])); w.appendChild(el('span','b',r[1])); rs.appendChild(w); });
+        parts.push(rs);
+      }
+      if(b.note){ b.note.split('\n').forEach(function(t){ var nt = el('div','lnote'); nt.appendChild(el('span',null,'※')); nt.appendChild(el('span',null,t)); parts.push(nt); }); }
+      (b.imgs || (b.img && b.img.name ? [b.img.name] : [])).forEach(function(nm){
+        var im = new Image(); im.className = 'limg'; im.alt = nm;
+        im.onerror = function(){ if(im.parentNode) im.parentNode.removeChild(im); };
+        im.onload = scrollDown;
+        im.src = landingImg(lp.cat, nm); parts.push(im);
+      });
+      parts.forEach(function(p){ p.style.animation = 'stepIn .3s cubic-bezier(.22,1,.36,1)'; c.appendChild(p); });
+      scrollDown();
+      setTimeout(function(){ next(i + 1); }, parts.length ? 350 : 200);
+    };
+    var body2 = function(){ if(b.text){ var sp = el('span'); lt.appendChild(sp); typeText(sp, b.text, rest); } else rest(); };
+    if(tb) typeText(tb, b.title, body2); else body2();
+  })(0);
+}
+
+var TYPE_CHIPS = {
+  'Color':['Primary Color','Secondary Color','GrayScale','Neutral Color','Theme'],
+  'Typeface':['Display','Heading','Title','Body','Label','Caption'],
+  'Spacing':['Inset','Gap','Grid','Section'],
+  'CTA Button':['Primary Action Button','Secondary Action Button','Tertiary Action Button'],
+  'CTA Button Icon':['Standard','Toggle','Play'],
+  'Popup':['Confirmation','Contents','Input Data','Notification'],
+  'Chip':['Action','Select'],
+  'Option Chip':['Color','Label'],
+  'Radius':['Pill','Control','Surface','Overlay'],
+  'Dimmed & Shadow':['Dimmed','Shadow'],
+  'Iconography':['Creation','Usage','Grid & Keyline','Anatomy','Stroke Terminal','Corners','Angle','Typeface Align','Logo','Spaces'],
+  'Badge':['Filled','Label','Dot','Number','Icon'],
+  'Selection Control':['CheckBox','Radio','Switch'],
+  'Indicator':['Arrow','Bar','Dot','Number','ScrollIndicator'],
+  'Divider':['Horizontal','Vertical'],
+  'Option Selector':['Color','Image','Label','Meta']
+};
+function chipsFor(topic){
+  if(!USE_DB || !isTopic(topic)) return (GUIDE[topic] && GUIDE[topic].q) || [OVERVIEW];
+  return [OVERVIEW].concat(TYPE_CHIPS[topic] || SECTIONS[topic].filter(function(s){ return s !== OVERVIEW; }));
+}
+function typeChunks(topic, q){
+  var key = q.replace(/\s+Color$/i, '').toLowerCase();
+  var secs = (SECTIONS[topic] || []).filter(function(s){ return s.toLowerCase().indexOf(key) > -1; });
+  return DB.filter(function(c){ return c.topic === topic && secs.indexOf(c.section) > -1; });
+}
+function overviewFor(topic){
+  var secs = SECTIONS[topic] || [];
+  var text = secs.map(function(s){
+    var c = dbFor(topic, s)[0];
+    var line = c ? mdPlain(c.text).split('\n').filter(Boolean)[0] || '' : '';
+    line = line.replace(/^•\s*/, '');
+    if(line.length > 60) line = line.slice(0, 60) + '…';
+    return '• ' + s + (line ? '\n  ' + line : '');
+  }).join('\n');
+  var src = (DB.filter(function(c){ return c.topic === topic; })[0] || {}).source || '';
+  return { kind:'text', title:topic, desc:src + (secs.length ? ' · ' + secs.length + '개 항목' : ''), text:text };
+}
+/* ── 전체 메뉴 ───────────────────────────────────────────────── */
+MENU.forEach(function(sec, i){
+  var s = el('div','sec'), inner = el('div','sec-in'), h = el('div','sec-h');
+  h.appendChild(el('span','en',sec.en));
+  h.appendChild(el('span','ko',sec.ko));
+  inner.appendChild(h);
+  var chips = el('div','sec-chips');
+  sec.rows.forEach(function(row){
+    var rw = el('div','sec-row');
+    row.forEach(function(label){
+      var b = el('button','chip sm',label);
+      b.onclick = function(){ closeMenu(); openCategory(label, USE_DB ? label : sec.en); };
+      rw.appendChild(b);
+    });
+    chips.appendChild(rw);
+  });
+  inner.appendChild(chips);
+  s.appendChild(inner);
+  if(i < MENU.length-1) s.appendChild(el('div','divider'));
+  $('sheetList').appendChild(s);
+});
+
+/* ── chat ────────────────────────────────────────────────────── */
+var STAR = '<svg width="20" height="20" viewBox="0 0 20 20"><defs><linearGradient id="ti1" x1="0.208" y1="0.094" x2="0.792" y2="0.906"><stop offset="0.26%" stop-color="#A3E7FF"/><stop offset="99.86%" stop-color="#3790FF"/></linearGradient><linearGradient id="ti3" x1="0.175" y1="0.120" x2="0.825" y2="0.880"><stop offset="0%" stop-color="#2063FF"/><stop offset="100%" stop-color="#9383FF"/></linearGradient><linearGradient id="ti2" x1="0.161" y1="0.132" x2="0.839" y2="0.868"><stop offset="0.1%" stop-color="#37A1FF"/><stop offset="99.87%" stop-color="#D98DFF"/></linearGradient></defs><g transform="translate(1.851 1) scale(1.28565)"><path d="M 6.318 0 C 7.423 0 8.318 0.895 8.318 2 L 8.318 6.783 C 8.321 6.81 8.322 6.837 8.324 6.864 C 8.325 6.872 8.325 6.881 8.326 6.889 C 8.33 6.944 8.33 6.999 8.329 7.054 C 8.329 7.065 8.328 7.076 8.328 7.088 C 8.326 7.133 8.324 7.178 8.319 7.223 C 8.317 7.248 8.313 7.274 8.309 7.3 C 8.304 7.339 8.297 7.378 8.289 7.417 C 8.284 7.44 8.279 7.463 8.273 7.486 C 8.264 7.524 8.253 7.561 8.242 7.599 C 8.234 7.625 8.226 7.652 8.217 7.679 C 8.204 7.715 8.19 7.751 8.176 7.786 C 8.166 7.808 8.157 7.83 8.147 7.852 C 8.072 8.016 7.974 8.171 7.854 8.312 C 7.843 8.325 7.832 8.338 7.821 8.351 C 7.789 8.386 7.755 8.42 7.721 8.454 C 7.706 8.468 7.692 8.483 7.678 8.496 C 7.646 8.525 7.611 8.552 7.577 8.579 C 7.56 8.593 7.544 8.607 7.526 8.62 C 7.494 8.644 7.461 8.666 7.427 8.688 C 7.404 8.703 7.381 8.719 7.358 8.732 C 7.349 8.738 7.341 8.745 7.332 8.75 L 3.002 11.25 C 2.045 11.802 0.822 11.474 0.269 10.518 C -0.283 9.561 0.045 8.338 1.002 7.786 L 2.331 7.018 L 1 6.25 C 0.043 5.698 -0.284 4.474 0.268 3.518 C 0.821 2.561 2.043 2.234 3 2.786 L 4.318 3.547 L 4.318 2 C 4.318 0.895 5.214 0 6.318 0 Z" fill="url(#ti1)"/><rect x="4.318" y="9" width="4" height="5" rx="2" fill="url(#ti3)"/><path transform="translate(4.302 2.517)" d="M 5.329 0.268 C 6.286 -0.284 7.509 0.044 8.062 1.001 C 8.614 1.957 8.286 3.181 7.329 3.733 L 6 4.5 L 7.33 5.268 C 8.287 5.82 8.615 7.044 8.063 8.001 C 7.51 8.957 6.287 9.285 5.33 8.733 L 1 6.233 C 0.996 6.231 0.992 6.227 0.988 6.225 C 0.94 6.197 0.894 6.167 0.848 6.134 C 0.839 6.128 0.83 6.123 0.821 6.117 C 0.678 6.013 0.549 5.888 0.436 5.745 C 0.422 5.728 0.408 5.711 0.395 5.694 C 0.37 5.661 0.348 5.626 0.325 5.591 C 0.312 5.571 0.299 5.552 0.286 5.532 C 0.28 5.521 0.273 5.511 0.267 5.501 C 0.25 5.472 0.237 5.442 0.222 5.413 C 0.213 5.396 0.204 5.379 0.195 5.362 C 0.175 5.32 0.157 5.277 0.14 5.234 C 0.133 5.215 0.125 5.197 0.118 5.178 C 0.103 5.136 0.09 5.093 0.077 5.05 C 0.072 5.033 0.068 5.017 0.064 5 C 0.05 4.948 0.04 4.896 0.03 4.844 C 0.029 4.835 0.027 4.827 0.026 4.818 C 0.018 4.77 0.012 4.722 0.008 4.674 C 0.006 4.653 0.004 4.632 0.003 4.611 C 0.001 4.566 0 4.521 0 4.476 C 0 4.459 0 4.442 0.001 4.424 C 0.003 4.378 0.007 4.332 0.012 4.287 C 0.014 4.265 0.017 4.243 0.02 4.221 C 0.025 4.184 0.032 4.146 0.039 4.109 C 0.045 4.082 0.049 4.055 0.056 4.029 C 0.066 3.985 0.079 3.943 0.093 3.9 C 0.098 3.884 0.103 3.867 0.109 3.851 C 0.124 3.807 0.14 3.764 0.158 3.721 C 0.167 3.702 0.175 3.682 0.184 3.663 C 0.204 3.618 0.227 3.575 0.25 3.533 C 0.256 3.522 0.262 3.511 0.268 3.501 C 0.27 3.496 0.272 3.492 0.275 3.488 C 0.303 3.439 0.335 3.392 0.367 3.346 C 0.373 3.339 0.377 3.331 0.382 3.324 C 0.411 3.284 0.442 3.245 0.474 3.208 C 0.487 3.192 0.5 3.176 0.514 3.161 C 0.542 3.129 0.572 3.1 0.603 3.071 C 0.619 3.055 0.635 3.038 0.653 3.022 C 0.684 2.994 0.716 2.967 0.749 2.941 C 0.767 2.926 0.785 2.911 0.804 2.897 C 0.834 2.875 0.864 2.854 0.896 2.834 C 0.922 2.816 0.948 2.798 0.976 2.782 C 0.983 2.777 0.992 2.773 0.999 2.768 L 5.329 0.268 Z" fill="url(#ti2)"/></g></svg>';
+
+/* 카테고리가 정해지지 않은 창 (첫 화면에서 오타·의도 불명 질문 등) */
+var GENERAL = 'Moa';
+function openCategory(cat, topic, how){
+  if(window.moaLoadDb) moaLoadDb();
+  loadLanding();
+  S.cat = cat;
+  S.topic = cat === GENERAL ? null : (topic || (USE_DB && isTopic(cat) ? cat : null));
+  S.convo = S.convo || []; /* 카테고리를 옮겨도 최근 5개 대화는 유지 */
+  var g = GUIDE[cat];
+  var con = $('chatCon');
+  /* 한 화면에서 대화 이어가기: 초기화(fresh)일 때만 비우고, 그 외엔 아래에 이어 붙임 · quiet = 화면 변화 없이 주제만 전환 */
+  var keep = how !== 'fresh' && con.children.length > 0;
+  /* 홈·다른 화면에 나갔다 들어오면: 대화는 두고, 이전 소개 문구(~구성이에요)와 칩은 숨김 */
+  if(keep && S.screen !== 'chat'){
+    Array.prototype.forEach.call(con.querySelectorAll('.intro'), function(n){ n.style.display = 'none'; });
+    /* 히스토리 맨 위 여백 (12px + gap 12px = 24px) */
+    if(!con.querySelector('.hist-top')){ var sp = el('div','hist-top'); sp.style.cssText = 'flex:none;height:12px;align-self:stretch'; con.insertBefore(sp, con.firstChild); }
+  }
+  if(keep && how === 'quiet'){ show('chat'); return; }
+  if(!keep) con.innerHTML = '';
+  /* 이어 붙일 때: 새 카테고리 소개를 화면 맨 위에 두고, 이전 대화는 위로 스크롤해야 보이게 */
+  var put = function(){ con.appendChild(intro); S.anchor = keep ? intro : null; show('chat'); if(keep){ S.userScroll = false; S.hold = false; requestAnimationFrame(scrollDown); } };
+  var intro = el('div','intro');
+  var title = el('div','title');
+  /* 그라데이션 id를 소개마다 다르게 (숨긴 이전 소개의 id를 참조해 로고가 안 보이는 문제 방지) */
+  var sid = 's' + (++S.starN || (S.starN = 1));
+  title.innerHTML = STAR.replace(/ti(\d)/g, 'ti$1' + sid);
+  if(cat !== GENERAL && title.firstElementChild) title.firstElementChild.classList.add('spin'); /* 카테고리 진입: 로고 한 바퀴 */
+  var h1 = el('h1');
+  h1.textContent = cat === GENERAL ? 'Moa에게 질문하세요.\n어떤게 궁금하신가요?' : (LANDING[cat] && LANDING[cat].title) ? LANDING[cat].title : (cat === '기타 문의')
+    ? '기타문의사항이에요.\n어떤게 궁금하신가요?'
+    : cat + '의 구성이에요.\n어떤게 궁금하신가요?';
+  h1.className = 'sweep';
+  setTimeout(function(){ h1.className = ''; }, 2000);
+  ['.bar .glow','.bar .grad','.bar .rim'].forEach(function(sel){
+    var n = document.querySelector(sel);
+    n.classList.remove('sweep'); void n.offsetWidth; n.classList.add('sweep');
+    setTimeout(function(){ n.classList.remove('sweep'); }, 2000);
+  });
+  title.appendChild(h1);
+  intro.appendChild(title);
+  var qs = el('div','qchips');
+  if(cat === GENERAL){ put(); return; }
+  /* 전체 메뉴(햄버거)에 없는 DB_tokens 카테고리: 칩 없이 질문에만 답변 */
+  var inMenu = MENU.some(function(sec){ return sec.rows.some(function(r){ return r.indexOf(cat) > -1; }); });
+  if(!inMenu && cat !== '기타 문의' && !LANDING[cat]){
+    if(USE_DB && !S.topic) S.topic = isTopic(cat) ? cat : (TOPICS.filter(function(t){ return SECTIONS[t].indexOf(cat) > -1; })[0] || null);
+    put(); return;
+  }
+  var fromDb = USE_DB && inDb(cat);
+  var qlist = (!fromDb && g) ? g.q : null;
+  if(fromDb){
+    var owner = S.topic || (isTopic(cat) ? cat : TOPICS.filter(function(t){ return SECTIONS[t].indexOf(cat) > -1; })[0]);
+    S.topic = owner || null;
+    qlist = owner ? chipsFor(owner) : [cat];
+  }
+  var ownTopic = S.topic;
+  (LANDING[cat] && LANDING[cat].chips ? LANDING[cat].chips : (qlist || [OVERVIEW])).forEach(function(q){
+    var b = el('button','chip',q);
+    b.onclick = function(){
+      Array.prototype.forEach.call(qs.children, function(c){c.classList.remove('sel');});
+      b.classList.add('sel');
+      S.introChip = q;
+      S.cat = cat; S.topic = ownTopic; /* 위쪽 이전 칩을 눌러도 그 칩의 주제로 답변 */
+      ask(q);
+    };
+    qs.appendChild(b);
+  });
+  intro.appendChild(qs);
+  put();
+}
+
+function setIng(on){ $('bgIng').classList.toggle('on', !!on); }
+/* [MUST] [AVOID] 같은 규칙 태그는 답변에서 숨김 */
+function moaTagless(s){ return String(s).replace(/\[(?:MUST(?: NOT)?|AVOID|SHOULD(?: NOT)?|DO|DON'?T|MAY|NEVER|REQUIRED|OPTIONAL|RECOMMENDED|TIP|NOTE|WARNING|CAUTION)\][ \t]*/gi, '')
+  /* DB 원문 메타 줄 숨김: "- status: MUST" 같은 줄은 통째로, "content:" 접두어는 떼고 내용만 */
+  .replace(/^[ \t]*(?:[-*•][ \t]*)?\**status\**[ \t]*[:：][^\n]*(?:\n|$)/gim, '')
+  .replace(/^[ \t]*(?:[-*•][ \t]*)?\**content\**[ \t]*[:：][ \t]*$\n?/gim, '')
+  .replace(/(^|\n)[ \t]*((?:[-*•][ \t]*)?)\**content\**[ \t]*[:：][ \t]*/gi, '$1$2')
+  .replace(/^[ \t]+$/gm, '').replace(/^\n+/, '')
+  /* 999px 뒤에는 항상 (max) */
+  .replace(/(^|[^0-9.])999[ \t]*px(?![ \t]*\(max\))/gi, '$1999px (max)')
+  /* 앞에 이미 "max"가 쓰여 있으면 (max) 생략: "max: 999px", "Max 999px" 등 */
+  .replace(/(max[^\S\n]*[:：=]?[^\S\n]*`?[^\S\n]*)999px[ \t]*\(max\)/gi, '$1999px'); }
+function mdPlain(text){
+  return moaTagless(text)
+    .replace(/`([^`]*)`/g, '$1')
+    /* 소제목(### 핵심 스펙, **준수사항** 단독 줄 등) → h4 표시용 마커 */
+    .replace(/^[ \t]*#{1,6}[ \t]*(.+?)[ \t]*#*[ \t]*$/gm, '\u2063$1')
+    .replace(/^[ \t]*\*\*([^*\n]+?)\*\*[ \t]*:?[ \t]*$/gm, '\u2063$1')
+    .replace(/^[ \t]*\*\*([^*\n]+)$(?![\s\S])/m, '\u2063$1') /* 스트리밍 중 아직 안 닫힌 **소제목 */
+    .replace(/^[ \t]*\[?((?:핵심|주요)[ \t]?스펙|준수[ \t]?사항|주의[ \t]?사항|사용[ \t]?가이드|적용[ \t]?상황)\]?[ \t]*:?[ \t]*$/gm, '\u2063$1')
+    .replace(/\*\*([^*]*)\*\*/g, '$1')
+    .replace(/^>\s?/gm, '')
+    /* 마크다운 표: 구분선(| --- | --- |) 제거, 행은 'A · B · C'로 */
+    .replace(/^[ \t]*\|?[ \t]*:?-{2,}:?[ \t]*(\|[ \t]*:?-{2,}:?[ \t]*)*\|?[ \t]*$\n?/gm, '')
+    .replace(/^[ \t]*\|(.+)\|[ \t]*$/gm, function(m, r){ return r.split('|').map(function(c){ return c.trim(); }).filter(Boolean).join(' · '); })
+    .replace(/^\s*[-*]\s+/gm, '• ')
+    .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '$1')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
+function scrollDown(){ if(S.hold || S.userScroll) return; var c=$('chatCon'); c.style.paddingBottom = '';
+  /* 이어 붙인 새 소개는 아래 내용이 화면을 넘기 전까지 맨 위에 고정 (칩 눌러도 화면이 안 내려감) */
+  var a = S.anchor;
+  if(a && a.isConnected && a.style.display !== 'none'){
+    var top = c.scrollTop + a.getBoundingClientRect().top - c.getBoundingClientRect().top;
+    var need = top + c.clientHeight - c.scrollHeight;
+    if(need > 0) c.style.paddingBottom = (parseFloat(getComputedStyle(c).paddingBottom) || 0) + need + 'px';
+  }
+  c.scrollTop = c.scrollHeight; }
+/* 답변 중 사용자가 직접 스크롤하면 자동 스크롤 멈춤 (새 질문을 보내면 다시 켬) */
+(function(){
+  var c = $('chatCon'); if(!c) return;
+  var mark = function(){ S.userScroll = true; };
+  c.addEventListener('wheel', mark, {passive:true});
+  /* 맨 아래까지 다시 내리면 자동 스크롤(대화 따라가기) 재개 */
+  c.addEventListener('scroll', function(){ if(S.userScroll && c.scrollHeight - c.scrollTop - c.clientHeight < 8) S.userScroll = false; }, {passive:true});
+  c.addEventListener('touchmove', mark, {passive:true});
+  c.addEventListener('pointerdown', function(e){ if(e.offsetX > c.clientWidth) mark(); });
+  c.addEventListener('keydown', function(e){ if(/^(ArrowUp|ArrowDown|PageUp|PageDown|Home|End| )$/.test(e.key)) mark(); });
+})();
+
+/* 최근 대화 5개 기록 — 카테고리를 옮겨도 유지, 플러그인을 닫으면 초기화 */
+function remember(q, text, topics){
+  S.convo = S.convo || [];
+  S.convo.push({ q: q, a: text, topics: topics && topics.length ? topics : (S.topic ? [S.topic] : []) });
+  while(S.convo.length > 5) S.convo.shift();
+}
+var AVATAR_HTML = '<img src="__IMG_PROFILE__" alt="Moa">';
+/* 입력한 질문의 주제가 지금 채팅창과 다르면 맞는 카테고리로 이동 */
+function detectTopics(q, keepAll){
+  if(!USE_DB || typeof moaTokenize !== 'function' || typeof moaGlossaryMatch !== 'function') return [];
+  var gm = moaGlossaryMatch(q, moaTokenize(q));
+  var names = {};
+  TOPICS.concat(['Tab']).forEach(function(t){ names[t.toLowerCase().replace(/[^a-z가-힣]/g, '')] = t; });
+  var found = [];
+  moaTokenize(q).forEach(function(t){
+    var k = t.replace(/[^a-z가-힣]/g, '');
+    var hit = names[k];
+    if(hit && found.indexOf(hit) < 0 && (isTopic(hit) || hit === 'Tab')) found.push(hit);
+  });
+  gm.topics.forEach(function(hit){ if(found.indexOf(hit) < 0 && (isTopic(hit) || hit === 'Tab')) found.push(hit); });
+  /* 여러 단어 카테고리: 단어가 순서 상관없이 모두 있으면 매칭 (Icon CTA Button, 아이콘 버튼 → CTA Button Icon) */
+  var spec = TOPICS.filter(function(t){ var w = topicWords(t); return w.length > 1 && w.every(function(x){ return hasWord(q, x); }); });
+  spec.sort(function(a, b){ return topicWords(b).length - topicWords(a).length; });
+  found = spec.concat(found.filter(function(t){ return spec.indexOf(t) < 0; }));
+  /* 더 구체적인 주제가 있으면 일반 주제는 뺌 (CTA Button Icon > CTA Button, 옵션칩 > 칩) */
+  if(!keepAll) [['CTA Button Icon','CTA Button'],['Option Chip','Chip']].forEach(function(p){ if(found.indexOf(p[0]) > -1) found = found.filter(function(t){ return t !== p[1]; }); });
+  var comp = found.filter(function(t){ return MOA_FOUNDATION.indexOf(t) < 0; });
+  return comp.concat(found.filter(function(t){ return comp.indexOf(t) < 0; }));
+}
+var TOPIC_WORD_KO = { cta:['cta','씨티에이'], button:['button','버튼'], icon:['icon','아이콘'], option:['option','옵션'], chip:['chip','칩'],
+  selector:['selector','셀렉터','선택기'], selection:['selection','선택'], control:['control','컨트롤'], dimmed:['dimmed','딤드','딤'], shadow:['shadow','그림자','쉐도우','섀도우'] };
+function topicWords(t){ return String(t).toLowerCase().split(/[^a-z]+/).filter(function(w){ return w && w !== 'cta'; }); }
+function hasWord(q, w){
+  var s = String(q).toLowerCase().replace(/\s+/g, '');
+  return (TOPIC_WORD_KO[w] || [w]).some(function(x){ return s.indexOf(x) > -1; });
+}
+/* 지금 카테고리의 하위(더 구체적) 카테고리 고유 단어를 말하면 그쪽으로 (CTA Button + 아이콘 → CTA Button Icon, Chip + 옵션 → Option Chip) */
+function subTopicFor(cur, q){
+  var cw = topicWords(cur);
+  return TOPICS.filter(function(t){ return t !== cur && t.indexOf(cur) > -1; }).filter(function(t){
+    return topicWords(t).some(function(w){ return cw.indexOf(w) < 0 && hasWord(q, w); });
+  })[0] || null;
+}
+/* Foundation 창에서 글자 크기·서체 질문이면 Typeface로 (Color 창에서 "배너 Title 사이즈" 등) */
+function typeIntent(q){
+  var s = String(q || '').toLowerCase().replace(/\s+/g, '');
+  var text = /title|타이틀|제목|헤드라인|headline|heading|헤딩|display|디스플레이|body|본문|caption|캡션|label|레이블|라벨|텍스트|text|글자|글씨|폰트|font|서체|typo|타이포/.test(s);
+  var size = /사이즈|size|크기|px|pt|행간|lineheight|라인하이트|자간|letterspacing|굵기|weight|웨이트|폰트|font|서체|typo|타이포/.test(s);
+  var color = /컬러|color|색|colour|hex|#[0-9a-f]{3}/.test(s);
+  return text && size && !color;
+}
+function foundationRedirect(q){
+  var cur = S.topic || S.cat;
+  if(!cur || cur === 'Typeface' || typeof MOA_FOUNDATION === 'undefined' || MOA_FOUNDATION.indexOf(cur) < 0) return null;
+  return typeIntent(q) && isTopic('Typeface') ? 'Typeface' : null;
+}
+function redirectTopic(q){
+  if(S.cat === '기타 문의' && etcIntent(q)) return null;
+  var cur = (S.cat === '기타 문의' || S.cat === GENERAL) ? null : (S.topic || S.cat);
+  var sub0 = cur && subTopicFor(cur, q); if(sub0) return sub0;
+  var found = detectTopics(q);
+  if(!found.length) return null;
+  if(!cur) return found[0];
+  if(found.indexOf(cur) > -1) return null;                       /* 지금 카테고리 질문 */
+  if(found[0] !== cur && found[0].indexOf(cur) > -1) return found[0];
+  var fw = topicWords(found[0]); if(fw.length > 1 && fw.every(function(w){ return hasWord(q, w); })) return found[0]; /* 다른 카테고리 이름을 정확히 말함 (옵션 칩, 아이콘 버튼) */ /* 더 구체적인 카테고리 (CTA Button → CTA Button Icon) */
+  if(found.some(function(t){ return cur.indexOf(t) > -1; })) return null; /* 지금이 더 구체적 (CTA Button Icon에서 CTA Button 질문) */
+  if(topicWords(cur).some(function(w){ return hasWord(q, w); })) return null; /* 지금 카테고리 이름이 질문에 있음 */
+  return found[0];
+}
+/* "비교/차이" 질문: 카테고리를 옮기지 않고 언급된 카테고리 데이터를 함께 불러옴 */
+function compareTopics(q){
+  if(typeof MOA_COMPARE_RE === 'undefined' || !MOA_COMPARE_RE.test(String(q).replace(/\s+/g, ''))) return null;
+  var found = detectTopics(q, true);
+  if(!found.length) return null;
+  var cur = S.cat === '기타 문의' ? null : (S.topic || S.cat);
+  var list = found.length > 1 ? found.slice() : [];
+  if(!list.length){ if(cur) list.push(cur); found.forEach(function(t){ if(list.indexOf(t) < 0) list.push(t); }); }
+  return list.length > 1 ? list : null;
+}
+/* 답변 불가 안내 (제목 없이 바디 텍스트만) */
+function moaQShort(q){ q = String(q || '').replace(/\s+/g, ' ').trim(); return q.length > 20 ? q.slice(0, 20) + '…' : q; }
+function moaNote(body, text){ setIng(false); var n = el('div','bub-note'); n.style.whiteSpace = 'pre-line'; n.textContent = text; body.appendChild(n); scrollDown(); }
+/* 질문 속 타입 이름이 여러 카테고리에 있고, 질문·현재 창으로 어느 쪽인지 정할 수 없으면 → 후보 목록 */
+function ambiguousType(q, wide){
+  if(!USE_DB) return null;
+  var s = ' ' + String(q).toLowerCase().replace(/[^a-z0-9가-힣]+/g, ' ') + ' ';
+  var named = detectTopics(q, true);
+  var keys = Object.keys(TYPE_INDEX).sort(function(a, b){ return b.length - a.length; });
+  for(var i = 0; i < keys.length; i++){
+    var it = TYPE_INDEX[keys[i]];
+    if(it.topics.length < 2) continue;
+    if(!new RegExp('[ ]' + keys[i].replace(/[^a-z0-9가-힣]+/g, ' ').trim().replace(/ /g, '\\s?') + '(?=[ 가-힣])').test(s)) continue;
+    if(!wide && S.topic && it.topics.indexOf(S.topic) > -1) return null;          /* 지금 창이 후보 중 하나 */
+    if(named.some(function(t){ return it.topics.indexOf(t) > -1; })) return null; /* 질문에 카테고리 명시 */
+    if(isTopic(it.name) || named.some(function(t){ return t.toLowerCase() === keys[i]; })) return null; /* 'Color'처럼 카테고리 이름과 같은 단어 */
+    return it;
+  }
+  return null;
+}
+/* Moa·전체 검색창: 질문 단어가 여러 카테고리에 걸쳐 있고 하나로 정할 수 없으면 후보를 반환 */
+var MOA_AMBI_STOP = ['color','colors','size','radius','spec','specs','token','tokens','light','dark','default','normal','value','type','px','hex','font','text','line','width','height','state','guide'];
+function topicsForWord(w){
+  var re = new RegExp('(^|[^a-z0-9])' + w.replace(/[^a-z0-9]/g, '') + '([^a-z0-9]|$)', 'i'), out = [];
+  var add = function(t){ if(t && out.indexOf(t) < 0) out.push(t); };
+  DB.forEach(function(ch){ if(re.test(String(ch.section || '')) || re.test(String(ch.group || ''))) add(ch.topic); });
+  (window.MOA_TOKENS || []).forEach(function(ch){
+    if(out.indexOf(ch.topic) > -1) return;
+    if(String(ch.text || '').split('\n').some(function(l){ var p = l.split(':')[0]; return p.indexOf('/') > -1 && re.test(p.replace(/[\/_]/g, ' ')); })) add(ch.topic);
+  });
+  return out.filter(function(t){ return isTopic(t) || t === 'Tab'; });
+}
+function generalAmbiguity(q, wide){
+  if(!USE_DB || (!wide && S.cat !== GENERAL && S.screen === 'chat')) return null;
+  if(compareTopics(q)) return null;
+  var named = detectTopics(q), base = named.filter(function(t){ return MOA_FOUNDATION.indexOf(t) > -1; });
+  named = named.filter(function(t){ return MOA_FOUNDATION.indexOf(t) < 0; }); /* 공통 스타일(Color·Radius 등)은 속성으로 보고 컴포넌트 우선 */
+  if(named.length > 1) return { name: '', topics: named.slice(0, 8) };
+  if(named.length === 1) return null;
+  var ty = ambiguousType(q, wide); if(ty) return ty;
+  var cand = null, word = '';
+  moaTokenize(q).filter(function(w){ return /^[a-z][a-z0-9_]{2,}$/.test(w) && MOA_AMBI_STOP.indexOf(w) < 0; }).forEach(function(w){
+    var ts = topicsForWord(w);
+    if(!ts.length) return;
+    if(!cand){ cand = ts; word = w; return; }
+    var both = cand.filter(function(t){ return ts.indexOf(t) > -1; });
+    if(both.length){ cand = both; word = word + ' ' + w; }
+  });
+  if(cand && base.some(function(t){ return cand.indexOf(t) > -1; })) return null; /* 'Color primary'처럼 공통 스타일 안의 단어 */
+  return cand && cand.length > 1 ? { name: word, topics: cand.slice(0, 8), plain: true } : null;
+}
+function askWhich(q, it){
+  var con = $('chatCon');
+  if(!S.noUserRow){ var ur = el('div','row-user'); ur.appendChild(el('div','bub-user', q)); con.appendChild(ur); }
+  S.noUserRow = false;
+  var br = el('div','row-bot'), av = el('div','avatar'); av.innerHTML = AVATAR_HTML;
+  var bb = el('div','bot-body'); br.appendChild(av); br.appendChild(bb); con.appendChild(br);
+  var note = el('div','bub-note'); note.style.whiteSpace = 'pre-line';
+  note.textContent = !it.name ? '질문에 ' + it.topics.join(', ') + ' 내용이 함께 있어요.\n어떤 카테고리로 이동해서 답변할까요?'
+    : it.plain ? '‘' + it.name + '’은(는) ' + it.topics.join(', ') + '에 모두 있어요.\n어떤 카테고리로 이동해서 답변할까요?'
+    : '‘' + it.name + '’ 타입은 ' + it.topics.join(', ') + '에 모두 있어요.\n어떤 항목의 ' + it.name + '에 대해 알려드릴까요?';
+  bb.appendChild(note);
+  var chips = el('div','qchips'); /* 버블과 8px (bot-body gap) */
+  it.topics.forEach(function(t){
+    var b = el('button','chip', it.name && !it.plain ? t + ' ' + it.name : t);
+    /* 답변 후에도 위로 올라가 다른 카테고리를 다시 고를 수 있음 (첫 선택은 질문 바로 아래라 질문 버블 생략) */
+    b.onclick = function(){
+      var first = !chips.querySelector('.sel');
+      Array.prototype.forEach.call(chips.children, function(x){ x.classList.remove('sel'); });
+      b.classList.add('sel');
+      openCategory(t, t, 'quiet'); S.noUserRow = first; ask(q);
+    };
+    chips.appendChild(b);
+  });
+  bb.appendChild(chips);
+  scrollDown();
+}
+/* 가벼운 대화 후보: 카테고리·용어집 용어·디자인 단어·토큰/수치가 하나도 없을 때만 (최종 판단은 Gemini) */
+function moaChatCand(q){
+  if(!window.moaChat || detectTopics(q).length || compareTopics(q)) return false;
+  var gm = typeof moaGlossaryMatch === 'function' ? moaGlossaryMatch(q, moaTokenize(q)) : { terms: [], topics: [] };
+  if(gm.terms.length || gm.topics.length) return false;
+  if(/#[0-9a-f]{3,8}|\d\s?(px|pt|dp|%)|[a-z]+[\/_][a-z]/i.test(q)) return false;
+  return !/디자인|컬러|색상|색깔|버튼|폰트|글꼴|서체|타이포|간격|여백|토큰|스펙|규격|라운드|모서리|그림자|아이콘|컴포넌트|레이아웃|팝업|칩|탭|가이드|피그마|figma|ui|ux|color|button|font|spacing|radius|token|shadow|icon/i.test(q);
+}
+function ask(q, typed){
+  S.hold = false; S.userScroll = false; /* 새 질문이면 자동 스크롤 다시 켬 */
+  /* 카테고리 안: 고정답변(랜딩메뉴)이 있으면 무조건 그걸 보여주고, 겹치는 워딩이 있어도 다른 카테고리로 넘기지 않음 */
+  var inCat = !!S.cat && S.cat !== GENERAL && S.cat !== '기타 문의';
+  var fixed = !!landingFor(S.cat, q);
+  /* 카테고리 창에서 직접 입력한 질문은 홈처럼 전체 DB 검색 (겹치면 카테고리 선택 질문) */
+  var wide = inCat && !!typed && !fixed;
+  var cmp = ((inCat && !wide) || fixed) ? null : compareTopics(q);
+  var amb = (!inCat || wide) && !fixed && !cmp && S.cat !== '기타 문의' && !eggFor(q) && (typed && (S.cat === GENERAL || wide) ? generalAmbiguity(q, wide) : ambiguousType(q));
+  if(amb){ askWhich(q, amb); return; }
+  /* 다른 카테고리 이름(한글·영문)을 물으면 같은 화면에서 주제만 전환 */
+  if(typed && !cmp && !fixed){
+    var mv = (inCat && foundationRedirect(q)) || redirectTopic(q);
+    if(mv){ openCategory(mv, mv, 'quiet'); ask(q); return; } /* 이동 안내 없이 같은 화면에서 주제만 전환 */
+  }
+  S.curQ = q;
+  var con = $('chatCon');
+  if(!S.noUserRow){
+    var r = el('div','row-user');
+    r.appendChild(el('div','bub-user',q));
+    con.appendChild(r);
+  }
+  S.noUserRow = false; scrollDown();
+
+  var botRow = el('div','row-bot');
+  var av = el('div','avatar');
+  av.innerHTML = AVATAR_HTML;
+  var body = el('div','bot-body');
+  var ing = el('div','bub-ing');
+  ing.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
+  body.appendChild(ing);
+  botRow.appendChild(av); botRow.appendChild(body);
+  con.appendChild(botRow);
+  /* Easter egg: 정해진 질문이면 어느 카테고리에서든 바로 답변 (키 불필요) */
+  loadEgg();
+  var egg = eggFor(q);
+  if(egg){ scrollDown(); setIng(true); setTimeout(function(){ renderAnswer(body, E(egg.title, egg.text, '')); }, LANDING_DELAY_MS); return; }
+  /* 랜딩메뉴(정해진 답변)는 진행 과정 없이 바로 답변 */
+  var lp = landingFor(S.cat, q);
+  if(lp){ scrollDown(); setIng(true); setTimeout(function(){ renderLanding(body, lp); }, LANDING_DELAY_MS); return; }
+  /* 정해진 답변 외의 질문: Gemini 키가 없으면 답변하지 않고 설정 안내 */
+  if(!S.key){
+    /* 정해진 답변과 동일하게 로딩 표시 한 번 → 안내 */
+    S.curQ = null; scrollDown(); setIng(true);
+    setTimeout(function(){
+    Array.prototype.slice.call(body.querySelectorAll('.bub-ing')).forEach(function(n){ n.parentNode.removeChild(n); });
+    setIng(false);
+    var nk = el('div','lcard'), nt = el('div','lt'), kt = el('b'), kb = el('span');
+    nt.appendChild(kt); nt.appendChild(kb);
+    nk.appendChild(nt);
+    body.appendChild(nk); scrollDown();
+    /* 타이핑 → 끝나면 설정 아이콘 3번 반짝, 2초 쉬고 반복 (채팅 화면 + 키 없음일 동안 계속) */
+    var sb = $('btnSettings');
+    var flash = function(){ sb.classList.remove('hl'); void sb.offsetWidth; sb.classList.add('hl'); };
+    stopFlash();
+    typeText(kt, 'Gemini API 키를 입력해 주세요.', function(){
+      typeText(kb, '답변을 하려면 Gemini API 키가 있어야 해요.\n상단 설정에서 키를 입력한 뒤 다시 질문해 주세요.', function(){
+        /* 메시지 끝나고 1초 뒤 시작 */
+        sb._hl0 = setTimeout(function loop(){
+          if(S.screen !== 'chat' || S.key){ stopFlash(); return; }
+          flash();
+          sb._hl = setTimeout(function(){ sb.classList.remove('hl'); sb._hl2 = setTimeout(loop, 2000); }, 1800);
+        }, 1000);
+      });
+    });
+    }, LANDING_DELAY_MS);
+    return;
+  }
+  runProgress(ing);
+  scrollDown();
+  setIng(true);
+
+  setTimeout(function(){
+    var catInDb = USE_DB && inDb(S.cat);
+    var gc = GUIDE[S.cat];
+    if(!catInDb && gc && gc.a[q]){ renderAnswer(body, gc.a[q]); return; }
+    var etcKey = etcIntent(q);
+    if(etcKey){ renderAnswer(body, GUIDE['기타 문의'].a[etcKey]); return; }
+    if(S.cat === '기타 문의'){
+      var contact = GUIDE['기타 문의'].a['담당자에게 직접 문의하고 싶어요'];
+      renderAnswer(body, E('기타 문의 항목에서 찾지 못했어요.', '위 항목 중 하나를 선택하거나 담당자에게 문의해 주세요.\n\n' + contact.text, ''));
+      return;
+    }
+    if(USE_DB){
+      if(q === OVERVIEW && S.topic && isTopic(S.topic)){ renderAnswer(body, withLead(overviewFor(S.topic), S.topic)); return; }
+      var exact = dbFor(wide ? null : S.topic, q);
+      if(exact.length){ renderAnswer(body, withLead(dbAnswer(q, exact), q)); return; }
+      var typed = S.topic && !wide ? typeChunks(S.topic, q) : [];
+      if(typed.length){ renderAnswer(body, withLead(dbAnswer(q, typed), q)); return; }
+      var onStep = function(){};
+      var live = null, liveP = null;
+      /* Gemini가 "가이드에 해당 내용이 없습니다"로 시작하면, 그 문장이 끝날 때까지 화면에 띄우지 않고
+         뒤에 실제 답이 이어지면 그 문장은 빼고 보여줌 */
+      var NA = window.MOA_NO_ANSWER || '';
+      var stripNA = function(t){
+        var s = String(t).trim();
+        if(NA && NA.indexOf(s) === 0) return '';
+        if(!NA || s.indexOf('가이드에 해당 내용이 없') !== 0) return s;
+        return s.replace(/^가이드에 해당 내용이 없습니다\.?\s*(디자인 시스템 담당자에게 문의해 주세요\.?)?\s*/, '').trim();
+      };
+      var onDelta = function(t){
+        t = stripNA(t || '');
+        if(!t) return;
+        if(!live){
+          live = el('div','card');
+          var lh = el('div','card-h'); lh.appendChild(el('div','t', q)); live.appendChild(lh);
+          liveP = el('p'); live.appendChild(liveP);
+          live.appendChild(el('span','caret','▍'));
+          body.appendChild(live);
+        }
+        paintHex(liveP, mdPlain(t));
+        scrollDown();
+      };
+      var pre = S.preRes && S.preRes.q === q ? S.preRes.res : null; S.preRes = null;
+      (pre ? Promise.resolve(pre) : (moaChatCand(q) ? window.moaChat(q, S.key) : Promise.resolve(null)).then(function(c){ return c ? { chat: c } : window.moaAsk(q, S.key, { onStep:onStep, onDelta:null, topic:wide ? null : S.topic, compareTopics:cmp, history:(S.convo || []).slice() }); })).then(function(res){
+        if(res && res.chat){ /* 가벼운 대화: 짧은 텍스트만 */
+          setIng(false); S.curQ = null; S.failAt = 0; setApiStatus(true);
+          Array.prototype.slice.call(body.querySelectorAll('.bub-ing')).forEach(function(n){ n.parentNode.removeChild(n); });
+          var cn = el('div','bub-note'); cn.style.whiteSpace = 'pre-line'; body.appendChild(cn);
+          typeText(cn, res.chat.text, scrollDown); scrollDown();
+          return;
+        }
+        setIng(false);
+        /* 다른 카테고리에서 찾았으면 주제만 전환 */
+        if(!pre && res.movedTo && isTopic(res.movedTo) && res.movedTo !== S.topic && !wide){ S.cat = res.movedTo; S.topic = res.movedTo; } /* 이동 안내 없이 같은 화면에서 이어서 답변 */
+        if(res.model){ S.failAt = 0; setApiStatus(true); }
+        /* 용어 식별 불가: 제목 없이 바디 텍스트 한 줄만 */
+        /* 1) 의도 파악 불가일 때만 (2) 데이터 없음은 기존 '내용 없음' 답변 유지) */
+        if(res.invalid || (!/가이드에 해당 내용이 없/.test(String(res.text || '')) && /용어\s*식별|식별이\s*(불가|어려)|어떤 정보를 찾으시는지|용어인지 다시 확인/.test(String(res.text || '')))){
+          if(live && live.parentNode) live.parentNode.removeChild(live);
+          Array.prototype.slice.call(body.querySelectorAll('.bub-ing')).forEach(function(n){ n.parentNode.removeChild(n); });
+          S.curQ = null;
+          moaNote(body, '‘' + moaQShort(q) + '’에 대해 정확히 인식하지 못했어요.\n원하시는 내용을 다시 질문해 주세요.');
+          return;
+        }
+        /* DB 가이드 범위 초과 · 결과 없음 */
+        var finRaw = res.grounded === false ? '' : stripNA(res.text);
+        /* 제목 한 줄 + '가이드에 해당 내용이 없습니다'만 있으면 결과 없음 */
+        if(finRaw && /가이드에 해당 내용이 없/.test(finRaw) && !stripNA(finRaw.replace(/^[^\n]*\n+/, ''))) finRaw = '';
+        if(!finRaw){
+          if(live && live.parentNode) live.parentNode.removeChild(live);
+          Array.prototype.slice.call(body.querySelectorAll('.bub-ing')).forEach(function(n){ n.parentNode.removeChild(n); });
+          S.curQ = null;
+          if(res.reason && console && console.info) console.info('[moa] 결과 없음:', res.reason);
+          moaNote(body, '문의하신 내용은 시스템에 등록되어 있지 않아요.\n검색어를 변경하거나 전체 목록을 확인해 보세요.');
+          return;
+        }
+        var sp = moaSplitTitle(finRaw, q);
+        res.text = sp.text;
+        if(live){
+          var fin = mdPlain(res.text);
+          live.querySelector('.card-h .t').textContent = sp.title;
+          paintHex(liveP, fin);
+          var caret = live.querySelector('.caret'); if(caret) caret.parentNode.removeChild(caret);
+          if(!/가이드에 해당 내용이 없/.test(fin)) remember(q, sp.title + '\n' + fin, res.topics); /* '내용 없음' 답은 대화 기록에 안 남김 */
+          S.curQ = null;
+          addActions(body, fin, '');
+          scrollDown();
+        } else {
+          renderAnswer(body, { kind:'text', title:sp.title, desc:'', text:res.text, topics:res.topics });
+        }
+      }).catch(function(err){
+        setIng(false);
+        if(!err || err.moa || err.status || /fetch|network|네트워크|API 키|끊겼/i.test(String(err && err.message))){ S.failAt = Date.now(); setApiStatus(false); }
+        if(live && live.parentNode) live.parentNode.removeChild(live);
+        var at = err.step > -1 ? (err.step + 1) + '단계(' + window.MOA_STEPS[err.step] + ')에서 ' : '';
+        renderAnswer(body, { kind:'text', title:'답변을 가져오지 못했어요', desc:'', text:at + '오류가 발생했어요.\n\n이유: ' + err.message });
+      });
+      return;
+    }
+    var g = GUIDE[S.cat];
+    var a = (g && g.a[q]) || X(q, S.cat || '', 'data/DB_guide 폴더에 가이드 파일을 넣고 빌드하면 실제 답변이 표시됩니다.');
+    renderAnswer(body, a);
+  }, 900);
+}
+
+function renderAnswer(body, a){
+  /* 답변이 모두 준비된 뒤에 로딩을 한 번에 끝냄 */
+  Array.prototype.slice.call(body.querySelectorAll('.bub-ing')).forEach(function(n){ n.parentNode.removeChild(n); });
+  setIng(false);
+  if(S.curQ != null){
+    var memo = a.text || (a.rows ? [].concat.apply([], a.rows).map(function(it){ return it[0] + ' ' + it[1]; }).join('\n') : '') || (a.items ? a.items.map(function(i){ return i[0] + ' · ' + i[1]; }).join('\n') : '');
+    remember(S.curQ, (a.title ? a.title + '\n' : '') + memo, a.topics);
+    S.curQ = null;
+  }
+  var card = el('div','card');
+  var h = el('div','card-h');
+  h.appendChild(el('div','t', a.title));
+  if(a.desc && !/\.(md|csv|json)\b/i.test(a.desc)) h.appendChild(el('div','d', a.desc)); /* 파일명(출처)은 표시 안 함 */
+  card.appendChild(h);
+
+  if(a.kind === 'colors'){
+    var grid = el('div','sw-grid'), flat = [];
+    a.rows.forEach(function(row){
+      var r = el('div','sw-row');
+      row.forEach(function(it){
+        flat.push(it[0]+' '+it[1]);
+        var s = el('button','sw');
+        var box = el('div','chipbox'); box.style.background = it[1]; if(moaLite(it[1])) box.classList.add('lite');
+        var meta = el('div','meta');
+        meta.appendChild(el('div','n', it[0]));
+        meta.appendChild(el('div','h', it[1]));
+        s.appendChild(box); s.appendChild(meta);
+        s.title = '클릭하면 선택한 요소에 적용';
+        s.setAttribute('data-hex', it[1]); s.setAttribute('data-name', it[0]);
+        s.onclick = function(){ post({type:'apply-fill', hex:it[1], name:it[0]}); };
+        r.appendChild(s);
+      });
+      if(row.length === 1) r.appendChild(el('div','sw'));
+      grid.appendChild(r);
+    });
+    card.appendChild(grid);
+    body.appendChild(card);
+    addActions(body, flat.join('\n'));
+  } else if(a.kind === 'type'){
+    var wrap = el('div','tp-list');
+    a.items.forEach(function(it){
+      var r = el('button','tp-row');
+      r.appendChild(el('span','a', it[0]));
+      r.appendChild(el('span','b', it[1]));
+      r.title = '클릭하면 선택한 텍스트에 적용';
+      r.setAttribute('data-size', parseInt(it[0],10)); r.setAttribute('data-label', it[0]);
+      r.onclick = function(){ post({type:'apply-fontsize', size:parseInt(it[0],10), label:it[0]}); };
+      wrap.appendChild(r);
+    });
+    card.appendChild(wrap);
+    body.appendChild(card);
+    addActions(body, a.items.map(function(i){return i[0]+' · '+i[1];}).join('\n'));
+  } else {
+    var p = el('p');
+    card.appendChild(p);
+    body.appendChild(card);
+    var plain = mdPlain(a.text);
+    if(a.instant){ paintHex(p, plain); addActions(body, plain, a.cta); }
+    else typeText(p, plain, function(){ paintHex(p, plain); addActions(body, plain, a.cta); });
+  }
+  scrollDown();
+}
+
+/* 답변 속 HEX 코드 옆에 작은 컬러 칩 — 클릭하면 선택한 요소에 채우기 적용 */
+var HEX_RE = /#([0-9A-Fa-f]{8}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})\b(\s*(\d{1,3})%)?/g;
+/* 밝은 색(#DDDDDD 이상)은 칩 테두리 #707070 40% */
+function moaLite(hex, a){
+  var h = String(hex).replace('#', ''); if(h.length === 3) h = h.replace(/./g, '$&$&');
+  if(!/^[0-9a-f]{6}/i.test(h)) return false;
+  a = a == null ? 1 : a;
+  var c = [0, 2, 4].map(function(k){ return parseInt(h.substr(k, 2), 16) * a + 255 * (1 - a); });
+  return .299 * c[0] + .587 * c[1] + .114 * c[2] >= 221;
+}
+/* 토큰명(_ / 경로)·스펙값(px, %, ms…)은 #000000, _ / 뒤에서 줄바꿈 허용 */
+var TK_RE = /([A-Za-z][A-Za-z0-9\-]*(?:[\/_][A-Za-z0-9\-]+)+|-?\d+(?:\.\d+)?\s?(?:px|pt|dp|sp|rem|em|ms|%)(?![A-Za-z]))/g;
+var moaSpec = false;
+/* 토큰명은 _ / 뒤에서 줄바꿈 허용 (색은 불릿 값에만) */
+function moaTk(s){ return s.replace(TK_RE, function(m){ return m.replace(/([\/_])/g, '$1<wbr>'); }); }
+/* 스펙 불릿: ':' 뒤 값만 #000000, 값이 길면 다음 줄(불릿 텍스트 시작점에 맞춤) */
+function moaBulletVal(html){
+  var depth = 0, cut = -1;
+  for(var k = 0; k < html.length; k++){
+    var c = html.charAt(k);
+    if(c === '<') depth++; else if(c === '>') depth--;
+    else if(c === ':' && depth === 0){ cut = k; break; }
+  }
+  if(cut < 0) return html;
+  var lab = html.slice(0, cut), val = html.slice(cut + 1).replace(/^\s+/, '');
+  if(!val.replace(/<[^>]+>/g, '').trim()) return html;
+  return lab + ': <span class="tkv">' + val + '</span>';
+}
+/* 렌더 후 실제 너비로 판단: 한 줄(244px)에 다 들어가면 그대로, 넘치면 ':' 뒤 값을 다음 줄로 */
+function moaFitVals(node){
+  var vs = node.querySelectorAll('.li .tkv');
+  for(var k = 0; k < vs.length; k++){
+    var v = vs[k], row = v.parentNode;
+    v.style.display = '';
+    var lh = parseFloat(getComputedStyle(row).lineHeight) || 19.5;
+    if(row.getBoundingClientRect().height > lh * 1.5) v.style.display = 'block';
+  }
+}
+/* 3문장 이상 문단은 2문장씩 문단 분리 */
+function moaParas(t){
+  return String(t).split('\n').map(function(ln){
+    if(!ln.trim() || /^\s*(\u2063|•|-\s|\d+\.\s|※)/.test(ln)) return ln;
+    var ss = ln.split(/(?<=[.!?])\s+(?=\S)/);
+    if(ss.length < 3) return ln;
+    var g = []; for(var k = 0; k < ss.length; k += 2) g.push(ss.slice(k, k + 2).join(' '));
+    return g.join('\n\n');
+  }).join('\n');
+}
+/* 소제목·불릿 줄을 블록으로 (불릿은 다음 줄을 닷 뒤 텍스트에 맞춰 들여쓰기) */
+/* 불릿 한 줄이 스펙·토큰 값인지: ':' 뒤 값(없으면 줄 전체)에 숫자·HEX·토큰 경로가 있을 때만 */
+function moaSpecLine(html){
+  var t = html.replace(/<[^>]+>/g, '').replace(/&[a-z]+;/g, ' ').trim();
+  var i = t.indexOf(':'), v = i > -1 ? t.slice(i + 1).trim() : t;
+  if(!v) return false;
+  if(/#[0-9A-Fa-f]{3,8}\b/.test(v) || /[A-Za-z][\w\-]*[\/_][\w\-]+/.test(v)) return true;
+  if(/^[~\-–]?\s*\d/.test(v) || /\d\s?(px|pt|dp|sp|%|ms)\b/.test(v)) return true;
+  return i < 0 ? /^[\w\/_\-]+$/.test(v) : false;
+}
+/* 스펙 불릿의 영문은 소문자 (HEX 코드는 그대로) */
+function moaLower(html){
+  return html.replace(/(<[^>]+>)|([^<]+)/g, function(all, tag, txt){
+    return tag ? tag : txt.replace(/#[0-9A-Fa-f]{3,8}\b|[A-Z]+/g, function(s){ return s.charAt(0) === '#' ? s : s.toLowerCase(); });
+  });
+}
+function moaLines(html){
+  var L0 = html.split('\n');
+  var L = L0.filter(function(ln, k){ return ln.trim() || !((L0[k-1] || '').charAt(0) === '\u2063' || (L0[k+1] || '').charAt(0) === '\u2063'); });
+  var out = '';
+  L.forEach(function(ln, k){
+    var blk = false, m;
+    if(ln.charAt(0) === '\u2063'){ ln = '<span class="ah' + (k === 0 ? ' f' : '') + '" role="heading" aria-level="4">' + ln.slice(1) + '</span>'; blk = true; }
+    else if((m = ln.match(/^\s*(•|\d+\.|<span class="tk">\d+<\/span>\.|-|<span class="tk">-<\/span>)\s+(.*)$/))){ var sp = moaSpec && moaSpecLine(m[2]);
+      ln = '<span class="li' + (sp ? ' tk' : '') + '"><i>' + m[1].replace(/<[^>]+>/g, '') + '</i><span>' + (sp ? moaBulletVal(moaLower(m[2])) : m[2]) + '</span></span>'; blk = true; }
+    out += ln; if(k < L.length - 1 && !blk) out += '\n';
+  });
+  return out;
+}
+/* 토큰 그룹: 첫 번째 분류명(label)은 불릿·들여쓰기 없이 한 줄, 두 번째부터(/color: …)만 불릿 */
+function moaTokGroups(t){
+  var B = /^\s*(?:[•\-*]|\d+\.)\s+/, L = String(t).split('\n'), out = [], prev = null;
+  var body = function(ln){ return ln.replace(B, '').trim(); };
+  var isSub = function(ln){ return /^\/[A-Za-z0-9]/.test(body(ln || '')); };
+  var isHead = function(ln){ return /^[A-Za-z][\w\-]*:?$/.test(body(ln || '')); };
+  for(var k = 0; k < L.length; k++){
+    var ln = L[k], b = body(ln), m;
+    if(isSub(ln)){ out.push('• ' + b); continue; }
+    if(isHead(ln) && isSub(L[k + 1])){
+      if(out.length && out[out.length - 1].trim()) out.push('');
+      out.push(b.replace(/:$/, '')); prev = null; continue;
+    }
+    /* 'label/color: 값'처럼 한 줄에 붙은 경로 → 첫 분류명으로 묶기 */
+    if(B.test(ln) && (m = b.match(/^([A-Za-z][\w\-]*)(\/[A-Za-z0-9].*)$/))){
+      if(m[1] !== prev){ if(out.length && out[out.length - 1].trim()) out.push(''); out.push(m[1]); prev = m[1]; }
+      out.push('• ' + m[2]); continue;
+    }
+    prev = null; out.push(ln);
+  }
+  return out.join('\n');
+}
+function moaFormat(text, chips){
+  text = moaParas(text);
+  text = moaTokGroups(text);
+  TK_RE.lastIndex = 0; HEX_RE.lastIndex = 0;
+  /* 스펙 답변: 토큰·단위값·HEX가 있거나, '항목: 값' 목록이거나, 스펙/토큰/규격 안내 */
+  moaSpec = TK_RE.test(text) || HEX_RE.test(text) || /스펙|토큰|규격/.test(text) || /^\s*(•|-|\d+\.)\s+[^:\n]+:\s*\S/m.test(text);
+  TK_RE.lastIndex = 0;
+  var esc = function(s){ return s.replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var out = '', i = 0, m;
+  HEX_RE.lastIndex = 0;
+  while((m = HEX_RE.exec(text))){
+    var h = m[1]; if(h.length === 3) h = h.replace(/./g, '$&$&');
+    var alpha = m[3] != null ? Math.min(100, +m[3]) / 100 : (h.length === 8 ? parseInt(h.slice(6), 16) / 255 : 1);
+    var hex6 = '#' + h.slice(0, 6).toUpperCase();
+    var r = parseInt(h.slice(0,2),16), g = parseInt(h.slice(2,4),16), b = parseInt(h.slice(4,6),16);
+    out += moaTk(esc(text.slice(i, m.index))) + (chips
+      ? '<span class="hx"><i' + (moaLite(hex6, alpha) ? ' class="lite"' : '') + ' data-hex="' + hex6 + '" title="' + hex6 + ' · 클릭하면 선택한 요소에 적용"><b style="background:rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')"></b></i>' + esc(m[0]) + '</span>'
+      : esc(m[0]));
+    i = m.index + m[0].length;
+  }
+  return moaLines(out + moaTk(esc(text.slice(i))));
+}
+function paintHex(node, text){ node.innerHTML = moaFormat(text, true); moaFitVals(node); }
+document.addEventListener('click', function(e){
+  var t = e.target.closest && e.target.closest('.hx i');
+  if(!t) return;
+  post({type:'apply-fill', hex:t.getAttribute('data-hex'), name:t.getAttribute('data-hex')});
+});
+
+/* 소제목 마커(\u2063)가 있으면 타이핑 중에도 블랙 소제목으로 */
+function moaRich(node, s){ node.innerHTML = moaFormat(s, false); moaFitVals(node); }
+function typeText(node, text, done, noCaret){
+  var i = 0;
+  text = moaTagless(text);
+  var caret = el('span','caret','▍');
+  if(!noCaret) node.parentNode.appendChild(caret);
+  (function step(){
+    moaRich(node, text.slice(0, i));
+    scrollDown();
+    if(i++ < text.length){ setTimeout(step, 16); }
+    else { if(caret.parentNode) caret.parentNode.removeChild(caret); if(done) done(); }
+  })();
+}
+
+
+function addActions(body, copyText, cta, chipsOverride){
+  var after = el('div','after');
+
+  var rel = chipsOverride || []; /* 관련 칩은 카테고리 하위칩(핵심만 보기 제외) 답변에만 */
+  if(rel.length){
+    var chips = el('div','qchips');
+    rel.forEach(function(q){
+      var b = el('button','chip',q);
+      b.onclick = function(){ if(LANDING[q] && q !== S.cat){ openCategory(q, USE_DB ? q : null); return; } ask(q); };
+      chips.appendChild(b);
+    });
+    after.appendChild(chips);
+  }
+
+  var bl = el('button','backlink');
+  if(cta){
+    var ctaWrap = el('div','qchips');
+    var cb = el('button','chip sm', cta);
+    cb.onclick = function(){ post({type:'open-mail', label:cta}); toast(cta + ' — 담당자 메일로 연결해요'); };
+    ctaWrap.appendChild(cb);
+    after.appendChild(ctaWrap);
+  }
+
+  bl.innerHTML = '<span style="position:relative;width:16px;height:16px;flex-shrink:0;display:block"><svg width="11.738" height="11.2" viewBox="0 0 11.738 11.2" style="position:absolute;left:2.369px;top:2.13px"><path d="M 5.184 0.174 C 5.416 -0.058 5.793 -0.058 6.026 0.174 C 6.258 0.406 6.258 0.782 6.026 1.015 L 2.036 5 L 11.139 5 C 11.47 5 11.738 5.269 11.738 5.6 C 11.738 5.931 11.47 6.199 11.139 6.199 L 2.037 6.199 L 6.026 10.185 C 6.258 10.417 6.258 10.793 6.026 11.026 C 5.793 11.258 5.416 11.258 5.184 11.026 L 0.174 6.021 C -0.058 5.788 -0.058 5.412 0.174 5.18 L 5.184 0.174 Z" fill-rule="nonzero"/></svg></span><span>이전으로</span>';
+  /* 이전으로: 대화는 그대로 두고, 바로 앞 챗봇 답변으로 스크롤. 앞 답변이 없으면(첫 대화) 칩 영역/맨 위로 */
+  bl.onclick = function(){
+    var con = document.querySelector('.chat-con'), n = bl.closest('.row-bot');
+    n = n && n.previousElementSibling;
+    while(n && !n.classList.contains('intro') && !n.classList.contains('row-bot')) n = n.previousElementSibling;
+    /* 첫 번째·두 번째 답변은 항상 맨 위로 */
+    var bots = Array.prototype.filter.call(con.children, function(x){ return x.classList.contains('row-bot'); });
+    if(bots.indexOf(bl.closest('.row-bot')) <= 1) n = null;
+    var top = (!n || n === con.firstElementChild) ? 0 : con.scrollTop + n.getBoundingClientRect().top - con.getBoundingClientRect().top;
+    /* 아래 내용이 짧아도 대상 버블이 항상 맨 위에 오도록 하단 여백 확보 (새 대화가 오면 scrollDown에서 해제) */
+    S.hold = true; /* 타이핑·이미지 로딩 중 자동 스크롤이 덮어쓰지 않게 */
+    con.style.paddingBottom = '';
+    var lack = top + con.clientHeight - con.scrollHeight;
+    if(lack > 0) con.style.paddingBottom = (parseFloat(getComputedStyle(con).paddingBottom) + lack) + 'px';
+    S.userScroll = false; /* 이전으로는 사용자가 직접 누른 이동이라 항상 스크롤 */
+    con.scrollTo({ top: top, behavior: 'smooth' });
+  };
+  /* 카테고리 페이지의 첫 번째 답변에는 이전으로 없음 */
+  var conEl = document.querySelector('.chat-con'), rowEl = body.closest ? body.closest('.row-bot') : null;
+  if(!(conEl && rowEl && conEl.querySelector('.row-bot') === rowEl)) after.appendChild(bl);
+
+  body.appendChild(after);
+  scrollDown();
+}
+
+
+/* ── input bar ───────────────────────────────────────────────── */
+var msg = $('msgInput');
+function autoGrow(){
+  msg.style.height = 'auto';
+  var line = 17, max = line * 20;
+  msg.style.height = Math.min(msg.scrollHeight, max) + 'px';
+}
+msg.addEventListener('input', function(){ $('bar').classList.toggle('typing', msg.value.trim().length > 0); autoGrow(); });
+msg.addEventListener('keydown', function(e){
+  if(e.isComposing || e.keyCode === 229) return;
+  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send(); }
+});
+$('btnSend').onclick = send;
+/* 뻔한 오타·키보드 연타는 Gemini 호출 없이 바로 거름 */
+function isNoise(input){
+  var s = String(input || '').replace(/\s+/g, '');
+  if(!s) return true;
+  if(!/[a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ]/.test(s)) return true;                       /* 숫자·기호만 */
+  if(/^[ㄱ-ㅎㅏ-ㅣ!?.~^;,]+$/.test(s)) return true;
+  var core = s.replace(/[!?.~^;,]/g, '');
+  if(/^(아|어|오|우|음|흠|헐|엥|앗|응|으|에|와|오잉|흐음|글쎄|뭐|몰라|그냥|ㅎ|하|허|호|휴|헉)+$/.test(core)) return true; /* 감탄사·추임새만 */
+  if(/^[가-힣]$/.test(core) && ['칩','색','선','탭','팝'].indexOf(core) < 0) return true; /* 의미 없는 한 글자 */                         /* ㅋㅋㅋ, ㅁㄴㅇㄹ 등 자모만 */
+  var uniq = {}; s.split('').forEach(function(c){ uniq[c.toLowerCase()] = 1; });
+  if(s.length >= 3 && Object.keys(uniq).length <= 2 && !/[가-힣]{2}/.test(s.replace(/(.)\1+/g,'$1'))) return true; /* aaaa, 아아아아 */
+  var lat = s.replace(/[^a-zA-Z]/g, '');
+  if(lat.length >= 4 && lat.length === s.length && !/[aeiouyAEIOUY]/.test(lat)) return true; /* sdfgh, qjxms */
+  if(/(asdf|qwer|zxcv|sdfg|wert|xcvb|dfgh|hjkl|ㅁㄴㅇㄹ|ㅂㅈㄷㄱ)/i.test(s)) return true;      /* 키보드 줄 연타 */
+  return false;
+}
+function reply(q, text){
+  var con = $('chatCon');
+  var r = el('div','row-user'); r.appendChild(el('div','bub-user', q)); con.appendChild(r);
+  var br = el('div','row-bot'), av = el('div','avatar'); av.innerHTML = AVATAR_HTML;
+  var bb = el('div','bot-body'), ing = el('div','bub-ing');
+  ing.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
+  bb.appendChild(ing); br.appendChild(av); br.appendChild(bb); con.appendChild(br); scrollDown();
+  setTimeout(function(){ if(ing.parentNode) ing.parentNode.removeChild(ing); var n = el('div','bub-note'); n.style.whiteSpace = 'pre-line'; n.textContent = text; bb.appendChild(n); scrollDown(); }, 600);
+}
+function send(){
+  var v = msg.value.trim();
+  if(!v) return;
+  if(!S.connected){ $('discOverlay').classList.remove('hide'); return; }
+  msg.value = ''; $('bar').classList.remove('typing'); autoGrow();
+  /* 짧은 맞장구(웅, 응, 어, 그래…)는 '네!'로만 답하고 끝 */
+  if(/^(웅+|응+|어+|엉+|으응|ㅇ+|ㅇㅇ|넹+|넵|네+|예+|그래+|그래요|그럼|오케이|오키|ok(ay)?|ㅇㅋ|알겠어요?|알았어요?|알겠습니다|좋아요?|굿|good)[\s.!~?ㅎㅋ^]*$/i.test(v)){
+    if(S.screen !== 'chat') openCategory(GENERAL, null, 'quiet');
+    return reply(v, '네!');
+  }
+  if(isNoise(v)){
+    if(S.screen !== 'chat') openCategory(GENERAL, null, 'quiet');
+    return reply(v, '‘' + moaQShort(v) + '’에 대해 정확히 인식하지 못했어요.\n원하시는 내용을 다시 질문해 주세요.');
+  }
+  if(S.screen !== 'chat' && detectTopics(v).length > 1 && !compareTopics(v)){ openCategory(GENERAL, null, 'quiet'); ask(v, true); return; } /* 여러 카테고리 → Moa 창에서 후보 확인 */
+  if(S.screen !== 'chat'){ var tp = detectTopics(v)[0]; if(tp && compareTopics(v)){ openCategory(tp, tp, 'quiet'); ask(v); return; } if(tp){ openCategory(tp, tp, 'quiet'); ask(v); return; } openCategory(GENERAL, null, 'quiet'); }
+  ask(v, true);
+}
+
+/* ── 대화 히스토리 저장: 최근 질문 30개까지 (기기별 · 플러그인: Figma clientStorage / 미리보기: localStorage)
+   Gemini 참고 대화(S.convo)는 최근 5개만 함께 저장 ── */
+(function(){
+  var KEY = 'moa-history', MAX_Q = 30, MAX_LEN = 1500000, con = $('chatCon'), t = 0, ready = false;
+  var snapshot = function(){
+    var box = document.createElement('div');
+    Array.prototype.forEach.call(con.children, function(n){
+      if(n.classList.contains('intro') || n.classList.contains('hist-top')) return;
+      if(!n.classList.contains('row-user') && !n.classList.contains('row-bot')) return;
+      var c = n.cloneNode(true); c.setAttribute('data-old', '');
+      Array.prototype.forEach.call(c.querySelectorAll('.bub-ing,.steps,.caret,span.fwrap>mark'), function(x){ if(x.tagName === 'MARK') x.outerHTML = x.textContent; else x.parentNode.removeChild(x); });
+      if(c.querySelector('.bot-body') && !c.querySelector('.bot-body').children.length) return;
+      box.appendChild(c);
+    });
+    var users = box.querySelectorAll(':scope > .row-user');
+    if(users.length > MAX_Q){ var cut = users[users.length - MAX_Q]; while(box.firstChild && box.firstChild !== cut) box.removeChild(box.firstChild); }
+    var html = box.innerHTML;
+    while(html.length > MAX_LEN && box.children.length > 2){ box.removeChild(box.firstChild); while(box.firstChild && !box.firstChild.classList.contains('row-user')) box.removeChild(box.firstChild); html = box.innerHTML; }
+    return JSON.stringify({ v: 1, html: html, convo: (S.convo || []).slice(-5) });
+  };
+  var save = function(){
+    if(!ready || con.querySelector('.bub-ing,.caret')){ clearTimeout(t); t = setTimeout(save, 1200); return; }
+    var s = snapshot();
+    try{ localStorage.setItem(KEY, s); }catch(e){}
+    post({ type: 'save-history', data: s });
+  };
+  new MutationObserver(function(){ clearTimeout(t); t = setTimeout(save, 1200); }).observe(con, { childList: true, subtree: true, characterData: true });
+  var restore = function(s){
+    ready = true;
+    if(!s || con.children.length) return;
+    var d = null; try{ d = JSON.parse(s); }catch(e){ return; }
+    if(!d || !d.html) return;
+    con.innerHTML = d.html;
+    if(Array.isArray(d.convo)) S.convo = d.convo.slice(-5);
+  };
+  window.addEventListener('message', function(e){ var m = e.data && e.data.pluginMessage; if(m && m.type === 'history') restore(m.data); });
+  var local = null; try{ local = localStorage.getItem(KEY); }catch(e){}
+  if(local) restore(local);
+  post({ type: 'load-history' });
+  setTimeout(function(){ ready = true; }, 1500); /* 플러그인 응답이 없어도 저장은 시작 */
+})();
+/* 저장된 이전 대화: 색상·타입 적용은 그대로, 오래된 칩·복사·이전으로는 숨김 */
+document.addEventListener('click', function(e){
+  var o = e.target.closest && e.target.closest('[data-old] .sw[data-hex], [data-old] .tp-row[data-size]');
+  if(!o) return;
+  if(o.classList.contains('sw')) post({ type: 'apply-fill', hex: o.getAttribute('data-hex'), name: o.getAttribute('data-name') || o.getAttribute('data-hex') });
+  else post({ type: 'apply-fontsize', size: parseInt(o.getAttribute('data-size'), 10), label: o.getAttribute('data-label') });
+});
+
+/* ── 대화 내용 검색 (Cmd/Ctrl+F) ── */
+(function(){
+  var bar = $('fbar'), inp = $('fInput'), cnt = $('fCnt'), hits = [], cur = -1;
+  var clear = function(){
+    Array.prototype.forEach.call(document.querySelectorAll('#chatCon span.fwrap'), function(s){ var p = s.parentNode; p.replaceChild(document.createTextNode(s.textContent), s); p.normalize(); });
+    hits = []; cur = -1;
+  };
+  var paint = function(){
+    hits.forEach(function(m, i){ m.classList.toggle('cur', i === cur); });
+    cnt.textContent = inp.value.trim() ? (hits.length ? (cur + 1) + '/' + hits.length : '0/0') : '';
+    $('fPrev').disabled = $('fNext').disabled = hits.length < 2;
+    var m = hits[cur]; if(!m) return;
+    var con = $('chatCon');
+    S.userScroll = true; /* 검색 이동 중 자동 스크롤 멈춤 */
+    con.scrollTop += m.getBoundingClientRect().top - con.getBoundingClientRect().top - (con.clientHeight / 2) + 10;
+  };
+  var run = function(){
+    clear();
+    var q = inp.value.trim().toLowerCase();
+    if(q){
+      var con = $('chatCon');
+      var w = document.createTreeWalker(con, NodeFilter.SHOW_TEXT, { acceptNode: function(n){
+        var p = n.parentNode; if(!p || /^(SCRIPT|STYLE|SVG)$/i.test(p.nodeName) || p.closest('svg,.bub-ing,.steps')) return NodeFilter.FILTER_REJECT;
+        return p.offsetParent || p.getClientRects().length ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      } });
+      var nodes = []; while(w.nextNode()) nodes.push(w.currentNode);
+      nodes.forEach(function(n){
+        var t = n.nodeValue, lo = t.toLowerCase(), i = lo.indexOf(q); if(i < 0) return;
+        var f = document.createElement('span'), at = 0; f.className = 'fwrap'; /* 플렉스 안에서도 한 덩어리로 유지 */
+        while(i > -1){
+          if(i > at) f.appendChild(document.createTextNode(t.slice(at, i)));
+          var m = document.createElement('mark'); m.className = 'fhit'; m.textContent = t.slice(i, i + q.length); f.appendChild(m); hits.push(m);
+          at = i + q.length; i = lo.indexOf(q, at);
+        }
+        if(at < t.length) f.appendChild(document.createTextNode(t.slice(at)));
+        n.parentNode.replaceChild(f, n);
+      });
+      cur = hits.length ? hits.length - 1 : -1; /* 가장 최근 대화부터 */
+    }
+    paint();
+  };
+  var step = function(d){ if(!hits.length) return; cur = (cur + d + hits.length) % hits.length; paint(); };
+  /* 검색바가 열리면 대화 영역을 검색바 아래로 (맨 위 버블이 검색바에서 24px) */
+  var shift = function(on){ var con = $('chatCon'), keep = con.scrollTop; con.style.transition = on ? 'top .26s cubic-bezier(.22,1,.36,1)' : 'top .3s cubic-bezier(.4,0,.2,1)'; con.style.top = on ? (bar.offsetTop + bar.offsetHeight) + 'px' : ''; con.scrollTop = keep; };
+  window.moaFindOpen = function(){ shift(true); bar.classList.add('on'); inp.focus(); inp.select(); if(inp.value.trim()) run(); };
+  window.moaFindClose = function(){ if(!bar.classList.contains('on')) return; shift(false); bar.classList.remove('on'); clear(); cnt.textContent = ''; inp.blur(); };
+  var t = 0;
+  inp.addEventListener('input', function(){ clearTimeout(t); t = setTimeout(run, 120); });
+  inp.addEventListener('keydown', function(e){
+    if(e.isComposing || e.keyCode === 229) return;
+    if(e.key === 'Enter'){ e.preventDefault(); clearTimeout(t); if(!hits.length) run(); else step(e.shiftKey ? 1 : -1); }
+    else if(e.key === 'Escape'){ e.preventDefault(); moaFindClose(); }
+  });
+  $('fPrev').onclick = function(){ step(-1); };
+  $('fNext').onclick = function(){ step(1); };
+  $('fClose').onclick = moaFindClose;
+  /* 대화창 어디를 누르든(버블 포함) 검색바 닫기 */
+  $('pgChat').addEventListener('pointerdown', function(e){
+    if(!bar.classList.contains('on')) return;
+    moaFindClose();
+  });
+  document.addEventListener('keydown', function(e){
+    if((e.metaKey || e.ctrlKey) && !e.altKey && (e.key === 'f' || e.key === 'F' || e.keyCode === 70)){
+      if(S.screen !== 'chat') return;
+      e.preventDefault(); moaFindOpen();
+    } else if(e.key === 'Escape' && bar.classList.contains('on')) moaFindClose();
+  });
+})();
+
+/* ── chrome events ───────────────────────────────────────────── */
+$('btnEtc').onclick = function(){ openCategory('기타 문의'); };
+$('menuEtc').onclick = function(){ closeMenu(); openCategory('기타 문의'); };
+$('btnMenu').onclick = function(){ $('menuOverlay').classList.remove('hide'); };
+$('menuClose').onclick = closeMenu;
+/* 전체 메뉴: 칩(버튼) 외 빈 공간을 누르면 닫기 */
+$('menuOverlay').addEventListener('click', function(e){ if(!e.target.closest('button, a, input')) closeMenu(); });
+function closeMenu(){
+  var o = $('menuOverlay');
+  if(o.classList.contains('hide') || o.classList.contains('closing')) return;
+  o.classList.add('closing');
+  setTimeout(function(){ o.classList.add('hide'); o.classList.remove('closing'); }, 260);
+}
+$('btnBack').onclick = back;
+$('btnClose').onclick = function(){ show(S.screen === 'home' ? 'intro' : 'home'); };
+$('btnAsk').onclick = function(){ show('key'); };
+/* 설정에 들어가면 반짝임 완전히 멈춤 (돌아와도 다시 안 함) */
+function stopFlash(){ var b = $('btnSettings'); clearTimeout(b._hl0); clearTimeout(b._hl); clearTimeout(b._hl2); b.classList.remove('hl'); }
+$('btnSettings').onclick = function(){ stopFlash(); show('key'); renderUsage(); checkApi(); };
+$('btnRefresh').onclick = function(){ if(S.cat) openCategory(S.cat, S.topic, 'fresh'); toast('대화를 초기화했어요'); };
+$('statusDot').parentNode.addEventListener('contextmenu', function(e){ e.preventDefault(); setConnected(!S.connected); });
+$('discClose').onclick = function(){ $('discOverlay').classList.add('hide'); };
+$('discGo').onclick = function(){ stopFlash(); $('discOverlay').classList.add('hide'); show('key'); };
+
+/* Gemini API 연결 상태 → 설정 아이콘 위 점 (초록: 연결 / 빨강: 끊김) */
+/* 설정 화면: 연결돼 있으면 현재 모델과 오늘 남은 사용량(추정) */
+function renderUsage(){
+  var box = $('keyUsage');
+  if(!box) return;
+  if(!S.key || !S.apiOk || typeof moaUsage !== 'function'){ box.classList.remove('on'); box.innerHTML = ''; box.title = ''; return; }
+  var u = moaUsage();
+  box.innerHTML = '<i></i><span>' + u.model + '</span><span>·</span><span>오늘 남은 사용량 약 <b>' + u.left + '</b> / ' + u.limit + '회</span>';
+  box.title = '이 기기에서 보낸 요청 수 기준 추정치예요. 정확한 값은 Google AI Studio에서 확인해 주세요.';
+  box.classList.toggle('low', u.limit > 0 && u.left / u.limit <= 0.2);
+  box.classList.add('on');
+}
+function setApiStatus(ok){
+  S.apiOk = !!ok;
+  setTimeout(renderUsage, 0);
+  $('statusDot').classList.toggle('off', !ok);
+  $('statusDot').title = ok ? 'Gemini API 연결됨' : 'Gemini API 연결 끊김';
+}
+/* 빨강: 키 없음 · 오프라인 · 키 확인 실패 · 최근 5분 내 답변 요청 실패 */
+function checkApi(force){
+  if(force) S.failAt = 0;
+  if(!S.key || typeof moaPing !== 'function'){ setApiStatus(false); return; }
+  var k = S.key;
+  moaPing(k).then(function(ok){ if(k !== S.key) return; setApiStatus(ok && !(S.failAt && Date.now() - S.failAt < 300000)); });
+}
+setApiStatus(false);
+setInterval(function(){ checkApi(); }, 60000);
+window.addEventListener('offline', function(){ setApiStatus(false); });
+window.addEventListener('online', checkApi);
+function setConnected(v){
+  S.connected = v;
+  if(!v) setApiStatus(false); else checkApi();
+  if(!v) $('discOverlay').classList.remove('hide');
+}
+
+/* ── API key ─────────────────────────────────────────────────── */
+var keyInput = $('keyInput'), keyBox = $('keyBox'), keySave = $('keySave');
+keyInput.addEventListener('input', function(){
+  var v = keyInput.value.trim();
+  keyBox.classList.remove('err');
+  keyBox.classList.toggle('on', v.length > 0);
+  keySave.disabled = v.length === 0;
+  if(!v && S.key) deleteKey();
+});
+/* 키 삭제: 저장된 키 제거 → 빨간불 + 모델·사용량 표시 숨김 */
+function deleteKey(){
+  var had = !!S.key;
+  S.key = ''; S.hasKey = false; S.failAt = 0; S.history = [];
+  try{ localStorage.removeItem('moa-gemini-key'); }catch(e){}
+  post({type:'save-key', key:''});
+  setApiStatus(false);
+  renderUsage();
+  if(had) toast('API 키를 삭제했어요');
+}
+$('keyClear').onclick = function(){ keyInput.value=''; keyBox.classList.remove('on','err'); keySave.disabled = true; deleteKey(); keyInput.focus(); };
+keySave.onclick = function(){
+  var v = typeof moaCleanKey === 'function' ? moaCleanKey(keyInput.value) : keyInput.value.trim();
+  keyInput.value = v;
+  var keyErr = $('keyErr');
+  var fail = function(msg){ keyErr.textContent = msg; keyBox.classList.remove('on'); keyBox.classList.add('err'); };
+  if(v.length < 20){ fail('키가 너무 짧아요. 전체를 복사했는지 확인해 주세요'); return; }
+  if(keySave._busy) return;
+  keySave._busy = true; keySave.disabled = true;
+  var label = keySave.textContent; keySave.textContent = '확인 중…';
+  var done = function(){ keySave._busy = false; keySave.disabled = false; keySave.textContent = label; };
+  window.moaKeyErr = '';
+  var check = typeof moaVerifyKey === 'function' ? moaVerifyKey(v) : Promise.resolve('ok');
+  check.then(function(res){
+    done();
+    var why = window.moaKeyErr ? ' (' + window.moaKeyErr + ')' : '';
+    if(res !== 'ok') console.warn('[Moa] key check:', res, window.moaKeyErr);
+    if(res === 'invalid'){ fail('키가 올바르지 않아요. 다시 확인해 주세요' + why); return; }
+    if(res === 'disabled'){ fail('이 키는 Gemini API 사용 권한이 없어요. AI Studio에서 발급한 키인지, 키에 웹사이트·IP 제한이 걸려 있지 않은지 확인해 주세요' + why); return; }
+    if(res === 'region'){ fail('현재 지역에서는 Gemini API를 사용할 수 없어요'); return; }
+    if(res === 'network'){ applyKey(v, true); return; }
+    applyKey(v);
+  });
+};
+function applyKey(v, unverified){
+  S.key = v; S.hasKey = true; S.failAt = 0; setConnected(true);
+  /* 기기별 저장 — 웹: 이 브라우저 / 플러그인: Figma clientStorage */
+  try{ localStorage.setItem('moa-gemini-key', v); }catch(e){}
+  post({type:'save-key', key:v});
+  toast(unverified ? '키를 저장했어요. 지금은 연결을 확인하지 못해 질문할 때 다시 확인해요' : 'API 키를 저장했어요');
+  S.history = [];
+  show('home');
+}
+
+function moaSplitTitle(t, q){
+  var s = String(t || '').replace(/^\s+/, ''), i = s.indexOf('\n');
+  var head = (i < 0 ? s : s.slice(0, i)).replace(/^[#>*\-\s]+|[*\s]+$/g, '');
+  var rest = i < 0 ? '' : s.slice(i + 1).replace(/^\s+/, '');
+  if(!head || !rest || head.length > 80) return { title: q, text: s };
+  return { title: moaTagless(head).trim(), text: rest };
+}
+window.onmessage = function(e){
+  var m = e.data.pluginMessage; if(!m) return;
+  if(m.type === 'key'){
+    if(m.key){ keyInput.value = m.key; keyBox.classList.add('on'); keySave.disabled = false; S.key = m.key; S.hasKey = true; checkApi(); }
+  }
+  if(m.type === 'toast') toast(m.text);
+};
+show('intro');
+/* 저장된 키 불러오기 (새로고침·재실행해도 유지) */
+(function(){
+  var k = null; try{ k = localStorage.getItem('moa-gemini-key'); }catch(e){}
+  if(k) window.onmessage({ data:{ pluginMessage:{ type:'key', key:k } } });
+  post({type:'load-key'});
+})();
+</script>
+<script>
+(function(){
+  var ao=location.ancestorOrigins,inFigma=location.protocol==='data:'||/figma\.com/.test(document.referrer)||(ao&&[].some.call(ao,function(o){return /figma\.com/.test(o);}));
+  if(inFigma) return; // Figma 플러그인 내부면 그대로
+  var app=document.getElementById('app'); if(!app||document.getElementById('win')) return;
+  document.body.classList.add('web');
+  var A=/\/preview\//.test(location.pathname)?'../assets/':'assets/';
+  var bg=document.createElement('div'); bg.id='webbg';
+  
+  /* 배경 텍스트 — 여기서 수정 (x,y: 좌측 패널은 화면 왼쪽 위 기준, 우측 패널은 우측 패널 왼쪽 위 기준 css px) */
+  var WEB_TEXT=[{"k":"file","t":"CoP: 챗봇 플러그인","s":"L","x":74,"y":15.8,"fs":13,"fw":600,"c":"#fff"},{"k":"drafts","t":"Drafts","s":"L","x":73,"y":42,"fs":11,"fw":400,"c":"rgb(191,191,191)"},{"k":"pages","t":"Pages","s":"L","x":73,"y":79.5,"fs":11,"fw":600,"c":"#fff"},{"k":"page1","t":"디자인 시스템, Moa에게 물어보세요","s":"L","x":73,"y":115.5,"fs":11,"fw":500,"c":"#fff"},{"k":"layers","t":"컬러부터 컴포넌트까지, 작업에 필요한 디자인 시스템 기준을 바로 찾아볼 수 있는 챗봇이에요.\n\n안내에 따라 Moa를 사용해 보고, 각 미션을 마칠 때마다 체감 난이도를 선택해 주세요.","s":"L","x":73,"y":160.5,"fs":11,"fw":400,"c":"#fff","w":400},{"k":"design","t":"Design","s":"R","x":22,"y":54,"fs":11,"fw":600,"c":"#fff"},{"k":"proto","t":"Prototype","s":"R","x":79.5,"y":54.5,"fs":11,"fw":500,"c":"rgb(191,191,191)"},{"k":"zoom","t":"100%","s":"R","x":188.5,"y":54,"fs":11,"fw":500,"c":"#fff"},{"k":"page","t":"Page","s":"R","x":22,"y":95.5,"fs":11,"fw":600,"c":"#fff"},{"k":"hex","t":"1E1E1E","s":"R","x":46,"y":131.5,"fs":11,"fw":400,"c":"#fff"},{"k":"op","t":"100","s":"R","x":160,"y":131,"fs":11,"fw":400,"c":"#fff"},{"k":"pct","t":"%","s":"R","x":190,"y":131,"fs":11,"fw":400,"c":"rgb(195,195,195)"},{"k":"styles","t":"Styles","s":"R","x":22,"y":180,"fs":11,"fw":600,"c":"#fff"},{"k":"exp","t":"Export","s":"R","x":22,"y":221.5,"fs":11,"fw":600,"c":"rgb(191,191,191)"},{"k":"share","t":"Share","s":"R","x":195.5,"y":18,"fs":11,"fw":600,"c":"#fff"}];
+  bg.innerHTML='<div class="fr" style="border-image-source:url('+A+'web-bg.png)"></div>'+WEB_TEXT.map(function(i){var x=i.s==='R'?'calc(100% - 245.5px + '+i.x+'px)':i.x+'px';return '<span class="tx" data-k="'+i.k+'" style="left:'+x+';top:'+i.y+'px;'+(i.w?'width:'+i.w+'px;white-space:pre-line;line-height:1.6;word-break:keep-all':'height:'+i.fs+'px')+';font-size:'+i.fs+'px;font-weight:'+i.fw+';color:'+i.c+'">'+i.t+'</span>';}).join('')+'<img class="tool" src="'+A+'web-bg-toolbar.png" alt="">';
+  document.body.insertBefore(bg,document.body.firstChild);
+  /* 배경 이미지를 못 찾으면(경로·배포 문제) GitHub CDN에서 불러오기 */
+  var CDN='https://cdn.jsdelivr.net/gh/uiuxcell/systemguidemoa@main/assets/', probe=new Image();
+  probe.onerror=function(){ if(A===CDN) return; var old=A; A=CDN; bg.innerHTML=bg.innerHTML.split(old).join(CDN); };
+  probe.src=A+'web-bg.png';
+  var win=document.createElement('div'); win.id='win';
+  app.parentNode.insertBefore(win,app); win.appendChild(app);
+  var KEY='moa-web-win-pos2', HANDLE=40, x, y, fx, fy;
+  function free(){return [innerWidth-win.offsetWidth,innerHeight-win.offsetHeight];}
+  function c01(v){return Math.min(1,Math.max(0,v));}
+  function toFrac(){var f=free();if(f[0]>0)fx=c01(x/f[0]);else if(fx==null)fx=.5;if(f[1]>0)fy=c01(y/f[1]);else if(fy==null)fy=.5;}
+  function fromFrac(){var f=free();fx=c01(fx);fy=c01(fy);x=f[0]>0?fx*f[0]:(x==null||isNaN(x)?0:x);y=f[1]>0?fy*f[1]:(y==null||isNaN(y)||y>0?0:y);}
+  function clamp(){
+    var w=win.offsetWidth,h=win.offsetHeight,W=innerWidth,H=innerHeight;
+    x=Math.min(Math.max(x,-w+80),W-80);
+    y=Math.min(Math.max(y,Math.min(0,H-h-16)),H-40);
+    win.style.transform='translate('+x+'px,'+y+'px)';
+  }
+  function center(){x=(innerWidth-win.offsetWidth)/2;y=Math.max(16,(innerHeight-win.offsetHeight)/2);clamp();save();}
+  function save(){toFrac();try{localStorage.setItem(KEY,JSON.stringify({fx:fx,fy:fy}));}catch(_){}}
+  try{var p=JSON.parse(localStorage.getItem(KEY));if(p&&p.fx!=null){fx=p.fx;fy=p.fy;fromFrac();}}catch(e){}
+  if(x==null) center(); else clamp();
+  function onHandle(e){
+    if(e.target.closest('button,a,input,textarea,select,[contenteditable]')) return false;
+    return e.clientY-win.getBoundingClientRect().top<HANDLE;
+  }
+  var sx,sy,ox,oy,id=null;
+  win.addEventListener('pointermove',function(e){
+    if(id===null){win.style.cursor=onHandle(e)?'grab':'';return;}
+    if(e.pointerId!==id) return; x=ox+e.clientX-sx; y=oy+e.clientY-sy; clamp();
+  });
+  win.addEventListener('pointerdown',function(e){
+    if(e.button!==0||!onHandle(e)) return; e.preventDefault();
+    id=e.pointerId; win.setPointerCapture(id);
+    sx=e.clientX; sy=e.clientY; ox=x; oy=y; win.style.cursor='grabbing';
+  });
+  function end(e){ if(e.pointerId!==id) return; id=null; win.style.cursor=''; save(); }
+  win.addEventListener('pointerup',end); win.addEventListener('pointercancel',end);
+  win.addEventListener('dblclick',function(e){ if(onHandle(e)) center(); });
+  addEventListener('resize',function(){if(fx==null)toFrac();fromFrac();clamp();});
+})();
+</script>
+</body>
+</html>

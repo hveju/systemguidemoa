@@ -1,12 +1,16 @@
-repo: hveju/systemguidemoa
+repo: uiuxcell/systemguidemoa
 branch: main
 
 ## Last sync
-date: 2026-10-02T06:55:18Z
+date: 2026-11-20
 ### Updated in this project
-- Imported all 65 repo files
-- Built index.html (fonts, images, DB, tokens inlined) so the plugin runs standalone
-- Added intro2x images to assets/images.json; rebuilt preview/ui.preview.html
+- One-screen chat (no category window moves), global DB search in categories, 30-question history, Cmd+F chat search
+- Small-talk replies via Gemini (design content never generated); token answers grouped by first label
+- Replaced DB_guide 16_OptionSelector.md, 17_Tooltip.md; removed data/landingmenu/figma-check.md
+- Rebuilt index.html and preview/ui.preview.html from src
+
+## Sync history
+date: 2026-10-02T06:55:18Z — imported repo, built index.html
 
 ## Screen map
 | Screen | Files |
