@@ -205,7 +205,7 @@ mark.fhit.cur{background:#FFB938}
 .hx i.lite{box-shadow:none;background-image:none}
 .hx i.lite b{box-shadow:inset 0 0 0 1px rgba(112,112,112,.4)}
 .hx i:hover{box-shadow:inset 0 0 0 1px rgba(0,0,0,.14),0 0 0 2px #D6E4FF}
-.bub-note{align-self:flex-start;max-width:276px;box-sizing:border-box;border-radius:2px 20px 20px 20px;background:#fff;box-shadow:0 0 2px 0 rgba(0,0,0,.04);padding:10px 14px;font-size:13px;font-weight:500;line-height:19px;letter-spacing:-0.02em;color:#424751;animation:stepIn .25s cubic-bezier(.22,1,.36,1)}
+.bub-note{align-self:flex-start;max-width:276px;box-sizing:border-box;border-radius:8px;background:#fff;box-shadow:0 0 2px 0 rgba(0,0,0,.04);padding:10px 14px;font-size:13px;font-weight:500;line-height:19px;letter-spacing:-0.02em;color:#424751;animation:stepIn .25s cubic-bezier(.22,1,.36,1)}
 .steps{align-self:stretch;border-radius:2px 20px 20px 20px;background:#fff;box-shadow:0 0 2px 0 rgba(0,0,0,.04);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
 .step{display:flex;flex-direction:row;gap:8px;align-items:flex-start;animation:stepIn .25s cubic-bezier(.22,1,.36,1)}
 .step .ic{position:relative;width:14px;height:14px;margin-top:1px;flex-shrink:0;border-radius:50%}
@@ -3592,7 +3592,7 @@ function moaTokGroups(t){
   var isHead = function(ln){ return /^[A-Za-z][\w\-]*:?$/.test(body(ln || '')); };
   for(var k = 0; k < L.length; k++){
     var ln = L[k], b = body(ln), m;
-    if(isSub(ln)){ out.push('• ' + b); continue; }
+    if(isSub(ln)){ out.push('• ' + b.replace(/^\//, '')); continue; } /* 불릿 뒤 맨 앞 '/' 삭제 */
     if(isHead(ln) && isSub(L[k + 1])){
       if(out.length && out[out.length - 1].trim()) out.push('');
       out.push(b.replace(/:$/, '')); prev = null; continue;
@@ -3600,7 +3600,7 @@ function moaTokGroups(t){
     /* 'label/color: 값'처럼 한 줄에 붙은 경로 → 첫 분류명으로 묶기 */
     if(B.test(ln) && (m = b.match(/^([A-Za-z][\w\-]*)(\/[A-Za-z0-9].*)$/))){
       if(m[1] !== prev){ if(out.length && out[out.length - 1].trim()) out.push(''); out.push(m[1]); prev = m[1]; }
-      out.push('• ' + m[2]); continue;
+      out.push('• ' + m[2].replace(/^\//, '')); continue;
     }
     prev = null; out.push(ln);
   }
@@ -3748,6 +3748,11 @@ function send(){
   if(/^(웅+|응+|어+|엉+|으응|ㅇ+|ㅇㅇ|넹+|넵|네+|예+|그래+|그래요|그럼|오케이|오키|ok(ay)?|ㅇㅋ|알겠어요?|알았어요?|알겠습니다|좋아요?|굿|good)[\s.!~?ㅎㅋ^]*$/i.test(v)){
     if(S.screen !== 'chat') openCategory(GENERAL, null, 'quiet');
     return reply(v, '네!');
+  }
+  /* 카테고리 없이 '스펙·토큰·값'만 물으면 어떤 카테고리인지 함께 적어 달라고 안내 */
+  if(!detectTopics(v).length && /스[펙팩]|토큰|값|spec|token|value/i.test(v) && !String(v).toLowerCase().replace(/스[펙팩]|토큰|값|spec(s)?|token(s)?|value(s)?|및|그리고|이랑|랑|과|와|하고|전체|모든|목록|리스트|정리|좀|알려\s*(줘|주세요|줄래|주실래요)?|보여\s*(줘|주세요)?|궁금해요?|뭐야|뭐예요|뭔가요|무엇인가요|어떻게\s*돼(요)?|은|는|이|가|을|를|요|[?!.~,·\/\s]/g, '')){
+    if(S.screen !== 'chat') openCategory(GENERAL, null, 'quiet');
+    return reply(v, '어떤 카테고리의 스펙·토큰이 궁금하신가요?\n카테고리 이름과 함께 질문해 주세요. (예: Chip 스펙 알려줘)');
   }
   if(isNoise(v)){
     if(S.screen !== 'chat') openCategory(GENERAL, null, 'quiet');
