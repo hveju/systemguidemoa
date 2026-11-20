@@ -1,95 +1,102 @@
-# System Guide Moa — Figma Plugin
+# DB 데이터
 
-디자인 시스템 가이드 챗봇 Figma 플러그인 (360×640).
-가이드 DB(`data/`)에서 근거를 찾고, Gemini API가 그 근거만으로 답변을 정리합니다.
-
-## 설치 (개발 모드)
-
-1. Figma 데스크톱 앱 실행
-2. 메뉴 → Plugins → Development → **Import plugin from manifest…**
-3. 이 저장소의 `manifest.json` 선택
-4. Plugins → Development → **System Guide Moa** 실행
-5. 설정에서 Gemini API 키 입력 ([발급](https://aistudio.google.com/apikey))
-
-## 구조
+챗봇이 답변에 사용하는 **유일한** 데이터 소스입니다. `DB_guide/`의 `.md` / `.csv`와 `DB_tokens/`의 토큰만 읽습니다.
 
 ```
-manifest.json            플러그인 정의 (창 360×640, generativelanguage.googleapis.com 허용)
-code.js                  메인 스레드 — 선택 요소에 fill/fontSize 적용, API 키 저장
-index.html               빌드 결과물 · 폰트·이미지·DB 인라인 단일 파일 (플러그인 로드 대상)
-preview/ui.preview.html  빌드 결과물 · 브라우저 미리보기용 (assets/ 상대경로)
-build.js                 빌드 스크립트 (node build.js)
-src/ui.src.html          UI 소스 (토큰 __IMG_*__, __FONT_CSS__, __DB_JSON__ …)
-src/gemini.js            검색·Gemini 호출 파이프라인 (빌드 시 ui에 인라인)
-src/build.md             빌드·토큰·chunk 형식 설명
-assets/                  이미지 원본, images.json(base64), 폰트 CSS, 마스코트 모션(webp)
-data/DB_guide/           가이드 문서 (파일 1개 = 카테고리 1개)
-data/DB_tokens/          디자인 토큰 (tokens.json = 검색용 chunk)
-data/db_glossary/        용어·한글 표기 매핑
-data/landingmenu/        카테고리별 랜딩 화면 (정해진 답변·이미지)
-data/prompts/            Gemini 지시문 (역할 · 예외 · 출력 규칙)
-data/easteregg.md        정해진 질문 → 정해진 답변
-data/faq/DB_FAQ.csv      (선택) 답변 형식 예시
+data/
+  DB_guide/    가이드 문서 (.md / .csv) → MOA_DB
+  DB_tokens/   Figma Variables 토큰 (*.tokens.json, tokens.json) → MOA_TOKENS
+  prompts/     Gemini system instruction
 ```
 
-`index.html`, `preview/ui.preview.html`은 생성 파일입니다. `src/`를 수정한 뒤 `node build.js`로 다시 만드세요.
-`data/` 수정은 재빌드 없이 실행 중에 반영됩니다 (미리보기: 로컬 data/ · 플러그인: GitHub main).
+## 넣는 방법
 
-## 화면
+1. `data/DB_guide/`에 markdown / CSV 파일을 넣습니다. **파일명이 챗봇의 주제(홈 카테고리 칩) 이름이 됩니다.**
+2. **GitHub `main`에 push**하면 플러그인이 다음 질문부터 최신 파일을 읽습니다 (재빌드 불필요, 새 파일 추가·삭제 포함).
+   브라우저 미리보기(`preview/ui.preview.html`)는 저장만 하면 로컬 `data/`를 바로 읽습니다.
+3. 오프라인용 내장본까지 갱신하려면 `node build.js`를 실행합니다.
 
-| 화면 | Figma 프레임 |
+`data/DB_tokens/tokens.json`, `data/db_glossary/*.md`, `data/prompts/*.md`, `data/landingmenu/*/text/landing.md`(+ 이미지)도 같은 방식으로 실행 중에 다시 읽습니다.
+단, `data/DB_tokens/*.tokens.json` 원본은 `tokens.json`으로 변환해야 반영됩니다.
+파일명은 `01_Color.md`처럼 번호 접두어(`NN_`)를 붙여 순서를 정합니다. 접두어는 칩 라벨에서 자동 제거되고, `CTAButton` → `CTA Button`처럼 대문자 경계에서 공백이 들어갑니다.
+파일명에 `&` 등 특수문자는 피하고, 표기를 바꾸려면 빌드 스크립트의 `LABEL` 맵에 추가하세요 (`DimmedShadow.md` → `Dimmed & Shadow`).
+
+## Markdown 구조
+
+노션에서 내려받은 가이드 문서 형식을 그대로 씁니다.
+
+- `#` / `##` 제목 → 섹션 그룹
+- `###` / `####` 제목 → **질문 칩 하나**가 됩니다
+- 문서 상단의 노션 메타 블록(`DB 등록:`, `담당자:` 등)과 `0. 메타`, `99. 관련 피그마 좌표` 섹션은 자동 제외됩니다
+- 제목의 번호(`2.1.`), 백틱, `[공통]` 같은 대괄호는 칩 라벨에서 자동 정리됩니다
+
+```markdown
+## 2. 사용 규칙 (Usage Rules)
+
+### 2.3. Type=Primary 규칙
+- `[MUST]` 브랜드 핵심 액션에 사용한다.
+```
+
+→ "Type=Primary 규칙" 칩이 생기고, 누르면 그 아래 본문이 답변으로 나옵니다.
+
+## CSV 구조
+
+첫 줄이 헤더, 각 행이 검색 단위입니다.
+
+```csv
+name,hex,usage
+Skyblue,#2189FF,핵심 액션
+```
+
+`hex`(또는 `color`, `value`) 열이 있으면 답변이 컬러 스와치로 렌더되고, 클릭 시 선택한 Figma 요소에 적용됩니다.
+`size`(또는 `fontSize`) 열이 있으면 같은 방식으로 fontSize가 적용됩니다.
+
+## 현재 등록된 파일 (data/DB_guide/)
+
+| 파일 | 주제 | 섹션 수 |
+|---|---|---|
+| `01_Color.md` | Color | 12 |
+| `02_Typeface.md` | Typeface | 13 |
+| `03_Spacing.md` | Spacing | 7 |
+| `04_CTAButton.md` | CTA Button | 12 |
+| `05_CTAButtonIcon.md` | CTA Button Icon | 7 |
+| `06_Popup.md` | Popup | 8 |
+| `07_DimmedShadow.md` | Dimmed & Shadow | 6 |
+| `08_Iconography.md` | Iconography | 19 |
+| `09_Radius.md` | Radius | 11 |
+| `10_Badge.md` | Badge | 9 |
+| `11_Chip.md` | Chip | 6 |
+| `12_SelectionControl.md` | Selection Control | 7 |
+| `13_Indicator.md` | Indicator | 9 |
+| `14_Divider.md` | Divider | 7 |
+| `15_OptionChip.md` | Option Chip | 7 |
+| `16_OptionSelector.md` | Option Selector | 9 |
+| `17_Tooltip.md` | Tooltip | 8 |
+| `18_Tab.md` | Tab | 12 |
+| `19_List.md` | List | 8 |
+| `20_Menu.md` | Menu | 6 |
+| `21_Filter.md` | Filter | 11 |
+
+총 194개 chunk (빌드 기준). 홈 카테고리 칩은 파일명 순서대로 나열되고, 넘치면 스크롤됩니다.
+
+## Easter egg (data/easteregg.md)
+
+정해진 질문 → 정해진 답변. 작성법은 파일 맨 위 주석에 있어요. 실행 중에 다시 읽으니 저장(미리보기)·push(플러그인)만 하면 반영돼요.
+
+## 챗봇 프롬프트 (data/prompts/)
+
+Gemini의 system instruction이 되는 파일입니다. 가이드 DB(chunk)로는 읽지 않습니다.
+
+| 파일 | 내용 |
 |---|---|
-| API 키 입력 | 모아_01-1_키입력 |
-| 홈 | 모아_02_홈메인 |
-| 챗봇 | 모아_03-1_챗봇 |
-| 챗봇 답변중 | 모아_03-2_챗봇_답변중 |
-| 답변 결과 | 모아_03-3_챗봇_답변 |
-| 전체 메뉴 | 모아_04_카테고리 |
-| 연결 끊김 | 모아_06 |
+| `01_role.md` | 기본 역할 프롬프트 |
+| `02_exception.md` | 응답 예외 프롬프트 |
+| `03_output.md` | 출력 프롬프트 |
 
-## 답변 흐름
+- 파일명은 바꾸지 마세요 (`src/gemini.js`의 `MOA_PROMPT_FILES`, 빌드의 `PROMPT_FILES`와 맞아야 함).
+- 노션에서 내려받은 그대로 붙여 넣어도 됩니다. 첫 `**[` 줄 이전의 메타와 이미지 줄은 자동 제거됩니다.
+- 질문할 때마다 최신 파일을 읽습니다 (GitHub main → 실패 시 빌드 내장본). 수정 후 GitHub에 push하면 재빌드 없이 반영됩니다. 재빌드하면 내장본도 갱신됩니다.
 
-1. 이스터에그 → 랜딩메뉴(정해진 답변) → 가이드 DB 정확 매칭 순으로 먼저 확인 (키 불필요)
-2. 없으면 Gemini: 키워드 추출 → 카테고리 판별 → 가이드·토큰 검색 → 근거 검증 → 답변 생성
-3. 창 이동 없이 한 화면에서 대화 · 카테고리 창에서 직접 입력한 질문도 전체 DB 검색, 여러 카테고리에 겹치면 어떤 카테고리인지 질문
-4. 가이드 파일이 없는 카테고리는 토큰과 랜딩 설명을 근거로 사용
-5. 가벼운 대화: 카테고리·용어·디자인 단어·수치가 없는 질문만 Gemini가 먼저 판단(`moaChat`) → 인사·감사 등 일상 대화면 1~2문장으로 답하고 가이드 질문으로 안내 · 디자인 관련이면 일반 검색으로 넘김 (디자인 내용·수치·링크는 생성 금지, 섞이면 버림)
+## 답변 범위
 
-### Gemini 모델
-
-- 순서: `gemini-3.1-flash-lite` → `gemini-flash-lite-latest` → `gemini-3.8-flash` → `gemini-3.5-flash`
-- lite가 "가이드에 해당 내용이 없습니다"로 답하면 상위 모델(3.8-flash~)로 한 번 더 확인
-- 오류 시 다음 모델로: 400(생각 설정 거부 → 설정 없이 재시도), 429(하루 한도 → 당일 건너뜀), 503·빈 응답·10초 무응답(5분 건너뜀)
-- 설정 화면에 현재 모델과 오늘 남은 사용량(추정) 표시
-
-### 답변 불가 안내
-
-- 질문 인식 불가: "‘입력한 키워드’에 대해 정확히 인식하지 못했어요. 원하시는 내용을 다시 질문해 주세요."
-- DB 범위 초과·결과 없음: "문의하신 내용은 시스템에 등록되어 있지 않아요. 검색어를 변경하거나 전체 목록을 확인해 보세요."
-
-## 답변 표기 규칙
-
-- 답변 버블 최대 276px, 안쪽 여백 16px · 단어 단위 줄바꿈 (토큰명은 `_` `/` 뒤에서)
-- 바디텍스트 `#424751` · 3문장 이상 문단은 2문장씩 분리
-- 불릿(•, -, 1.) 다음 줄은 불릿 뒤 텍스트에 맞춰 들여쓰기
-- 스펙·토큰 답변: 불릿 줄 전체 `#000000`, 영문 소문자(HEX 제외)
-  · `항목: 값`이 한 줄(244px)에 안 들어가면 값을 다음 줄로
-- 컬러칩: 투명도 그대로 표시 · 흰 바탕 기준 `#DDDDDD` 이상 밝으면 테두리 `#707070` 40%
-- 카테고리 창의 첫 번째 답변에는 '이전으로' 없음
-
-## 기능
-
-- 카테고리 칩 / 전체 메뉴 바텀시트에서 주제 선택
-- 질문 칩 또는 직접 입력 (Enter 전송, Shift+Enter 줄바꿈, 최대 20줄)
-- 답변 카드: 컬러 스와치 · 타입 스케일 · 텍스트(타이핑 애니메이션)
-- **컬러칩 클릭 → 선택한 Figma 요소의 fill 적용**
-- **타입 행 클릭 → 선택한 텍스트의 fontSize 적용**
-- 복사, 이전으로, 대화 초기화
-- 대화 히스토리: 최근 질문 30개 저장(플러그인 `clientStorage` `moa-history` / 미리보기 localStorage) · Gemini 참고 대화는 최근 5개
-- 대화 검색: Cmd/Ctrl+F → 상단 검색바 (Enter 다음 · Esc/빈 곳 클릭 닫기)
-- 짧은 맞장구(웅·응·그래…)는 "네!"로 답변
-- API 키는 `figma.clientStorage`(`moa-gemini-key`)에 저장
-
-## 라이선스
-
-Pretendard — SIL Open Font License 1.1 (github.com/orioncactus/pretendard)
+Gemini 연결 시에도 이 폴더 밖의 지식은 사용하지 않습니다. 관련 내용이 없으면 모델이 추측하지 않고 "가이드에 해당 내용이 없습니다"로 답합니다 (`src/gemini.js`의 system instruction).
